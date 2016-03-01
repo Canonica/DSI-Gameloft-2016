@@ -2,13 +2,10 @@
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using UnityEngine.Networking;
-using System.Net;
-using System.Net.Sockets;
 
 public class MenuManager : MonoBehaviour
 {
-    public NetworkManager manager;
+
     public static MenuManager instance = null;
 
     public GameObject MainMenuCanvas;
