@@ -34,26 +34,6 @@ public class GameManager : MonoBehaviour
         //DontDestroyOnLoad(gameObject);
     }
 
-    void Update()
-    {
-        Debug.Log(currentGamestate);
-        if(currentGamestate == gameState.Waiting)
-        {
-            Time.timeScale = 0;
-        }
-        else if(currentGamestate == gameState.Playing && !isPlaying)
-        {
-            LaunchGame();
-            isPlaying = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            currentGamestate = gameState.Playing;
-        }
-
-    }
-
     void OnLevelWasLoaded(int level)
     {
         if(level == 3)
@@ -71,14 +51,6 @@ public class GameManager : MonoBehaviour
     public void GameOver(int parPlayerWin)
     {
         Debug.Log("The Player" + parPlayerWin + "wins the game");
-    }
-
-    void LaunchGame()
-    {
-        StartCoroutine(fadeOut(_panelWaitingGroup));
-        _panelBeforeFight.SetActive(true);
-        _panelWaiting.SetActive(false);
-        _panelBeforeFight.GetComponentInChildren<BeforeFight>().StartCD();
     }
 
 

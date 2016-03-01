@@ -15,14 +15,9 @@ public class BeforeFight : MonoBehaviour
     void Start()
     {
         _text = GetComponent<Text>();
-        Debug.Log(_text);
-    }
-
-    public void StartCD()
-    {
-        
         StartCoroutine(StartCDBeforeFight());
     }
+
 
     IEnumerator StartCDBeforeFight()
     {

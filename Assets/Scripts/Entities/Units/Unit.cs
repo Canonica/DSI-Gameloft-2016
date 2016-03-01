@@ -36,7 +36,7 @@ public class Unit : MonoBehaviour
             _life -= parDamage;
             if(_life <= 0)
             {
-                GameManager.GetInstance().EndGame();
+                //Destroy le gameobject
             }
     }
 
