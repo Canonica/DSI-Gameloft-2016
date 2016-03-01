@@ -21,18 +21,17 @@ public class CursorMovement : MonoBehaviour {
 
     void Movement()
     {
-        
+        cursorPosition = transform.position;
         float h = Input.GetAxisRaw("Horizontal " + id);
         float v = Input.GetAxisRaw("Vertical " + id);
         if (Mathf.Abs(h) > 0.8f)
         {
-            cursorPosition = transform.position;
             cursorPosition.x += h * cursorSensibility * Time.deltaTime;
         }
 
         if (Mathf.Abs(v) > 0.8f)
         {
-            cursorPosition = transform.position;
+            
             cursorPosition.z -= v * cursorSensibility * Time.deltaTime;
         }
         validateMove();

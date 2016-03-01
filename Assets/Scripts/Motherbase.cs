@@ -8,6 +8,12 @@ public class Motherbase : MonoBehaviour {
     public GameObject[] units;
     public Vector3 directionAttack;
     public CursorMovement cursor;
+    public GameObject target;
+
+    [Header("Spawner Option")]
+    public float delay;
+    public int unitSpawn;
+
 	// Use this for initialization
 	void Awake () {
         cursor.id = idPlayer;
@@ -15,17 +21,26 @@ public class Motherbase : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetButtonDown("Fire1"))
         {
             spawnUnits(0);
         }
         transform.position = new Vector3(transform.position.x, transform.position.y, cursor.transform.position.z);
     }
 
+    IEnumerator Spawner()
+    {
+        while (life > 0)
+        {
+            yield return new WaitForSeconds(delay);
+            spawnUnits(unitSpawn);
+        }
+    }
+
     void spawnUnits(int index)
     {
         GameObject obj = Instantiate(units[index], transform.position, transform.rotation) as GameObject;
-        obj.GetComponent<UnitMovement>().direction = directionAttack;
+        obj.GetComponent<NavMeshAgent>().SetDestination(target.transform.position);
     }
 
     public void getDamage(int dmg)
