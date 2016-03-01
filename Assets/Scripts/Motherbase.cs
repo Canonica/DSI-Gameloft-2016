@@ -4,12 +4,13 @@ using System.Collections;
 public class Motherbase : MonoBehaviour {
     public int idPlayer;
     int life;
-
+    float cursorSensibility = 1;
     public GameObject[] units;
     public Vector3 directionAttack;
+    public CursorMovement cursor;
 	// Use this for initialization
-	void Start () {
-	
+	void Awake () {
+        cursor.id = idPlayer;
 	}
 	
 	// Update is called once per frame
@@ -18,7 +19,8 @@ public class Motherbase : MonoBehaviour {
         {
             spawnUnits(0);
         }
-	}
+        transform.position = new Vector3(transform.position.x, transform.position.y, cursor.transform.position.z);
+    }
 
     void spawnUnits(int index)
     {
@@ -44,7 +46,7 @@ public class Motherbase : MonoBehaviour {
     {
         if (col.collider.tag == "unit")
         {
-            getDamage(0);
+            getDamage(1);
 
             //get damage from unit
         }
