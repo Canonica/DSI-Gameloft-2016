@@ -21,11 +21,12 @@ public class Motherbase : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire "+idPlayer))
         {
+            Debug.Log(idPlayer +" "+transform.position);
             spawnUnits(0);
         }
-        transform.position = new Vector3(transform.position.x, transform.position.y, cursor.transform.position.z);
+        transform.position = new Vector3(cursor.transform.position.x, transform.position.y, transform.transform.position.z);
     }
 
     IEnumerator Spawner()

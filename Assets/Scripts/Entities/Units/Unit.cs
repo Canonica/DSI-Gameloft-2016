@@ -45,4 +45,12 @@ public class Unit : MonoBehaviour
         yield return new WaitForSeconds(_hatchTime);
         _hasHatched = true;
     }
+
+    void OnCollisionEnter(Collision parOther)
+    {
+        if(parOther.gameObject.CompareTag("Map"))
+        {
+            GetComponent<NavMeshAgent>().SetDestination(transform.position + Vector3.forward * 30);
+        }
+    }
 }
