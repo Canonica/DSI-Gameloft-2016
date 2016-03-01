@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     GameObject _panelBeforeFight;
     CanvasGroup _panelBeforeFightGroup;
 
+    public Motherbase player1;
+    public Motherbase player2;
+
     private bool isPlaying = false;
 
     public enum gameState
@@ -36,15 +39,10 @@ public class GameManager : MonoBehaviour
 
     void OnLevelWasLoaded(int level)
     {
-        if(level == 3)
+        if(level == 2)
         {
-            _panelWaiting = GameObject.Find("PanelWaiting");
-            _panelWaitingGroup = _panelWaiting.GetComponent<CanvasGroup>();
-
-
-            _panelBeforeFight = GameObject.Find("PanelBeforeFight");
-            _panelBeforeFightGroup = _panelBeforeFight.GetComponent<CanvasGroup>();
-            _panelBeforeFight.SetActive(false);
+            player1 = GameObject.Find("Player 1").GetComponent<Motherbase>();
+            player2 = GameObject.Find("Player 2").GetComponent<Motherbase>();
         }
     }
 
