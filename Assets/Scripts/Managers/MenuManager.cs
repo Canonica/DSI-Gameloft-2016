@@ -96,10 +96,10 @@ public class MenuManager : MonoBehaviour
         if (level == 2)
         {
             PauseCanvas = GameObject.Find("PauseCanvas");
+            
         }
     }
-
-
+    
 
     void Update()
     {
@@ -142,7 +142,7 @@ public class MenuManager : MonoBehaviour
             manager.networkAddress = ipAdress.text;
             Debug.Log("CLIENT " + manager.networkAddress);
             manager.StartClient();
-            Invoke("isConnected", 2f);
+            Invoke("isConnected", 3f);
         }
 
         //GameManager.GetInstance().currentGamestate = GameManager.gameState.Playing;
@@ -154,13 +154,10 @@ public class MenuManager : MonoBehaviour
         if (!manager.client.isConnected)
         {
             Debug.Log("fail");
-
+            ColorBlock cl = ipAdress.colors;
+            cl.normalColor = Color.red;
+            ipAdress.colors = cl;
         }
-    }
-
-    void OnFailedToConnect(NetworkConnectionError error)
-    {
-        Debug.Log("Could not connect to server: " + error);
     }
 
     public void ToggleHost(bool val)
