@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +13,7 @@ public class GameManager : MonoBehaviour
         GameOver,
         Playing
     };
+
     public static GameManager GetInstance()
     {
         return instance;
@@ -25,4 +25,8 @@ public class GameManager : MonoBehaviour
         //DontDestroyOnLoad(gameObject);
     }
 
+    public void EndGame()
+    {
+        
+    }
 }
