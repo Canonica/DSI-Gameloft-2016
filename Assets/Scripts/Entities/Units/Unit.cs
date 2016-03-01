@@ -14,16 +14,21 @@ public class Unit : MonoBehaviour
 
     public float _attackDelay = 2f;
 
-    public int _life = 10;
+    public int _life = 2;
     public int _damage = 2;
 
     public float _maxMovementSpeed = 10.0f;
     public float _movementSpeed = 5.0f;
 
+    NavMeshAgent _navMeshAgent;
+
+    public GameObject _enemyMotherBase;
+
     public virtual void Start()
     {
         _rigid = GetComponent<Rigidbody>();
         StartCoroutine(Hatch());
+        _navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -31,7 +36,7 @@ public class Unit : MonoBehaviour
 
         if (_hasHatched)
         {
-            if(_target)
+            /*if(_target)
             {
                 _rigid.AddForce((_target.transform.position - transform.position).normalized * _movementSpeed);
                 _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, _maxMovementSpeed);
@@ -41,7 +46,7 @@ public class Unit : MonoBehaviour
                 _rigid.AddForce(transform.forward * _movementSpeed);
                 _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, _maxMovementSpeed);
             }
-            transform.LookAt(transform.position + _rigid.velocity.normalized * 2);
+            transform.LookAt(transform.position + _rigid.velocity.normalized * 2);*/
         }
 	}
 
@@ -57,36 +62,57 @@ public class Unit : MonoBehaviour
 
     void OnCollisionEnter(Collision parOther)
     {
-        Debug.Log("lol");
         if (parOther.gameObject == _target)
         {
             Debug.Log("prepare");
             StartCoroutine(Attack());
         }
+        else if(parOther.gameObject.CompareTag("MotherBase") && parOther.gameObject.GetComponent<Motherbase>().idPlayer != _playerId)
+        {
+            Debug.Log("MotherBase");
+            parOther.gameObject.GetComponent<Motherbase>().getDamage(1);
+            Destroy(this.gameObject);
+        }
     }
 
     void OnTriggerEnter(Collider parOther)
     {
-        if(parOther.CompareTag("Unit") && parOther.GetComponent<Unit>() && parOther.GetComponent<Unit>()._playerId != _playerId)
+        if(parOther.CompareTag("Unit") && parOther.GetComponent<Unit>() && parOther.GetComponent<Unit>()._playerId != _playerId && !_target)
         {
             _target = parOther.gameObject;
+            _navMeshAgent.SetDestination(_target.transform.position);
         }
+        else
+        {
+            _navMeshAgent.SetDestination(_enemyMotherBase.transform.position);
+        }
+        
     }
 
     void OnTriggerStay(Collider parOther)
     {
-        if (_target)
+        if (!_target)
         {
             OnTriggerEnter(parOther);
         }
+        else
+        {
+            _navMeshAgent.SetDestination(_target.transform.position);
+        }
+        
+        
+
     }
 
     void OnTriggerExit(Collider parOther)
     {
         if (parOther.gameObject == _target)
         {
+            _navMeshAgent.SetDestination(_enemyMotherBase.transform.position);
             _target = null;
         }
+        
+
     }
 
     IEnumerator Attack()
@@ -107,13 +133,5 @@ public class Unit : MonoBehaviour
     {
         yield return new WaitForSeconds(_hatchTime);
         _hasHatched = true;
-    }
-
-    void OnCollisionEnter(Collision parOther)
-    {
-        if(parOther.gameObject.CompareTag("Map"))
-        {
-            GetComponent<NavMeshAgent>().SetDestination(transform.position + Vector3.forward * 30);
-        }
     }
 }
