@@ -48,7 +48,7 @@ public class MenuManager : MonoBehaviour
                 switch (child.name)
                 {
                     case "PlayButton":
-                        Play();
+                        child.GetComponent<Button>().onClick.AddListener(() => { Play(); });
                         break;
                     case "OptionsButton":
                         child.GetComponent<Button>().onClick.AddListener(() => { ShowOptions(); });
@@ -111,8 +111,8 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 1;
         
 
-        //GameManager.GetInstance().currentGamestate = GameManager.gameState.Playing;
-        //SceneManager.LoadScene(2);
+        GameManager.GetInstance().currentGamestate = GameManager.gameState.Waiting;
+        SceneManager.LoadScene(2);
     }
     
 
