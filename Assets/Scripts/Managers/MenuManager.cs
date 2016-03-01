@@ -134,6 +134,7 @@ public class MenuManager : MonoBehaviour
         {
             manager.networkAddress = "localhost";
             Debug.Log("HOST");
+            GameManager.GetInstance().currentGamestate = GameManager.gameState.Waiting;
             manager.StartHost();
         }
         else
@@ -141,11 +142,12 @@ public class MenuManager : MonoBehaviour
             
             manager.networkAddress = ipAdress.text;
             Debug.Log("CLIENT " + manager.networkAddress);
+            GameManager.GetInstance().currentGamestate = GameManager.gameState.Playing;
             manager.StartClient();
             Invoke("isConnected", 2f);
         }
 
-        //GameManager.GetInstance().currentGamestate = GameManager.gameState.Playing;
+        //
         //SceneManager.LoadScene(2);
     }
 
