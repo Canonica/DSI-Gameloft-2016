@@ -14,36 +14,37 @@ public class Motherbase : MonoBehaviour {
     public float delay;
     public int unitSpawn;
 
+    public GameObject obj;
+
+    bool spawning;
+
 	// Use this for initialization
 	void Awake () {
         cursor.id = idPlayer;
+        life = 10;
 	}
 	
+
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown("Fire "+idPlayer))
+        if (Input.GetButtonDown("Fire "+idPlayer) && GameManager.instance.currentGamestate == GameManager.gameState.Playing )
         {
-            spawnUnits(0);
+            StartCoroutine(Spawner(units[0]));     
         }
         transform.position = new Vector3(cursor.transform.position.x, transform.position.y, transform.transform.position.z);
+
     }
 
-    IEnumerator Spawner()
+    IEnumerator Spawner(GameObject typeOfUnit)
     {
+
         while (life > 0)
         {
-            yield return new WaitForSeconds(delay);
-            spawnUnits(unitSpawn);
+            StartCoroutine(corSpawnUnits(typeOfUnit, 0));
+            yield return new WaitForSeconds(typeOfUnit.GetComponent<Unit>()._hatchTime);
         }
     }
 
-    void spawnUnits(int index)
-    {
-        GameObject obj = Instantiate(units[index], transform.position, transform.rotation) as GameObject;
-        obj.GetComponent<Unit>()._playerId = idPlayer;
-        obj.GetComponent<NavMeshAgent>().SetDestination(target.transform.position);
-        obj.GetComponent<Unit>()._enemyMotherBase = target;
-    }
 
     public void getDamage(int dmg)
     {
@@ -57,6 +58,15 @@ public class Motherbase : MonoBehaviour {
             if(dmg > 0)
             life -= dmg;
         }
+    }
+
+    IEnumerator corSpawnUnits(GameObject typeOfUnit, int nbOfUnits)
+    {
+        typeOfUnit = Instantiate(units[nbOfUnits], transform.position, transform.rotation) as GameObject;
+        typeOfUnit.GetComponent<Unit>()._playerId = idPlayer;
+        typeOfUnit.GetComponent<NavMeshAgent>().SetDestination(target.transform.position);
+        typeOfUnit.GetComponent<Unit>()._enemyMotherBase = target;
+        yield return new WaitForSeconds(typeOfUnit.GetComponent<Unit>()._hatchTime);
     }
 
     /*void OnCollisionEnter(Collision col)

@@ -23,6 +23,10 @@ public class MenuManager : MonoBehaviour
 
     float delay = 0.5f;
 
+    bool isMainMenu = false;
+    bool isOptions;
+    bool isCredit;
+
 
     void Awake()
     {
@@ -104,6 +108,7 @@ public class MenuManager : MonoBehaviour
         GameManager.GetInstance().currentGamestate = GameManager.gameState.Menu;
         ChangeCanvas(MainMenuCanvasGroup, MainMenuCanvasGroup);
         SceneManager.LoadScene(1);
+        MainMenuCanvas.GetComponent<MenuHandler>().enabled = true;
     }
 
     public void Play()
@@ -127,6 +132,8 @@ public class MenuManager : MonoBehaviour
         MainMenuCanvas.SetActive(true);
         StartCoroutine(fadeIn(MainMenuCanvasGroup, fadeInSpeed));
         StartCoroutine(fadeOut(CreditsCanvasGroup));
+        MainMenuCanvas.GetComponent<MenuHandler>().enabled = true;
+        CreditsCanvas.GetComponent<MenuHandler>().enabled = false;
 
     }
 
@@ -137,7 +144,9 @@ public class MenuManager : MonoBehaviour
         HideAll();
         MainMenuCanvas.SetActive(true);
         StartCoroutine(fadeIn(MainMenuCanvasGroup, fadeInSpeed));
-        //StartCoroutine(fadeOut(OptionsCanvasGroup));
+        StartCoroutine(fadeOut(OptionsCanvasGroup));
+        MainMenuCanvas.GetComponent<MenuHandler>().enabled = true;
+        OptionsCanvas.GetComponent<MenuHandler>().enabled = false;
 
     }
 
@@ -147,6 +156,8 @@ public class MenuManager : MonoBehaviour
         OptionsCanvas.SetActive(true);
         StartCoroutine(fadeIn(OptionsCanvasGroup, fadeInSpeed));
         StartCoroutine(fadeOut(MainMenuCanvasGroup));
+        MainMenuCanvas.GetComponent<MenuHandler>().enabled = false;
+        OptionsCanvas.GetComponent<MenuHandler>().enabled = true;
     }
     
 
@@ -156,6 +167,8 @@ public class MenuManager : MonoBehaviour
         CreditsCanvas.SetActive(true);
         StartCoroutine(fadeIn(CreditsCanvasGroup, fadeInSpeed));
         StartCoroutine(fadeOut(MainMenuCanvasGroup));
+        MainMenuCanvas.GetComponent<MenuHandler>().enabled = false;
+        CreditsCanvas.GetComponent<MenuHandler>().enabled = true;
     }
 
     public void Restart()
