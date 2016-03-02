@@ -18,6 +18,7 @@ public class Motherbase : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
         life = 10;
+        spawning = false;
 	}
 	
 
@@ -32,15 +33,16 @@ public class Motherbase : MonoBehaviour {
 	
 
 	void Update () {
-        if (Input.GetButtonDown("Fire "+idPlayer) && GameManager.instance.currentGamestate == GameManager.gameState.Playing )
+        if (Input.GetButtonDown("Fire "+idPlayer) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && !spawning)
         {
-            StartCoroutine(Spawner(units[0]));     
+            StartCoroutine(Spawner(units[0]));
+            spawning = true;   
         }
 
         // DEBUG
         if (Input.GetKeyDown(KeyCode.S))
         {
-            StartCoroutine(Spawner(units[0]));
+            StartCoroutine(corSpawnUnits(units[0], 0));
         }
     }
 
@@ -83,9 +85,9 @@ public class Motherbase : MonoBehaviour {
     {
         prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
         prefabOfUnit.GetComponent<Unit>()._playerId = idPlayer;
-        prefabOfUnit.GetComponent<NavMeshAgent>().SetDestination(waypoints[0].transform.position);
+        prefabOfUnit.GetComponent<NavMeshAgent>().SetDestination(waypoints[1].transform.position);
         prefabOfUnit.GetComponent<Unit>()._enemyMotherBase = targetBase;
-        prefabOfUnit.GetComponent<Unit>()._Lane = waypoints[2].transform.position;
+        prefabOfUnit.GetComponent<Unit>()._Lane = waypoints[1].transform.position;
         prefabOfUnit.transform.parent = transform;
         yield return new WaitForSeconds(prefabOfUnit.GetComponent<Unit>()._hatchTime);
     }
