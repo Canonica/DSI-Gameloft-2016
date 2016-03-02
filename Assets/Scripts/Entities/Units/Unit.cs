@@ -25,9 +25,13 @@ public class Unit : Entity
     public Vector3 _Lane;
     public bool isInLane = false;
 
+    public int _maxNbOfUnit;
+    public int _currentNbOfUnit;
+
     public override void Start()
     {
         base.Start();
+        _currentNbOfUnit = 0;
         _rigid = GetComponent<Rigidbody>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(Hatch());
@@ -38,7 +42,6 @@ public class Unit : Entity
     public override void Update()
     {
         base.Update();
-
         if (_hasHatched)
         {
             if (!isInLane && Vector3.Distance(_Lane, transform.position) < _distanceMinLane)
