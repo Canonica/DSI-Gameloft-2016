@@ -40,7 +40,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 440066}
   - 33: {fileID: 3365758}
-  - 65: {fileID: 6586380}
   - 23: {fileID: 2344640}
   m_Layer: 0
   m_Name: Cube
@@ -185,18 +184,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 147466}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &6586380
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 147466}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11421834
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,14 +210,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 275fd6583efdf3540ac2559fc3a3ee70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idPlayer: 2
-  units:
-  - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
+  _enemyMotherBase: {fileID: 0}
+  _life: 2
+  _playerId: 2
   directionAttack: {x: 0, y: 0, z: 0}
   cursor: {fileID: 11421834}
-  target: {fileID: 0}
+  units:
+  - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
   delay: 0
   unitSpawn: 0
+  obj: {fileID: 0}
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  targetBase: {fileID: 0}
 --- !u!135 &13574888
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -44,7 +44,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 2507115ad68a37c4bbc4f055aaedfda6, type: 2}
+  - {fileID: 2100000, guid: 98a4e0499b82769499fa317529801b63, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -105,17 +105,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c23bc21b62fea5e4ca0441f7d7cb08e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
+  _enemyMotherBase: {fileID: 0}
+  _life: 2
   _playerId: 0
+  _target: {fileID: 0}
   _hatchTime: 1
   _hasHatched: 0
-  _attackDelay: 2
-  _life: 10
+  _attackDelay: 0.3
   _damage: 2
   _maxMovementSpeed: 10
   _movementSpeed: 2
+  _trigger: []
   _distanceMinLane: 4
-  _enemyMotherBase: {fileID: 0}
   _Lane: {x: 0, y: 0, z: 0}
   isInLane: 0
 --- !u!135 &13595940

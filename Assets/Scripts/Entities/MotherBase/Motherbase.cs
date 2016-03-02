@@ -40,16 +40,21 @@ public class Motherbase : Entity
     public override void Update()
     {
         base.Update();
-        if (Input.GetButtonDown("Fire " + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && !spawning)
+        if (Input.GetButtonDown("Fire " + _playerId)/* && GameManager.instance.currentGamestate == GameManager.gameState.Playing*/ && !spawning)
 
         {
             StartCoroutine(Spawner());
             spawning = true;
         }
         // DEBUG
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
         {
             corSpawnUnits(0);
+        }
+
+        if (Input.GetKey(KeyCode.K))
+        {
+            Debug.Log(GameObject.FindObjectsOfType<Unit>().Length);
         }
 
     }
