@@ -10,46 +10,28 @@ public class Motherbase : MonoBehaviour {
     public GameObject[] units;
     public float delay;
     public int unitSpawn;
-<<<<<<< HEAD
-    public GameObject[] waypoints= {null,null,null };
+    public Vector3 waypoint;
     public GameObject targetBase;
-    void Start()
-    {
-        waypoints[0] = GameObject.Find("wpTop");
-        waypoints[1] = GameObject.Find("wpMid");
-        waypoints[2] = GameObject.Find("wpBot");
-    }
-	
-=======
-
-    public GameObject obj;
-
     bool spawning;
 
 	// Use this for initialization
 	void Awake () {
-        cursor.id = idPlayer;
         life = 10;
-	}
-	
+        spawning = false;
+	}	
 
-	// Update is called once per frame
->>>>>>> refs/remotes/origin/Rodrigue
 	void Update () {
-        if (Input.GetButtonDown("Fire "+idPlayer) && GameManager.instance.currentGamestate == GameManager.gameState.Playing )
+        if (Input.GetButtonDown("Fire "+idPlayer) && !spawning)
         {
-            StartCoroutine(Spawner(units[0]));     
+            StartCoroutine(Spawner(units[0]));
+            spawning = true;   
         }
-<<<<<<< HEAD
 
         // DEBUG
         if (Input.GetKeyDown(KeyCode.S))
         {
-            spawnUnits(0);
-            Debug.Log("unit");
-=======
-        transform.position = new Vector3(cursor.transform.position.x, transform.position.y, transform.transform.position.z);
-
+            StartCoroutine(corSpawnUnits(units[0], 0));
+        }
     }
 
     IEnumerator Spawner(GameObject typeOfUnit)
@@ -59,23 +41,19 @@ public class Motherbase : MonoBehaviour {
         {
             StartCoroutine(corSpawnUnits(typeOfUnit, 0));
             yield return new WaitForSeconds(typeOfUnit.GetComponent<Unit>()._hatchTime);
->>>>>>> refs/remotes/origin/Rodrigue
         }
     }
-    
 
-<<<<<<< HEAD
-    void spawnUnits(int index)
-    {
-        GameObject obj = Instantiate(units[index], transform.position, transform.rotation) as GameObject;
-        obj.GetComponent<Unit>()._playerId = idPlayer;
-        obj.GetComponent<NavMeshAgent>().SetDestination(waypoints[1].transform.position);
-        obj.GetComponent<Unit>()._enemyMotherBase = targetBase;
-        obj.GetComponent<Unit>()._Lane = waypoints[1].transform.position;
-        obj.transform.parent = transform;
-    }
-=======
->>>>>>> refs/remotes/origin/Rodrigue
+    //void spawnUnits(int index)
+    //{
+    //    GameObject obj = Instantiate(units[index], transform.position, transform.rotation) as GameObject;
+    //    obj.GetComponent<Unit>()._playerId = idPlayer;
+    //    obj.GetComponent<NavMeshAgent>().SetDestination(waypoints[0].transform.position);
+    //    obj.GetComponent<Unit>()._enemyMotherBase = targetBase;
+    //    obj.GetComponent<Unit>()._Lane = waypoints[2].transform.position;
+    //    obj.transform.parent = transform;
+    //}
+
 
     public void getDamage(int dmg)
     {
@@ -91,13 +69,15 @@ public class Motherbase : MonoBehaviour {
         }
     }
 
-    IEnumerator corSpawnUnits(GameObject typeOfUnit, int nbOfUnits)
+    IEnumerator corSpawnUnits(GameObject prefabOfUnit, int typeOfUnit)
     {
-        typeOfUnit = Instantiate(units[nbOfUnits], transform.position, transform.rotation) as GameObject;
-        typeOfUnit.GetComponent<Unit>()._playerId = idPlayer;
-        typeOfUnit.GetComponent<NavMeshAgent>().SetDestination(target.transform.position);
-        typeOfUnit.GetComponent<Unit>()._enemyMotherBase = target;
-        yield return new WaitForSeconds(typeOfUnit.GetComponent<Unit>()._hatchTime);
+        prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
+        prefabOfUnit.GetComponent<Unit>()._playerId = idPlayer;
+        prefabOfUnit.GetComponent<NavMeshAgent>().SetDestination(waypoint);
+        prefabOfUnit.GetComponent<Unit>()._enemyMotherBase = targetBase;
+        prefabOfUnit.GetComponent<Unit>()._Lane = waypoint;
+        prefabOfUnit.transform.parent = transform;
+        yield return new WaitForSeconds(prefabOfUnit.GetComponent<Unit>()._hatchTime);
     }
 
     /*void OnCollisionEnter(Collision col)
