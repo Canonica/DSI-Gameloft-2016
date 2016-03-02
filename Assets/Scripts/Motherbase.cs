@@ -21,11 +21,11 @@ public class Motherbase : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire "+idPlayer))
         {
             spawnUnits(0);
         }
-        transform.position = new Vector3(transform.position.x, transform.position.y, cursor.transform.position.z);
+        transform.position = new Vector3(cursor.transform.position.x, transform.position.y, transform.transform.position.z);
     }
 
     IEnumerator Spawner()
@@ -40,7 +40,9 @@ public class Motherbase : MonoBehaviour {
     void spawnUnits(int index)
     {
         GameObject obj = Instantiate(units[index], transform.position, transform.rotation) as GameObject;
+        obj.GetComponent<Unit>()._playerId = idPlayer;
         obj.GetComponent<NavMeshAgent>().SetDestination(target.transform.position);
+        obj.GetComponent<Unit>()._enemyMotherBase = target;
     }
 
     public void getDamage(int dmg)
@@ -57,7 +59,7 @@ public class Motherbase : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter(Collision col)
+    /*void OnCollisionEnter(Collision col)
     {
         if (col.collider.tag == "unit")
         {
@@ -65,7 +67,7 @@ public class Motherbase : MonoBehaviour {
 
             //get damage from unit
         }
-    }
+    }*/
 
 
 }

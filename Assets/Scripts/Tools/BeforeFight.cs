@@ -46,7 +46,6 @@ public class BeforeFight : MonoBehaviour
             _text.text = m_second.ToString();
             _alpha = GetComponent<CanvasGroup>().alpha;
             m_second--;
-            Debug.Log(_text.text);
         }
         _text.CrossFadeAlpha(1f, 0.2f, false);
         
@@ -59,6 +58,6 @@ public class BeforeFight : MonoBehaviour
         }
         _ready = true;
         yield return new WaitForSeconds(0.5f);
-        GameManager.instance.currentGamestate = GameManager.gameState.Playing;
+        //GameManager.instance.currentGamestate = GameManager.gameState.Playing;
     }
 }
