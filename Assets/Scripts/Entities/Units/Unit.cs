@@ -22,14 +22,16 @@ public class Unit : MonoBehaviour
 
     NavMeshAgent _navMeshAgent;
 
+    public float _distanceMinLane = 4f;
+
     public GameObject _enemyMotherBase;
     public Vector3 _Lane;
     public bool isInLane = false;
     public virtual void Start()
     {
         _rigid = GetComponent<Rigidbody>();
-        StartCoroutine(Hatch());
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        StartCoroutine(Hatch());
     }
 
     // Update is called once per frame
@@ -38,22 +40,11 @@ public class Unit : MonoBehaviour
 
         if (_hasHatched)
         {
-            if (!isInLane && Vector3.Distance(_Lane, transform.position) < 4)
+            if (!isInLane && Vector3.Distance(_Lane, transform.position) < _distanceMinLane)
             {
                 isInLane = true;
                 _navMeshAgent.SetDestination(_enemyMotherBase.transform.position);
             }
-            /*if(_target)
-            {
-                _rigid.AddForce((_target.transform.position - transform.position).normalized * _movementSpeed);
-                _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, _maxMovementSpeed);
-            }
-            else
-            {
-                _rigid.AddForce(transform.forward * _movementSpeed);
-                _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, _maxMovementSpeed);
-            }
-            transform.LookAt(transform.position + _rigid.velocity.normalized * 2);*/
         }
     }
 
@@ -69,20 +60,23 @@ public class Unit : MonoBehaviour
 
     void OnCollisionEnter(Collision parOther)
     {
-        if (parOther.gameObject == _target)
+        GameObject other = parOther.gameObject;
+        Motherbase mother = other.GetComponent<Motherbase>();
+        if (other == _target)
         {
             StartCoroutine(Attack());
         }
-        else if (parOther.gameObject.CompareTag("MotherBase") && parOther.gameObject.GetComponent<Motherbase>().idPlayer != _playerId)
+        else if (other.CompareTag("MotherBase") && mother.idPlayer != _playerId)
         {
-            parOther.gameObject.GetComponent<Motherbase>().getDamage(1);
+            mother.getDamage(1);
             Destroy(this.gameObject);
         }
     }
 
     void OnTriggerEnter(Collider parOther)
     {
-        if (parOther.CompareTag("Unit") && parOther.GetComponent<Unit>() && parOther.GetComponent<Unit>()._playerId != _playerId && !_target)
+        Unit unit = parOther.GetComponent<Unit>();
+        if (parOther.CompareTag("Unit") && unit._playerId != _playerId && !_target)
         {
             _target = parOther.gameObject;
             StartCoroutine(targetMove());
@@ -110,11 +104,11 @@ public class Unit : MonoBehaviour
     {
         while (_target)
         {
-
+            Unit unit = _target.GetComponent<Unit>();
             yield return new WaitForSeconds(_attackDelay);
-            if (_target && _target.GetComponent<Unit>()._playerId != _playerId)
+            if (_target && unit._playerId != _playerId)
             {
-                _target.GetComponent<Unit>().Hit(_damage);
+                unit.Hit(_damage);
             }
             else
             {

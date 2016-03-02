@@ -42,7 +42,7 @@ public class Motherbase : MonoBehaviour {
         // DEBUG
         if (Input.GetKeyDown(KeyCode.S))
         {
-            StartCoroutine(corSpawnUnits(units[0], 0));
+            corSpawnUnits(units[0], 0);
         }
     }
 
@@ -51,7 +51,7 @@ public class Motherbase : MonoBehaviour {
 
         while (life > 0)
         {
-            StartCoroutine(corSpawnUnits(typeOfUnit, 0));
+            corSpawnUnits(typeOfUnit, 0);
             yield return new WaitForSeconds(typeOfUnit.GetComponent<Unit>()._hatchTime);
         }
     }
@@ -81,26 +81,15 @@ public class Motherbase : MonoBehaviour {
         }
     }
 
-    IEnumerator corSpawnUnits(GameObject prefabOfUnit, int typeOfUnit)
+    void corSpawnUnits(GameObject prefabOfUnit, int typeOfUnit)
     {
+        Unit unit = prefabOfUnit.GetComponent<Unit>();
+        NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
         prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
-        prefabOfUnit.GetComponent<Unit>()._playerId = idPlayer;
-        prefabOfUnit.GetComponent<NavMeshAgent>().SetDestination(waypoints[1].transform.position);
-        prefabOfUnit.GetComponent<Unit>()._enemyMotherBase = targetBase;
-        prefabOfUnit.GetComponent<Unit>()._Lane = waypoints[1].transform.position;
+        unit._playerId = idPlayer;
+        nav.SetDestination(waypoints[1].transform.position);
+        unit._enemyMotherBase = targetBase;
+        unit._Lane = waypoints[1].transform.position;
         prefabOfUnit.transform.parent = transform;
-        yield return new WaitForSeconds(prefabOfUnit.GetComponent<Unit>()._hatchTime);
     }
-
-    /*void OnCollisionEnter(Collision col)
-    {
-        if (col.collider.tag == "unit")
-        {
-            getDamage(1);
-
-            //get damage from unit
-        }
-    }*/
-
-
 }
