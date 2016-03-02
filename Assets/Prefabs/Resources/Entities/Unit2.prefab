@@ -44,7 +44,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: b19998574f4b0944b88376f744e977d0, type: 2}
+  - {fileID: 2100000, guid: 2507115ad68a37c4bbc4f055aaedfda6, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -114,7 +114,10 @@ MonoBehaviour:
   _damage: 2
   _maxMovementSpeed: 10
   _movementSpeed: 2
+  _distanceMinLane: 4
   _enemyMotherBase: {fileID: 0}
+  _Lane: {x: 0, y: 0, z: 0}
+  isInLane: 0
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -69,7 +69,7 @@ public class Unit : MonoBehaviour
         else if (other.CompareTag("MotherBase") && mother.idPlayer != _playerId)
         {
             mother.getDamage(1);
-            Destroy(this.gameObject);
+            Hit(_life);
         }
     }
 
@@ -106,7 +106,7 @@ public class Unit : MonoBehaviour
         {
             Unit unit = _target.GetComponent<Unit>();
             yield return new WaitForSeconds(_attackDelay);
-            if (_target && unit._playerId != _playerId)
+            if (_target && unit && unit._playerId != _playerId )
             {
                 unit.Hit(_damage);
             }

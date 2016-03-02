@@ -15,8 +15,10 @@ public class Motherbase : MonoBehaviour {
     public GameObject targetBase;
     bool spawning;
 
-	// Use this for initialization
-	void Awake () {
+    int typeOfUnit;
+
+    // Use this for initialization
+    void Awake () {
         life = 10;
         spawning = false;
 	}
@@ -35,24 +37,24 @@ public class Motherbase : MonoBehaviour {
 	void Update () {
         if (Input.GetButtonDown("Fire "+idPlayer) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && !spawning)
         {
-            StartCoroutine(Spawner(units[0]));
+            StartCoroutine(Spawner());
             spawning = true;   
         }
 
         // DEBUG
         if (Input.GetKeyDown(KeyCode.S))
         {
-            corSpawnUnits(units[0], 0);
+            corSpawnUnits(0);
         }
     }
 
-    IEnumerator Spawner(GameObject typeOfUnit)
+    IEnumerator Spawner()
     {
 
         while (life > 0)
         {
-            corSpawnUnits(typeOfUnit, 0);
-            yield return new WaitForSeconds(typeOfUnit.GetComponent<Unit>()._hatchTime);
+            corSpawnUnits(typeOfUnit);
+            yield return new WaitForSeconds(units[typeOfUnit].GetComponent<Unit>()._hatchTime);
         }
     }
 
@@ -81,11 +83,11 @@ public class Motherbase : MonoBehaviour {
         }
     }
 
-    void corSpawnUnits(GameObject prefabOfUnit, int typeOfUnit)
+    void corSpawnUnits(int typeOfUnit)
     {
+        GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
         Unit unit = prefabOfUnit.GetComponent<Unit>();
         NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
-        prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
         unit._playerId = idPlayer;
         nav.SetDestination(waypoints[1].transform.position);
         unit._enemyMotherBase = targetBase;
