@@ -6,25 +6,27 @@ public class ChangeLane : MonoBehaviour {
     public float delayMove;
     public bool canMove;
     public int currentWP=1;
-    public GameObject[] waypoints;
+    public GameObject[] Lane;
     public GameObject cursor;
     Motherbase mBase;
     void Awake()
     {
         mBase = GetComponent<Motherbase>();
-        waypoints = new GameObject[3];
-        waypoints[2] = GameObject.Find("wpTop");
-        waypoints[1] = GameObject.Find("wpMid");
-        waypoints[0] = GameObject.Find("wpBot");
-        cursor.transform.position = waypoints[currentWP].transform.position;
-        applyChange();
+        Lane = new GameObject[3];
+        Lane[2] = GameObject.Find("LaneTop");
+        Lane[1] = GameObject.Find("LaneMid");
+        Lane[0] = GameObject.Find("LaneBot");
+        
+        
     }
 
 	// Use this for initialization
 	void Start () {
         canMove = true;
         id = GetComponent<Motherbase>()._playerId;
-	}
+        cursor.transform.position = Lane[currentWP].GetComponent<Lane>().getFirst(id).pos;
+        applyChange();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -54,7 +56,7 @@ public class ChangeLane : MonoBehaviour {
     IEnumerator moveTop()
     {
         canMove = false;
-        if (currentWP + 1 < waypoints.Length)
+        if (currentWP + 1 < Lane.Length)
         {
             currentWP++;
             
@@ -64,7 +66,7 @@ public class ChangeLane : MonoBehaviour {
         {
             currentWP = 0;
         }
-        cursor.transform.position = waypoints[currentWP].transform.position;
+        cursor.transform.position = Lane[currentWP].transform.position;
         applyChange();
         yield return new WaitForSeconds(delayMove);
         canMove = true;
@@ -81,9 +83,9 @@ public class ChangeLane : MonoBehaviour {
         }
         else
         {
-            currentWP = waypoints.Length-1;
+            currentWP = Lane.Length-1;
         }
-        cursor.transform.position = waypoints[currentWP].transform.position;
+        cursor.transform.position = Lane[currentWP].transform.position;
         applyChange();
         yield return new WaitForSeconds(delayMove);
         canMove = true;
@@ -92,6 +94,6 @@ public class ChangeLane : MonoBehaviour {
 
     void applyChange()
     {
-        mBase.waypoint = waypoints[currentWP].transform.position;
+        mBase.waypoint = Lane[currentWP].GetComponent<Lane>().getFirst(id);
     }
 }

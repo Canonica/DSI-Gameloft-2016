@@ -8,7 +8,7 @@ public class Motherbase : Entity
     [Header("Spawner Option")]
     public GameObject[] units;
     public float delay;
-    public Vector3 waypoint;
+    public Waypoint waypoint;
     public GameObject targetBase;
     bool spawning;
     int typeOfUnit;
@@ -55,10 +55,9 @@ public class Motherbase : Entity
             }
         }
         Debug.Log(typeOfUnit);
-        if (GameManager.instance.currentGamestate == GameManager.gameState.Playing && !spawning)
+        if (GameManager.instance.currentGamestate == GameManager.gameState.Playing && Input.GetButtonDown("Fire "+_playerId))
         {
-            StartCoroutine(Spawner());
-            spawning = true;
+            Spawner();
         }
 
         if (Input.GetButtonDown("Fire " + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing )
@@ -110,12 +109,16 @@ public class Motherbase : Entity
 
     }
 
-    IEnumerator Spawner()
+    void Spawner()
     {
-        while (_life > 0)
+        int nb = units[typeOfUnit].GetComponent<Unit>().groupSpawn;
+        if (nb > 1)
+        {
+            groupSpawner(typeOfUnit, nb);
+        }
+        else
         {
             corSpawnUnits(typeOfUnit);
-            yield return new WaitForSeconds(units[typeOfUnit].GetComponent<Unit>()._hatchTime);
         }
     }
 
@@ -125,7 +128,7 @@ public class Motherbase : Entity
     //    obj.GetComponent<Unit>()._playerId = idPlayer;
     //    obj.GetComponent<NavMeshAgent>().SetDestination(waypoints[0].transform.position);
     //    obj.GetComponent<Unit>()._enemyMotherBase = targetBase;
-    //    obj.GetComponent<Unit>()._Lane = waypoints[2].transform.position;
+    //    obj.GetComponent<Unit>().waypointDest = waypoints[2].transform.position;
     //    obj.transform.parent = transform;
     //}
 
@@ -149,9 +152,17 @@ public class Motherbase : Entity
         Unit unit = prefabOfUnit.GetComponent<Unit>();
         NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
         unit._playerId = _playerId;
-        nav.SetDestination(waypoint);
+        nav.SetDestination(waypoint.pos);
         unit._enemyMotherBase = targetBase;
-        unit._Lane = waypoint;
+        unit.waypointDest = waypoint;
         prefabOfUnit.transform.parent = transform;
+    }
+
+    void groupSpawner(int typeOfUnit, int nb)
+    {
+        for (int i = 0; i <= nb; i++)
+        {
+            corSpawnUnits(typeOfUnit);
+        }
     }
 }
