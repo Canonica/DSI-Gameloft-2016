@@ -60,7 +60,7 @@ public class Motherbase : MonoBehaviour {
         if (dmg > life)
         {
             life = 0;
-            // send defeat
+            EndGameManager.instance.motherBaseDead(idPlayer);
         }
         else
         {
