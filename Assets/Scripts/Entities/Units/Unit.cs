@@ -1,20 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Unit : MonoBehaviour
+public class Unit : Entity
 {
     Rigidbody _rigid;
 
     public GameObject _target;
-
-    public int _playerId = 0;
 
     public float _hatchTime = 1.0f;
     public bool _hasHatched = false;
 
     public float _attackDelay = 2f;
 
-    public int _life = 2;
     public int _damage = 2;
 
     public float _maxMovementSpeed = 10.0f;
@@ -22,18 +19,18 @@ public class Unit : MonoBehaviour
 
     NavMeshAgent _navMeshAgent;
 
-    public GameObject _enemyMotherBase;
-
-    public virtual void Start()
+    public override void Start()
     {
+        base.Start();
         _rigid = GetComponent<Rigidbody>();
         StartCoroutine(Hatch());
         _navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
-    public virtual void Update () {
-
+    public override void Update()
+    {
+        base.Update();
         if (_hasHatched)
         {
             /*if(_target)
@@ -67,7 +64,7 @@ public class Unit : MonoBehaviour
             Debug.Log("prepare");
             StartCoroutine(Attack());
         }
-        else if(parOther.gameObject.CompareTag("MotherBase") && parOther.gameObject.GetComponent<Motherbase>().idPlayer != _playerId)
+        else if(parOther.gameObject.CompareTag("MotherBase") && parOther.gameObject.GetComponent<Motherbase>()._playerId != _playerId)
         {
             Debug.Log("MotherBase");
             parOther.gameObject.GetComponent<Motherbase>().getDamage(1);
