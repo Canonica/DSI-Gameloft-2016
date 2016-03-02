@@ -2,30 +2,34 @@
 using System.Collections;
 
 public class Motherbase : MonoBehaviour {
+    [Header("Base Option")]
     public int idPlayer;
-    int life;
-    float cursorSensibility = 1;
-    public GameObject[] units;
-    public Vector3 directionAttack;
-    public CursorMovement cursor;
-    public GameObject target;
-
+    public int life;
+    
     [Header("Spawner Option")]
+    public GameObject[] units;
     public float delay;
     public int unitSpawn;
-
-	// Use this for initialization
-	void Awake () {
-        cursor.id = idPlayer;
-	}
+    public GameObject[] waypoints= {null,null,null };
+    public GameObject targetBase;
+    void Start()
+    {
+        waypoints[0] = GameObject.Find("wpTop");
+        waypoints[1] = GameObject.Find("wpMid");
+        waypoints[2] = GameObject.Find("wpBot");
+    }
 	
-	// Update is called once per frame
 	void Update () {
         if (Input.GetButtonDown("Fire "+idPlayer))
         {
             spawnUnits(0);
         }
-        transform.position = new Vector3(cursor.transform.position.x, transform.position.y, transform.transform.position.z);
+
+        // DEBUG
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            spawnUnits(0);
+        }
     }
 
     IEnumerator Spawner()
@@ -41,8 +45,10 @@ public class Motherbase : MonoBehaviour {
     {
         GameObject obj = Instantiate(units[index], transform.position, transform.rotation) as GameObject;
         obj.GetComponent<Unit>()._playerId = idPlayer;
-        obj.GetComponent<NavMeshAgent>().SetDestination(target.transform.position);
-        obj.GetComponent<Unit>()._enemyMotherBase = target;
+        obj.GetComponent<NavMeshAgent>().SetDestination(waypoints[0].transform.position);
+        obj.GetComponent<Unit>()._enemyMotherBase = targetBase;
+        obj.GetComponent<Unit>()._Lane = waypoints[2].transform.position;
+        obj.transform.parent = transform;
     }
 
     public void getDamage(int dmg)

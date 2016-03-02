@@ -8,8 +8,12 @@ public class CursorMovement : MonoBehaviour {
     Vector3 cursorPosition;
     // Use this for initialization
     void Start () {
-
-	}
+        
+        maxLimit.x = -Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0,0)).x;
+        minLimit.x = -maxLimit.x;
+        maxLimit.y = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0)).y;
+        minLimit.y = -maxLimit.y;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -31,9 +35,6 @@ public class CursorMovement : MonoBehaviour {
             cursorPosition.z -= v * cursorSensibility * Time.deltaTime;
         }
         validateMove();
-        
-        
-        
     }
 
     void validateMove()
