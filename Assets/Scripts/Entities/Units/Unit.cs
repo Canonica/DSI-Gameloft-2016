@@ -1,20 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Unit : MonoBehaviour
+public class Unit : Entity
 {
     Rigidbody _rigid;
 
     public GameObject _target;
-
-    public int _playerId = 0;
 
     public float _hatchTime = 1.0f;
     public bool _hasHatched = false;
 
     public float _attackDelay = 2f;
 
-    public int _life = 2;
     public int _damage = 2;
 
     public float _maxMovementSpeed = 10.0f;
@@ -22,21 +19,25 @@ public class Unit : MonoBehaviour
 
     NavMeshAgent _navMeshAgent;
 
+
     public float _distanceMinLane = 4f;
 
-    public GameObject _enemyMotherBase;
     public Vector3 _Lane;
     public bool isInLane = false;
-    public virtual void Start()
+
+    public override void Start()
     {
+        base.Start();
         _rigid = GetComponent<Rigidbody>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(Hatch());
     }
 
     // Update is called once per frame
-    public virtual void Update()
+
+    public override void Update()
     {
+        base.Update();
 
         if (_hasHatched)
         {
@@ -66,7 +67,8 @@ public class Unit : MonoBehaviour
         {
             StartCoroutine(Attack());
         }
-        else if (other.CompareTag("MotherBase") && mother.idPlayer != _playerId)
+
+        else if (other.CompareTag("MotherBase") && mother._playerId != _playerId)
         {
             mother.getDamage(1);
             Hit(_life);

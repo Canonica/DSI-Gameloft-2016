@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Motherbase : MonoBehaviour {
-    [Header("Base Option")]
-    public int idPlayer;
-    public int life;
-    
+public class Motherbase : Entity
+{
+
+    float cursorSensibility = 1;
+    public Vector3 directionAttack;
+    public CursorMovement cursor;
+
     [Header("Spawner Option")]
     public GameObject[] units;
     public float delay;
@@ -14,44 +16,47 @@ public class Motherbase : MonoBehaviour {
     public GameObject[] waypoints = { null, null, null };
     public GameObject targetBase;
     bool spawning;
-
     int typeOfUnit;
 
     // Use this for initialization
-    void Awake () {
-        life = 10;
-        spawning = false;
-	}
-	
-
-	// Update is called once per frame
-
-    void Start()
+    void Awake()
     {
+        _life = 10;
+        spawning = false;
+    }
+
+
+    // Update is called once per frame
+
+
+    public override void Start()
+    {
+        base.Start();
         waypoints[0] = GameObject.Find("wpTop");
         waypoints[1] = GameObject.Find("wpMid");
         waypoints[2] = GameObject.Find("wpBot");
     }
-	
 
-	void Update () {
-        if (Input.GetButtonDown("Fire "+idPlayer) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && !spawning)
+    public override void Update()
+    {
+        base.Update();
+        if (Input.GetButtonDown("Fire " + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && !spawning)
+
         {
             StartCoroutine(Spawner());
-            spawning = true;   
+            spawning = true;
         }
-
         // DEBUG
         if (Input.GetKeyDown(KeyCode.S))
         {
             corSpawnUnits(0);
         }
+
     }
 
     IEnumerator Spawner()
     {
-
-        while (life > 0)
+        while (_life > 0)
         {
             corSpawnUnits(typeOfUnit);
             yield return new WaitForSeconds(units[typeOfUnit].GetComponent<Unit>()._hatchTime);
@@ -68,18 +73,17 @@ public class Motherbase : MonoBehaviour {
     //    obj.transform.parent = transform;
     //}
 
-
     public void getDamage(int dmg)
     {
-        if (dmg > life)
+        if (dmg > _life)
         {
-            life = 0;
+            _life = 0;
             // send defeat
         }
         else
         {
-            if(dmg > 0)
-            life -= dmg;
+            if (dmg > 0)
+                _life -= dmg;
         }
     }
 
@@ -88,7 +92,7 @@ public class Motherbase : MonoBehaviour {
         GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
         Unit unit = prefabOfUnit.GetComponent<Unit>();
         NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
-        unit._playerId = idPlayer;
+        unit._playerId = _playerId;
         nav.SetDestination(waypoints[1].transform.position);
         unit._enemyMotherBase = targetBase;
         unit._Lane = waypoints[1].transform.position;
