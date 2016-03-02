@@ -29,25 +29,18 @@ public class Motherbase : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.S))
         {
             spawnUnits(0);
+            Debug.Log("unit");
         }
     }
-
-    IEnumerator Spawner()
-    {
-        while (life > 0)
-        {
-            yield return new WaitForSeconds(delay);
-            spawnUnits(unitSpawn);
-        }
-    }
+    
 
     void spawnUnits(int index)
     {
         GameObject obj = Instantiate(units[index], transform.position, transform.rotation) as GameObject;
         obj.GetComponent<Unit>()._playerId = idPlayer;
-        obj.GetComponent<NavMeshAgent>().SetDestination(waypoints[0].transform.position);
+        obj.GetComponent<NavMeshAgent>().SetDestination(waypoints[1].transform.position);
         obj.GetComponent<Unit>()._enemyMotherBase = targetBase;
-        obj.GetComponent<Unit>()._Lane = waypoints[2].transform.position;
+        obj.GetComponent<Unit>()._Lane = waypoints[1].transform.position;
         obj.transform.parent = transform;
     }
 
