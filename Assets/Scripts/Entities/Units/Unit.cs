@@ -40,9 +40,9 @@ public class Unit : Entity
 
     // Update is called once per frame
 
-    public override void Update()
+    public override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
 
         if (_hasHatched)
         {
@@ -51,6 +51,23 @@ public class Unit : Entity
                 isInLane = true;
                 _navMeshAgent.SetDestination(_enemyMotherBase.transform.position);
             }
+            if(_target)
+            {
+                RaycastHit hit;
+                Vector3 direc = (_target.transform.position - transform.position).normalized;
+                if (Physics.Raycast(transform.position, _target.transform.position - transform.position, out hit))
+                {
+                    if (hit.collider.gameObject != _target && hit.collider.gameObject != gameObject && _navMeshAgent.destination != transform.position)
+                    {
+                        _navMeshAgent.SetDestination(transform.position);
+                    }
+                    else if (_navMeshAgent.destination == transform.position)
+                    {
+                        _navMeshAgent.SetDestination(_target.transform.position);
+                    }
+                }
+            }
+            
         }
     }
 

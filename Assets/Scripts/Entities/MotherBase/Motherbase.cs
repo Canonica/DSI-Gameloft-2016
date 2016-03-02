@@ -37,9 +37,9 @@ public class Motherbase : Entity
         waypoints[2] = GameObject.Find("wpBot");
     }
 
-    public override void Update()
+    public override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
         if (Input.GetButtonDown("Fire " + _playerId)/* && GameManager.instance.currentGamestate == GameManager.gameState.Playing*/ && !spawning)
 
         {
