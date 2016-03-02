@@ -63,8 +63,4 @@ public class GameManager : MonoBehaviour
         currentCanva.gameObject.SetActive(false);
     }
 
-    void Update()
-    {
-        Debug.Log(currentGamestate);
-    }
 }

@@ -58,6 +58,6 @@ public class BeforeFight : MonoBehaviour
         }
         _ready = true;
         yield return new WaitForSeconds(0.5f);
-        //GameManager.instance.currentGamestate = GameManager.gameState.Playing;
+        GameManager.instance.currentGamestate = GameManager.gameState.Playing;
     }
 }

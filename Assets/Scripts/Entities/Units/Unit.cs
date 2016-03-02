@@ -1,20 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Unit : MonoBehaviour
+public class Unit : Entity
 {
     Rigidbody _rigid;
 
     public GameObject _target;
-
-    public int _playerId = 0;
 
     public float _hatchTime = 1.0f;
     public bool _hasHatched = false;
 
     public float _attackDelay = 2f;
 
-    public int _life = 2;
     public int _damage = 2;
 
     public float _maxMovementSpeed = 10.0f;
@@ -22,44 +19,40 @@ public class Unit : MonoBehaviour
 
     NavMeshAgent _navMeshAgent;
 
-    public GameObject _enemyMotherBase;
+
+    public float _distanceMinLane = 4f;
+
     public Vector3 _Lane;
     public bool isInLane = false;
-    public virtual void Start()
+
+    public override void Start()
     {
+        base.Start();
         _rigid = GetComponent<Rigidbody>();
-        StartCoroutine(Hatch());
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        StartCoroutine(Hatch());
     }
 
     // Update is called once per frame
-    public virtual void Update () {
+
+    public override void Update()
+    {
+        base.Update();
 
         if (_hasHatched)
         {
-            if (!isInLane && Vector3.Distance(_Lane, transform.position) < 4)
+            if (!isInLane && Vector3.Distance(_Lane, transform.position) < _distanceMinLane)
             {
                 isInLane = true;
                 _navMeshAgent.SetDestination(_enemyMotherBase.transform.position);
             }
-            /*if(_target)
-            {
-                _rigid.AddForce((_target.transform.position - transform.position).normalized * _movementSpeed);
-                _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, _maxMovementSpeed);
-            }
-            else
-            {
-                _rigid.AddForce(transform.forward * _movementSpeed);
-                _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, _maxMovementSpeed);
-            }
-            transform.LookAt(transform.position + _rigid.velocity.normalized * 2);*/
         }
-	}
+    }
 
     void Hit(int parDamage)
     {
         _life -= parDamage;
-        if(_life <= 0)
+        if (_life <= 0)
         {
             StopAllCoroutines();
             Destroy(this.gameObject);
@@ -68,20 +61,24 @@ public class Unit : MonoBehaviour
 
     void OnCollisionEnter(Collision parOther)
     {
-        if (parOther.gameObject == _target)
+        GameObject other = parOther.gameObject;
+        Motherbase mother = other.GetComponent<Motherbase>();
+        if (other == _target)
         {
             StartCoroutine(Attack());
         }
-        else if(parOther.gameObject.CompareTag("MotherBase") && parOther.gameObject.GetComponent<Motherbase>().idPlayer != _playerId)
+
+        else if (other.CompareTag("MotherBase") && mother._playerId != _playerId)
         {
-            parOther.gameObject.GetComponent<Motherbase>().getDamage(1);
-            Destroy(this.gameObject);
+            mother.getDamage(1);
+            Hit(_life);
         }
     }
 
     void OnTriggerEnter(Collider parOther)
     {
-        if(parOther.CompareTag("Unit") && parOther.GetComponent<Unit>() && parOther.GetComponent<Unit>()._playerId != _playerId && !_target)
+        Unit unit = parOther.GetComponent<Unit>();
+        if (parOther.CompareTag("Unit") && unit._playerId != _playerId && !_target)
         {
             _target = parOther.gameObject;
             StartCoroutine(targetMove());
@@ -93,24 +90,12 @@ public class Unit : MonoBehaviour
 
     }
 
-    void OnTriggerExit(Collider parOther)
-    {
-        //if (parOther.gameObject == _target)
-        //{
-
-        //    //takeDestination();
-        //    //_target = null;
-        //}
-        
-
-    }
-
     IEnumerator targetMove()
     {
         while (_target)
         {
             _navMeshAgent.SetDestination(_target.transform.position);
-            
+
             yield return new WaitForSeconds(2);
         }
         _target = null;
@@ -119,20 +104,20 @@ public class Unit : MonoBehaviour
 
     IEnumerator Attack()
     {
-        while(_target)
+        while (_target)
         {
-            
+            Unit unit = _target.GetComponent<Unit>();
             yield return new WaitForSeconds(_attackDelay);
-            if (_target && _target.GetComponent<Unit>()._playerId != _playerId)
+            if (_target && unit && unit._playerId != _playerId )
             {
-                _target.GetComponent<Unit>().Hit(_damage);
+                unit.Hit(_damage);
             }
             else
             {
                 break;
             }
         }
-        
+
     }
 
     IEnumerator Hatch()

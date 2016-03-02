@@ -6,7 +6,7 @@ public class ChangeLane : MonoBehaviour {
     public float delayMove;
     public bool canMove;
     public int currentWP=1;
-    GameObject[] waypoints;
+    public GameObject[] waypoints;
     public GameObject cursor;
     Motherbase mBase;
     void Awake()
@@ -23,7 +23,7 @@ public class ChangeLane : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         canMove = true;
-        id = GetComponent<Motherbase>().idPlayer;
+        id = GetComponent<Motherbase>()._playerId;
 	}
 	
 	// Update is called once per frame
