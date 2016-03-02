@@ -23,8 +23,8 @@ public class CursorMovement : MonoBehaviour {
     void Movement()
     {
         cursorPosition = transform.position;
-        float h = Input.GetAxisRaw("L_YAxis_" + id);
-        float v = Input.GetAxisRaw("L_XAxis_" + id);
+        float h = 0;//Input.GetAxisRaw("L_YAxis_" + id);
+        float v = 0;//Input.GetAxisRaw("L_XAxis_" + id);
         if (Mathf.Abs(h) > 0.3f)
         {
             cursorPosition.x -= h * cursorSensibility * Time.deltaTime;

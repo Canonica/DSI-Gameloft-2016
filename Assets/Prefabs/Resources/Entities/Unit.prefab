@@ -14,7 +14,7 @@ GameObject:
   - 114: {fileID: 11456286}
   - 135: {fileID: 13595940}
   - 195: {fileID: 19576698}
-  - 54: {fileID: 5455858}
+  - 54: {fileID: 5481366}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Unit
@@ -67,7 +67,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170856}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &5455858
+--- !u!54 &5481366
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -115,6 +115,8 @@ MonoBehaviour:
   _maxMovementSpeed: 10
   _movementSpeed: 2
   _enemyMotherBase: {fileID: 0}
+  _Lane: {x: 0, y: 0, z: 0}
+  isInLane: 0
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -146,7 +148,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0.5
   m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
