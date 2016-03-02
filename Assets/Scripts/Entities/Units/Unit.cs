@@ -23,7 +23,8 @@ public class Unit : MonoBehaviour
     NavMeshAgent _navMeshAgent;
 
     public GameObject _enemyMotherBase;
-
+    public Vector3 _Lane;
+    bool isInLane = false;
     public virtual void Start()
     {
         _rigid = GetComponent<Rigidbody>();
@@ -64,12 +65,10 @@ public class Unit : MonoBehaviour
     {
         if (parOther.gameObject == _target)
         {
-            Debug.Log("prepare");
             StartCoroutine(Attack());
         }
         else if(parOther.gameObject.CompareTag("MotherBase") && parOther.gameObject.GetComponent<Motherbase>().idPlayer != _playerId)
         {
-            Debug.Log("MotherBase");
             parOther.gameObject.GetComponent<Motherbase>().getDamage(1);
             Destroy(this.gameObject);
         }
@@ -84,15 +83,20 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            _navMeshAgent.SetDestination(_enemyMotherBase.transform.position);
+            takeDestination();
         }
-        
+
     }
 
     void OnTriggerStay(Collider parOther)
     {
         if (!_target)
         {
+            if (Vector3.Distance(_Lane, transform.position) < 2)
+            {
+                isInLane = true;
+                _navMeshAgent.SetDestination(_enemyMotherBase.transform.position);
+            }
             OnTriggerEnter(parOther);
         }
         else
@@ -108,7 +112,8 @@ public class Unit : MonoBehaviour
     {
         if (parOther.gameObject == _target)
         {
-            _navMeshAgent.SetDestination(_enemyMotherBase.transform.position);
+
+            takeDestination();
             _target = null;
         }
         
@@ -120,18 +125,33 @@ public class Unit : MonoBehaviour
         while(_target)
         {
             yield return new WaitForSeconds(_attackDelay);
-            Debug.Log("Attack");
             if (_target && _target.GetComponent<Unit>()._playerId != _playerId)
             {
                 _target.GetComponent<Unit>().Hit(_damage);
-                Debug.Log("Hit");
+            }
+            else
+            {
+                break;
             }
         }
+        _target = null;
     }
 
     IEnumerator Hatch()
     {
         yield return new WaitForSeconds(_hatchTime);
         _hasHatched = true;
+    }
+
+    void takeDestination()
+    {
+        if (isInLane)
+        {
+            _navMeshAgent.SetDestination(_enemyMotherBase.transform.position);
+        }
+        else
+        {
+            _navMeshAgent.SetDestination(_Lane);
+        }
     }
 }
