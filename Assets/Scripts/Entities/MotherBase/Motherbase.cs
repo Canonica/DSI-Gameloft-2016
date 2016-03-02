@@ -4,16 +4,11 @@ using System.Collections;
 public class Motherbase : Entity
 {
 
-    float cursorSensibility = 1;
-    public Vector3 directionAttack;
-    public CursorMovement cursor;
 
     [Header("Spawner Option")]
     public GameObject[] units;
     public float delay;
-    public int unitSpawn;
-    public GameObject obj;
-    public GameObject[] waypoints = { null, null, null };
+    public Vector3 waypoint;
     public GameObject targetBase;
     bool spawning;
     int typeOfUnit;
@@ -34,15 +29,13 @@ public class Motherbase : Entity
     public override void Start()
     {
         base.Start();
-        waypoints[0] = GameObject.Find("wpTop");
-        waypoints[1] = GameObject.Find("wpMid");
-        waypoints[2] = GameObject.Find("wpBot");
         typeOfUnit = 0;
     }
 
     public override void Update()
     {
         base.Update();
+        Debug.Log(GameManager.instance.currentGamestate);
         if (Input.GetButtonDown("RB_button_" + _playerId))
         {
             if(setNb>(units.Length)/4)
@@ -61,31 +54,30 @@ public class Motherbase : Entity
                 setNb--;
             }
         }
-
-        Debug.Log(setNb);
-
+        Debug.Log(typeOfUnit);
         if (GameManager.instance.currentGamestate == GameManager.gameState.Playing && !spawning)
         {
             StartCoroutine(Spawner());
             spawning = true;
         }
 
-        if (Input.GetButtonDown("Fire " + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && setNb ==0)
+        if (Input.GetButtonDown("Fire " + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing )
         {
+            Debug.Log("toto");
             typeOfUnit = 0;
         }
 
-        if (Input.GetButtonDown("B_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && setNb == 0)
+        if (Input.GetButtonDown("B_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing )
         {
             typeOfUnit = 1;
         }
 
-        if (Input.GetButtonDown("X_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && setNb == 0)
+        if (Input.GetButtonDown("X_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing)
         {
             typeOfUnit = 2;
         }
 
-        if (Input.GetButtonDown("Y_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && setNb == 0)
+        if (Input.GetButtonDown("Y_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing)
         {
             typeOfUnit = 3;
         }
@@ -142,6 +134,7 @@ public class Motherbase : Entity
         if (dmg > _life)
         {
             _life = 0;
+            EndGameManager.instance.motherBaseDead(_playerId);
         }
         else
         {
@@ -156,9 +149,9 @@ public class Motherbase : Entity
         Unit unit = prefabOfUnit.GetComponent<Unit>();
         NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
         unit._playerId = _playerId;
-        nav.SetDestination(waypoints[1].transform.position);
+        nav.SetDestination(waypoint);
         unit._enemyMotherBase = targetBase;
-        unit._Lane = waypoints[1].transform.position;
+        unit._Lane = waypoint;
         prefabOfUnit.transform.parent = transform;
     }
 }
