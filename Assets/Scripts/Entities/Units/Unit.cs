@@ -47,8 +47,15 @@ public class Unit : Entity
                 {
                     laneDone = true;
                 }
-                else waypointDest = waypointDest.Next(_playerId);
-
+                else
+                {
+                    waypointDest = waypointDest.Next(_playerId);
+                    if (waypointDest.isTeleport)
+                    {
+                        transform.position = waypointDest.pos;
+                        waypointDest = waypointDest.Next(_playerId);
+                    }
+                }
                 takeDestination();
             }
         }
