@@ -195,10 +195,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 275fd6583efdf3540ac2559fc3a3ee70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idPlayer: 1
-  life: 10
+  _enemyMotherBase: {fileID: 0}
+  _life: 2
+  _playerId: 1
+  directionAttack: {x: 0, y: 0, z: 0}
+  cursor: {fileID: 0}
   units:
   - {fileID: 170856, guid: 6b9c02081090d8b4fb9aaae0eb071552, type: 2}
+  - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
   delay: 0
   unitSpawn: 0
   obj: {fileID: 0}

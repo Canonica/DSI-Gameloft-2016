@@ -18,6 +18,8 @@ public class Motherbase : Entity
     bool spawning;
     int typeOfUnit;
 
+    int setNb;
+
     // Use this for initialization
     void Awake()
     {
@@ -35,17 +37,79 @@ public class Motherbase : Entity
         waypoints[0] = GameObject.Find("wpTop");
         waypoints[1] = GameObject.Find("wpMid");
         waypoints[2] = GameObject.Find("wpBot");
+        typeOfUnit = 0;
     }
 
     public override void Update()
     {
         base.Update();
-        if (Input.GetButtonDown("Fire " + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && !spawning)
+        if (Input.GetButtonDown("RB_button_" + _playerId))
+        {
+            if(setNb>(units.Length)/4)
+            {
+                setNb--;
+            }
+            else
+            {
+                setNb++;
+            }
+        }
+        if (Input.GetButtonDown("LB_button_" + _playerId))
+        {
+            if (setNb > 0)
+            {
+                setNb--;
+            }
+        }
 
+        Debug.Log(setNb);
+
+        if (GameManager.instance.currentGamestate == GameManager.gameState.Playing && !spawning)
         {
             StartCoroutine(Spawner());
             spawning = true;
         }
+
+        if (Input.GetButtonDown("Fire " + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && setNb ==0)
+        {
+            typeOfUnit = 0;
+        }
+
+        if (Input.GetButtonDown("B_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && setNb == 0)
+        {
+            typeOfUnit = 1;
+        }
+
+        if (Input.GetButtonDown("X_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && setNb == 0)
+        {
+            typeOfUnit = 2;
+        }
+
+        if (Input.GetButtonDown("Y_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && setNb == 0)
+        {
+            typeOfUnit = 3;
+        }
+
+        if (Input.GetButtonDown("Fire " + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && setNb == 1)
+        {
+            typeOfUnit = 4;
+        }
+
+        if (Input.GetButtonDown("B_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && setNb == 1)
+        {
+            typeOfUnit = 5;
+        }
+
+        if (Input.GetButtonDown("X_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && setNb == 1)
+        {
+            typeOfUnit = 6;
+        }
+
+        if (Input.GetButtonDown("Y_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && setNb == 1)
+        {
+            typeOfUnit = 7;
+        }
+
         // DEBUG
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -78,7 +142,6 @@ public class Motherbase : Entity
         if (dmg > _life)
         {
             _life = 0;
-            // send defeat
         }
         else
         {

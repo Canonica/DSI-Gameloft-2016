@@ -23,7 +23,6 @@ public class MenuHandler : MonoBehaviour {
     void Update(){
         if(GameManager.instance.currentGamestate == GameManager.gameState.Menu)
         {
-            Debug.Log(indice);
             if (Input.GetAxis("L_YAxis_0") > 0 || Input.GetKeyDown("down"))
             {
                 //vers le bas
