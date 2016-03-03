@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Effect
+public class Effect : MonoBehaviour
 {
     public string _name;
     public float _cost;

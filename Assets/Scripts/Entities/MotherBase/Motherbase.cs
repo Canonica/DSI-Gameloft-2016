@@ -46,10 +46,6 @@ public class Motherbase : Entity
 
     public override void Start()
     {
-        primarySpells = new List<Spell>();
-        secondarySpells = new List<Spell>();
-        primarySpell = new Spell("Je suis magique", 8.0f, 0.5f);
-        secondarySpell = new Spell("Je suis physique", 4.0f, 0.5f);
         base.Start();
     }
 

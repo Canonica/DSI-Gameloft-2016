@@ -3,34 +3,23 @@ using System.Collections.Generic;
 
 public class Entity : MonoBehaviour {
 
-    public enum UpgradeType
-    {
-        //Mettre les catégories d'Upgrade ici
-        TestUpgrade,
-        TestUpgrade2,
-        TestUpgrade4,
-    }
-    
-    public enum SpellType
-    {
-        //Mettre les catégories d'Upgrade ici
-        TestSpell,
-        TestSpell2,
-        TestSpell4,
-    }
-
     public GameObject _enemyMotherBase;
     public int _life = 2;
     public int _playerId = 0;
 
-    [Header("Upgrades (Runtime Only)")]
-    public Dictionary<UpgradeType, List<Upgrade>> _upgrades;
-    public Dictionary<SpellType, List<Spell>> _spells;
+    /*public Dictionary<UpgradeType, List<Upgrade>> _upgrades;
+    public Dictionary<SpellType, List<Spell>> _spells;*/
+
+    public List<Spell> _spells;
+    public List<Upgrade> _upgrades;
 
     // Use this for initialization
-    public virtual void Start () {
-        _upgrades = new Dictionary<UpgradeType, List<Upgrade>>();
-        _spells = new Dictionary<SpellType, List<Spell>>();
+    public virtual void Start ()
+    {
+        /*_upgrades = new Dictionary<UpgradeType, List<Upgrade>>();
+        _spells = new Dictionary<SpellType, List<Spell>>();*/
+        _upgrades = new List<Upgrade>(GetComponents<Upgrade>());
+        _spells = new List<Spell>(GetComponents<Spell>());
     }
 
     // Update is called once per frame
@@ -38,7 +27,7 @@ public class Entity : MonoBehaviour {
 
     }
 
-    public void AddUpgrade(Upgrade parUpgrade, UpgradeType parUpgradeType)
+    public void AddUpgrade(Upgrade parUpgrade, Upgrade.UpgradeType parUpgradeType)
     {
         if (parUpgrade != null)
         {
@@ -46,16 +35,20 @@ public class Entity : MonoBehaviour {
         }
     }
 
-    public List<Upgrade> GetUpgrades(UpgradeType parUpgradeType)
+    public List<Upgrade> GetUpgrades(Upgrade.UpgradeType parUpgradeType)
     {
-        if (!_upgrades.ContainsKey(parUpgradeType))
+        switch (parUpgradeType)
         {
-            _upgrades.Add(parUpgradeType, new List<Upgrade>());
+            case Upgrade.UpgradeType.TestUpgrade :
+                //Do sth
+        	break;
+            default:
+                return _upgrades;
         }
-        return _upgrades[parUpgradeType];
+        return null;
     }
 
-    public void AddSpell(Spell parSpell, SpellType parSpellType)
+    public void AddSpell(Spell parSpell, Spell.SpellType parSpellType)
     {
         if (parSpell != null)
         {
@@ -63,12 +56,17 @@ public class Entity : MonoBehaviour {
         }
     }
 
-    public List<Spell> GetSpells(SpellType parSpellType)
+    public List<Spell> GetSpells(Spell.SpellType parSpellType)
     {
-        if (!_spells.ContainsKey(parSpellType))
+
+        switch (parSpellType)
         {
-            _spells.Add(parSpellType, new List<Spell>());
+            case Spell.SpellType.TestSpell:
+                //Do sth
+                break;
+            default:
+                return _spells;
         }
-        return _spells[parSpellType];
+        return null;
     }
 }
