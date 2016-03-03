@@ -51,7 +51,7 @@ public class Unit : Entity
                 isInLane = true;
                 _navMeshAgent.SetDestination(_enemyMotherBase.transform.position);
             }
-            if(_target)
+            /*if(_target)
             {
                 RaycastHit hit;
                 Vector3 direc = (_target.transform.position - transform.position).normalized;
@@ -66,7 +66,7 @@ public class Unit : Entity
                         _navMeshAgent.SetDestination(_target.transform.position);
                     }
                 }
-            }
+            }*/
             
         }
     }
