@@ -14,7 +14,7 @@ public class Unit : Entity
 
 
     [Header("Bump Option")]
-    public float smoother = 40;
+    public int smoother = 20;
 
     [Header("Other")]
     public GameObject _target;
@@ -86,6 +86,7 @@ public class Unit : Entity
     {
         if (_life <= 0)
         {
+            EndGameManager.instance.addDeath(_playerId);
             StopAllCoroutines();
             Destroy(this.gameObject);
         }
@@ -192,7 +193,8 @@ public class Unit : Entity
             if (unit && unit._playerId != _playerId)
             {
                 unit.Hit(_damage);
-                    
+                EndGameManager.instance.addDamage(_playerId, _damage);
+                applyBump(unit.transform.position, 0.1f,2);
             }
         }
         else
@@ -213,23 +215,28 @@ public class Unit : Entity
         }
     }
 
-    public void applyBump(Vector3 from, float force)
+    public void applyBump(Vector3 from, float force, int useSmoother=0)
     {
         if (!isBumped)
         {
             Vector3 dir = transform.position - from;
             isBumped = true;
             //dir.y = force*2;
-            StartCoroutine(bump(dir * force));
+            if (useSmoother == 0)
+                StartCoroutine(bump(dir * force));
+            else
+                StartCoroutine(bump(dir * force, useSmoother));
         }
         
     }
 
-    IEnumerator bump(Vector3 distance)
+    IEnumerator bump(Vector3 distance, int localSmoother=0)
     {
-        for(int i=0; i< smoother; i++)
+        if (localSmoother == 0)
+            localSmoother = smoother;
+        for (int i=0; i< localSmoother; i++)
         {
-            transform.position = transform.position + (distance / smoother);
+            transform.position = transform.position + (distance / localSmoother);
             yield return 0;
         }
         isBumped = false;

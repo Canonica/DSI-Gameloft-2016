@@ -81,7 +81,8 @@ public class Motherbase : Entity
         // DEBUG
         if (Input.GetKey(KeyCode.S) && _playerId == 2)
         {
-            corSpawnUnits(0);
+            currentNbOfUnits[1] = 50;
+            corSpawnUnits(1);
         }
         if (Input.GetKey(KeyCode.D)&& _playerId ==1)
         {
@@ -209,8 +210,9 @@ public class Motherbase : Entity
     {
         if (currentNbOfUnits[typeOfUnit] > 0)
         {
-
-            for (int i = 0; i < units[typeOfUnit].GetComponent<Unit>().groupSpawn; i++)
+            int unitToSpawn = units[typeOfUnit].GetComponent<Unit>().groupSpawn;
+            EndGameManager.instance.addSpawn(_playerId, unitToSpawn);
+            for (int i = 0; i < unitToSpawn; i++)
             {
                 if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)) && primarySpellCd == null)
                 {
