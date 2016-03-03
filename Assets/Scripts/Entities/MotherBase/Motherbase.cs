@@ -37,7 +37,7 @@ public class Motherbase : Entity
 
     public override void FixedUpdate()
     {
-        
+
         //if (Input.GetButtonDown("RB_button_" + _playerId))
         //{
         //    if(setNb>(units.Length)/4)
@@ -56,11 +56,15 @@ public class Motherbase : Entity
         //        setNb--;
         //    }
         //}
-       
+        // DEBUG
+        if (Input.GetKey(KeyCode.S))
+        {
+            currentNbOfUnits[0] = 50;
+            corSpawnUnits(0);
+        }
 
         if (GameManager.instance.currentGamestate == GameManager.gameState.Playing)
         {
-            Debug.Log("je passe");
             if (!spawning)
             {
                 StartCoroutine(loadUnit(0));
@@ -69,8 +73,7 @@ public class Motherbase : Entity
                 //StartCoroutine(loadUnit(3));
                 spawning = true;
             }
-
-            Debug.Log(GameManager.instance.currentGamestate);
+            
             if (Input.GetButtonDown("RB_button_" + _playerId))
             {
                 if (setNb > (units.Length) / 4)
@@ -115,11 +118,7 @@ public class Motherbase : Entity
                 corSpawnUnits(typeOfUnit);
             }
 
-            // DEBUG
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                corSpawnUnits(0);
-            }
+            
         }
         base.FixedUpdate();
     }

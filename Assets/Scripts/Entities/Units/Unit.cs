@@ -27,15 +27,16 @@ public class Unit : Entity
 
     public Waypoint waypointDest;
     public bool laneDone = false;
-
+    public float lastCollision = 0;
+    int collideNum = 0;
+    public float attackSpeed = 1;
+    float lastAttack=0;
     public override void Start()
     {
         base.Start();
 
         _trigger = new List<GameObject>();
-        //_rigid = GetComponent<Rigidbody>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
-        StartCoroutine(Hatch());
     }
 
     // Update is called once per frame
@@ -45,26 +46,32 @@ public class Unit : Entity
 
         base.FixedUpdate();
 
-
-        if (_hasHatched)
+        if (collideNum>0)
         {
-            if (!laneDone && Vector3.Distance(waypointDest.pos, transform.position) < _distanceMinLane)
+            lastAttack += Time.deltaTime;
+            if (lastAttack > attackSpeed)
             {
-                if (waypointDest.Next(_playerId) == null)
-                {
-                    laneDone = true;
-                }
-                else
-                {
-                    waypointDest = waypointDest.Next(_playerId);
-                    if (waypointDest.isTeleport)
-                    {
-                        transform.position = waypointDest.pos;
-                        waypointDest = waypointDest.Next(_playerId);
-                    }
-                }
-                takeDestination();
+                Attack();
             }
+        }
+        
+        if (!laneDone && Vector3.Distance(waypointDest.pos, transform.position) < _distanceMinLane)
+        {
+            if (waypointDest.Next(_playerId) == null)
+            {
+                laneDone = true;
+            }
+            else
+            {
+                waypointDest = waypointDest.Next(_playerId);
+                if (waypointDest.isTeleport)
+                {
+                    transform.position = waypointDest.pos;
+                    waypointDest = waypointDest.Next(_playerId);
+                }
+            }
+            takeDestination();
+        }
             /*if(_target)
             {
                 RaycastHit hit;
@@ -82,12 +89,11 @@ public class Unit : Entity
                 }
             }*/
             
-        }
+        
     }
 
-    void Hit(int parDamage)
+    void LateUpdate()
     {
-        _life -= parDamage;
         if (_life <= 0)
         {
             StopAllCoroutines();
@@ -95,18 +101,34 @@ public class Unit : Entity
         }
     }
 
+    void Hit(int parDamage)
+    {
+        _life -= parDamage;
+        
+    }
+
+    void OnCollisionExit(Collision parOther)
+    {
+        GameObject other = parOther.gameObject;
+        if (other && other.CompareTag("Unit") && other.GetComponent<Unit>()._playerId != _playerId)
+        {
+            _target = other;
+            collideNum--;
+        }
+    }
+
     void OnCollisionEnter(Collision parOther)
     {
         GameObject other = parOther.gameObject;
         Motherbase mother = other.GetComponent<Motherbase>();
-        if (other.CompareTag("Unit") && other.GetComponent<Unit>()._playerId != _playerId && !_isAttacking)
+        if (other && other.CompareTag("Unit") && other.GetComponent<Unit>()._playerId != _playerId)
         {
             _target = other;
-            _isAttacking = true;
+            collideNum++;
+            lastAttack = 0;
             Attack();
         }
-
-        else if (other.CompareTag("MotherBase") && mother._playerId != _playerId)
+        else if (mother && other.CompareTag("MotherBase") && mother._playerId != _playerId)
         {
             mother.getDamage(1);
             Hit(_life);
@@ -120,25 +142,40 @@ public class Unit : Entity
             _trigger.Add(parOther.gameObject);
             if (!_target)
             {
+                _isAttacking = true;
                 _target = parOther.gameObject;
                 StartCoroutine(targetMove());
             }
         }
-        else
-        {
-            //takeDestination();
-        }
-
     }
 
     void OnTriggerExit(Collider parOther)
     {
+        
         _trigger.Remove(parOther.gameObject);
+        if (_target == parOther.gameObject)
+            changeTarget();
+
+    }
+
+    void changeTarget()
+    {
+        while (_trigger.Count > 0 && _trigger[0] == null)
+        {
+            
+            _trigger.RemoveAt(0);
+        }
+
         if (_trigger.Count > 0)
         {
             _target = _trigger[0];
         }
-
+        else
+        {
+            _isAttacking = false;
+            _target = null;
+            takeDestination();
+        }
     }
 
     IEnumerator targetMove()
@@ -147,9 +184,9 @@ public class Unit : Entity
         {
             _navMeshAgent.SetDestination(_target.transform.position);
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(0.5f);
         }
-        _target = null;
+        changeTarget();
         takeDestination();
     }
 
@@ -160,16 +197,9 @@ public class Unit : Entity
             Unit unit = _target.GetComponent<Unit>();
             if (unit && unit._playerId != _playerId)
             {
-                Debug.Log("Attack");
                 unit.Hit(_damage);
             }
         }
-    }
-
-    IEnumerator Hatch()
-    {
-        yield return new WaitForSeconds(_hatchTime);
-        _hasHatched = true;
     }
 
     void takeDestination()

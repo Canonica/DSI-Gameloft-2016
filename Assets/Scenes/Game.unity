@@ -550,7 +550,7 @@ MonoBehaviour:
   _life: 10
   _playerId: 2
   units:
-  - {fileID: 170856, guid: 6b9c02081090d8b4fb9aaae0eb071552, type: 2}
+  - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
   - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
   delay: 0
   waypoint: {fileID: 0}
@@ -938,7 +938,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1521171382
 Transform:
   m_ObjectHideFlags: 0
@@ -1021,7 +1021,7 @@ MonoBehaviour:
   _playerId: 1
   units:
   - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
-  - {fileID: 170856, guid: 6b9c02081090d8b4fb9aaae0eb071552, type: 2}
+  - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
   delay: 0
   waypoint: {fileID: 0}
   targetBase: {fileID: 1108263746}

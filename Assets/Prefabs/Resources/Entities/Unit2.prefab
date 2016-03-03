@@ -106,20 +106,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyMotherBase: {fileID: 0}
-  _life: 10
+  _life: 4
   _playerId: 0
   _target: {fileID: 0}
   _hatchTime: 1
   _hasHatched: 0
+  groupSpawn: 6
   _attackDelay: 2
   _damage: 2
   _maxMovementSpeed: 10
   _movementSpeed: 2
+  _trigger: []
   _distanceMinLane: 4
-  _Lane: {x: 0, y: 0, z: 0}
-  isInLane: 0
-  _maxNbOfUnit: 6
-  _currentNbOfUnit: 0
+  waypointDest: {fileID: 0}
+  laneDone: 0
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1
