@@ -24,13 +24,9 @@ public class Unit : Entity
     public Waypoint waypointDest;
     public bool laneDone = false;
 
-    public int _maxNbOfUnit;
-    public int _currentNbOfUnit;
-
     public override void Start()
     {
         base.Start();
-        _currentNbOfUnit = 0;
         _navMeshAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(Hatch());
     }

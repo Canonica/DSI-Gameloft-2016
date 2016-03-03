@@ -555,6 +555,8 @@ MonoBehaviour:
   delay: 0
   waypoint: {fileID: 0}
   targetBase: {fileID: 1652043358}
+  maxNbOfUnits: 05000000060000000700000008000000
+  currentNbOfUnits: 00000000000000000000000000000000
 --- !u!23 &1108263749
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1023,6 +1025,8 @@ MonoBehaviour:
   delay: 0
   waypoint: {fileID: 0}
   targetBase: {fileID: 1108263746}
+  maxNbOfUnits: 05000000060000000700000008000000
+  currentNbOfUnits: 00000000000000000000000000000000
 --- !u!23 &1652043360
 MeshRenderer:
   m_ObjectHideFlags: 0

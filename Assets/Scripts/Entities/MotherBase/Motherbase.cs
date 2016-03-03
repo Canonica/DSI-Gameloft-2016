@@ -15,6 +15,10 @@ public class Motherbase : Entity
 
     int setNb;
 
+    public int[] maxNbOfUnits;
+    public int[] currentNbOfUnits;
+
+
     // Use this for initialization
     void Awake()
     {
@@ -29,16 +33,11 @@ public class Motherbase : Entity
     public override void Start()
     {
         base.Start();
-        units[0].GetComponent<Unit>()._currentNbOfUnit = 0;
-        units[1].GetComponent<Unit>()._currentNbOfUnit = 0;
-        //units[2].GetComponent<Unit>()._currentNbOfUnit = 0;
-        //units[3].GetComponent<Unit>()._currentNbOfUnit = 0;
     }
 
     public override void Update()
     {
         base.Update();
-        Debug.Log(units[0].GetComponent<Unit>()._currentNbOfUnit);
         //if (Input.GetButtonDown("RB_button_" + _playerId))
         //{
         //    if(setNb>(units.Length)/4)
@@ -57,13 +56,19 @@ public class Motherbase : Entity
         //        setNb--;
         //    }
         //}
-        if (GameManager.instance.currentGamestate == GameManager.gameState.Playing && !spawning)
+       
+
+        if (GameManager.instance.currentGamestate == GameManager.gameState.Playing)
         {
-            spawning = true;
-            StartCoroutine(loadUnit1());
-            StartCoroutine(loadUnit2());
-            //StartCoroutine(loadUnit3());
-            //StartCoroutine(loadUnit4());
+            if (!spawning)
+            {
+                StartCoroutine(loadUnit(0));
+                StartCoroutine(loadUnit(1));
+                //StartCoroutine(loadUnit(2));
+                //StartCoroutine(loadUnit(3));
+                spawning = true;
+            }
+
             Debug.Log(GameManager.instance.currentGamestate);
             if (Input.GetButtonDown("RB_button_" + _playerId))
             {
@@ -83,14 +88,10 @@ public class Motherbase : Entity
                     setNb--;
                 }
             }
-            Debug.Log(typeOfUnit);
-            if (GameManager.instance.currentGamestate == GameManager.gameState.Playing && Input.GetButtonDown("Fire " + _playerId))
-            {
-                Spawner();
-            }
 
             if (Input.GetButtonDown("Fire " + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing)
             {
+                Debug.Log("Test");
                 typeOfUnit = 0;
                 corSpawnUnits(typeOfUnit);
             }
@@ -129,18 +130,7 @@ public class Motherbase : Entity
     //        yield return new WaitForSeconds(units[typeOfUnit].GetComponent<Unit>()._hatchTime);
     //    }
     //}
-    void Spawner()
-    {
-        int nb = units[typeOfUnit].GetComponent<Unit>().groupSpawn;
-        if (nb > 1)
-        {
-            groupSpawner(typeOfUnit, nb);
-        }
-        else
-        {
-            corSpawnUnits(typeOfUnit);
-        }
-    }
+
 
     //void spawnUnits(int index)
     //{
@@ -168,8 +158,7 @@ public class Motherbase : Entity
 
     void corSpawnUnits(int typeOfUnit)
     {
-        Debug.Log(units[typeOfUnit].GetComponent<Unit>()._currentNbOfUnit);
-        if(units[typeOfUnit].GetComponent<Unit>()._currentNbOfUnit > 0) { 
+        if (currentNbOfUnits[typeOfUnit] > 0) { 
             GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
             Unit unit = prefabOfUnit.GetComponent<Unit>();
             NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
@@ -178,78 +167,22 @@ public class Motherbase : Entity
             unit._enemyMotherBase = targetBase;
             unit.waypointDest = waypoint;
             prefabOfUnit.transform.parent = transform;
-            units[typeOfUnit].GetComponent<Unit>()._currentNbOfUnit--;
+            currentNbOfUnits[typeOfUnit]--;
         }
     }
 
-    IEnumerator loadUnit1()
+    IEnumerator loadUnit(int nbOfUnits)
     {
         while(_life > 0)
         {
-            Unit unit = units[0].GetComponent<Unit>();
-            if (unit._currentNbOfUnit < unit._maxNbOfUnit)
+            if (currentNbOfUnits[nbOfUnits] < maxNbOfUnits[nbOfUnits])
             {
-                unit._currentNbOfUnit++;
+                currentNbOfUnits[nbOfUnits]++;
             }
-            yield return new WaitForSeconds(unit._hatchTime);
+            yield return new WaitForSeconds(units[nbOfUnits].GetComponent<Unit>()._hatchTime);
         }
         
         
     }
 
-    IEnumerator loadUnit2()
-    {
-        while (_life > 0)
-        {
-            Unit unit = units[1].GetComponent<Unit>();
-            if (unit._currentNbOfUnit < unit._maxNbOfUnit)
-            {
-                unit._currentNbOfUnit++;
-            }
-            yield return new WaitForSeconds(unit._hatchTime);
-        }
-       
-    }
-
-    IEnumerator loadUnit3()
-    {
-        while (_life > 0)
-        {
-            Unit unit = units[2].GetComponent<Unit>();
-            if (unit._currentNbOfUnit < unit._maxNbOfUnit)
-            {
-                unit._currentNbOfUnit++;
-            }
-            yield return new WaitForSeconds(unit._hatchTime);
-        }
-    }
-
-    IEnumerator loadUnit4()
-    {
-        while (_life > 0)
-        {
-            Unit unit = units[3].GetComponent<Unit>();
-            if (unit._currentNbOfUnit < unit._maxNbOfUnit)
-            {
-                unit._currentNbOfUnit++;
-            }
-            yield return new WaitForSeconds(unit._hatchTime);
-        }        
-        GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
-        Unit unit2 = prefabOfUnit.GetComponent<Unit>();
-        NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
-        unit2._playerId = _playerId;
-        nav.SetDestination(waypoint.pos);
-        unit2._enemyMotherBase = targetBase;
-        unit2.waypointDest = waypoint;
-        prefabOfUnit.transform.parent = transform;
-    }
-
-    void groupSpawner(int typeOfUnit, int nb)
-    {
-        for (int i = 0; i <= nb; i++)
-        {
-            corSpawnUnits(typeOfUnit);
-        }
-    }
 }
