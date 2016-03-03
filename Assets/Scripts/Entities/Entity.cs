@@ -22,7 +22,7 @@ public class Entity : MonoBehaviour {
     }
 
     // Update is called once per frame
-    public virtual void Update () {
+    public virtual void FixedUpdate() {
 
     }
 

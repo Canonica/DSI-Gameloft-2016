@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Unit : Entity
 {
@@ -18,6 +19,9 @@ public class Unit : Entity
 
     NavMeshAgent _navMeshAgent;
 
+    public List<GameObject> _trigger;
+
+    bool _isAttacking;
 
     public float _distanceMinLane = 4f;
 
@@ -27,15 +31,21 @@ public class Unit : Entity
     public override void Start()
     {
         base.Start();
+
+        _trigger = new List<GameObject>();
+        //_rigid = GetComponent<Rigidbody>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(Hatch());
     }
 
     // Update is called once per frame
 
-    public override void Update()
+    public override void FixedUpdate()
     {
-        base.Update();
+
+        base.FixedUpdate();
+
+
         if (_hasHatched)
         {
             if (!laneDone && Vector3.Distance(waypointDest.pos, transform.position) < _distanceMinLane)
@@ -55,6 +65,23 @@ public class Unit : Entity
                 }
                 takeDestination();
             }
+            /*if(_target)
+            {
+                RaycastHit hit;
+                Vector3 direc = (_target.transform.position - transform.position).normalized;
+                if (Physics.Raycast(transform.position, _target.transform.position - transform.position, out hit))
+                {
+                    if (hit.collider.gameObject != _target && hit.collider.gameObject != gameObject && _navMeshAgent.destination != transform.position)
+                    {
+                        _navMeshAgent.SetDestination(transform.position);
+                    }
+                    else if (_navMeshAgent.destination == transform.position)
+                    {
+                        _navMeshAgent.SetDestination(_target.transform.position);
+                    }
+                }
+            }*/
+            
         }
     }
 
@@ -72,9 +99,11 @@ public class Unit : Entity
     {
         GameObject other = parOther.gameObject;
         Motherbase mother = other.GetComponent<Motherbase>();
-        if (other == _target)
+        if (other.CompareTag("Unit") && other.GetComponent<Unit>()._playerId != _playerId && !_isAttacking)
         {
-            StartCoroutine(Attack());
+            _target = other;
+            _isAttacking = true;
+            Attack();
         }
 
         else if (other.CompareTag("MotherBase") && mother._playerId != _playerId)
@@ -86,15 +115,28 @@ public class Unit : Entity
 
     void OnTriggerEnter(Collider parOther)
     {
-        Unit unit = parOther.GetComponent<Unit>();
-        if (parOther.CompareTag("Unit") && unit._playerId != _playerId && !_target)
+        if (parOther.CompareTag("Unit") && parOther.GetComponent<Unit>()._playerId != _playerId)
         {
-            _target = parOther.gameObject;
-            StartCoroutine(targetMove());
+            _trigger.Add(parOther.gameObject);
+            if (!_target)
+            {
+                _target = parOther.gameObject;
+                StartCoroutine(targetMove());
+            }
         }
         else
         {
             //takeDestination();
+        }
+
+    }
+
+    void OnTriggerExit(Collider parOther)
+    {
+        _trigger.Remove(parOther.gameObject);
+        if (_trigger.Count > 0)
+        {
+            _target = _trigger[0];
         }
 
     }
@@ -111,22 +153,17 @@ public class Unit : Entity
         takeDestination();
     }
 
-    IEnumerator Attack()
+    void Attack()
     {
-        while (_target)
+        if(_target)
         {
             Unit unit = _target.GetComponent<Unit>();
-            yield return new WaitForSeconds(_attackDelay);
-            if (_target && unit && unit._playerId != _playerId )
+            if (unit && unit._playerId != _playerId)
             {
+                Debug.Log("Attack");
                 unit.Hit(_damage);
             }
-            else
-            {
-                break;
-            }
         }
-
     }
 
     IEnumerator Hatch()
