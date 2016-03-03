@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Unit : Entity
 {
-    Rigidbody _rigid;
 
     public GameObject _target;
 
@@ -28,7 +27,6 @@ public class Unit : Entity
     public override void Start()
     {
         base.Start();
-        _rigid = GetComponent<Rigidbody>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(Hatch());
     }
@@ -38,7 +36,6 @@ public class Unit : Entity
     public override void Update()
     {
         base.Update();
-
         if (_hasHatched)
         {
             if (!laneDone && Vector3.Distance(waypointDest.pos, transform.position) < _distanceMinLane)

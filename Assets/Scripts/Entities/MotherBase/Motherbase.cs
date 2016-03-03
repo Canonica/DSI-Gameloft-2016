@@ -15,6 +15,10 @@ public class Motherbase : Entity
 
     int setNb;
 
+    public int[] maxNbOfUnits;
+    public int[] currentNbOfUnits;
+
+
     // Use this for initialization
     void Awake()
     {
@@ -29,98 +33,104 @@ public class Motherbase : Entity
     public override void Start()
     {
         base.Start();
-        typeOfUnit = 0;
     }
 
     public override void Update()
     {
         base.Update();
-        Debug.Log(GameManager.instance.currentGamestate);
-        if (Input.GetButtonDown("RB_button_" + _playerId))
+        //if (Input.GetButtonDown("RB_button_" + _playerId))
+        //{
+        //    if(setNb>(units.Length)/4)
+        //    {
+        //        setNb--;
+        //    }
+        //    else
+        //    {
+        //        setNb++;
+        //    }
+        //}
+        //if (Input.GetButtonDown("LB_button_" + _playerId))
+        //{
+        //    if (setNb > 0)
+        //    {
+        //        setNb--;
+        //    }
+        //}
+       
+
+        if (GameManager.instance.currentGamestate == GameManager.gameState.Playing)
         {
-            if(setNb>(units.Length)/4)
+            if (!spawning)
             {
-                setNb--;
+                StartCoroutine(loadUnit(0));
+                StartCoroutine(loadUnit(1));
+                //StartCoroutine(loadUnit(2));
+                //StartCoroutine(loadUnit(3));
+                spawning = true;
             }
-            else
+
+            Debug.Log(GameManager.instance.currentGamestate);
+            if (Input.GetButtonDown("RB_button_" + _playerId))
             {
-                setNb++;
+                if (setNb > (units.Length) / 4)
+                {
+                    setNb--;
+                }
+                else
+                {
+                    setNb++;
+                }
             }
-        }
-        if (Input.GetButtonDown("LB_button_" + _playerId))
-        {
-            if (setNb > 0)
+            if (Input.GetButtonDown("LB_button_" + _playerId))
             {
-                setNb--;
+                if (setNb > 0)
+                {
+                    setNb--;
+                }
             }
-        }
-        Debug.Log(typeOfUnit);
-        if (GameManager.instance.currentGamestate == GameManager.gameState.Playing && Input.GetButtonDown("Fire "+_playerId))
-        {
-            Spawner();
-        }
 
-        if (Input.GetButtonDown("Fire " + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing )
-        {
-            Debug.Log("toto");
-            typeOfUnit = 0;
-        }
+            if (Input.GetButtonDown("Fire " + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing)
+            {
+                Debug.Log("Test");
+                typeOfUnit = 0;
+                corSpawnUnits(typeOfUnit);
+            }
 
-        if (Input.GetButtonDown("B_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing )
-        {
-            typeOfUnit = 1;
-        }
+            if (Input.GetButtonDown("B_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing)
+            {
+                typeOfUnit = 1;
+                corSpawnUnits(typeOfUnit);
+            }
 
-        if (Input.GetButtonDown("X_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing)
-        {
-            typeOfUnit = 2;
-        }
+            if (Input.GetButtonDown("X_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing)
+            {
+                typeOfUnit = 2;
+                corSpawnUnits(typeOfUnit);
+            }
 
-        if (Input.GetButtonDown("Y_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing)
-        {
-            typeOfUnit = 3;
-        }
+            if (Input.GetButtonDown("Y_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing)
+            {
+                typeOfUnit = 3;
+                corSpawnUnits(typeOfUnit);
+            }
 
-        if (Input.GetButtonDown("Fire " + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && setNb == 1)
-        {
-            typeOfUnit = 4;
-        }
+            // DEBUG
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                corSpawnUnits(0);
+            }
 
-        if (Input.GetButtonDown("B_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && setNb == 1)
-        {
-            typeOfUnit = 5;
-        }
-
-        if (Input.GetButtonDown("X_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && setNb == 1)
-        {
-            typeOfUnit = 6;
-        }
-
-        if (Input.GetButtonDown("Y_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing && setNb == 1)
-        {
-            typeOfUnit = 7;
-        }
-
-        // DEBUG
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            corSpawnUnits(0);
-        }
-
-    }
-
-    void Spawner()
-    {
-        int nb = units[typeOfUnit].GetComponent<Unit>().groupSpawn;
-        if (nb > 1)
-        {
-            groupSpawner(typeOfUnit, nb);
-        }
-        else
-        {
-            corSpawnUnits(typeOfUnit);
         }
     }
+    //IEnumerator Spawner()
+    //{
+    //    while (_life > 0)
+    //    {
+    //        corSpawnUnits(typeOfUnit);
+    //        yield return new WaitForSeconds(units[typeOfUnit].GetComponent<Unit>()._hatchTime);
+    //    }
+    //}
+
 
     //void spawnUnits(int index)
     //{
@@ -148,21 +158,31 @@ public class Motherbase : Entity
 
     void corSpawnUnits(int typeOfUnit)
     {
-        GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
-        Unit unit = prefabOfUnit.GetComponent<Unit>();
-        NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
-        unit._playerId = _playerId;
-        nav.SetDestination(waypoint.pos);
-        unit._enemyMotherBase = targetBase;
-        unit.waypointDest = waypoint;
-        prefabOfUnit.transform.parent = transform;
-    }
-
-    void groupSpawner(int typeOfUnit, int nb)
-    {
-        for (int i = 0; i <= nb; i++)
-        {
-            corSpawnUnits(typeOfUnit);
+        if (currentNbOfUnits[typeOfUnit] > 0) { 
+            GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
+            Unit unit = prefabOfUnit.GetComponent<Unit>();
+            NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
+            unit._playerId = _playerId;
+            nav.SetDestination(waypoint.pos);
+            unit._enemyMotherBase = targetBase;
+            unit.waypointDest = waypoint;
+            prefabOfUnit.transform.parent = transform;
+            currentNbOfUnits[typeOfUnit]--;
         }
     }
+
+    IEnumerator loadUnit(int nbOfUnits)
+    {
+        while(_life > 0)
+        {
+            if (currentNbOfUnits[nbOfUnits] < maxNbOfUnits[nbOfUnits])
+            {
+                currentNbOfUnits[nbOfUnits]++;
+            }
+            yield return new WaitForSeconds(units[nbOfUnits].GetComponent<Unit>()._hatchTime);
+        }
+        
+        
+    }
+
 }

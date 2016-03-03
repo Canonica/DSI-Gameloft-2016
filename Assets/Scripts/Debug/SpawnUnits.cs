@@ -19,6 +19,6 @@ public class SpawnUnits : MonoBehaviour {
     
     public void Spawn()
     {
-        GameObject unit = Instantiate(_unitPrefab, transform.position + Vector3.up * 2.0f, Quaternion.identity) as GameObject;
+        Instantiate(_unitPrefab, transform.position + Vector3.up * 2.0f, Quaternion.identity);
     }
 }

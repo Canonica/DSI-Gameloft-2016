@@ -8,7 +8,6 @@ public class BeforeFight : MonoBehaviour
     public int m_second = 3;
 
     private Text _text;
-    private float _alpha;
     public bool _ready=false;
 
     // Use this for initialization
@@ -44,7 +43,6 @@ public class BeforeFight : MonoBehaviour
             }
             _text.fontSize += Mathf.RoundToInt(timer);
             _text.text = m_second.ToString();
-            _alpha = GetComponent<CanvasGroup>().alpha;
             m_second--;
         }
         _text.CrossFadeAlpha(1f, 0.2f, false);
