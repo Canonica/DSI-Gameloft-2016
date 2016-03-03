@@ -5,12 +5,8 @@
     public void Start() {
         base.Start();
 	}
-	
-	// Update is called once per frame
-    override
-	public void Update () {
-
-        base.Update();
-       
-    }
+	override
+	public void FixedUpdate() {
+        base.FixedUpdate();
+	}
 }

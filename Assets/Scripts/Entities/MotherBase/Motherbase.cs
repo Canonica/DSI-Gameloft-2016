@@ -35,9 +35,9 @@ public class Motherbase : Entity
         base.Start();
     }
 
-    public override void Update()
+    public override void FixedUpdate()
     {
-        base.Update();
+        
         //if (Input.GetButtonDown("RB_button_" + _playerId))
         //{
         //    if(setNb>(units.Length)/4)
@@ -60,6 +60,7 @@ public class Motherbase : Entity
 
         if (GameManager.instance.currentGamestate == GameManager.gameState.Playing)
         {
+            Debug.Log("je passe");
             if (!spawning)
             {
                 StartCoroutine(loadUnit(0));
@@ -119,8 +120,8 @@ public class Motherbase : Entity
             {
                 corSpawnUnits(0);
             }
-
         }
+        base.FixedUpdate();
     }
     //IEnumerator Spawner()
     //{
