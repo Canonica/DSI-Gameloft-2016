@@ -9,6 +9,7 @@ public class Unit : Entity
     public float _movementSpeed = 5.0f;
     public int groupSpawn = 1;
     public int _damage = 2;
+    // Utilisera les Spells
     public float _hatchTime = 1.0f;
 
 
