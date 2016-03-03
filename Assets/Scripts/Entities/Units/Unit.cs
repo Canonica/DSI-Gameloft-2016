@@ -3,13 +3,12 @@ using System.Collections;
 
 public class Unit : Entity
 {
-    Rigidbody _rigid;
 
     public GameObject _target;
 
     public float _hatchTime = 1.0f;
     public bool _hasHatched = false;
-
+    public int groupSpawn = 6;
     public float _attackDelay = 2f;
 
     public int _damage = 2;
@@ -22,8 +21,8 @@ public class Unit : Entity
 
     public float _distanceMinLane = 4f;
 
-    public Vector3 _Lane;
-    public bool isInLane = false;
+    public Waypoint waypointDest;
+    public bool laneDone = false;
 
     public int _maxNbOfUnit;
     public int _currentNbOfUnit;
@@ -32,7 +31,6 @@ public class Unit : Entity
     {
         base.Start();
         _currentNbOfUnit = 0;
-        _rigid = GetComponent<Rigidbody>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(Hatch());
     }
@@ -44,10 +42,22 @@ public class Unit : Entity
         base.Update();
         if (_hasHatched)
         {
-            if (!isInLane && Vector3.Distance(_Lane, transform.position) < _distanceMinLane)
+            if (!laneDone && Vector3.Distance(waypointDest.pos, transform.position) < _distanceMinLane)
             {
-                isInLane = true;
-                _navMeshAgent.SetDestination(_enemyMotherBase.transform.position);
+                if (waypointDest.Next(_playerId) == null)
+                {
+                    laneDone = true;
+                }
+                else
+                {
+                    waypointDest = waypointDest.Next(_playerId);
+                    if (waypointDest.isTeleport)
+                    {
+                        transform.position = waypointDest.pos;
+                        waypointDest = waypointDest.Next(_playerId);
+                    }
+                }
+                takeDestination();
             }
         }
     }
@@ -94,7 +104,7 @@ public class Unit : Entity
     }
 
     IEnumerator targetMove()
-    {
+    { 
         while (_target)
         {
             _navMeshAgent.SetDestination(_target.transform.position);
@@ -131,13 +141,13 @@ public class Unit : Entity
 
     void takeDestination()
     {
-        if (isInLane)
+        if (laneDone)
         {
             _navMeshAgent.SetDestination(_enemyMotherBase.transform.position);
         }
         else
         {
-            _navMeshAgent.SetDestination(_Lane);
+            _navMeshAgent.SetDestination(waypointDest.pos);
         }
     }
 }

@@ -20,10 +20,7 @@ public class MenuManager : MonoBehaviour
     public CanvasGroup OptionsCanvasGroup;
     public float fadeInSpeed;
     public float fadeOutSpeed;
-
-    float delay = 0.5f;
-
-    bool isMainMenu = false;
+    
     bool isOptions;
     bool isCredit;
 

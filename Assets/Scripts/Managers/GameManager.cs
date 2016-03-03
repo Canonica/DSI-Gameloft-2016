@@ -15,8 +15,7 @@ public class GameManager : MonoBehaviour
 
     public Motherbase player1;
     public Motherbase player2;
-
-    private bool isPlaying = false;
+    
 
     public enum gameState
     {
