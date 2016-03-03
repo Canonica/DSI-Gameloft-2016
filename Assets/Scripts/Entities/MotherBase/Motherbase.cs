@@ -54,6 +54,10 @@ public class Motherbase : Entity
     public override void Start()
     {
         base.Start();
+        if(_spells[0])
+            primarySpell = _spells[0];
+        if (_spells[1])
+            secondarySpell = _spells[1];
         cameraPos = Camera.main.transform.position;
     }
 
@@ -209,31 +213,56 @@ public class Motherbase : Entity
     {
         if (currentNbOfUnits[typeOfUnit] > 0)
         {
-
+            bool isActiveSpellPrimary = false;
+            bool isActiveSpellSecondary = false;
+            if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)) && primarySpellCd == null)
+            {
+                primarySpellCd = StartCoroutine(corCooldownSpell(primarySpell));
+                cooldownPrimarySpell = Time.time;
+                isActiveSpellPrimary = true;
+            }
+            else if (primarySpellCd != null)
+            {
+                Debug.Log("Recharge spell 1");
+            }
+            if ((Input.GetButtonDown("TriggersR_" + _playerId) || Input.GetKey(KeyCode.T)) && secondarySpellCd == null)
+            {
+                secondarySpellCd = StartCoroutine(corCooldownSpell(secondarySpell));
+                cooldownSecondarySpell = Time.time;
+                isActiveSpellSecondary = true;
+            }
+            else if (secondarySpellCd != null)
+            {
+                Debug.Log("Recharge spell 2");
+            }
             for (int i = 0; i < units[typeOfUnit].GetComponent<Unit>().groupSpawn; i++)
             {
-                if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)) && primarySpellCd == null)
-                {
-                    primarySpellCd = StartCoroutine(corCooldownSpell(primarySpell));
-                    cooldownPrimarySpell = Time.time;
-                }
-                else if (primarySpellCd != null)
-                {
-                    Debug.Log("Recharge spell 1");
-                }
-                if ((Input.GetButtonDown("TriggersR_" + _playerId) || Input.GetKey(KeyCode.T)) && secondarySpellCd == null)
-                {
-                    secondarySpellCd = StartCoroutine(corCooldownSpell(secondarySpell));
-                    cooldownSecondarySpell = Time.time;
-                }
-                else if (secondarySpellCd != null)
-                {
-                    Debug.Log("Recharge spell 2");
-                }
                 currentNbOfUnits[typeOfUnit]--;
                 GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
                 Unit unit = prefabOfUnit.GetComponent<Unit>();
                 NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
+                if (isActiveSpellPrimary)
+                {
+                    switch (primarySpell._name)
+                    {
+                        case "BuffAtk":
+                            unit._damage += (int)primarySpell._value;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if (isActiveSpellSecondary)
+                {
+                    switch (primarySpell._name)
+                    {
+                        case "BuffAtk":
+                            unit._damage += (int)primarySpell._value;
+                            break;
+                        default:
+                            break;
+                    }
+                }
                 unit._playerId = _playerId;
                 nav.SetDestination(waypoint.pos);
                 unit._enemyMotherBase = targetBase;
