@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using XInputDotNetPure;
 
 public class Motherbase : Entity
 {
@@ -37,7 +38,7 @@ public class Motherbase : Entity
 
     public override void FixedUpdate()
     {
-
+        
         //if (Input.GetButtonDown("RB_button_" + _playerId))
         //{
         //    if(setNb>(units.Length)/4)
@@ -100,6 +101,7 @@ public class Motherbase : Entity
 
             if (Input.GetButtonDown("Fire " + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing)
             {
+                
                 Debug.Log("Test");
                 typeOfUnit = 0;
                 corSpawnUnits(typeOfUnit);
@@ -149,6 +151,7 @@ public class Motherbase : Entity
 
     public void getDamage(int dmg)
     {
+        XInput.instance.useVibe(_playerId, 1, 1, 1);
         if (dmg > _life)
         {
             _life = 0;
