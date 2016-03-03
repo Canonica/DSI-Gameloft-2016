@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class Motherbase : Entity
 {
@@ -14,7 +15,7 @@ public class Motherbase : Entity
     int typeOfUnit;
 
     int setNb;
-
+    Vector3 cameraPos;
     public int[] maxNbOfUnits;
     public int[] currentNbOfUnits;
 
@@ -33,6 +34,7 @@ public class Motherbase : Entity
     public override void Start()
     {
         base.Start();
+        cameraPos = Camera.main.transform.position;
     }
 
     public override void FixedUpdate()
@@ -158,7 +160,11 @@ public class Motherbase : Entity
 
     void corSpawnUnits(int typeOfUnit)
     {
-        if (currentNbOfUnits[typeOfUnit] > 0) { 
+        if (currentNbOfUnits[typeOfUnit] > 0) {
+            
+            Camera.main.DOShakePosition(0.5f, 3, 10, 90).OnComplete(() => Camera.main.transform.position = cameraPos);
+            
+            
             GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
             Unit unit = prefabOfUnit.GetComponent<Unit>();
             NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
