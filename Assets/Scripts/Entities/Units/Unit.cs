@@ -175,6 +175,7 @@ public class Unit : Entity
         {
             if (_target == null)
                 changeTarget();
+            else
            _navMeshAgent.SetDestination(_target.transform.position);
             
             yield return new WaitForSeconds(0.5f);
@@ -217,6 +218,7 @@ public class Unit : Entity
         {
             Vector3 dir = transform.position - from;
             isBumped = true;
+            //dir.y = force*2;
             StartCoroutine(bump(dir * force));
         }
         
