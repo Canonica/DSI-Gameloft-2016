@@ -57,47 +57,43 @@ public class Motherbase : Entity
         cameraPos = Camera.main.transform.position;
     }
 
-    public override void FixedUpdate()
+    void Update()
     {
-      
-        //if (Input.GetButtonDown("RB_button_" + _playerId))
-        //{
-        //    if(setNb>(units.Length)/4)
-        //    {
-        //        setNb--;
-        //    }
-        //    else
-        //    {
-        //        setNb++;
-        //    }
-        //}
-        //if (Input.GetButtonDown("LB_button_" + _playerId))
-        //{
-        //    if (setNb > 0)
-        //    {
-        //        setNb--;
-        //    }
-        //}
-        // DEBUG
-        if (Input.GetKey(KeyCode.S) && _playerId == 2)
-        {
-            corSpawnUnits(0);
-        }
-        if (Input.GetKey(KeyCode.D)&& _playerId ==1)
-        {
-            currentNbOfUnits[1] = 50;
-            corSpawnUnits(1);
-        }
-
         if (GameManager.instance.currentGamestate == GameManager.gameState.Playing)
         {
+            Debug.Log("update");
             if (!spawning)
             {
                 StartCoroutine(loadUnit(0));
-                //StartCoroutine(loadUnit(1));
+                StartCoroutine(loadUnit(1));
                 //StartCoroutine(loadUnit(2));
                 //StartCoroutine(loadUnit(3));
                 spawning = true;
+            }
+
+            if (Input.GetButtonDown("Fire " + _playerId))
+            {
+                Debug.Log("je passe");
+                typeOfUnit = 0;
+                corSpawnUnits(typeOfUnit);
+            }
+
+            if (Input.GetButtonDown("B_button_" + _playerId))
+            {
+                typeOfUnit = 1;
+                corSpawnUnits(typeOfUnit);
+            }
+
+            if (Input.GetButtonDown("X_button_" + _playerId))
+            {
+                typeOfUnit = 2;
+                corSpawnUnits(typeOfUnit);
+            }
+
+            if (Input.GetButtonDown("Y_button_" + _playerId))
+            {
+                typeOfUnit = 3;
+                corSpawnUnits(typeOfUnit);
             }
 
             if (Input.GetButtonDown("RB_button_" + _playerId))
@@ -139,35 +135,46 @@ public class Motherbase : Entity
                 //Masquer le spell 2 dans l'UI
             }
 
-            if (Input.GetButtonDown("Fire " + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing)
-            {
-                Debug.Log("Test");
-                typeOfUnit = 0;
-                corSpawnUnits(typeOfUnit);
-            }
 
-            if (Input.GetButtonDown("B_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing)
-            {
-                typeOfUnit = 1;
-                corSpawnUnits(typeOfUnit);
-            }
-
-            if (Input.GetButtonDown("X_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing)
-            {
-                typeOfUnit = 2;
-                corSpawnUnits(typeOfUnit);
-            }
-
-            if (Input.GetButtonDown("Y_button_" + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing)
-            {
-                typeOfUnit = 3;
-                corSpawnUnits(typeOfUnit);
-            }
 
             textCurrentNbOfUnits[0].text = currentNbOfUnits[0] + "/" + maxNbOfUnits[0];
         }
-        
+
         _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
+    }
+    public override void FixedUpdate()
+    {
+      
+        //if (Input.GetButtonDown("RB_button_" + _playerId))
+        //{
+        //    if(setNb>(units.Length)/4)
+        //    {
+        //        setNb--;
+        //    }
+        //    else
+        //    {
+        //        setNb++;
+        //    }
+        //}
+        //if (Input.GetButtonDown("LB_button_" + _playerId))
+        //{
+        //    if (setNb > 0)
+        //    {
+        //        setNb--;
+        //    }
+        //}
+        // DEBUG
+        if (Input.GetKey(KeyCode.S) && _playerId == 2)
+        {
+            corSpawnUnits(0);
+        }
+        if (Input.GetKey(KeyCode.D)&& _playerId ==1)
+        {
+            currentNbOfUnits[1] = 50;
+            corSpawnUnits(1);
+        }
+
+       
         base.FixedUpdate();
     }
     //IEnumerator Spawner()
@@ -209,7 +216,7 @@ public class Motherbase : Entity
     {
         if (currentNbOfUnits[typeOfUnit] > 0)
         {
-
+            
             for (int i = 0; i < units[typeOfUnit].GetComponent<Unit>().groupSpawn; i++)
             {
                 if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)) && primarySpellCd == null)
@@ -230,8 +237,9 @@ public class Motherbase : Entity
                 {
                     Debug.Log("Recharge spell 2");
                 }
-                currentNbOfUnits[typeOfUnit]--;
+                
                 GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
+                
                 Unit unit = prefabOfUnit.GetComponent<Unit>();
                 NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
                 unit._playerId = _playerId;
@@ -240,6 +248,7 @@ public class Motherbase : Entity
                 unit.waypointDest = waypoint;
                 prefabOfUnit.transform.parent = transform;
             }
+            currentNbOfUnits[typeOfUnit]--;
         }
     }
 
