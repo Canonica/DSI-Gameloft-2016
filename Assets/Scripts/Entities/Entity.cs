@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 public class Entity : MonoBehaviour {
+
     public enum UpgradeType
     {
         //Mettre les catégories d'Upgrade ici
@@ -9,16 +10,27 @@ public class Entity : MonoBehaviour {
         TestUpgrade2,
         TestUpgrade4,
     }
+    
+    public enum SpellType
+    {
+        //Mettre les catégories d'Upgrade ici
+        TestSpell,
+        TestSpell2,
+        TestSpell4,
+    }
+
     public GameObject _enemyMotherBase;
     public int _life = 2;
     public int _playerId = 0;
 
     [Header("Upgrades (Runtime Only)")]
     public Dictionary<UpgradeType, List<Upgrade>> _upgrades;
+    public Dictionary<SpellType, List<Spell>> _spells;
 
     // Use this for initialization
     public virtual void Start () {
         _upgrades = new Dictionary<UpgradeType, List<Upgrade>>();
+        _spells = new Dictionary<SpellType, List<Spell>>();
     }
 
     // Update is called once per frame
@@ -26,20 +38,37 @@ public class Entity : MonoBehaviour {
 
     }
 
-    public void AddUpgrade(Upgrade parUpgrade, UpgradeType parTypeUpgrade)
+    public void AddUpgrade(Upgrade parUpgrade, UpgradeType parUpgradeType)
     {
         if (parUpgrade != null)
         {
-            GetUpgrades(parTypeUpgrade).Add(parUpgrade);
+            GetUpgrades(parUpgradeType).Add(parUpgrade);
         }
     }
 
-    public List<Upgrade> GetUpgrades(UpgradeType parTypeUpgrade)
+    public List<Upgrade> GetUpgrades(UpgradeType parUpgradeType)
     {
-        if (!_upgrades.ContainsKey(parTypeUpgrade))
+        if (!_upgrades.ContainsKey(parUpgradeType))
         {
-            _upgrades.Add(parTypeUpgrade, new List<Upgrade>());
+            _upgrades.Add(parUpgradeType, new List<Upgrade>());
         }
-        return _upgrades[parTypeUpgrade];
+        return _upgrades[parUpgradeType];
+    }
+
+    public void AddSpell(Spell parSpell, SpellType parSpellType)
+    {
+        if (parSpell != null)
+        {
+            GetSpells(parSpellType).Add(parSpell);
+        }
+    }
+
+    public List<Spell> GetSpells(SpellType parSpellType)
+    {
+        if (!_spells.ContainsKey(parSpellType))
+        {
+            _spells.Add(parSpellType, new List<Spell>());
+        }
+        return _spells[parSpellType];
     }
 }
