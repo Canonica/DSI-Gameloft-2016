@@ -9,8 +9,9 @@ public class Entity : MonoBehaviour {
         TestUpgrade2,
         TestUpgrade4,
     }
+    [Header("Entity option")]
     public GameObject _enemyMotherBase;
-    public int _life = 2;
+    public int _life = 1;
     public int _playerId = 0;
 
     [Header("Upgrades (Runtime Only)")]

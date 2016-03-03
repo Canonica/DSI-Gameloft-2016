@@ -231,7 +231,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 498196, guid: ea2958eedd77c194a9a3d4af307cf9bf, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea2958eedd77c194a9a3d4af307cf9bf, type: 2}
@@ -355,7 +355,7 @@ Transform:
   - {fileID: 1108263747}
   - {fileID: 4741831}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
 --- !u!1 &1055264520
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,7 +551,7 @@ MonoBehaviour:
   _playerId: 2
   units:
   - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
-  - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
+  - {fileID: 170856, guid: efcb646a5c6d9af41b780ac0f34e26a4, type: 2}
   delay: 0
   waypoint: {fileID: 0}
   targetBase: {fileID: 1652043358}
@@ -1021,12 +1021,12 @@ MonoBehaviour:
   _playerId: 1
   units:
   - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
-  - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
+  - {fileID: 170856, guid: efcb646a5c6d9af41b780ac0f34e26a4, type: 2}
   delay: 0
   waypoint: {fileID: 0}
   targetBase: {fileID: 1108263746}
-  maxNbOfUnits: 05000000060000000700000008000000
-  currentNbOfUnits: 00000000000000000000000000000000
+  maxNbOfUnits: 0a00000003000000
+  currentNbOfUnits: 0000000000000000
 --- !u!23 &1652043360
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1228,7 +1228,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1001 &2034988995
 Prefab:
   m_ObjectHideFlags: 0
@@ -1266,7 +1266,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22444938, guid: 39b4ae5b39a3b104f8c3da097ff9f52b, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 22444938, guid: 39b4ae5b39a3b104f8c3da097ff9f52b, type: 2}
       propertyPath: m_AnchoredPosition.x

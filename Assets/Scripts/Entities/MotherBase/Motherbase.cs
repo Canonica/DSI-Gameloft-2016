@@ -57,10 +57,15 @@ public class Motherbase : Entity
         //    }
         //}
         // DEBUG
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) && _playerId == 2)
         {
             currentNbOfUnits[0] = 50;
             corSpawnUnits(0);
+        }
+        if (Input.GetKey(KeyCode.D)&& _playerId ==1)
+        {
+            currentNbOfUnits[1] = 50;
+            corSpawnUnits(1);
         }
 
         if (GameManager.instance.currentGamestate == GameManager.gameState.Playing)
@@ -158,17 +163,24 @@ public class Motherbase : Entity
 
     void corSpawnUnits(int typeOfUnit)
     {
-        if (currentNbOfUnits[typeOfUnit] > 0) { 
-            GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
-            Unit unit = prefabOfUnit.GetComponent<Unit>();
-            NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
-            unit._playerId = _playerId;
-            nav.SetDestination(waypoint.pos);
-            unit._enemyMotherBase = targetBase;
-            unit.waypointDest = waypoint;
-            prefabOfUnit.transform.parent = transform;
+        if (currentNbOfUnits[typeOfUnit] > 0)
+        {
+            for (int i = 0; i < units[typeOfUnit].GetComponent<Unit>().groupSpawn; i++)
+            {
+            
+                GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
+                Unit unit = prefabOfUnit.GetComponent<Unit>();
+                NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
+                unit._playerId = _playerId;
+                nav.SetDestination(waypoint.pos);
+                unit._enemyMotherBase = targetBase;
+                unit.waypointDest = waypoint;
+                prefabOfUnit.transform.parent = transform;
+                
+            }
             currentNbOfUnits[typeOfUnit]--;
         }
+        
     }
 
     IEnumerator loadUnit(int nbOfUnits)

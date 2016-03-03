@@ -4,39 +4,37 @@ using System.Collections.Generic;
 
 public class Unit : Entity
 {
-
-    public GameObject _target;
-
-    public float _hatchTime = 1.0f;
-    public bool _hasHatched = false;
-    public int groupSpawn = 6;
-    public float _attackDelay = 2f;
-
-    public int _damage = 2;
-
-    public float _maxMovementSpeed = 10.0f;
-    public float _movementSpeed = 5.0f;
-
-    NavMeshAgent _navMeshAgent;
-
-    public List<GameObject> _trigger;
-
-    bool _isAttacking;
-
-    public float _distanceMinLane = 4f;
-
-    public Waypoint waypointDest;
-    public bool laneDone = false;
-    public float lastCollision = 0;
-    int collideNum = 0;
+    [Header("Unit Option")]
     public float attackSpeed = 1;
-    float lastAttack=0;
+    public float _movementSpeed = 5.0f;
+    public int groupSpawn = 1;
+    public int _damage = 2;
+    public float _hatchTime = 1.0f;
+
+
+    [Header("Bump Option")]
+    public float smoother = 40;
+
+    [Header("Other")]
+    public GameObject _target;
+    NavMeshAgent _navMeshAgent;
+    public List<GameObject> _trigger;
+    bool _isAttacking;
+    public float _distanceMinLane = 4f;
+    public Waypoint waypointDest;
+    public bool laneEnd = false;
+    public float lastCollision = 0;
+    public int collideNum = 0;
+    float lastAttack = 0;
+    bool isBumped = false;
+
     public override void Start()
     {
         base.Start();
 
         _trigger = new List<GameObject>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _navMeshAgent.speed = _movementSpeed;
     }
 
     // Update is called once per frame
@@ -45,21 +43,12 @@ public class Unit : Entity
     {
 
         base.FixedUpdate();
-
-        if (collideNum>0)
-        {
-            lastAttack += Time.deltaTime;
-            if (lastAttack > attackSpeed)
-            {
-                Attack();
-            }
-        }
         
-        if (!laneDone && Vector3.Distance(waypointDest.pos, transform.position) < _distanceMinLane)
+        if (!laneEnd && Vector3.Distance(waypointDest.pos, transform.position) < _distanceMinLane)
         {
             if (waypointDest.Next(_playerId) == null)
             {
-                laneDone = true;
+                laneEnd = true;
             }
             else
             {
@@ -101,10 +90,11 @@ public class Unit : Entity
         }
     }
 
-    void Hit(int parDamage)
+    
+    // true if it kill
+    public void Hit(int parDamage)
     {
         _life -= parDamage;
-        
     }
 
     void OnCollisionExit(Collision parOther)
@@ -143,7 +133,7 @@ public class Unit : Entity
             if (!_target)
             {
                 _isAttacking = true;
-                _target = parOther.gameObject;
+                changeTarget();
                 StartCoroutine(targetMove());
             }
         }
@@ -158,7 +148,7 @@ public class Unit : Entity
 
     }
 
-    void changeTarget()
+    protected void changeTarget()
     {
         while (_trigger.Count > 0 && _trigger[0] == null)
         {
@@ -172,6 +162,7 @@ public class Unit : Entity
         }
         else
         {
+            collideNum = 0;
             _isAttacking = false;
             _target = null;
             takeDestination();
@@ -180,31 +171,37 @@ public class Unit : Entity
 
     IEnumerator targetMove()
     { 
-        while (_target)
+        while (_trigger.Count>0)
         {
-            _navMeshAgent.SetDestination(_target.transform.position);
-
+            if (_target == null)
+                changeTarget();
+           _navMeshAgent.SetDestination(_target.transform.position);
+            
             yield return new WaitForSeconds(0.5f);
         }
         changeTarget();
-        takeDestination();
     }
 
-    void Attack()
+    public virtual void Attack()
     {
-        if(_target)
+        if (_target)
         {
             Unit unit = _target.GetComponent<Unit>();
             if (unit && unit._playerId != _playerId)
             {
                 unit.Hit(_damage);
+                    
             }
+        }
+        else
+        {
+            _isAttacking = false;
         }
     }
 
     void takeDestination()
     {
-        if (laneDone)
+        if (laneEnd)
         {
             _navMeshAgent.SetDestination(_enemyMotherBase.transform.position);
         }
@@ -213,4 +210,27 @@ public class Unit : Entity
             _navMeshAgent.SetDestination(waypointDest.pos);
         }
     }
+
+    public void applyBump(Vector3 from, float force)
+    {
+        if (!isBumped)
+        {
+            Vector3 dir = transform.position - from;
+            isBumped = true;
+            StartCoroutine(bump(dir * force));
+        }
+        
+    }
+
+    IEnumerator bump(Vector3 distance)
+    {
+        for(int i=0; i< smoother; i++)
+        {
+            transform.position = transform.position + (distance / smoother);
+            yield return 0;
+        }
+        isBumped = false;
+    }
+
+    
 }
