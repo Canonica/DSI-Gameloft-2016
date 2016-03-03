@@ -115,17 +115,17 @@ public class Motherbase : Entity
                 corSpawnUnits(typeOfUnit);
             }
 
-            if (Input.GetButtonDown("X_button_" + _playerId))
-            {
-                typeOfUnit = 2;
-                corSpawnUnits(typeOfUnit);
-            }
+            //if (Input.GetButtonDown("X_button_" + _playerId))
+            //{
+            //    typeOfUnit = 2;
+            //    corSpawnUnits(typeOfUnit);
+            //}
 
-            if (Input.GetButtonDown("Y_button_" + _playerId))
-            {
-                typeOfUnit = 3;
-                corSpawnUnits(typeOfUnit);
-            }
+            //if (Input.GetButtonDown("Y_button_" + _playerId))
+            //{
+            //    typeOfUnit = 3;
+            //    corSpawnUnits(typeOfUnit);
+            //}
 
             if (Input.GetButtonDown("RB_button_" + _playerId))
             {
@@ -169,6 +169,7 @@ public class Motherbase : Entity
 
 
             textCurrentNbOfUnits[0].text = currentNbOfUnits[0] + "/" + maxNbOfUnits[0];
+            textCurrentNbOfUnits[1].text = currentNbOfUnits[1] + "/" + maxNbOfUnits[1];
         }
 
         _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
@@ -249,31 +250,59 @@ public class Motherbase : Entity
         {
             int unitToSpawn = units[typeOfUnit].GetComponent<Unit>().groupSpawn;
             EndGameManager.instance.addSpawn(_playerId, unitToSpawn);
+
+            bool isActiveSpellPrimary = false;
+            bool isActiveSpellSecondary = false;
+            if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)) && primarySpellCd == null)
+            {
+                primarySpellCd = StartCoroutine(corCooldownSpell(primarySpell));
+                cooldownPrimarySpell = Time.time;
+                isActiveSpellPrimary = true;
+            }
+            else if (primarySpellCd != null)
+            {
+                Debug.Log("Recharge spell 1");
+            }
+            if ((Input.GetButtonDown("TriggersR_" + _playerId) || Input.GetKey(KeyCode.T)) && secondarySpellCd == null)
+            {
+                secondarySpellCd = StartCoroutine(corCooldownSpell(secondarySpell));
+                cooldownSecondarySpell = Time.time;
+                isActiveSpellSecondary = true;
+            }
+            else if (secondarySpellCd != null)
+            {
+                Debug.Log("Recharge spell 2");
+            }
+
             for (int i = 0; i < unitToSpawn; i++)
             {
-                if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)) && primarySpellCd == null)
-                {
-                    primarySpellCd = StartCoroutine(corCooldownSpell(primarySpell));
-                    cooldownPrimarySpell = Time.time;
-                }
-                else if (primarySpellCd != null)
-                {
-                    Debug.Log("Recharge spell 1");
-                }
-                if ((Input.GetButtonDown("TriggersR_" + _playerId) || Input.GetKey(KeyCode.T)) && secondarySpellCd == null)
-                {
-                    secondarySpellCd = StartCoroutine(corCooldownSpell(secondarySpell));
-                    cooldownSecondarySpell = Time.time;
-                }
-                else if (secondarySpellCd != null)
-                {
-                    Debug.Log("Recharge spell 2");
-                }
-                
                 GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
-                
                 Unit unit = prefabOfUnit.GetComponent<Unit>();
                 NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
+
+                if (isActiveSpellPrimary)
+                {
+                    switch (primarySpell._name)
+                    {
+                        case "BuffAtk":
+                            unit._damage += (int)primarySpell._value;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if (isActiveSpellSecondary)
+                {
+                    switch (primarySpell._name)
+                    {
+                        case "BuffAtk":
+                            unit._damage += (int)primarySpell._value;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
                 unit._playerId = _playerId;
                 nav.SetDestination(waypoint.pos);
                 unit._enemyMotherBase = targetBase;
