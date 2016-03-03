@@ -61,6 +61,7 @@ GameObject:
   - 23: {fileID: 2397520}
   - 114: {fileID: 11427756}
   - 114: {fileID: 11419702}
+  - 114: {fileID: 11462460}
   m_Layer: 0
   m_Name: MotherBase
   m_TagString: MotherBase
@@ -279,6 +280,8 @@ MonoBehaviour:
   _life: 2
   _lifeMax: 2
   _playerId: 1
+  _spells: []
+  _upgrades: []
   units:
   - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
   - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
@@ -294,6 +297,25 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _lifeImage: {fileID: 0}
+  primarySpell: {fileID: 0}
+  secondarySpell: {fileID: 0}
+  primarySpells: []
+  secondarySpells: []
+--- !u!114 &11462460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 738edc9e38ff957499d2bc62254c909b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: BuffAtk
+  _cost: 0
+  _value: 2
+  _type: 0
 --- !u!114 &11470812
 MonoBehaviour:
   m_ObjectHideFlags: 1

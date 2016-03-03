@@ -27,47 +27,4 @@ public class Entity : MonoBehaviour {
     public virtual void FixedUpdate() {
 
     }
-
-    public void AddUpgrade(Upgrade parUpgrade, Upgrade.UpgradeType parUpgradeType)
-    {
-        if (parUpgrade != null)
-        {
-            GetUpgrades(parUpgradeType).Add(parUpgrade);
-        }
-    }
-
-    public List<Upgrade> GetUpgrades(Upgrade.UpgradeType parUpgradeType)
-    {
-        switch (parUpgradeType)
-        {
-            case Upgrade.UpgradeType.TestUpgrade :
-                //Do sth
-        	break;
-            default:
-                return _upgrades;
-        }
-        return null;
-    }
-
-    public void AddSpell(Spell parSpell, Spell.SpellType parSpellType)
-    {
-        if (parSpell != null)
-        {
-            GetSpells(parSpellType).Add(parSpell);
-        }
-    }
-
-    public List<Spell> GetSpells(Spell.SpellType parSpellType)
-    {
-
-        switch (parSpellType)
-        {
-            case Spell.SpellType.TestSpell:
-                //Do sth
-                break;
-            default:
-                return _spells;
-        }
-        return null;
-    }
 }
