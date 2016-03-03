@@ -59,6 +59,37 @@ public class Motherbase : Entity
 
     void Update()
     {
+      
+        //if (Input.GetButtonDown("RB_button_" + _playerId))
+        //{
+        //    if(setNb>(units.Length)/4)
+        //    {
+        //        setNb--;
+        //    }
+        //    else
+        //    {
+        //        setNb++;
+        //    }
+        //}
+        //if (Input.GetButtonDown("LB_button_" + _playerId))
+        //{
+        //    if (setNb > 0)
+        //    {
+        //        setNb--;
+        //    }
+        //}
+        // DEBUG
+        if (Input.GetKey(KeyCode.S) && _playerId == 2)
+        {
+            currentNbOfUnits[1] = 50;
+            corSpawnUnits(1);
+        }
+        if (Input.GetKey(KeyCode.D)&& _playerId ==1)
+        {
+            currentNbOfUnits[1] = 50;
+            corSpawnUnits(1);
+        }
+
         if (GameManager.instance.currentGamestate == GameManager.gameState.Playing)
         {
             Debug.Log("update");
@@ -216,8 +247,9 @@ public class Motherbase : Entity
     {
         if (currentNbOfUnits[typeOfUnit] > 0)
         {
-            
-            for (int i = 0; i < units[typeOfUnit].GetComponent<Unit>().groupSpawn; i++)
+            int unitToSpawn = units[typeOfUnit].GetComponent<Unit>().groupSpawn;
+            EndGameManager.instance.addSpawn(_playerId, unitToSpawn);
+            for (int i = 0; i < unitToSpawn; i++)
             {
                 if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)) && primarySpellCd == null)
                 {
