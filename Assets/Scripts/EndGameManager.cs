@@ -29,13 +29,16 @@ public class EndGameManager : MonoBehaviour {
 
     public void mainMenu()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(1);
         GameManager.instance.currentGamestate = GameManager.gameState.Menu;
     }
 
     public void motherBaseDead(int idLoser)
     {
-        GameManager.instance.currentGamestate = GameManager.gameState.Pause;
+        XInput.instance.useVibe(1, 0, 0, 0);
+        XInput.instance.useVibe(2, 0, 0, 0);
+        GameManager.instance.currentGamestate = GameManager.gameState.Menu;
         Time.timeScale = 0;
         player1UI.SetActive(true);
         player2UI.SetActive(true);

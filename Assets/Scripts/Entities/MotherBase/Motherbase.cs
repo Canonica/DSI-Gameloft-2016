@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
+
 public class Motherbase : Entity
 {
 
@@ -43,8 +44,7 @@ public class Motherbase : Entity
 
     public override void FixedUpdate()
     {
-        
-        
+      
         //if (Input.GetButtonDown("RB_button_" + _playerId))
         //{
         //    if(setNb>(units.Length)/4)
@@ -64,9 +64,14 @@ public class Motherbase : Entity
         //    }
         //}
         // DEBUG
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) && _playerId == 2)
         {
             corSpawnUnits(0);
+        }
+        if (Input.GetKey(KeyCode.D)&& _playerId ==1)
+        {
+            currentNbOfUnits[1] = 50;
+            corSpawnUnits(1);
         }
 
         if (GameManager.instance.currentGamestate == GameManager.gameState.Playing)
@@ -101,6 +106,9 @@ public class Motherbase : Entity
 
             if (Input.GetButtonDown("Fire " + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing)
             {
+
+                
+                Debug.Log("Test");
                 typeOfUnit = 0;
                 corSpawnUnits(typeOfUnit);
             }
@@ -125,8 +133,10 @@ public class Motherbase : Entity
 
             textCurrentNbOfUnits[0].text = currentNbOfUnits[0] + "/" + maxNbOfUnits[0];
         }
+        
+            _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
 
-
+        
         base.FixedUpdate();
     }
     //IEnumerator Spawner()
@@ -151,7 +161,8 @@ public class Motherbase : Entity
 
     public void getDamage(int dmg)
     {
-        _lifeImage.fillAmount = 1 - (_life / _lifeMax); ;
+        
+        XInput.instance.useVibe(_playerId, 1, 1, 1);
         if (dmg > _life)
         {
             _life = 0;
@@ -166,17 +177,20 @@ public class Motherbase : Entity
 
     void corSpawnUnits(int typeOfUnit)
     {
-        if (currentNbOfUnits[typeOfUnit] > 0) {
-            currentNbOfUnits[typeOfUnit]--;
-            GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
-            Unit unit = prefabOfUnit.GetComponent<Unit>();
-            NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
-            unit._playerId = _playerId;
-            nav.SetDestination(waypoint.pos);
-            unit._enemyMotherBase = targetBase;
-            unit.waypointDest = waypoint;
-            prefabOfUnit.transform.parent = transform;
-           
+        if (currentNbOfUnits[typeOfUnit] > 0)
+        {
+            for (int i = 0; i < units[typeOfUnit].GetComponent<Unit>().groupSpawn; i++)
+            {
+                currentNbOfUnits[typeOfUnit]--;
+                GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
+                Unit unit = prefabOfUnit.GetComponent<Unit>();
+                NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
+                unit._playerId = _playerId;
+                nav.SetDestination(waypoint.pos);
+                unit._enemyMotherBase = targetBase;
+                unit.waypointDest = waypoint;
+                prefabOfUnit.transform.parent = transform;
+            }
         }
     }
 
@@ -184,7 +198,6 @@ public class Motherbase : Entity
     {
         while(_life > 0)
         {
-            
             if (currentNbOfUnits[nbOfUnits] < maxNbOfUnits[nbOfUnits])
             {
                 currentNbOfUnits[nbOfUnits]++;

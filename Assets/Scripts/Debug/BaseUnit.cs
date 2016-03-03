@@ -1,4 +1,4 @@
-﻿public class TestUnit : Unit {
+﻿public class BaseUnit : Unit {
 
     // Use this for initialization
     override
