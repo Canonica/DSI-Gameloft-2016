@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+using System.Collections.Generic;
 
 public class Motherbase : Entity
 {
-
+    // Utilisera les Upgrades
+    // Possèdera les Spells
 
     [Header("Spawner Option")]
     public GameObject[] units;
@@ -20,9 +21,23 @@ public class Motherbase : Entity
     public int[] maxNbOfUnits;
     public int[] currentNbOfUnits;
 
+
     public Text[] textCurrentNbOfUnits;
     public Image[] reloadUnitImage;
     public Image _lifeImage;
+
+    public Spell primarySpell;
+    public Spell secondarySpell;
+
+     float cooldownPrimarySpell;
+     float cooldownSecondarySpell;
+
+     Coroutine primarySpellCd;
+     Coroutine secondarySpellCd;
+
+    public List<Spell> primarySpells;
+    public List<Spell> secondarySpells;
+
 
 
     // Use this for initialization
@@ -84,30 +99,48 @@ public class Motherbase : Entity
                 //StartCoroutine(loadUnit(3));
                 spawning = true;
             }
-            
-            //if (Input.GetButtonDown("RB_button_" + _playerId))
-            //{
-            //    if (setNb > (units.Length) / 4)
-            //    {
-            //        setNb--;
-            //    }
-            //    else
-            //    {
-            //        setNb++;
-            //    }
-            //}
-            //if (Input.GetButtonDown("LB_button_" + _playerId))
-            //{
-            //    if (setNb > 0)
-            //    {
-            //        setNb--;
-            //    }
-            //}
+
+            if (Input.GetButtonDown("RB_button_" + _playerId))
+            {
+                if (setNb > (units.Length) / 4)
+                {
+                    setNb--;
+                }
+                else
+                {
+                    setNb++;
+                }
+            }
+            if (Input.GetButtonDown("LB_button_" + _playerId))
+            {
+                if (setNb > 0)
+                {
+                    setNb--;
+                }
+            }
+
+            if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)))
+            {
+                //Actualiser le compteur de temps si cooldown
+                //Afficher le spell 1 dans l'UI
+            }
+            else
+            {
+                //Masquer le spell 1 dans l'UI
+            }
+
+            if ((Input.GetButtonDown("TriggersR_" + _playerId) || Input.GetKey(KeyCode.T)))
+            {
+                //Actualiser le compteur de temps si cooldown
+                //Afficher le spell 2 dans l'UI
+            }
+            else
+            {
+                //Masquer le spell 2 dans l'UI
+            }
 
             if (Input.GetButtonDown("Fire " + _playerId) && GameManager.instance.currentGamestate == GameManager.gameState.Playing)
             {
-
-                
                 Debug.Log("Test");
                 typeOfUnit = 0;
                 corSpawnUnits(typeOfUnit);
@@ -134,9 +167,7 @@ public class Motherbase : Entity
             textCurrentNbOfUnits[0].text = currentNbOfUnits[0] + "/" + maxNbOfUnits[0];
         }
         
-            _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
-
-        
+        _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
         base.FixedUpdate();
     }
     //IEnumerator Spawner()
@@ -161,7 +192,6 @@ public class Motherbase : Entity
 
     public void getDamage(int dmg)
     {
-        
         XInput.instance.useVibe(_playerId, 1, 1, 1);
         if (dmg > _life)
         {
@@ -179,8 +209,27 @@ public class Motherbase : Entity
     {
         if (currentNbOfUnits[typeOfUnit] > 0)
         {
+
             for (int i = 0; i < units[typeOfUnit].GetComponent<Unit>().groupSpawn; i++)
             {
+                if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)) && primarySpellCd == null)
+                {
+                    primarySpellCd = StartCoroutine(corCooldownSpell(primarySpell));
+                    cooldownPrimarySpell = Time.time;
+                }
+                else if (primarySpellCd != null)
+                {
+                    Debug.Log("Recharge spell 1");
+                }
+                if ((Input.GetButtonDown("TriggersR_" + _playerId) || Input.GetKey(KeyCode.T)) && secondarySpellCd == null)
+                {
+                    secondarySpellCd = StartCoroutine(corCooldownSpell(secondarySpell));
+                    cooldownSecondarySpell = Time.time;
+                }
+                else if (secondarySpellCd != null)
+                {
+                    Debug.Log("Recharge spell 2");
+                }
                 currentNbOfUnits[typeOfUnit]--;
                 GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
                 Unit unit = prefabOfUnit.GetComponent<Unit>();
@@ -196,7 +245,7 @@ public class Motherbase : Entity
 
     IEnumerator loadUnit(int nbOfUnits)
     {
-        while(_life > 0)
+        while (_life > 0)
         {
             if (currentNbOfUnits[nbOfUnits] < maxNbOfUnits[nbOfUnits])
             {
@@ -217,6 +266,26 @@ public class Motherbase : Entity
             yield return new WaitForEndOfFrame();
         }
         timer = 0;
+    }
+
+    IEnumerator corCooldownSpell(Spell spellToRecharge)
+    {
+        yield return new WaitForSeconds(spellToRecharge._cost);
+        rechargeSpell(spellToRecharge);
+    }
+
+    void rechargeSpell(Spell spellToRecharge)
+    {
+        if(spellToRecharge == primarySpell && primarySpells.Count > 0)
+        {
+            int rand = Random.Range(0, primarySpells.Count);
+            spellToRecharge = primarySpells[rand];
+        }
+        else if (spellToRecharge == secondarySpell && secondarySpells.Count > 0)
+        {
+            int rand = Random.Range(0, secondarySpells.Count);
+            spellToRecharge = primarySpells[rand];
+        }
     }
 
 }

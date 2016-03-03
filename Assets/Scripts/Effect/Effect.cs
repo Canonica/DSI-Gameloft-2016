@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
+using System.Collections;
 
-public class Upgrade
+public class Effect : MonoBehaviour
 {
-
     public string _name;
-    public int _cost;
+    public float _cost;
     public float _value;
 
-    public Upgrade(string parName, int parCost, float parValue)
+    public Effect(string parName, float parCost, float parValue)
     {
         _name = parName;
         _cost = parCost;
@@ -16,8 +16,6 @@ public class Upgrade
 
     public virtual float Apply()
     {
-        Debug.Log("Upgrade : " + _name + " /// Cost : " + _cost);
-        return default(float);
+        return _value;
     }
-
 }
