@@ -105,19 +105,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c23bc21b62fea5e4ca0441f7d7cb08e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
+  _enemyMotherBase: {fileID: 0}
+  _life: 10
   _playerId: 0
+  _target: {fileID: 0}
   _hatchTime: 1
   _hasHatched: 0
   _attackDelay: 2
-  _life: 10
   _damage: 2
   _maxMovementSpeed: 10
   _movementSpeed: 2
   _distanceMinLane: 4
-  _enemyMotherBase: {fileID: 0}
   _Lane: {x: 0, y: 0, z: 0}
   isInLane: 0
+  _maxNbOfUnit: 6
+  _currentNbOfUnit: 0
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1
