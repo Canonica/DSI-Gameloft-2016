@@ -31,6 +31,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &118682
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 422342}
+  - 33: {fileID: 3311478}
+  - 23: {fileID: 2395840}
+  m_Layer: 0
+  m_Name: LaneCursor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &165684
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,6 +60,7 @@ GameObject:
   - 135: {fileID: 13575406}
   - 23: {fileID: 2397520}
   - 114: {fileID: 11427756}
+  - 114: {fileID: 11419702}
   m_Layer: 0
   m_Name: MotherBase
   m_TagString: MotherBase
@@ -89,7 +107,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 422342}
   m_Father: {fileID: 410512}
   m_RootOrder: 0
 --- !u!4 &410512
@@ -105,6 +124,18 @@ Transform:
   - {fileID: 402398}
   - {fileID: 400502}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &422342
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118682}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 402398}
   m_RootOrder: 0
 --- !u!4 &457576
 Transform:
@@ -129,6 +160,32 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_Materials:
   - {fileID: 2100000, guid: fa43d02720de1474a9af6f8d65c18579, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2395840
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118682}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 98c0c2b347a80f6449ef2c1fc03fdfa2, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -177,6 +234,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 174830}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3311478
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118682}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &3380548
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -184,6 +248,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165684}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &11419702
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ed9623481fd2354eb8e99550f46c70f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayMove: 0.5
+  canMove: 0
+  currentWP: 1
+  Lane: []
+  cursor: {fileID: 118682}
 --- !u!114 &11427756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -197,13 +277,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyMotherBase: {fileID: 0}
   _life: 2
+  _lifeMax: 2
   _playerId: 1
   units:
   - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
-  - {fileID: 170856, guid: 6b9c02081090d8b4fb9aaae0eb071552, type: 2}
+  - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
   delay: 0
-  waypoint: {x: 0, y: 0, z: 0}
+  waypoint: {fileID: 0}
   targetBase: {fileID: 0}
+  maxNbOfUnits: 05000000060000000700000008000000
+  currentNbOfUnits: 00000000000000000000000000000000
+  textCurrentNbOfUnits:
+  - {fileID: 0}
+  - {fileID: 0}
+  reloadUnitImage:
+  - {fileID: 0}
+  - {fileID: 0}
+  _lifeImage: {fileID: 0}
 --- !u!114 &11470812
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -10,7 +10,8 @@ public class Entity : MonoBehaviour {
         TestUpgrade4,
     }
     public GameObject _enemyMotherBase;
-    public int _life = 2;
+    public int _life;
+    public int _lifeMax = 2;
     public int _playerId = 0;
 
     [Header("Upgrades (Runtime Only)")]
@@ -19,6 +20,7 @@ public class Entity : MonoBehaviour {
     // Use this for initialization
     public virtual void Start () {
         _upgrades = new Dictionary<UpgradeType, List<Upgrade>>();
+        _life = _lifeMax;
     }
 
     // Update is called once per frame
