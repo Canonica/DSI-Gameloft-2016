@@ -565,11 +565,27 @@ Prefab:
       value: 
       objectReference: {fileID: 1906255609}
     - target: {fileID: 11479908, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
+      propertyPath: textCurrentNbOfUnits.Array.data[2]
+      value: 
+      objectReference: {fileID: 1906255609}
+    - target: {fileID: 11479908, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
+      propertyPath: textCurrentNbOfUnits.Array.data[3]
+      value: 
+      objectReference: {fileID: 1906255609}
+    - target: {fileID: 11479908, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
       propertyPath: reloadUnitImage.Array.data[0]
       value: 
       objectReference: {fileID: 1831726363}
     - target: {fileID: 11479908, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
       propertyPath: reloadUnitImage.Array.data[1]
+      value: 
+      objectReference: {fileID: 1441164653}
+    - target: {fileID: 11479908, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
+      propertyPath: reloadUnitImage.Array.data[2]
+      value: 
+      objectReference: {fileID: 1441164653}
+    - target: {fileID: 11479908, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
+      propertyPath: reloadUnitImage.Array.data[3]
       value: 
       objectReference: {fileID: 1441164653}
     - target: {fileID: 11479908, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
@@ -1225,11 +1241,27 @@ Prefab:
       value: 
       objectReference: {fileID: 511547637}
     - target: {fileID: 11427756, guid: 8c6f086dc0ba3b8428c6527fb604753b, type: 2}
+      propertyPath: textCurrentNbOfUnits.Array.data[2]
+      value: 
+      objectReference: {fileID: 511547637}
+    - target: {fileID: 11427756, guid: 8c6f086dc0ba3b8428c6527fb604753b, type: 2}
+      propertyPath: textCurrentNbOfUnits.Array.data[3]
+      value: 
+      objectReference: {fileID: 511547637}
+    - target: {fileID: 11427756, guid: 8c6f086dc0ba3b8428c6527fb604753b, type: 2}
       propertyPath: reloadUnitImage.Array.data[0]
       value: 
       objectReference: {fileID: 1824797427}
     - target: {fileID: 11427756, guid: 8c6f086dc0ba3b8428c6527fb604753b, type: 2}
       propertyPath: reloadUnitImage.Array.data[1]
+      value: 
+      objectReference: {fileID: 886271330}
+    - target: {fileID: 11427756, guid: 8c6f086dc0ba3b8428c6527fb604753b, type: 2}
+      propertyPath: reloadUnitImage.Array.data[2]
+      value: 
+      objectReference: {fileID: 886271330}
+    - target: {fileID: 11427756, guid: 8c6f086dc0ba3b8428c6527fb604753b, type: 2}
+      propertyPath: reloadUnitImage.Array.data[3]
       value: 
       objectReference: {fileID: 886271330}
     - target: {fileID: 11427756, guid: 8c6f086dc0ba3b8428c6527fb604753b, type: 2}
@@ -1239,10 +1271,6 @@ Prefab:
     - target: {fileID: 113210, guid: 8c6f086dc0ba3b8428c6527fb604753b, type: 2}
       propertyPath: m_Name
       value: Player 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 118682, guid: 8c6f086dc0ba3b8428c6527fb604753b, type: 2}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8c6f086dc0ba3b8428c6527fb604753b, type: 2}

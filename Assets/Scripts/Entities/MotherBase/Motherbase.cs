@@ -100,8 +100,8 @@ public class Motherbase : Entity
             {
                 StartCoroutine(loadUnit(0));
                 StartCoroutine(loadUnit(1));
-                //StartCoroutine(loadUnit(2));
-                //StartCoroutine(loadUnit(3));
+                StartCoroutine(loadUnit(2));
+                StartCoroutine(loadUnit(3));
                 spawning = true;
             }
 
@@ -118,17 +118,19 @@ public class Motherbase : Entity
                 corSpawnUnits(typeOfUnit);
             }
 
-            //if (Input.GetButtonDown("X_button_" + _playerId))
-            //{
-            //    typeOfUnit = 2;
-            //    corSpawnUnits(typeOfUnit);
-            //}
+            if (Input.GetButtonDown("X_button_" + _playerId))
+            {
+                Debug.Log("X " + _playerId);
+                typeOfUnit = 2;
+                corSpawnUnits(typeOfUnit);
+            }
 
-            //if (Input.GetButtonDown("Y_button_" + _playerId))
-            //{
-            //    typeOfUnit = 3;
-            //    corSpawnUnits(typeOfUnit);
-            //}
+            if (Input.GetButtonDown("Y_button_" + _playerId))
+            {
+                Debug.Log("Y " + _playerId);
+                typeOfUnit = 3;
+                corSpawnUnits(typeOfUnit);
+            }
 
             if (Input.GetButtonDown("RB_button_" + _playerId))
             {

@@ -30,7 +30,7 @@ public class Unit : Entity
 
     [Header("Other")]
     public GameObject _target;
-    NavMeshAgent _navMeshAgent;
+    protected NavMeshAgent _navMeshAgent;
     public List<GameObject> _trigger;
     bool _isAttacking;
     public float _distanceMinLane = 4f;
@@ -121,7 +121,7 @@ public class Unit : Entity
         }
     }
 
-    void OnCollisionEnter(Collision parOther)
+    public virtual void OnCollisionEnter(Collision parOther)
     {
         GameObject other = parOther.gameObject;
         Motherbase mother = other.GetComponent<Motherbase>();
@@ -139,7 +139,7 @@ public class Unit : Entity
         }
     }
 
-    void OnTriggerEnter(Collider parOther)
+    public virtual void OnTriggerEnter(Collider parOther)
     {
         if (parOther.CompareTag("Unit") && parOther.GetComponent<Unit>()._playerId != _playerId)
         {
@@ -153,7 +153,7 @@ public class Unit : Entity
         }
     }
 
-    void OnTriggerExit(Collider parOther)
+    public virtual void OnTriggerExit(Collider parOther)
     {
         
         _trigger.Remove(parOther.gameObject);
@@ -186,7 +186,11 @@ public class Unit : Entity
             if (_target == null)
                 changeTarget();
             else
-           _navMeshAgent.SetDestination(_target.transform.position);
+            {
+                if(_navMeshAgent.enabled == true)
+                    _navMeshAgent.SetDestination(_target.transform.position);
+            }
+          
             
             yield return new WaitForSeconds(0.5f);
         }
@@ -201,8 +205,8 @@ public class Unit : Entity
             if (unit && unit._playerId != _playerId)
             {
                 unit.Hit(_damage);
-                Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
-
+                GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
+                Destroy(fxToDestroy, 1.0f);
                 EndGameManager.instance.addDamage(_playerId, _damage);
                 applyBump(unit.transform.position, 0.1f,2);
             }
