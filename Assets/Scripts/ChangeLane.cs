@@ -59,8 +59,6 @@ public class ChangeLane : MonoBehaviour {
         if (currentWP + 1 < Lane.Length)
         {
             currentWP++;
-            
-            Debug.Log(currentWP);
         }
         else
         {

@@ -576,6 +576,10 @@ Prefab:
       propertyPath: _lifeImage
       value: 
       objectReference: {fileID: 1770424389}
+    - target: {fileID: 164428, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
   m_IsPrefabParent: 0
@@ -1239,6 +1243,10 @@ Prefab:
     - target: {fileID: 113210, guid: 8c6f086dc0ba3b8428c6527fb604753b, type: 2}
       propertyPath: m_Name
       value: Player 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 118682, guid: 8c6f086dc0ba3b8428c6527fb604753b, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8c6f086dc0ba3b8428c6527fb604753b, type: 2}
