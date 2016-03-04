@@ -966,7 +966,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyMotherBase: {fileID: 0}
   _life: 3
-  _lifeMax: 2
+  _lifeMax: 3
   _playerId: 0
   _spells: []
   _upgrades: []
@@ -985,6 +985,7 @@ MonoBehaviour:
   laneEnd: 0
   lastCollision: 0
   collideNum: 0
+  isBumped: 0
   FxHitBlood: {fileID: 0}
   FxDeathBlood: {fileID: 0}
 --- !u!135 &13595940

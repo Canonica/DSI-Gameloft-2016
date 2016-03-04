@@ -777,7 +777,7 @@ MonoBehaviour:
   img: Assets/Editor/Fly.png
   name: Unit
   attackSpeed: 0.2
-  _movementSpeed: 8
+  _movementSpeed: 20
   groupSpawn: 1
   _damage: 3
   _hatchTime: 5
@@ -789,6 +789,7 @@ MonoBehaviour:
   laneEnd: 0
   lastCollision: 0
   collideNum: 0
+  isBumped: 0
   FxHitBlood: {fileID: 136768, guid: a3f845a46e0bd5b4eb338d73e2d939cb, type: 2}
   FxDeathBlood: {fileID: 136768, guid: b83a7ff2ca8aaff468bd682f70fe7457, type: 2}
   flyHeight: 5

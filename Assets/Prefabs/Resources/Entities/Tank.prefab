@@ -1218,14 +1218,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyMotherBase: {fileID: 0}
   _life: 25
-  _lifeMax: 2
+  _lifeMax: 25
   _playerId: 0
   _spells: []
   _upgrades: []
   img: Assets/Editor/Knockback.png
   name: Unit
   attackSpeed: 0.6
-  _movementSpeed: 2
+  _movementSpeed: 10
   groupSpawn: 1
   _damage: 1
   _hatchTime: 5
@@ -1237,9 +1237,10 @@ MonoBehaviour:
   laneEnd: 0
   lastCollision: 0
   collideNum: 0
+  isBumped: 0
   FxHitBlood: {fileID: 0}
   FxDeathBlood: {fileID: 0}
-  bumpForce: 2
+  bumpForce: 20
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1

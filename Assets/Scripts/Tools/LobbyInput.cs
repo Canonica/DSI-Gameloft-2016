@@ -45,7 +45,7 @@ public class LobbyInput : MonoBehaviour
 		tick++;
 		if (GameManager.instance.currentGamestate == GameManager.gameState.Menu && tick > 30) {
 			
-			if (Input.GetAxis ("A_button_1") > 0) {
+			if (Input.GetAxis ("X_button_1") > 0) {
 				Readiness_1 += Time.deltaTime;
 				if (Readiness_1 / 0.5f <= 1) {
 					Img_Readiness_1.fillAmount = Readiness_1 / 0.5f;
@@ -59,7 +59,7 @@ public class LobbyInput : MonoBehaviour
 				Img_Readiness_1.fillAmount = 0;
 			}
 
-			if (Input.GetAxis ("A_button_2") > 0 || Input.GetKey (KeyCode.T)) {
+			if (Input.GetAxis ("X_button_2") > 0 || Input.GetKey (KeyCode.T)) {
 				Readiness_2 += Time.deltaTime;
 				if (Readiness_2 / 0.5f <= 1) {
 					Img_Readiness_2.fillAmount = Readiness_2 / 0.5f;
@@ -136,7 +136,9 @@ public class LobbyInput : MonoBehaviour
 			HowToPlay.GetComponent<Animator> ().SetTrigger ("In");
 
 			Invoke ("Launch", 5f);
-		}
+            GameObject.Find("Player02").SetActive(false);
+            GameObject.Find("MainMenuButton").SetActive(false);
+        }
 	}
 
 	void Launch ()
