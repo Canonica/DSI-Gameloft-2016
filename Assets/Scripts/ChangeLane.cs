@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ChangeLane : MonoBehaviour {
-    int id=0;
+public class ChangeLane : MonoBehaviour
+{
+    int id = 0;
     public float delayMove;
     public bool canMove;
-    public int currentWP=1;
+    public int currentWP = 1;
     public GameObject[] Lane;
     public GameObject[] waypoints;
     public GameObject cursor;
@@ -19,19 +20,21 @@ public class ChangeLane : MonoBehaviour {
         Lane[0] = GameObject.Find("LaneBot");
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         canMove = true;
         id = GetComponent<Motherbase>()._playerId;
         cursor.transform.position = waypoints[currentWP].transform.position + Vector3.up * 10;
         applyChange();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (id != 0)
         {
-            
+
             float h = Input.GetAxisRaw("L_YAxis_" + id);
             //float v = Input.GetAxisRaw("L_XAxis_" + id);
             if (h <= -0.9f)
@@ -63,7 +66,14 @@ public class ChangeLane : MonoBehaviour {
         {
             currentWP = 0;
         }
-        cursor.transform.position = waypoints[currentWP].transform.position + Vector3.up * 10;
+        if (id == 1)
+        {
+            cursor.transform.position = waypoints[currentWP].transform.position + Vector3.up * 10;
+        }
+        else
+        {
+            cursor.transform.position = waypoints[waypoints.Length - 1 - currentWP].transform.position + Vector3.up * 10;
+        }
         applyChange();
         yield return new WaitForSeconds(delayMove);
         canMove = true;
@@ -75,18 +85,26 @@ public class ChangeLane : MonoBehaviour {
         if (currentWP - 1 >= 0)
         {
             currentWP--;
-            
+
             Debug.Log(currentWP);
         }
         else
         {
-            currentWP = Lane.Length-1;
+            currentWP = Lane.Length - 1;
         }
-        cursor.transform.position = waypoints[currentWP].transform.position + Vector3.up * 10;
+        if (id == 1)
+        {
+            cursor.transform.position = waypoints[currentWP].transform.position + Vector3.up * 10;
+        }
+        else
+        {
+            cursor.transform.position = waypoints[waypoints.Length - 1 - currentWP].transform.position + Vector3.up * 10;
+        }
+
         applyChange();
         yield return new WaitForSeconds(delayMove);
         canMove = true;
-        
+
     }
 
     void applyChange()
