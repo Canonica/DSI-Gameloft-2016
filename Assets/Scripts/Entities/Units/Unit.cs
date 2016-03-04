@@ -1,13 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using System.Linq;
 
 public class Unit : Entity
 {
+    [Header("Tool")]
+    [Tweakable]
+    public string img = "Unit";
+    [Tweakable]
+    public string name = "Unit";
+
     [Header("Unit Option")]
+    [Tweakable]
     public float attackSpeed = 1;
+    [Tweakable]
     public float _movementSpeed = 5.0f;
+    [Tweakable]
     public int groupSpawn = 1;
+    [Tweakable]
     public int _damage = 2;
     // Utilisera les Spells
     public float _hatchTime = 1.0f;
@@ -28,9 +40,22 @@ public class Unit : Entity
     public int collideNum = 0;
     float lastAttack = 0;
     bool isBumped = false;
+    private int _startingLife;
+
+    [Header("FX")]
+    [SerializeField]
+    private GameObject FxHitBlood;
+
+    [SerializeField]
+    private GameObject FxDeathBlood;
+
+
+
+
 
     public override void Start()
     {
+        _startingLife = _life;
         base.Start();
 
         _trigger = new List<GameObject>();
@@ -42,8 +67,6 @@ public class Unit : Entity
 
     public override void FixedUpdate()
     {
-
-        base.FixedUpdate();
         
         if (!laneEnd && Vector3.Distance(waypointDest.pos, transform.position) < _distanceMinLane)
         {
@@ -62,30 +85,19 @@ public class Unit : Entity
             }
             takeDestination();
         }
-            /*if(_target)
-            {
-                RaycastHit hit;
-                Vector3 direc = (_target.transform.position - transform.position).normalized;
-                if (Physics.Raycast(transform.position, _target.transform.position - transform.position, out hit))
-                {
-                    if (hit.collider.gameObject != _target && hit.collider.gameObject != gameObject && _navMeshAgent.destination != transform.position)
-                    {
-                        _navMeshAgent.SetDestination(transform.position);
-                    }
-                    else if (_navMeshAgent.destination == transform.position)
-                    {
-                        _navMeshAgent.SetDestination(_target.transform.position);
-                    }
-                }
-            }*/
-            
-        
+
+        base.FixedUpdate();
+
     }
 
     void LateUpdate()
     {
         if (_life <= 0)
         {
+            Instantiate(FxDeathBlood, this.gameObject.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
+            Camera.main.DOKill(true);
+            Camera.main.DOShakePosition(0.05f * _startingLife / 4, 0.3f * _startingLife / 4);
+
             EndGameManager.instance.addDeath(_playerId);
             StopAllCoroutines();
             Destroy(this.gameObject);
@@ -152,11 +164,7 @@ public class Unit : Entity
 
     protected void changeTarget()
     {
-        while (_trigger.Count > 0 && _trigger[0] == null)
-        {
-            
-            _trigger.RemoveAt(0);
-        }
+        _trigger = _trigger.Where(trigger => trigger != null).ToList();
 
         if (_trigger.Count > 0)
         {
@@ -197,6 +205,8 @@ public class Unit : Entity
             if (unit && unit._playerId != _playerId)
             {
                 unit.Hit(_damage);
+                GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
+                Destroy(fxToDestroy, 1.0f);
                 EndGameManager.instance.addDamage(_playerId, _damage);
                 applyBump(unit.transform.position, 0.1f,2);
             }

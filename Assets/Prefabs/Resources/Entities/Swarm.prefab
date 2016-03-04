@@ -111,6 +111,8 @@ MonoBehaviour:
   _playerId: 0
   _spells: []
   _upgrades: []
+  img: Assets/Editor/Swarm.png
+  name: Swarm
   attackSpeed: 0.3
   _movementSpeed: 4
   groupSpawn: 3
@@ -124,6 +126,8 @@ MonoBehaviour:
   laneEnd: 0
   lastCollision: 0
   collideNum: 0
+  FxHitBlood: {fileID: 136768, guid: a3f845a46e0bd5b4eb338d73e2d939cb, type: 2}
+  FxDeathBlood: {fileID: 136768, guid: b83a7ff2ca8aaff468bd682f70fe7457, type: 2}
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -146,7 +150,7 @@ NavMeshAgent:
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 0
+  avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1

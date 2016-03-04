@@ -7,6 +7,7 @@ public class ChangeLane : MonoBehaviour {
     public bool canMove;
     public int currentWP=1;
     public GameObject[] Lane;
+    public GameObject[] waypoints;
     public GameObject cursor;
     Motherbase mBase;
     void Awake()
@@ -16,15 +17,18 @@ public class ChangeLane : MonoBehaviour {
         Lane[2] = GameObject.Find("LaneTop");
         Lane[1] = GameObject.Find("LaneMid");
         Lane[0] = GameObject.Find("LaneBot");
-        
-        
+
+        waypoints = new GameObject[3];
+        waypoints[2] = transform.parent.GetChild(2).gameObject;
+        waypoints[1] = transform.parent.GetChild(3).gameObject;
+        waypoints[0] = transform.parent.GetChild(4).gameObject;
     }
 
 	// Use this for initialization
 	void Start () {
         canMove = true;
         id = GetComponent<Motherbase>()._playerId;
-        cursor.transform.position = Lane[currentWP].GetComponent<Lane>().getFirst(id).pos;
+        cursor.transform.position = waypoints[currentWP].transform.position;
         applyChange();
     }
 	
@@ -59,14 +63,12 @@ public class ChangeLane : MonoBehaviour {
         if (currentWP + 1 < Lane.Length)
         {
             currentWP++;
-            
-            Debug.Log(currentWP);
         }
         else
         {
             currentWP = 0;
         }
-        cursor.transform.position = Lane[currentWP].transform.position;
+        cursor.transform.position = waypoints[currentWP].transform.position;
         applyChange();
         yield return new WaitForSeconds(delayMove);
         canMove = true;
@@ -85,7 +87,7 @@ public class ChangeLane : MonoBehaviour {
         {
             currentWP = Lane.Length-1;
         }
-        cursor.transform.position = Lane[currentWP].transform.position;
+        cursor.transform.position = waypoints[currentWP].transform.position;
         applyChange();
         yield return new WaitForSeconds(delayMove);
         canMove = true;

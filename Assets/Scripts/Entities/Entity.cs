@@ -8,16 +8,11 @@ public class Entity : MonoBehaviour {
     public int _lifeMax = 2;
     public int _playerId = 0;
 
-    /*public Dictionary<UpgradeType, List<Upgrade>> _upgrades;
-    public Dictionary<SpellType, List<Spell>> _spells;*/
-
     public List<Spell> _spells;
     public List<Upgrade> _upgrades;
         
     public virtual void Start ()
     {
-        /*_upgrades = new Dictionary<UpgradeType, List<Upgrade>>();
-        _spells = new Dictionary<SpellType, List<Spell>>();*/
         _upgrades = new List<Upgrade>(GetComponents<Upgrade>());
         _spells = new List<Spell>(GetComponents<Spell>());
         _life = _lifeMax;
@@ -28,46 +23,9 @@ public class Entity : MonoBehaviour {
 
     }
 
-    public void AddUpgrade(Upgrade parUpgrade, Upgrade.UpgradeType parUpgradeType)
-    {
-        if (parUpgrade != null)
-        {
-            GetUpgrades(parUpgradeType).Add(parUpgrade);
-        }
-    }
-
-    public List<Upgrade> GetUpgrades(Upgrade.UpgradeType parUpgradeType)
-    {
-        switch (parUpgradeType)
-        {
-            case Upgrade.UpgradeType.TestUpgrade :
-                //Do sth
-        	break;
-            default:
-                return _upgrades;
-        }
-        return null;
-    }
-
-    public void AddSpell(Spell parSpell, Spell.SpellType parSpellType)
-    {
-        if (parSpell != null)
-        {
-            GetSpells(parSpellType).Add(parSpell);
-        }
-    }
-
-    public List<Spell> GetSpells(Spell.SpellType parSpellType)
+    public virtual void Update()
     {
 
-        switch (parSpellType)
-        {
-            case Spell.SpellType.TestSpell:
-                //Do sth
-                break;
-            default:
-                return _spells;
-        }
-        return null;
     }
+
 }

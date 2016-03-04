@@ -107,12 +107,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyMotherBase: {fileID: 0}
   _life: 25
+  _lifeMax: 2
   _playerId: 0
+  _spells: []
+  _upgrades: []
+  img: Assets/Editor/Swarm.png
+  name: Tank
   attackSpeed: 0.6
   _movementSpeed: 2
   groupSpawn: 1
   _damage: 1
-  _hatchTime: 0
+  _hatchTime: 5
   smoother: 20
   _target: {fileID: 0}
   _trigger: []
@@ -120,6 +125,9 @@ MonoBehaviour:
   waypointDest: {fileID: 0}
   laneEnd: 0
   lastCollision: 0
+  collideNum: 0
+  FxHitBlood: {fileID: 136768, guid: a3f845a46e0bd5b4eb338d73e2d939cb, type: 2}
+  FxDeathBlood: {fileID: 136768, guid: b83a7ff2ca8aaff468bd682f70fe7457, type: 2}
   bumpForce: 2
 --- !u!135 &13595940
 SphereCollider:

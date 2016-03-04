@@ -38,6 +38,10 @@ public class Motherbase : Entity
     public List<Spell> primarySpells;
     public List<Spell> secondarySpells;
 
+    [Header("FX")]
+    [SerializeField]
+    private GameObject FxBlood;
+
 
 
     // Use this for initialization
@@ -57,7 +61,7 @@ public class Motherbase : Entity
         cameraPos = Camera.main.transform.position;
     }
 
-    void Update()
+    public override void Update()
     {
       
         //if (Input.GetButtonDown("RB_button_" + _playerId))
@@ -81,13 +85,13 @@ public class Motherbase : Entity
         // DEBUG
         if (Input.GetKey(KeyCode.S) && _playerId == 2)
         {
-            currentNbOfUnits[1] = 50;
-            corSpawnUnits(1);
+            currentNbOfUnits[0] = 50;
+            corSpawnUnits(0);
         }
         if (Input.GetKey(KeyCode.D)&& _playerId ==1)
         {
-            currentNbOfUnits[1] = 50;
-            corSpawnUnits(1);
+            currentNbOfUnits[0] = 50;
+            corSpawnUnits(0);
         }
 
         if (GameManager.instance.currentGamestate == GameManager.gameState.Playing)
@@ -96,8 +100,8 @@ public class Motherbase : Entity
             {
                 StartCoroutine(loadUnit(0));
                 StartCoroutine(loadUnit(1));
-                //StartCoroutine(loadUnit(2));
-                //StartCoroutine(loadUnit(3));
+                StartCoroutine(loadUnit(2));
+                StartCoroutine(loadUnit(3));
                 spawning = true;
             }
 
@@ -109,18 +113,21 @@ public class Motherbase : Entity
 
             if (Input.GetButtonDown("B_button_" + _playerId))
             {
+                Debug.Log(_playerId);
                 typeOfUnit = 1;
                 corSpawnUnits(typeOfUnit);
             }
 
             if (Input.GetButtonDown("X_button_" + _playerId))
             {
+                Debug.Log("X " + _playerId);
                 typeOfUnit = 2;
                 corSpawnUnits(typeOfUnit);
             }
 
             if (Input.GetButtonDown("Y_button_" + _playerId))
             {
+                Debug.Log("Y " + _playerId);
                 typeOfUnit = 3;
                 corSpawnUnits(typeOfUnit);
             }
@@ -163,71 +170,19 @@ public class Motherbase : Entity
             {
                 //Masquer le spell 2 dans l'UI
             }
-
-
-
+            
             textCurrentNbOfUnits[0].text = currentNbOfUnits[0] + "/" + maxNbOfUnits[0];
+            textCurrentNbOfUnits[1].text = currentNbOfUnits[1] + "/" + maxNbOfUnits[1];
         }
 
         _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
+
+        base.Update();
     }
-    public override void FixedUpdate()
-    {
-      
-        //if (Input.GetButtonDown("RB_button_" + _playerId))
-        //{
-        //    if(setNb>(units.Length)/4)
-        //    {
-        //        setNb--;
-        //    }
-        //    else
-        //    {
-        //        setNb++;
-        //    }
-        //}
-        //if (Input.GetButtonDown("LB_button_" + _playerId))
-        //{
-        //    if (setNb > 0)
-        //    {
-        //        setNb--;
-        //    }
-        //}
-        // DEBUG
-        if (Input.GetKey(KeyCode.S) && _playerId == 2)
-        {
-            corSpawnUnits(0);
-        }
-        if (Input.GetKey(KeyCode.D)&& _playerId ==1)
-        {
-            currentNbOfUnits[1] = 50;
-            corSpawnUnits(1);
-        }
-
-       
-        base.FixedUpdate();
-    }
-    //IEnumerator Spawner()
-    //{
-    //    while (_life > 0)
-    //    {
-    //        corSpawnUnits(typeOfUnit);
-    //        yield return new WaitForSeconds(units[typeOfUnit].GetComponent<Unit>()._hatchTime);
-    //    }
-    //}
-
-
-    //void spawnUnits(int index)
-    //{
-    //    GameObject obj = Instantiate(units[index], transform.position, transform.rotation) as GameObject;
-    //    obj.GetComponent<Unit>()._playerId = idPlayer;
-    //    obj.GetComponent<NavMeshAgent>().SetDestination(waypoints[0].transform.position);
-    //    obj.GetComponent<Unit>()._enemyMotherBase = targetBase;
-    //    obj.GetComponent<Unit>().waypointDest = waypoints[2].transform.position;
-    //    obj.transform.parent = transform;
-    //}
 
     public void getDamage(int dmg)
     {
+        Instantiate(FxBlood, transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
         XInput.instance.useVibe(_playerId, 1, 1, 1);
         if (dmg > _life)
         {
@@ -247,31 +202,59 @@ public class Motherbase : Entity
         {
             int unitToSpawn = units[typeOfUnit].GetComponent<Unit>().groupSpawn;
             EndGameManager.instance.addSpawn(_playerId, unitToSpawn);
+
+            bool isActiveSpellPrimary = false;
+            bool isActiveSpellSecondary = false;
+            if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)) && primarySpellCd == null)
+            {
+                primarySpellCd = StartCoroutine(corCooldownSpell(primarySpell));
+                cooldownPrimarySpell = Time.time;
+                isActiveSpellPrimary = true;
+            }
+            else if (primarySpellCd != null)
+            {
+                Debug.Log("Recharge spell 1");
+            }
+            if ((Input.GetButtonDown("TriggersR_" + _playerId) || Input.GetKey(KeyCode.T)) && secondarySpellCd == null)
+            {
+                secondarySpellCd = StartCoroutine(corCooldownSpell(secondarySpell));
+                cooldownSecondarySpell = Time.time;
+                isActiveSpellSecondary = true;
+            }
+            else if (secondarySpellCd != null)
+            {
+                Debug.Log("Recharge spell 2");
+            }
+
             for (int i = 0; i < unitToSpawn; i++)
             {
-                if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)) && primarySpellCd == null)
-                {
-                    primarySpellCd = StartCoroutine(corCooldownSpell(primarySpell));
-                    cooldownPrimarySpell = Time.time;
-                }
-                else if (primarySpellCd != null)
-                {
-                    Debug.Log("Recharge spell 1");
-                }
-                if ((Input.GetButtonDown("TriggersR_" + _playerId) || Input.GetKey(KeyCode.T)) && secondarySpellCd == null)
-                {
-                    secondarySpellCd = StartCoroutine(corCooldownSpell(secondarySpell));
-                    cooldownSecondarySpell = Time.time;
-                }
-                else if (secondarySpellCd != null)
-                {
-                    Debug.Log("Recharge spell 2");
-                }
-                
                 GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
-                
                 Unit unit = prefabOfUnit.GetComponent<Unit>();
                 NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
+
+                if (isActiveSpellPrimary)
+                {
+                    switch (primarySpell._name)
+                    {
+                        case "BuffAtk":
+                            unit._damage += (int)primarySpell._value;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if (isActiveSpellSecondary)
+                {
+                    switch (primarySpell._name)
+                    {
+                        case "BuffAtk":
+                            unit._damage += (int)primarySpell._value;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
                 unit._playerId = _playerId;
                 nav.SetDestination(waypoint.pos);
                 unit._enemyMotherBase = targetBase;

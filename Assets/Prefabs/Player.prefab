@@ -30,7 +30,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &118682
 GameObject:
   m_ObjectHideFlags: 1
@@ -47,7 +47,37 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
+--- !u!1 &119434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 444516}
+  m_Layer: 0
+  m_Name: Mid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &128468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 464138}
+  m_Layer: 0
+  m_Name: Down
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &165684
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,9 +91,25 @@ GameObject:
   - 23: {fileID: 2397520}
   - 114: {fileID: 11427756}
   - 114: {fileID: 11419702}
+  - 114: {fileID: 11462460}
   m_Layer: 0
   m_Name: MotherBase
   m_TagString: MotherBase
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &171090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 478514}
+  m_Layer: 0
+  m_Name: Top
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,6 +169,9 @@ Transform:
   m_Children:
   - {fileID: 402398}
   - {fileID: 400502}
+  - {fileID: 478514}
+  - {fileID: 444516}
+  - {fileID: 464138}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &422342
@@ -137,6 +186,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 402398}
   m_RootOrder: 0
+--- !u!4 &444516
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119434}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 4.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 410512}
+  m_RootOrder: 3
 --- !u!4 &457576
 Transform:
   m_ObjectHideFlags: 1
@@ -149,6 +210,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400502}
   m_RootOrder: 0
+--- !u!4 &464138
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128468}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.36, y: 0, z: 4.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 410512}
+  m_RootOrder: 4
+--- !u!4 &478514
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171090}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.4, y: 0, z: 4.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 410512}
+  m_RootOrder: 2
 --- !u!23 &2300774
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -263,6 +348,7 @@ MonoBehaviour:
   canMove: 0
   currentWP: 1
   Lane: []
+  waypoints: []
   cursor: {fileID: 118682}
 --- !u!114 &11427756
 MonoBehaviour:
@@ -279,21 +365,49 @@ MonoBehaviour:
   _life: 2
   _lifeMax: 2
   _playerId: 1
+  _spells: []
+  _upgrades: []
   units:
   - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
-  - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
+  - {fileID: 170856, guid: 16387359b5695234bbc40af5ba9be44b, type: 2}
+  - {fileID: 170856, guid: 89293a87b10098544855b107086daeec, type: 2}
+  - {fileID: 170856, guid: efcb646a5c6d9af41b780ac0f34e26a4, type: 2}
   delay: 0
   waypoint: {fileID: 0}
   targetBase: {fileID: 0}
-  maxNbOfUnits: 05000000060000000700000008000000
+  maxNbOfUnits: 0a000000030000000500000005000000
   currentNbOfUnits: 00000000000000000000000000000000
   textCurrentNbOfUnits:
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   reloadUnitImage:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _lifeImage: {fileID: 0}
+  primarySpell: {fileID: 0}
+  secondarySpell: {fileID: 0}
+  primarySpells: []
+  secondarySpells: []
+  FxBlood: {fileID: 136768, guid: 03f876b3154aa9a419b0c305f0a6ae32, type: 2}
+--- !u!114 &11462460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 738edc9e38ff957499d2bc62254c909b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: BuffAtk
+  _cost: 0
+  _value: 2
+  _type: 0
 --- !u!114 &11470812
 MonoBehaviour:
   m_ObjectHideFlags: 1
