@@ -535,7 +535,7 @@ Prefab:
     - target: {fileID: 11422314, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
       propertyPath: waypoints.Array.data[0]
       value: 
-      objectReference: {fileID: 161111601}
+      objectReference: {fileID: 1619270939}
     - target: {fileID: 11422314, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
       propertyPath: waypoints.Array.data[1]
       value: 
@@ -543,7 +543,7 @@ Prefab:
     - target: {fileID: 11422314, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
       propertyPath: waypoints.Array.data[2]
       value: 
-      objectReference: {fileID: 1619270939}
+      objectReference: {fileID: 161111601}
     - target: {fileID: 11479908, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
       propertyPath: _enemyMotherBase
       value: 
