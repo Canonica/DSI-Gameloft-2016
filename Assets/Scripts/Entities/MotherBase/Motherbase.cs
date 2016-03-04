@@ -113,21 +113,18 @@ public class Motherbase : Entity
 
             if (Input.GetButtonDown("B_button_" + _playerId))
             {
-                Debug.Log(_playerId);
                 typeOfUnit = 1;
                 corSpawnUnits(typeOfUnit);
             }
 
             if (Input.GetButtonDown("X_button_" + _playerId))
             {
-                Debug.Log("X " + _playerId);
                 typeOfUnit = 2;
                 corSpawnUnits(typeOfUnit);
             }
 
             if (Input.GetButtonDown("Y_button_" + _playerId))
             {
-                Debug.Log("Y " + _playerId);
                 typeOfUnit = 3;
                 corSpawnUnits(typeOfUnit);
             }
@@ -173,8 +170,8 @@ public class Motherbase : Entity
             
             textCurrentNbOfUnits[0].text = currentNbOfUnits[0] + "/" + maxNbOfUnits[0];
             textCurrentNbOfUnits[1].text = currentNbOfUnits[1] + "/" + maxNbOfUnits[1];
-            textCurrentNbOfUnits[2].text = currentNbOfUnits[1] + "/" + maxNbOfUnits[2];
-            textCurrentNbOfUnits[3].text = currentNbOfUnits[1] + "/" + maxNbOfUnits[3];
+            textCurrentNbOfUnits[2].text = currentNbOfUnits[2] + "/" + maxNbOfUnits[2];
+            textCurrentNbOfUnits[3].text = currentNbOfUnits[3] + "/" + maxNbOfUnits[3];
         }
 
         _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
