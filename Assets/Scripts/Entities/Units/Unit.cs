@@ -49,8 +49,9 @@ public class Unit : Entity
     [SerializeField]
     private GameObject FxDeathBlood;
 
-
-
+    [Header("Sound")]
+    public AudioClip spawnFX;
+    public AudioClip hitFX;
 
 
     public override void Start()
@@ -61,6 +62,9 @@ public class Unit : Entity
         _trigger = new List<GameObject>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.speed = _movementSpeed;
+
+        if (spawnFX)
+            SoundManager.Instance.playSound(spawnFX, 0.3f);
     }
 
     // Update is called once per frame
@@ -94,7 +98,7 @@ public class Unit : Entity
     {
         if (_life <= 0)
         {
-            Instantiate(FxDeathBlood, this.gameObject.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
+            //Instantiate(FxDeathBlood, this.gameObject.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
             Camera.main.DOKill(true);
             Camera.main.DOShakePosition(0.05f * _startingLife / 4, 0.3f * _startingLife / 4);
 
@@ -207,6 +211,8 @@ public class Unit : Entity
             Unit unit = _target.GetComponent<Unit>();
             if (unit && unit._playerId != _playerId)
             {
+                if (hitFX)
+                    SoundManager.Instance.playSound(hitFX, 1);
                 unit.Hit(_damage);
                 GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
                 Destroy(fxToDestroy, 1.0f);

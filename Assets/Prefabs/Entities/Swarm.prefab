@@ -987,6 +987,8 @@ MonoBehaviour:
   collideNum: 0
   FxHitBlood: {fileID: 0}
   FxDeathBlood: {fileID: 0}
+  spawnFX: {fileID: 0}
+  hitFX: {fileID: 8300000, guid: 464866599c20da14ebd3dd47fd67b3ef, type: 3}
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1

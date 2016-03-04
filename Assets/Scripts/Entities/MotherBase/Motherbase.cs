@@ -42,7 +42,8 @@ public class Motherbase : Entity
     [SerializeField]
     private GameObject FxBlood;
 
-
+    [Header("Sound")]
+    public AudioClip spawnSwarmFX;
 
     // Use this for initialization
     void Awake()
@@ -107,6 +108,7 @@ public class Motherbase : Entity
 
             if (Input.GetButtonDown("Fire " + _playerId))
             {
+                
                 typeOfUnit = 0;
                 corSpawnUnits(typeOfUnit);
             }
@@ -199,6 +201,9 @@ public class Motherbase : Entity
     {
         if (currentNbOfUnits[typeOfUnit] > 0)
         {
+            if(typeOfUnit==0)
+                if (spawnSwarmFX)
+                    SoundManager.Instance.playSound(spawnSwarmFX, 0.3f);
             int unitToSpawn = units[typeOfUnit].GetComponent<Unit>().groupSpawn;
             EndGameManager.instance.addSpawn(_playerId, unitToSpawn);
 
