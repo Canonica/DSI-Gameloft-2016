@@ -17,11 +17,6 @@ public class ChangeLane : MonoBehaviour {
         Lane[2] = GameObject.Find("LaneTop");
         Lane[1] = GameObject.Find("LaneMid");
         Lane[0] = GameObject.Find("LaneBot");
-
-        waypoints = new GameObject[3];
-        waypoints[2] = transform.parent.GetChild(2).gameObject;
-        waypoints[1] = transform.parent.GetChild(3).gameObject;
-        waypoints[0] = transform.parent.GetChild(4).gameObject;
     }
 
 	// Use this for initialization
