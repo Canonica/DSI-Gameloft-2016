@@ -111,7 +111,7 @@ MonoBehaviour:
   _playerId: 0
   _spells: []
   _upgrades: []
-  img: Unit
+  img: Assets/Editor/Swarm.png
   name: Unit
   attackSpeed: 1
   _movementSpeed: 2
@@ -126,8 +126,8 @@ MonoBehaviour:
   laneEnd: 0
   lastCollision: 0
   collideNum: 0
-  FxHitBlood: {fileID: 136768, guid: a3f845a46e0bd5b4eb338d73e2d939cb, type: 2}
-  FxDeathBlood: {fileID: 136768, guid: b83a7ff2ca8aaff468bd682f70fe7457, type: 2}
+  FxHitBlood: {fileID: 0}
+  FxDeathBlood: {fileID: 0}
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1
