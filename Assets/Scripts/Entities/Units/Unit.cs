@@ -149,6 +149,7 @@ public class Unit : Entity
                 _isAttacking = true;
                 changeTarget();
                 StartCoroutine(targetMove());
+                _navMeshAgent.velocity /= 2;
             }
         }
     }

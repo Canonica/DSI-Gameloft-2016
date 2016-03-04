@@ -173,6 +173,8 @@ public class Motherbase : Entity
             
             textCurrentNbOfUnits[0].text = currentNbOfUnits[0] + "/" + maxNbOfUnits[0];
             textCurrentNbOfUnits[1].text = currentNbOfUnits[1] + "/" + maxNbOfUnits[1];
+            textCurrentNbOfUnits[2].text = currentNbOfUnits[1] + "/" + maxNbOfUnits[2];
+            textCurrentNbOfUnits[3].text = currentNbOfUnits[1] + "/" + maxNbOfUnits[3];
         }
 
         _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
