@@ -68,33 +68,39 @@ public class Unit : Entity
     public override void FixedUpdate()
     {
         
-        //if (!laneEnd && Vector3.Distance(waypointDest.pos, transform.position) < _distanceMinLane)
-        //{
-        //    if (waypointDest.Next(_playerId) == null)
-        //    {
-        //        laneEnd = true;
-        //    }
-        //    else
-        //    {
-        //        waypointDest = waypointDest.Next(_playerId);
-        //        if (waypointDest.isTeleport)
-        //        {
-        //            transform.position = waypointDest.pos;
-        //            waypointDest = waypointDest.Next(_playerId);
-        //        }
-        //    }
-        //    takeDestination();
-        //}
+        
 
         base.FixedUpdate();
 
+    }
+
+    public override void Update()
+    {
+        if (!laneEnd && Vector3.Distance(waypointDest.pos, transform.position) < _distanceMinLane)
+        {
+            if (waypointDest.Next(_playerId) == null)
+            {
+                laneEnd = true;
+            }
+            else
+            {
+                waypointDest = waypointDest.Next(_playerId);
+                if (waypointDest.isTeleport)
+                {
+                    transform.position = waypointDest.pos;
+                    waypointDest = waypointDest.Next(_playerId);
+                }
+            }
+            takeDestination();
+        }
+        base.Update();
     }
 
     void LateUpdate()
     {
         if (_life <= 0)
         {
-            Instantiate(FxDeathBlood, this.gameObject.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
+            //Instantiate(FxDeathBlood, this.gameObject.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
             Camera.main.DOKill(true);
             Camera.main.DOShakePosition(0.05f * _startingLife / 4, 0.3f * _startingLife / 4);
 
@@ -208,8 +214,7 @@ public class Unit : Entity
             if (unit && unit._playerId != _playerId)
             {
                 unit.Hit(_damage);
-                GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
-                Destroy(fxToDestroy, 1.0f);
+               // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
                 EndGameManager.instance.addDamage(_playerId, _damage);
                 applyBump(unit.transform.position, 0.1f,2);
             }
