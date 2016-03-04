@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System;
 using System.Collections;
@@ -8,11 +8,21 @@ using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-class UnitEditor : EditorWindow
+class MyUnitEditor : EditorWindow
 {
-	private string _editorName = "Units Editor";
+	// [START_REPLACE]
+	private string _editorName = "MyUnitEditor";
 	private string _loadingPath = "Prefabs/Resources/Entities";
 	private Type type = typeof(Unit);
+
+	[MenuItem ("Window/MyUnitEditor")]
+	public static void  ShowWindow ()
+	{
+		EditorWindow.GetWindow (typeof(MyUnitEditor));
+
+	}
+	// [END_REPLACE]
+
 
 	private int _fieldWidth = 128;
 
@@ -28,22 +38,12 @@ class UnitEditor : EditorWindow
 
 
 
-	[MenuItem ("Window/Units")]
-	public static void  ShowWindow ()
-	{
-		EditorWindow.GetWindow (typeof(UnitEditor));
 
-
-	}
 
 	void FetchValues ()
 	{
 		_values.Clear ();
 
-		/*GameObject target = new GameObject ();
-		target.AddComponent<Unit> ();
-		Debug.Log (Type.GetType ("Unit"));
-		Debug.Log (target.GetComponent ("Unit").GetType ());*/
 		System.Reflection.FieldInfo[] fields = type.GetFields ();
 
 		for (int i = 0; i <= fields.Length - 1; i++) {
