@@ -114,7 +114,7 @@ MonoBehaviour:
   img: Assets/Editor/Swarm.png
   name: Swarm
   attackSpeed: 0.3
-  _movementSpeed: 4
+  _movementSpeed: 20
   groupSpawn: 3
   _damage: 1
   _hatchTime: 1
@@ -138,7 +138,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &19576698
 NavMeshAgent:
