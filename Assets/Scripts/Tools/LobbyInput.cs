@@ -57,7 +57,7 @@ public class LobbyInput : MonoBehaviour
 				Img_Readiness_1.fillAmount = 0;
 			}
 
-			if (Input.GetAxis ("A_button_2") > 0) {
+			if (Input.GetAxis ("A_button_2") > 0 || Input.GetKey(KeyCode.T)) {
 				Readiness_2 += Time.deltaTime;
 				if (Readiness_2 / 0.5f <= 1) {
 					Img_Readiness_2.fillAmount = Readiness_2 / 0.5f;
