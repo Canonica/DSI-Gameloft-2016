@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using System.Linq;
 
 public class Unit : Entity
 {
@@ -66,8 +67,6 @@ public class Unit : Entity
 
     public override void FixedUpdate()
     {
-
-        base.FixedUpdate();
         
         if (!laneEnd && Vector3.Distance(waypointDest.pos, transform.position) < _distanceMinLane)
         {
@@ -86,24 +85,9 @@ public class Unit : Entity
             }
             takeDestination();
         }
-            /*if(_target)
-            {
-                RaycastHit hit;
-                Vector3 direc = (_target.transform.position - transform.position).normalized;
-                if (Physics.Raycast(transform.position, _target.transform.position - transform.position, out hit))
-                {
-                    if (hit.collider.gameObject != _target && hit.collider.gameObject != gameObject && _navMeshAgent.destination != transform.position)
-                    {
-                        _navMeshAgent.SetDestination(transform.position);
-                    }
-                    else if (_navMeshAgent.destination == transform.position)
-                    {
-                        _navMeshAgent.SetDestination(_target.transform.position);
-                    }
-                }
-            }*/
-            
-        
+
+        base.FixedUpdate();
+
     }
 
     void LateUpdate()
@@ -180,11 +164,7 @@ public class Unit : Entity
 
     protected void changeTarget()
     {
-        while (_trigger.Count > 0 && _trigger[0] == null)
-        {
-            
-            _trigger.RemoveAt(0);
-        }
+        _trigger = _trigger.Where(trigger => trigger != null).ToList();
 
         if (_trigger.Count > 0)
         {

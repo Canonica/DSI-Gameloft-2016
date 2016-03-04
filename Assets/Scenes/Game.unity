@@ -576,10 +576,6 @@ Prefab:
       propertyPath: _lifeImage
       value: 
       objectReference: {fileID: 1770424389}
-    - target: {fileID: 164428, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
   m_IsPrefabParent: 0
