@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: _retopo_terrain_mobadefault
+  m_Name: default
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
@@ -78,48 +78,6 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Diffuse
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _OpacityMask
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _InflatePatern
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Inflatemask
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _DissolvePatern
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _DissolveRamp
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -144,7 +102,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: 0
+        second: 0.5
       data:
         first:
           name: _BumpScale
@@ -169,34 +127,6 @@ Material:
         first:
           name: _Metallic
         second: 0
-      data:
-        first:
-          name: _FresnelValue
-        second: 3
-      data:
-        first:
-          name: _InflateSpeed
-        second: 5
-      data:
-        first:
-          name: _InflateValue
-        second: 3
-      data:
-        first:
-          name: _Dissolve
-        second: 0
-      data:
-        first:
-          name: _DissolveThickeness
-        second: 3
-      data:
-        first:
-          name: _OutlineOn
-        second: 0
-      data:
-        first:
-          name: _OutlineWidth
-        second: 1
     m_Colors:
       data:
         first:
@@ -205,16 +135,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 0.45840293, g: 0.4460424, b: 0.5514706, a: 1}
-      data:
-        first:
-          name: _DiffuseColor
-        second: {r: 0.30055147, g: 0.3010649, b: 0.375, a: 1}
-      data:
-        first:
-          name: _FresnelColor
-        second: {r: 0.42311853, g: 0.44187742, b: 0.63235295, a: 1}
-      data:
-        first:
-          name: _OutlineColor
-        second: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+        second: {r: 0.588, g: 0.588, b: 0.588, a: 1}

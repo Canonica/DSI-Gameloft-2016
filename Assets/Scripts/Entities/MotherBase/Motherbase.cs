@@ -113,21 +113,18 @@ public class Motherbase : Entity
 
             if (Input.GetButtonDown("B_button_" + _playerId))
             {
-                Debug.Log(_playerId);
                 typeOfUnit = 1;
                 corSpawnUnits(typeOfUnit);
             }
 
             if (Input.GetButtonDown("X_button_" + _playerId))
             {
-                Debug.Log("X " + _playerId);
                 typeOfUnit = 2;
                 corSpawnUnits(typeOfUnit);
             }
 
             if (Input.GetButtonDown("Y_button_" + _playerId))
             {
-                Debug.Log("Y " + _playerId);
                 typeOfUnit = 3;
                 corSpawnUnits(typeOfUnit);
             }
