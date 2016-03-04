@@ -134,7 +134,9 @@ public class Unit : Entity
         }
         else if (mother && other.CompareTag("MotherBase") && mother._playerId != _playerId)
         {
-            mother.getDamage(1);
+            EndGameManager.instance.addDamage(_playerId, _damage);
+            EndGameManager.instance.addDamage((_playerId % 2) + 1, _life);
+            mother.getDamage(_damage);
             Hit(_life);
         }
     }
