@@ -109,7 +109,7 @@ public class Unit : Entity
         }
     }
 
-    void OnCollisionEnter(Collision parOther)
+    public virtual void OnCollisionEnter(Collision parOther)
     {
         GameObject other = parOther.gameObject;
         Motherbase mother = other.GetComponent<Motherbase>();
@@ -178,7 +178,11 @@ public class Unit : Entity
             if (_target == null)
                 changeTarget();
             else
-           _navMeshAgent.SetDestination(_target.transform.position);
+            {
+                if(_navMeshAgent.enabled == true)
+                    _navMeshAgent.SetDestination(_target.transform.position);
+            }
+          
             
             yield return new WaitForSeconds(0.5f);
         }
