@@ -221,10 +221,12 @@ public class Unit : Entity
     {
         if (laneEnd)
         {
-            _navMeshAgent.SetDestination(_enemyMotherBase.transform.position);
+            if (_navMeshAgent.enabled)
+                _navMeshAgent.SetDestination(_enemyMotherBase.transform.position);
         }
         else
         {
+            if(_navMeshAgent.enabled)
             _navMeshAgent.SetDestination(waypointDest.pos);
         }
     }

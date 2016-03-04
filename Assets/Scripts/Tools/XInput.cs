@@ -30,11 +30,11 @@ public class XInput : MonoBehaviour
                 {
                     Debug.Log(string.Format("GamePad found {0}", testPlayerIndex));
                     playerIndex = testPlayerIndex;
+                    Debug.Log(playerIndex);
                     playerIndexSet = true;
                 }
             }
         }
-
         prevState = state;
         state = GamePad.GetState(playerIndex);
 
@@ -47,13 +47,15 @@ public class XInput : MonoBehaviour
 
     public void useVibe(int id, float time, float force1, float force2)
     {
-        StartCoroutine(vibration((PlayerIndex)id, time,  force1,  force2));
+        Debug.Log(" Player "+id+" Manette: "+ (PlayerIndex)(id-1));
+        StartCoroutine(vibration((PlayerIndex)(id-1), time,  force1,  force2));
     }
 
     IEnumerator vibration(PlayerIndex id, float time, float force1, float force2)
     {
-        GamePad.SetVibration(playerIndex, force1, force2);
+        Debug.Log(" Player id in coro " + id );
+        GamePad.SetVibration(id, force1, force2);
         yield return new WaitForSeconds(time);
-        GamePad.SetVibration(playerIndex, 0, 0);
+        GamePad.SetVibration(id, 0, 0);
     }
 }
