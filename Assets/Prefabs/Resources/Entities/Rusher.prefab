@@ -11,12 +11,12 @@ GameObject:
   - 33: {fileID: 3315436}
   - 65: {fileID: 6508616}
   - 23: {fileID: 2350092}
-  - 114: {fileID: 11456286}
   - 135: {fileID: 13595940}
   - 195: {fileID: 19576698}
   - 54: {fileID: 5481366}
+  - 114: {fileID: 11488718}
   m_Layer: 0
-  m_Name: Swarm
+  m_Name: Rusher
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 170856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.32, y: 1.5, z: -0.52}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 0.8, z: 1.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -94,7 +94,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11456286
+--- !u!114 &11488718
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -102,28 +102,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 170856}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c23bc21b62fea5e4ca0441f7d7cb08e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 6802ded776f0957429b05e1229c7d609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyMotherBase: {fileID: 0}
-  _life: 3
-  _lifeMax: 2
+  _life: 10
+  _lifeMax: 10
   _playerId: 0
   _spells: []
   _upgrades: []
-  attackSpeed: 0.3
-  _movementSpeed: 4
-  groupSpawn: 3
-  _damage: 1
-  _hatchTime: 1
-  smoother: 40
+  attackSpeed: 0.2
+  _movementSpeed: 8
+  groupSpawn: 1
+  _damage: 3
+  _hatchTime: 5
+  smoother: 20
   _target: {fileID: 0}
   _trigger: []
-  _distanceMinLane: 4
+  _distanceMinLane: 8
   waypointDest: {fileID: 0}
   laneEnd: 0
   lastCollision: 0
   collideNum: 0
+  flyHeight: 5
+  isFlying: 0
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -143,10 +145,10 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170856}
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.001
   m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 0
+  avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -155,7 +157,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0.5
   m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 2
+  m_ObstacleAvoidanceType: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

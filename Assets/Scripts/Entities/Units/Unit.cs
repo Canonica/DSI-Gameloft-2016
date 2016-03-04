@@ -18,7 +18,7 @@ public class Unit : Entity
 
     [Header("Other")]
     public GameObject _target;
-    NavMeshAgent _navMeshAgent;
+    protected NavMeshAgent _navMeshAgent;
     public List<GameObject> _trigger;
     bool _isAttacking;
     public float _distanceMinLane = 4f;
@@ -127,7 +127,7 @@ public class Unit : Entity
         }
     }
 
-    void OnTriggerEnter(Collider parOther)
+    public virtual void OnTriggerEnter(Collider parOther)
     {
         if (parOther.CompareTag("Unit") && parOther.GetComponent<Unit>()._playerId != _playerId)
         {
@@ -141,7 +141,7 @@ public class Unit : Entity
         }
     }
 
-    void OnTriggerExit(Collider parOther)
+    public virtual void OnTriggerExit(Collider parOther)
     {
         
         _trigger.Remove(parOther.gameObject);

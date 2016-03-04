@@ -92,7 +92,6 @@ public class Motherbase : Entity
 
         if (GameManager.instance.currentGamestate == GameManager.gameState.Playing)
         {
-            Debug.Log("update");
             if (!spawning)
             {
                 StartCoroutine(loadUnit(0));
@@ -104,7 +103,6 @@ public class Motherbase : Entity
 
             if (Input.GetButtonDown("Fire " + _playerId))
             {
-                Debug.Log("je passe");
                 typeOfUnit = 0;
                 corSpawnUnits(typeOfUnit);
             }
