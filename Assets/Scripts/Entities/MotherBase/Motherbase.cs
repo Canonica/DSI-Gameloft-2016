@@ -184,7 +184,7 @@ public class Motherbase : Entity
         Instantiate(FxBlood, transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
         if(_playerId == 1)
         {
-            XInput.instance.useVibe(2, 1, 1, 1);
+            XInput.instance.useVibe(0, 1, 1, 1);
         }
         else
         {
