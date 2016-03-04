@@ -8,11 +8,21 @@ using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-class UnitEditor : EditorWindow
+class TempalteWindow : EditorWindow
 {
-	private string _editorName = "Units Editor";
-	private string _loadingPath = "Prefabs/Resources/Entities";
-	private Type type = typeof(Unit);
+	// [START_REPLACE]
+	private string _editorName = "TempalteWindow";
+	private string _loadingPath = "ReplacePath";
+	private Type type = typeof(Int64);
+
+	[MenuItem ("Window/TempalteWindow")]
+	public static void  ShowWindow ()
+	{
+		EditorWindow.GetWindow (typeof(TempalteWindow));
+
+	}
+	// [END_REPLACE]
+
 
 	private int _fieldWidth = 128;
 
@@ -28,22 +38,12 @@ class UnitEditor : EditorWindow
 
 
 
-	[MenuItem ("Window/Units")]
-	public static void  ShowWindow ()
-	{
-		EditorWindow.GetWindow (typeof(UnitEditor));
 
-
-	}
 
 	void FetchValues ()
 	{
 		_values.Clear ();
 
-		/*GameObject target = new GameObject ();
-		target.AddComponent<Unit> ();
-		Debug.Log (Type.GetType ("Unit"));
-		Debug.Log (target.GetComponent ("Unit").GetType ());*/
 		System.Reflection.FieldInfo[] fields = type.GetFields ();
 
 		for (int i = 0; i <= fields.Length - 1; i++) {
