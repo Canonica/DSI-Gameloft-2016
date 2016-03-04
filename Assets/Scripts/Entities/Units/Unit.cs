@@ -1,13 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class Unit : Entity
 {
+    [Header("Tool")]
+    [Tweakable]
+    public string img = "Unit";
+    [Tweakable]
+    public string name = "Unit";
+
     [Header("Unit Option")]
+    [Tweakable]
     public float attackSpeed = 1;
+    [Tweakable]
     public float _movementSpeed = 5.0f;
+    [Tweakable]
     public int groupSpawn = 1;
+    [Tweakable]
     public int _damage = 2;
     // Utilisera les Spells
     public float _hatchTime = 1.0f;
@@ -28,9 +39,22 @@ public class Unit : Entity
     public int collideNum = 0;
     float lastAttack = 0;
     bool isBumped = false;
+    private int _startingLife;
+
+    [Header("FX")]
+    [SerializeField]
+    private GameObject FxHitBlood;
+
+    [SerializeField]
+    private GameObject FxDeathBlood;
+
+
+
+
 
     public override void Start()
     {
+        _startingLife = _life;
         base.Start();
 
         _trigger = new List<GameObject>();
@@ -86,6 +110,10 @@ public class Unit : Entity
     {
         if (_life <= 0)
         {
+            Instantiate(FxDeathBlood, this.gameObject.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
+            Camera.main.DOKill(true);
+            Camera.main.DOShakePosition(0.05f * _startingLife / 4, 0.3f * _startingLife / 4);
+
             EndGameManager.instance.addDeath(_playerId);
             StopAllCoroutines();
             Destroy(this.gameObject);
@@ -193,6 +221,8 @@ public class Unit : Entity
             if (unit && unit._playerId != _playerId)
             {
                 unit.Hit(_damage);
+                Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
+
                 EndGameManager.instance.addDamage(_playerId, _damage);
                 applyBump(unit.transform.position, 0.1f,2);
             }

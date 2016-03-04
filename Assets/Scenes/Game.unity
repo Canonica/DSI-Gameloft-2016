@@ -116,10 +116,10 @@ RectTransform:
   - {fileID: 1336798328}
   m_Father: {fileID: 267488804}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -855, y: -405}
-  m_SizeDelta: {x: -1709, y: -810}
+  m_AnchorMin: {x: -0.00026041668, y: 0}
+  m_AnchorMax: {x: 0.10963542, y: 0.25022694}
+  m_AnchoredPosition: {x: 36, y: 0}
+  m_SizeDelta: {x: 71, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1707914
 MonoBehaviour:
@@ -2099,10 +2099,10 @@ RectTransform:
   - {fileID: 14607781}
   m_Father: {fileID: 1707913}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0.17552082, y: 0.1598668}
-  m_AnchorMax: {x: 0.21145834, y: 0.23206718}
-  m_AnchoredPosition: {x: 320.41876, y: 158.73326}
-  m_SizeDelta: {x: 59.512497, y: 58.482327}
+  m_AnchorMin: {x: 1.2977699, y: 0.63888717}
+  m_AnchorMax: {x: 1.5634854, y: 0.9274269}
+  m_AnchoredPosition: {x: -0.000015258789, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1441164651
 GameObject:
@@ -2253,10 +2253,10 @@ RectTransform:
   - {fileID: 585597138}
   m_Father: {fileID: 1707913}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0.123437494, y: 0.1598668}
-  m_AnchorMax: {x: 0.15937501, y: 0.23206718}
-  m_AnchoredPosition: {x: 234.16876, y: 158.73326}
-  m_SizeDelta: {x: 59.51249, y: 58.482327}
+  m_AnchorMin: {x: 0.912675, y: 0.63888717}
+  m_AnchorMax: {x: 1.1783905, y: 0.9274269}
+  m_AnchoredPosition: {x: -0.0000076293945, y: 0}
+  m_SizeDelta: {x: -0.000015258789, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1463098814
 GameObject:
@@ -2326,10 +2326,10 @@ RectTransform:
   - {fileID: 1463098815}
   m_Father: {fileID: 267488804}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 854.5, y: -405.00003}
-  m_SizeDelta: {x: -1709, y: -810}
+  m_AnchorMin: {x: 0.84765625, y: -0.0000000423727}
+  m_AnchorMax: {x: 0.9997396, y: 0.25022694}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1533745443
 MonoBehaviour:

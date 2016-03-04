@@ -38,6 +38,10 @@ public class Motherbase : Entity
     public List<Spell> primarySpells;
     public List<Spell> secondarySpells;
 
+    [Header("FX")]
+    [SerializeField]
+    private GameObject FxBlood;
+
 
 
     // Use this for initialization
@@ -231,6 +235,7 @@ public class Motherbase : Entity
 
     public void getDamage(int dmg)
     {
+        Instantiate(FxBlood, transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
         XInput.instance.useVibe(_playerId, 1, 1, 1);
         if (dmg > _life)
         {

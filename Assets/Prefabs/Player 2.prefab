@@ -331,6 +331,7 @@ MonoBehaviour:
   secondarySpell: {fileID: 0}
   primarySpells: []
   secondarySpells: []
+  FxBlood: {fileID: 136768, guid: 03f876b3154aa9a419b0c305f0a6ae32, type: 2}
 --- !u!135 &13574888
 SphereCollider:
   m_ObjectHideFlags: 1
