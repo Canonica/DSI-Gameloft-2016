@@ -111,7 +111,7 @@ MonoBehaviour:
   _playerId: 0
   _spells: []
   _upgrades: []
-  img: Unit
+  img: Assets/Editor/Swarm.png
   name: Unit
   attackSpeed: 0.2
   _movementSpeed: 4

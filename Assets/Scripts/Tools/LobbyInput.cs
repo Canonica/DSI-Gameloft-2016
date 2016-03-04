@@ -22,6 +22,7 @@ public class LobbyInput : MonoBehaviour
 
 	Image Img_Readiness_1;
 	Image Img_Readiness_2;
+	GameObject HowToPlay;
 
 
 	int tick = 0;
@@ -35,6 +36,7 @@ public class LobbyInput : MonoBehaviour
 
 		Img_Readiness_1 = GameObject.Find ("Readiness1").GetComponent<Image> ();
 		Img_Readiness_2 = GameObject.Find ("Readiness2").GetComponent<Image> ();
+		HowToPlay = GameObject.Find ("HowToPlay");
 //		Img_Readiness_1 = GameObject.Find ("Readines1");
 	}
 
@@ -57,7 +59,7 @@ public class LobbyInput : MonoBehaviour
 				Img_Readiness_1.fillAmount = 0;
 			}
 
-			if (Input.GetAxis ("A_button_2") > 0 || Input.GetKey(KeyCode.T)) {
+			if (Input.GetAxis ("A_button_2") > 0 || Input.GetKey (KeyCode.T)) {
 				Readiness_2 += Time.deltaTime;
 				if (Readiness_2 / 0.5f <= 1) {
 					Img_Readiness_2.fillAmount = Readiness_2 / 0.5f;
@@ -131,12 +133,19 @@ public class LobbyInput : MonoBehaviour
 	void CheckReadiness ()
 	{
 		if (isReady_1 && isReady_2) {
-			Time.timeScale = 1;
+			HowToPlay.GetComponent<Animator> ().SetTrigger ("In");
 
-
-			GameManager.GetInstance ().currentGamestate = GameManager.gameState.Waiting;
-			SceneManager.LoadScene (2);
+			Invoke ("Launch", 5f);
 		}
+	}
+
+	void Launch ()
+	{
+		Time.timeScale = 1;
+
+
+		GameManager.GetInstance ().currentGamestate = GameManager.gameState.Waiting;
+		SceneManager.LoadScene (2);
 	}
 
 }

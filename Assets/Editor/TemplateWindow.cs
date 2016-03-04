@@ -83,19 +83,18 @@ class TempalteWindow : EditorWindow
 
 
 		if (loaded) {
-			int perLine = (int)(Mathf.Floor (position.width / 256f)); 
+			int perLine = (int)(Mathf.Floor (position.width / 280f)); 
 			GUILayout.Label (_editorName, h1);
 
 			GUILayout.Space (20);
 
-			Debug.Log (position.width);
 			scrollPos = EditorGUILayout.BeginScrollView (scrollPos, GUILayout.MinWidth (position.width));
 			GUILayout.BeginHorizontal ();
 			for (int i = 0; i <= _gameObjects.Count - 1; i++) {
 				string life;
 				Component u = _gameObjects [i].GetComponent (type.ToString ());
 
-				GUILayout.BeginVertical (GUILayout.MaxWidth (256));
+				GUILayout.BeginVertical (GUILayout.MaxWidth (280));
 				GUILayout.Label (u.name, h2);
 
 
@@ -167,8 +166,6 @@ class TempalteWindow : EditorWindow
 
 	void LoadPrefabs ()
 	{
-		//_prefabs = AssetDatabase.LoadAllAssetsAtPath (_loadingPath);
-
 		_prefabs = Directory.GetFiles (Application.dataPath + "/" + _loadingPath, "*.prefab", SearchOption.AllDirectories);
 		_gameObjects = new List<GameObject> ();
 

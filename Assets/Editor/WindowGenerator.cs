@@ -52,7 +52,11 @@ class WindowGenerator : EditorWindow
 				tempalte = tempalte.Replace ("TempalteWindow", _windowName);
 				tempalte = tempalte.Replace ("ReplacePath", _gameobjectPath);
 				tempalte = tempalte.Replace ("Int64", _componentType);
+				if (File.Exists (Application.dataPath + "/Editor/" + _windowName + ".cs")) {
+					File.Delete (Application.dataPath + "/Editor/" + _windowName + ".cs");
+				}
 				File.WriteAllText (Application.dataPath + "/Editor/" + _windowName + ".cs", tempalte);
+				AssetDatabase.Refresh ();
 			}
 		}
 
