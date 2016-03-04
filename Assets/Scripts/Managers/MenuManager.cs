@@ -59,11 +59,11 @@ public class MenuManager : MonoBehaviour
 						ShowOptions ();
 					});
 					break;
-				case "CreditsButton":
-					child.GetComponent<Button> ().onClick.AddListener (() => {
-						ShowCredits ();
-					});
-					break;
+				//case "CreditsButton":
+				//	child.GetComponent<Button> ().onClick.AddListener (() => {
+				//		ShowCredits ();
+				//	});
+				//	break;
 				case "QuitButton":
 					child.GetComponent<Button> ().onClick.AddListener (() => {
 						Quit ();

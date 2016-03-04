@@ -973,7 +973,7 @@ MonoBehaviour:
   img: Assets/Editor/Swarm.png
   name: lol
   attackSpeed: 0.3
-  _movementSpeed: 20
+  _movementSpeed: 12
   groupSpawn: 3
   _damage: 1
   _hatchTime: 1
