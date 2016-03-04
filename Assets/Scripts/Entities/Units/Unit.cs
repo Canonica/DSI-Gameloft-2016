@@ -68,23 +68,23 @@ public class Unit : Entity
     public override void FixedUpdate()
     {
         
-        if (!laneEnd && Vector3.Distance(waypointDest.pos, transform.position) < _distanceMinLane)
-        {
-            if (waypointDest.Next(_playerId) == null)
-            {
-                laneEnd = true;
-            }
-            else
-            {
-                waypointDest = waypointDest.Next(_playerId);
-                if (waypointDest.isTeleport)
-                {
-                    transform.position = waypointDest.pos;
-                    waypointDest = waypointDest.Next(_playerId);
-                }
-            }
-            takeDestination();
-        }
+        //if (!laneEnd && Vector3.Distance(waypointDest.pos, transform.position) < _distanceMinLane)
+        //{
+        //    if (waypointDest.Next(_playerId) == null)
+        //    {
+        //        laneEnd = true;
+        //    }
+        //    else
+        //    {
+        //        waypointDest = waypointDest.Next(_playerId);
+        //        if (waypointDest.isTeleport)
+        //        {
+        //            transform.position = waypointDest.pos;
+        //            waypointDest = waypointDest.Next(_playerId);
+        //        }
+        //    }
+        //    takeDestination();
+        //}
 
         base.FixedUpdate();
 
