@@ -33,7 +33,7 @@ public class SpellSelection : MonoBehaviour {
             {
                 GameObject slots = Instantiate(prefabSlot) as GameObject;
                 slots.transform.parent = spellInventory.transform;
-                slots.GetComponent<RectTransform>().localPosition = new Vector3()
+                slots.GetComponent<RectTransform>().localPosition = new Vector3();
             }
         }
     }
