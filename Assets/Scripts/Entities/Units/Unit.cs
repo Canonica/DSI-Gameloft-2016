@@ -41,6 +41,8 @@ public class Unit : Entity
     float lastAttack = 0;
     public bool isBumped = false;
     private int _startingLife;
+    public int _laneSpawning;
+
 
     [Header("FX")]
     [SerializeField]
@@ -199,8 +201,6 @@ public class Unit : Entity
                 if(_navMeshAgent.enabled == true)
                     _navMeshAgent.SetDestination(_target.transform.position);
             }
-          
-            
             yield return new WaitForSeconds(0.5f);
         }
         changeTarget();
@@ -216,7 +216,7 @@ public class Unit : Entity
                 unit.Hit(_damage);
                // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
                 EndGameManager.instance.addDamage(_playerId, _damage);
-                //applyBump(unit.transform.position, 0.1f,2);
+                applyBump(unit.transform.position, 0.1f,2);
             }
         }
         else
