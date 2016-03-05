@@ -23,7 +23,7 @@ public class ChangeLane : MonoBehaviour {
 	void Start () {
         canMove = true;
         id = GetComponent<Motherbase>()._playerId;
-        cursor.transform.position = waypoints[currentWP].transform.position;
+        cursor.transform.position = waypoints[currentWP].transform.position + Vector3.up * 10;
         applyChange();
     }
 	
@@ -63,7 +63,7 @@ public class ChangeLane : MonoBehaviour {
         {
             currentWP = 0;
         }
-        cursor.transform.position = waypoints[currentWP].transform.position;
+        cursor.transform.position = waypoints[currentWP].transform.position + Vector3.up * 10;
         applyChange();
         yield return new WaitForSeconds(delayMove);
         canMove = true;
@@ -82,7 +82,7 @@ public class ChangeLane : MonoBehaviour {
         {
             currentWP = Lane.Length-1;
         }
-        cursor.transform.position = waypoints[currentWP].transform.position;
+        cursor.transform.position = waypoints[currentWP].transform.position + Vector3.up * 10;
         applyChange();
         yield return new WaitForSeconds(delayMove);
         canMove = true;

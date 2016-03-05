@@ -66,7 +66,8 @@ ModelImporter:
     400056: MASTER
     400058: //RootNode
     4300000: default
-    7400000: Take 001
+    7400000: RUN
+    7400002: ATTACK
     9500000: //RootNode
     11100000: //RootNode
     13700000: default
@@ -92,11 +93,99 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: RUN
       takeName: Take 001
-      firstFrame: 0
-      lastFrame: 330
+      firstFrame: 96
+      lastFrame: 110
       wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: default
+        weight: 1
+      - path: MASTER
+        weight: 1
+      - path: MASTER/C_leg_1
+        weight: 1
+      - path: MASTER/C_leg_1/IK Chain002
+        weight: 1
+      - path: MASTER/C_leg_2
+        weight: 1
+      - path: MASTER/C_leg_2/IK Chain001
+        weight: 1
+      - path: MASTER/C_leg_3
+        weight: 1
+      - path: MASTER/C_leg_3/IK Chain003
+        weight: 1
+      - path: MASTER/C_leg_4
+        weight: 1
+      - path: MASTER/C_leg_4/IK Chain004
+        weight: 1
+      - path: MASTER/C_Pelvis
+        weight: 1
+      - path: MASTER/C_Pelvis/Bone013
+        weight: 1
+      - path: MASTER/C_Pelvis/Bone013/Bone001
+        weight: 1
+      - path: MASTER/C_Pelvis/Bone013/Bone001/Bone002
+        weight: 1
+      - path: MASTER/C_Pelvis/Bone013/Bone001/Bone002/Bone003
+        weight: 1
+      - path: MASTER/C_Pelvis/Bone013/Bone004
+        weight: 1
+      - path: MASTER/C_Pelvis/Bone013/Bone004/Bone005
+        weight: 1
+      - path: MASTER/C_Pelvis/Bone013/Bone004/Bone005/Bone006
+        weight: 1
+      - path: MASTER/C_Pelvis/Bone013/Bone007
+        weight: 1
+      - path: MASTER/C_Pelvis/Bone013/Bone007/Bone008
+        weight: 1
+      - path: MASTER/C_Pelvis/Bone013/Bone007/Bone008/Bone009
+        weight: 1
+      - path: MASTER/C_Pelvis/Bone013/Bone010
+        weight: 1
+      - path: MASTER/C_Pelvis/Bone013/Bone010/Bone011
+        weight: 1
+      - path: MASTER/C_Pelvis/Bone013/Bone010/Bone011/Bone012
+        weight: 1
+      - path: MASTER/C_Pelvis/C_Abdomen
+        weight: 1
+      - path: MASTER/C_Pelvis/C_Abdomen/Bone016
+        weight: 1
+      - path: MASTER/C_Pelvis/C_Head
+        weight: 1
+      - path: MASTER/C_Pelvis/C_Head/Bone014
+        weight: 1
+      - path: MASTER/C_Pelvis/C_Head/Bone014/Bone015
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: ATTACK
+      takeName: Take 001
+      firstFrame: 184
+      lastFrame: 198
+      wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0

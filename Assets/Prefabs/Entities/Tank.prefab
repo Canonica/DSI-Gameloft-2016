@@ -1232,7 +1232,7 @@ MonoBehaviour:
   smoother: 20
   _target: {fileID: 0}
   _trigger: []
-  _distanceMinLane: 4
+  _distanceMinLane: 8
   waypointDest: {fileID: 0}
   laneEnd: 0
   lastCollision: 0

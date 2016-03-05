@@ -72,26 +72,32 @@ public class Unit : Entity
     public override void FixedUpdate()
     {
         
-        //if (!laneEnd && Vector3.Distance(waypointDest.pos, transform.position) < _distanceMinLane)
-        //{
-        //    if (waypointDest.Next(_playerId) == null)
-        //    {
-        //        laneEnd = true;
-        //    }
-        //    else
-        //    {
-        //        waypointDest = waypointDest.Next(_playerId);
-        //        if (waypointDest.isTeleport)
-        //        {
-        //            transform.position = waypointDest.pos;
-        //            waypointDest = waypointDest.Next(_playerId);
-        //        }
-        //    }
-        //    takeDestination();
-        //}
+        
 
         base.FixedUpdate();
 
+    }
+
+    public override void Update()
+    {
+        if (!laneEnd && Vector3.Distance(waypointDest.pos, transform.position) < _distanceMinLane)
+        {
+            if (waypointDest.Next(_playerId) == null)
+            {
+                laneEnd = true;
+            }
+            else
+            {
+                waypointDest = waypointDest.Next(_playerId);
+                if (waypointDest.isTeleport)
+                {
+                    transform.position = waypointDest.pos;
+                    waypointDest = waypointDest.Next(_playerId);
+                }
+            }
+            takeDestination();
+        }
+        base.Update();
     }
 
     void LateUpdate()
@@ -214,8 +220,7 @@ public class Unit : Entity
                 if (hitFX)
                     SoundManager.Instance.playSound(hitFX, 1);
                 unit.Hit(_damage);
-                GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
-                Destroy(fxToDestroy, 1.0f);
+               // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
                 EndGameManager.instance.addDamage(_playerId, _damage);
                 applyBump(unit.transform.position, 0.1f,2);
             }
