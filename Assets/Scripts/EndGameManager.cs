@@ -44,8 +44,8 @@ public class EndGameManager : MonoBehaviour {
 
     public void motherBaseDead(int idLoser)
     {
+        XInput.instance.useVibe(0, 0, 0, 0);
         XInput.instance.useVibe(1, 0, 0, 0);
-        XInput.instance.useVibe(2, 0, 0, 0);
         GameManager.instance.currentGamestate = GameManager.gameState.Menu;
         Time.timeScale = 0;
         player1UI.SetActive(true);

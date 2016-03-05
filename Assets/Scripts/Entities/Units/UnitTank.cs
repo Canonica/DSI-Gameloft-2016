@@ -20,7 +20,12 @@ public class UnitTank : Unit {
     {
         if (_target)
         {
-            _target.GetComponent<Unit>().applyBump(transform.position, bumpForce);
+            for (int i = 0; i < _trigger.Count; i++)
+            {
+                if(_trigger[i])
+                _trigger[i].GetComponent<Unit>().applyBump(transform.position, bumpForce);
+            }
+            
         }
         else
         {

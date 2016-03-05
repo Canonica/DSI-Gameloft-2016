@@ -463,7 +463,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100868}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.002618103, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 478370}
@@ -475,7 +475,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -120.56413, y: -1040.1903, z: 22.745018}
+  m_LocalPosition: {x: -279.2224, y: -912.21814, z: -144.48537}
   m_LocalScale: {x: 1.5, y: 0.8, z: 1.5}
   m_Children:
   - {fileID: 478370}
@@ -578,7 +578,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.074249, y: -25, z: -0.38517}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 7.8645363, y: 14.746006, z: 7.8645363}
   m_Children:
   - {fileID: 408170}
@@ -592,7 +592,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182444}
   m_LocalRotation: {x: -0.5029308, y: 0.53389364, z: -0.46607307, w: -0.4947667}
-  m_LocalPosition: {x: -0.0035592983, y: 0.08125509, z: 0.084366456}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.99999994, z: 1}
   m_Children:
   - {fileID: 487432}
@@ -674,7 +674,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 172014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 2.2434034}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 479470}
@@ -738,7 +738,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 10, y: 7, z: 6}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!111 &11155836
 Animation:
@@ -788,9 +788,12 @@ MonoBehaviour:
   lastCollision: 0
   collideNum: 0
   isBumped: 0
+  _laneSpawning: 0
   FxHitBlood: {fileID: 136768, guid: a3f845a46e0bd5b4eb338d73e2d939cb, type: 2}
   FxDeathBlood: {fileID: 136768, guid: b83a7ff2ca8aaff468bd682f70fe7457, type: 2}
-  flyHeight: 5
+  spawnFX: {fileID: 0}
+  hitFX: {fileID: 0}
+  flyHeight: 0
   isFlying: 0
 --- !u!135 &13595940
 SphereCollider:
@@ -802,7 +805,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 8
+  m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &13797504
 SkinnedMeshRenderer:
@@ -877,7 +880,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: -8
+  m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 0
 --- !u!1001 &100100000

@@ -15,6 +15,7 @@ public class Unit : Entity
     [Header("Unit Option")]
     [Tweakable]
     public float attackSpeed = 1;
+    bool attackReady = false;
     [Tweakable]
     public float _movementSpeed = 5.0f;
     [Tweakable]
@@ -212,8 +213,9 @@ public class Unit : Entity
 
     public virtual void Attack()
     {
-        if (_target)
+        if (_target && attackReady)
         {
+            attackReady = false;
             Unit unit = _target.GetComponent<Unit>();
             if (unit && unit._playerId != _playerId)
             {
@@ -222,14 +224,26 @@ public class Unit : Entity
                 unit.Hit(_damage);
                // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
                 EndGameManager.instance.addDamage(_playerId, _damage);
-                applyBump(unit.transform.position, 0.1f,2);
+                
             }
+            StartCoroutine(reload());
         }
         else
         {
+            
+            if (_target)
+                applyBump(_target.transform.position, 0.1f, 2);
+            else
             _isAttacking = false;
         }
     }
+
+    IEnumerator reload()
+    {
+        yield return new WaitForSeconds(attackSpeed);
+        attackReady = true;
+    }
+
 
     void takeDestination()
     {
@@ -249,6 +263,7 @@ public class Unit : Entity
     {
         if (!isBumped)
         {
+            force = 1;
             Debug.Log("bump");
             Vector3 dir = transform.position - from;
             isBumped = true;

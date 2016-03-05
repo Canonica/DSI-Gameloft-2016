@@ -6,7 +6,7 @@ public class ChangeLane : MonoBehaviour
     int id = 0;
     public float delayMove;
     public bool canMove;
-    public int currentWP = 1;
+    public int currentWP = 0;
     public GameObject[] Lane;
     public GameObject cursor;
     Motherbase mBase;
@@ -36,6 +36,19 @@ public class ChangeLane : MonoBehaviour
 
             float h = Input.GetAxisRaw("L_YAxis_" + id);
             //float v = Input.GetAxisRaw("L_XAxis_" + id);
+
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                if (canMove)
+                    StartCoroutine(moveBot());
+            }
+
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if (canMove)
+                    StartCoroutine(moveTop());
+            }
+
             if (h <= -0.9f)
             {
                 if (canMove)

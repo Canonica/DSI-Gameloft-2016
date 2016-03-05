@@ -11,6 +11,7 @@ public class UnitRush : Unit {
     {
         base.Start();
         baseHeight = _navMeshAgent.baseOffset;
+        flyHeight += baseHeight;
         _navMeshAgent.baseOffset = flyHeight;
         isFlying = true;
     }
@@ -18,28 +19,29 @@ public class UnitRush : Unit {
     public void FixedUpdate()
     {
         base.FixedUpdate();
-        if (isFlying && _target&& Vector3.Distance(_target.transform.position, transform.position) < flyHeight)
-        {
-            isFlying = false;
-            StartCoroutine(down());
-        }
+        //if (isFlying && _target&& Vector3.Distance(_target.transform.position, transform.position) < flyHeight+4)
+        //{
+        //    isFlying = false;
+        //    StartCoroutine(down());
+        //}
     }
 
     override public void OnTriggerEnter(Collider col)
     {
         base.OnTriggerEnter(col);
-        
+        if (isFlying && _target)
+        StartCoroutine(down());
     }
 
     override public void OnTriggerExit(Collider parOther)
     {
         base.OnTriggerExit(parOther);
 
-        if (_target == null && !isFlying&&_trigger.Count==0)
-        {
-            isFlying = true;
-            StartCoroutine(up());
-        }
+        //if (_target == null && !isFlying&&_trigger.Count==0)
+        //{
+        //    isFlying = true;
+        //    StartCoroutine(up());
+        //}
     }
 
     IEnumerator up()
@@ -57,7 +59,7 @@ public class UnitRush : Unit {
     IEnumerator down()
     {
         float height = flyHeight;
-        while (height > baseHeight && !isFlying)
+        while (height > baseHeight)
         {
             height -= height/smoother;
             _navMeshAgent.baseOffset = height;

@@ -275,7 +275,7 @@ public class Motherbase : Entity
                 unit._enemyMotherBase = targetBase;
                 unit.waypointDest = waypoint;
                 unit._laneSpawning = _laneSpawning;
-                prefabOfUnit.transform.parent = transform;
+                prefabOfUnit.transform.parent = transform.parent;
             }
             currentNbOfUnits[typeOfUnit]--;
         }

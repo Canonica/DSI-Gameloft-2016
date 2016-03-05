@@ -986,6 +986,7 @@ MonoBehaviour:
   lastCollision: 0
   collideNum: 0
   isBumped: 0
+  _laneSpawning: 0
   FxHitBlood: {fileID: 0}
   FxDeathBlood: {fileID: 0}
   spawnFX: {fileID: 0}
@@ -1000,7 +1001,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 8
+  m_Radius: 6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &13718136
 SkinnedMeshRenderer:

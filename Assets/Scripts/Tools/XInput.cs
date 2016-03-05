@@ -48,7 +48,7 @@ public class XInput : MonoBehaviour
     public void useVibe(int id, float time, float force1, float force2)
     {
         Debug.Log(" Player "+id+" Manette: "+ (PlayerIndex)(id-1));
-        StartCoroutine(vibration((PlayerIndex)(id-1), time,  force1,  force2));
+        StartCoroutine(vibration((PlayerIndex)(id), time,  force1,  force2));
     }
 
     IEnumerator vibration(PlayerIndex id, float time, float force1, float force2)
