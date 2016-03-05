@@ -8,8 +8,7 @@ public class MenuMusic : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        speakerMainMusic = SoundManager.Instance.playSound(audioclipMusic, 100);
-        speakerMainMusic.GetComponent<AudioSource>().loop = true;
+        SoundManager.Instance.playSound(audioclipMusic, 100, true);
     }
 
     // Update is called once per frame

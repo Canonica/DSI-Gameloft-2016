@@ -15,6 +15,8 @@ public class Motherbase : Entity
     public GameObject targetBase;
     bool spawning;
     int typeOfUnit;
+    public ChangeLane _currentLane;
+    public int _laneSpawning;
 
     int setNb;
     Vector3 cameraPos;
@@ -60,11 +62,12 @@ public class Motherbase : Entity
     {
         base.Start();
         cameraPos = Camera.main.transform.position;
+        _currentLane = GetComponent<ChangeLane>();
     }
 
     public override void Update()
     {
-      
+        _laneSpawning = _currentLane.currentWP;
         //if (Input.GetButtonDown("RB_button_" + _playerId))
         //{
         //    if(setNb>(units.Length)/4)
@@ -271,6 +274,7 @@ public class Motherbase : Entity
                 nav.SetDestination(waypoint.pos);
                 unit._enemyMotherBase = targetBase;
                 unit.waypointDest = waypoint;
+                unit._laneSpawning = _laneSpawning;
                 prefabOfUnit.transform.parent = transform;
             }
             currentNbOfUnits[typeOfUnit]--;
