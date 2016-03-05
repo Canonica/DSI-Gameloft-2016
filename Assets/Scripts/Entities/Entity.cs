@@ -5,7 +5,7 @@ public class Entity : MonoBehaviour {
 
     public GameObject _enemyMotherBase;
     public int _life;
-    public int _lifeMax = 2;
+    public int _lifeMax;
     public int _playerId = 0;
 
     public List<Spell> _spells;

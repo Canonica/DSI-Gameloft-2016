@@ -39,7 +39,7 @@ public class Unit : Entity
     public float lastCollision = 0;
     public int collideNum = 0;
     float lastAttack = 0;
-    bool isBumped = false;
+    public bool isBumped = false;
     private int _startingLife;
 
     [Header("FX")]
@@ -222,7 +222,7 @@ public class Unit : Entity
                 unit.Hit(_damage);
                // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
                 EndGameManager.instance.addDamage(_playerId, _damage);
-                applyBump(unit.transform.position, 0.1f,2);
+                //applyBump(unit.transform.position, 0.1f,2);
             }
         }
         else
@@ -249,6 +249,7 @@ public class Unit : Entity
     {
         if (!isBumped)
         {
+            Debug.Log("bump");
             Vector3 dir = transform.position - from;
             isBumped = true;
             //dir.y = force*2;

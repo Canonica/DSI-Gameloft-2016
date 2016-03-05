@@ -59,11 +59,11 @@ public class MenuManager : MonoBehaviour
 						ShowOptions ();
 					});
 					break;
-				case "CreditsButton":
-					child.GetComponent<Button> ().onClick.AddListener (() => {
-						ShowCredits ();
-					});
-					break;
+				//case "CreditsButton":
+				//	child.GetComponent<Button> ().onClick.AddListener (() => {
+				//		ShowCredits ();
+				//	});
+				//	break;
 				case "QuitButton":
 					child.GetComponent<Button> ().onClick.AddListener (() => {
 						Quit ();
@@ -158,6 +158,7 @@ public class MenuManager : MonoBehaviour
 		StartCoroutine (fadeOut (LobbyCanvasGroup));
 		MainMenuCanvas.GetComponent<MenuHandler> ().enabled = true;
 		LobbyCanvas.GetComponent<LobbyInput> ().enabled = false;
+        LobbyCanvas.GetComponent<MenuHandler>().enabled = false;
 
 	}
 
@@ -192,6 +193,7 @@ public class MenuManager : MonoBehaviour
 		StartCoroutine (fadeOut (MainMenuCanvasGroup));
 		MainMenuCanvas.GetComponent<MenuHandler> ().enabled = false;
 		LobbyCanvas.GetComponent<LobbyInput> ().enabled = true;
+        LobbyCanvas.GetComponent<MenuHandler>().enabled = true;
 	}
 
 

@@ -966,14 +966,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyMotherBase: {fileID: 0}
   _life: 3
-  _lifeMax: 2
+  _lifeMax: 3
   _playerId: 0
   _spells: []
   _upgrades: []
   img: Assets/Editor/Swarm.png
   name: lol
   attackSpeed: 0.3
-  _movementSpeed: 20
+  _movementSpeed: 12
   groupSpawn: 3
   _damage: 1
   _hatchTime: 1
@@ -985,6 +985,7 @@ MonoBehaviour:
   laneEnd: 0
   lastCollision: 0
   collideNum: 0
+  isBumped: 0
   FxHitBlood: {fileID: 0}
   FxDeathBlood: {fileID: 0}
   spawnFX: {fileID: 0}
