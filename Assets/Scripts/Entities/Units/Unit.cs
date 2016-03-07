@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using System.Linq;
+using System;
 
 public class Unit : Entity
 {
@@ -10,7 +11,7 @@ public class Unit : Entity
     [Tweakable]
     public string img = "Unit";
     [Tweakable]
-    public string name = "Unit";
+    public string unitName = "Unit";
 
     [Header("Unit Option")]
     [Tweakable]
@@ -23,8 +24,10 @@ public class Unit : Entity
     [Tweakable]
     public int _damage = 2;
     // Utilisera les Spells
+    [Tweakable]
     public float _hatchTime = 1.0f;
-
+    [Tweakable]
+    public float bumpResist=1;
 
     [Header("Bump Option")]
     public int smoother = 20;
@@ -33,13 +36,11 @@ public class Unit : Entity
     public GameObject _target;
     protected NavMeshAgent _navMeshAgent;
     public List<GameObject> _trigger;
-    bool _isAttacking;
     public float _distanceMinLane = 4f;
     public Waypoint waypointDest;
     public bool laneEnd = false;
     public float lastCollision = 0;
     public int collideNum = 0;
-    float lastAttack = 0;
     public bool isBumped = false;
     private int _startingLife;
     public int _laneSpawning;
@@ -61,11 +62,12 @@ public class Unit : Entity
     {
         _startingLife = _life;
         base.Start();
-
+        if (bumpResist == 0)
+            bumpResist = 1;
         _trigger = new List<GameObject>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.speed = _movementSpeed;
-
+        attackReady = true;
         if (spawnFX)
             SoundManager.Instance.playSound(spawnFX, 0.3f);
     }
@@ -142,7 +144,6 @@ public class Unit : Entity
         {
             _target = other;
             collideNum++;
-            lastAttack = 0;
             Attack();
         }
         else if (mother && other.CompareTag("MotherBase") && mother._playerId != _playerId)
@@ -161,10 +162,9 @@ public class Unit : Entity
             _trigger.Add(parOther.gameObject);
             if (!_target)
             {
-                _isAttacking = true;
                 changeTarget();
                 StartCoroutine(targetMove());
-                _navMeshAgent.velocity /= 2;
+                _navMeshAgent.velocity /= 5;
             }
         }
     }
@@ -189,7 +189,6 @@ public class Unit : Entity
         else
         {
             collideNum = 0;
-            _isAttacking = false;
             _target = null;
             takeDestination();
         }
@@ -224,17 +223,15 @@ public class Unit : Entity
                 unit.Hit(_damage);
                // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
                 EndGameManager.instance.addDamage(_playerId, _damage);
-                
             }
             StartCoroutine(reload());
         }
         else
         {
             
-            if (_target)
-                applyBump(_target.transform.position, 0.1f, 2);
-            else
-            _isAttacking = false;
+            //if (!_target)
+                //applyBump(_target.transform.position, 0.1f, 2);
+            
         }
     }
 
@@ -254,8 +251,18 @@ public class Unit : Entity
         }
         else
         {
-            if(_navMeshAgent.enabled)
-            _navMeshAgent.SetDestination(waypointDest.pos);
+            if (_navMeshAgent.isActiveAndEnabled && _navMeshAgent.isOnNavMesh)
+            {
+
+                _navMeshAgent.SetDestination(waypointDest.pos);
+
+            }
+            else
+            {
+                StopAllCoroutines();
+                Destroy(this.gameObject);
+            }
+            
         }
     }
 
@@ -263,10 +270,9 @@ public class Unit : Entity
     {
         if (!isBumped)
         {
-            force = 1;
-            Debug.Log("bump");
             Vector3 dir = transform.position - from;
             isBumped = true;
+            force = force / bumpResist;
             //dir.y = force*2;
             if (useSmoother == 0)
                 StartCoroutine(bump(dir * force));
@@ -278,6 +284,7 @@ public class Unit : Entity
 
     IEnumerator bump(Vector3 distance, int localSmoother=0)
     {
+        GetComponent<Collider>().enabled = false;
         if (localSmoother == 0)
             localSmoother = smoother;
         for (int i=0; i< localSmoother; i++)
@@ -286,7 +293,9 @@ public class Unit : Entity
             yield return 0;
         }
         isBumped = false;
+        GetComponent<Collider>().enabled = true;
     }
+    
 
     
 }

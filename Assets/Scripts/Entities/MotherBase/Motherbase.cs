@@ -19,7 +19,6 @@ public class Motherbase : Entity
     public int _laneSpawning;
 
     int setNb;
-    Vector3 cameraPos;
     public int[] maxNbOfUnits;
     public int[] currentNbOfUnits;
 
@@ -61,7 +60,7 @@ public class Motherbase : Entity
     public override void Start()
     {
         base.Start();
-        cameraPos = Camera.main.transform.position;
+        //cameraPos = Camera.main.transform.position;
         _currentLane = GetComponent<ChangeLane>();
     }
 
@@ -87,12 +86,12 @@ public class Motherbase : Entity
         //    }
         //}
         // DEBUG
-        if (Input.GetKey(KeyCode.S) && _playerId == 2)
+        if (Input.GetKeyDown(KeyCode.D) && _playerId == 2)
         {
             currentNbOfUnits[0] = 50;
             corSpawnUnits(0);
         }
-        if (Input.GetKey(KeyCode.D)&& _playerId ==1)
+        if (Input.GetKeyDown(KeyCode.S)&& _playerId ==1)
         {
             currentNbOfUnits[0] = 50;
             corSpawnUnits(0);
@@ -105,7 +104,7 @@ public class Motherbase : Entity
                 StartCoroutine(loadUnit(0));
                 StartCoroutine(loadUnit(1));
                 StartCoroutine(loadUnit(2));
-                //StartCoroutine(loadUnit(3));
+                StartCoroutine(loadUnit(3));
                 spawning = true;
             }
 
@@ -122,15 +121,15 @@ public class Motherbase : Entity
                 corSpawnUnits(typeOfUnit);
             }
 
-            //if (Input.GetButtonDown("X_button_" + _playerId))
-            //{
-            //    typeOfUnit = 2;
-            //    corSpawnUnits(typeOfUnit);
-            //}
+            if (Input.GetButtonDown("X_button_" + _playerId))
+            {
+                typeOfUnit = 2;
+                corSpawnUnits(typeOfUnit);
+            }
 
             if (Input.GetButtonDown("Y_button_" + _playerId))
             {
-               typeOfUnit = 2;
+               typeOfUnit = 3;
                 corSpawnUnits(typeOfUnit);
             }
 
@@ -176,7 +175,7 @@ public class Motherbase : Entity
             textCurrentNbOfUnits[0].text = currentNbOfUnits[0] + "/" + maxNbOfUnits[0];
             textCurrentNbOfUnits[1].text = currentNbOfUnits[1] + "/" + maxNbOfUnits[1];
             textCurrentNbOfUnits[2].text = currentNbOfUnits[2] + "/" + maxNbOfUnits[2];
-            //textCurrentNbOfUnits[3].text = currentNbOfUnits[3] + "/" + maxNbOfUnits[3];
+            textCurrentNbOfUnits[3].text = currentNbOfUnits[3] + "/" + maxNbOfUnits[3];
         }
 
         _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);

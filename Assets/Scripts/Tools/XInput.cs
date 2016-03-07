@@ -30,7 +30,6 @@ public class XInput : MonoBehaviour
                 {
                     Debug.Log(string.Format("GamePad found {0}", testPlayerIndex));
                     playerIndex = testPlayerIndex;
-                    Debug.Log(playerIndex);
                     playerIndexSet = true;
                 }
             }

@@ -271,7 +271,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 163120}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
@@ -394,10 +394,6 @@ MonoBehaviour:
   canMove: 0
   currentWP: 1
   Lane: []
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   cursor: {fileID: 164428}
 --- !u!114 &11455634
 MonoBehaviour:
@@ -438,6 +434,8 @@ MonoBehaviour:
   delay: 0
   waypoint: {fileID: 0}
   targetBase: {fileID: 0}
+  _currentLane: {fileID: 0}
+  _laneSpawning: 0
   maxNbOfUnits: 0a0000000300000003000000
   currentNbOfUnits: 000000000000000000000000
   textCurrentNbOfUnits:
@@ -454,6 +452,7 @@ MonoBehaviour:
   primarySpells: []
   secondarySpells: []
   FxBlood: {fileID: 136768, guid: 03f876b3154aa9a419b0c305f0a6ae32, type: 2}
+  spawnSwarmFX: {fileID: 0}
 --- !u!119 &11929086
 Projector:
   m_ObjectHideFlags: 1

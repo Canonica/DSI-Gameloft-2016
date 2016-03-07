@@ -378,10 +378,6 @@ MonoBehaviour:
   canMove: 0
   currentWP: 1
   Lane: []
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   cursor: {fileID: 118682}
 --- !u!114 &11427756
 MonoBehaviour:
@@ -407,6 +403,8 @@ MonoBehaviour:
   delay: 0
   waypoint: {fileID: 0}
   targetBase: {fileID: 0}
+  _currentLane: {fileID: 0}
+  _laneSpawning: 0
   maxNbOfUnits: 0a0000000300000003000000
   currentNbOfUnits: 000000000000000000000000
   textCurrentNbOfUnits:
@@ -423,6 +421,7 @@ MonoBehaviour:
   primarySpells: []
   secondarySpells: []
   FxBlood: {fileID: 136768, guid: 03f876b3154aa9a419b0c305f0a6ae32, type: 2}
+  spawnSwarmFX: {fileID: 0}
 --- !u!114 &11462460
 MonoBehaviour:
   m_ObjectHideFlags: 1

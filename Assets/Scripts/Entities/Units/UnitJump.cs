@@ -5,7 +5,7 @@ public class UnitJump : Unit {
 
     public bool isJumping = false;
     bool isActiveAOE = false;
-    public int forceAOE = 2;
+    public int forceAOE = 1;
     float timeAOE = 2;
     int heightJump = 5;
     override
@@ -40,6 +40,7 @@ public class UnitJump : Unit {
 
     IEnumerator jump()
     {
+        GetComponent<Collider>().enabled = false;
         _navMeshAgent.enabled = false;
         Vector3 dir = _target.transform.position - transform.position;
         float dist = Vector3.Distance(_target.transform.position, transform.position);
@@ -59,6 +60,7 @@ public class UnitJump : Unit {
             yield return 0;
         }
         isActiveAOE = true;
+        GetComponent<Collider>().enabled = true;
         _navMeshAgent.enabled = true;
         StartCoroutine(AOE());
     }
@@ -67,7 +69,7 @@ public class UnitJump : Unit {
     {
         for (int i=0; i < _trigger.Count;i++)
         {
-            if (_trigger[i])
+            if (_trigger[i] )
             {
                 _trigger[i].GetComponent<Unit>().applyBump(transform.position, forceAOE);
             }

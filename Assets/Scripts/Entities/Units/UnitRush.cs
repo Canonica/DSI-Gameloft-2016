@@ -14,6 +14,7 @@ public class UnitRush : Unit {
         flyHeight += baseHeight;
         _navMeshAgent.baseOffset = flyHeight;
         isFlying = true;
+        _distanceMinLane += flyHeight;
     }
     override
     public void FixedUpdate()
@@ -58,13 +59,15 @@ public class UnitRush : Unit {
 
     IEnumerator down()
     {
-        float height = flyHeight;
-        while (height > baseHeight)
+        isFlying = false;
+        float height = _navMeshAgent.baseOffset;
+        while (height >= baseHeight)
         {
             height -= height/smoother;
             _navMeshAgent.baseOffset = height;
             yield return 0;
         }
+        
         _navMeshAgent.baseOffset = baseHeight;
     }
 }

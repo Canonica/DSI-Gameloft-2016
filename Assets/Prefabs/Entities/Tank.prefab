@@ -747,8 +747,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -251.05165, y: -886.9368, z: 141.79399}
-  m_LocalScale: {x: 2, y: 4, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 5, z: 2}
   m_Children:
   - {fileID: 420202}
   m_Father: {fileID: 0}
@@ -1186,8 +1186,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 7.4, y: 1.8, z: 5}
+  m_Center: {x: 0, y: -0.8, z: 0}
 --- !u!95 &9536726
 Animator:
   serializedVersion: 3
@@ -1195,7 +1195,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 162028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: 8da4e8147e5b7de4792ef46060c88261, type: 3}
   m_Controller: {fileID: 0}
   m_CullingMode: 1
@@ -1223,12 +1223,13 @@ MonoBehaviour:
   _spells: []
   _upgrades: []
   img: Assets/Editor/Knockback.png
-  name: Unit
+  unitName: Unit
   attackSpeed: 0.6
-  _movementSpeed: 8
+  _movementSpeed: 12
   groupSpawn: 1
   _damage: 1
   _hatchTime: 5
+  bumpResist: 2
   smoother: 20
   _target: {fileID: 0}
   _trigger: []
@@ -1243,7 +1244,8 @@ MonoBehaviour:
   FxDeathBlood: {fileID: 0}
   spawnFX: {fileID: 8300000, guid: 0ba3df5c79a587b45b63705867cf5073, type: 3}
   hitFX: {fileID: 8300000, guid: a612730413ef0264e889702b12edfc6c, type: 3}
-  bumpForce: 3
+  bumpForce: 2
+  zoneBump: 6
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1324,9 +1326,9 @@ NavMeshAgent:
   m_Enabled: 1
   m_Radius: 0.4
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 100
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1

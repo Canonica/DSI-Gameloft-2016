@@ -475,8 +475,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -279.2224, y: -912.21814, z: -144.48537}
-  m_LocalScale: {x: 1.5, y: 0.8, z: 1.5}
+  m_LocalPosition: {x: -255.86823, y: -886.31, z: 5.224874}
+  m_LocalScale: {x: 1.5, y: 1, z: 1.5}
   m_Children:
   - {fileID: 478370}
   m_Father: {fileID: 0}
@@ -746,7 +746,7 @@ Animation:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193744}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: 54140b6154ee254499f05391047d59e1, type: 3}
   m_Animations:
@@ -773,12 +773,13 @@ MonoBehaviour:
   _spells: []
   _upgrades: []
   img: Assets/Editor/Fly.png
-  name: Unit
+  unitName: Unit
   attackSpeed: 0.2
-  _movementSpeed: 12
+  _movementSpeed: 40
   groupSpawn: 1
   _damage: 3
   _hatchTime: 5
+  bumpResist: 1
   smoother: 20
   _target: {fileID: 0}
   _trigger: []
@@ -793,7 +794,7 @@ MonoBehaviour:
   FxDeathBlood: {fileID: 136768, guid: b83a7ff2ca8aaff468bd682f70fe7457, type: 2}
   spawnFX: {fileID: 0}
   hitFX: {fileID: 0}
-  flyHeight: 0
+  flyHeight: 20
   isFlying: 0
 --- !u!135 &13595940
 SphereCollider:
@@ -870,17 +871,17 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170856}
   m_Enabled: 1
-  m_Radius: 1.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Radius: 0.2
+  m_Speed: 20
+  m_Acceleration: 100
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 1000
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: 0
+  m_BaseOffset: 4.5
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 0
 --- !u!1001 &100100000

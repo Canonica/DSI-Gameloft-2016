@@ -112,7 +112,6 @@ public class ChangeLane : MonoBehaviour
             {
                 currentWP = Lane.Length - 1;
             }
-            Debug.Log(currentWP);
         }
         else
         {
