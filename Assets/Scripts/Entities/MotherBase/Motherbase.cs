@@ -54,6 +54,8 @@ public class Motherbase : Entity
     [Header("Sound")]
     public AudioClip spawnSwarmFX;
 
+    public int experienceByMana = 1;
+
     // Use this for initialization
     void Awake()
     {
@@ -357,7 +359,7 @@ public class Motherbase : Entity
             }
             else
             {
-                AddExperience(units[nbOfUnits].GetComponent<Unit>().experienceByStack);
+                AddExperience(experienceByMana);
             }
             yield return StartCoroutine(fillIcon(reloadUnitImage[nbOfUnits], units[nbOfUnits].GetComponent<Unit>()._hatchTime));
         }

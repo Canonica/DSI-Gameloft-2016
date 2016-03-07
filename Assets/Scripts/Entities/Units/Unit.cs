@@ -56,8 +56,6 @@ public class Unit : Entity
     public AudioClip spawnFX;
     public AudioClip hitFX;
 
-    public int experienceByStack = 1;
-
     public override void Start()
     {
         _startingLife = _life;
