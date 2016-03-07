@@ -57,6 +57,8 @@ public class Unit : Entity
     public AudioClip spawnFX;
     public AudioClip hitFX;
 
+    private Animation _allAnims;
+
 
     public override void Start()
     {
@@ -68,6 +70,7 @@ public class Unit : Entity
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.speed = _movementSpeed;
         attackReady = true;
+        _allAnims = GetComponentInChildren<Animation>();
         if (spawnFX)
             SoundManager.Instance.playSound(spawnFX, 0.3f);
     }
@@ -112,11 +115,24 @@ public class Unit : Entity
             //Instantiate(FxDeathBlood, this.gameObject.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
             Camera.main.DOKill(true);
             Camera.main.DOShakePosition(0.05f * _startingLife / 4, 0.3f * _startingLife / 4);
-
             EndGameManager.instance.addDeath(_playerId);
-            StopAllCoroutines();
-            Destroy(this.gameObject);
+            StartCoroutine(animDeath());
+            
         }
+    }
+
+    IEnumerator animDeath()
+    {
+        int dureeAnim = 1;
+        //_allAnims.Play(_allAnims.Animations[4]);
+        yield return new WaitForSeconds(dureeAnim);
+        dead();
+    }
+
+    void dead()
+    {
+        StopAllCoroutines();
+        Destroy(this.gameObject);
     }
 
     

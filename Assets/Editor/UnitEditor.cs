@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 class UnitEditor : EditorWindow
 {
 	private string _editorName = "Units Editor";
-	private string _loadingPath = "Prefabs/Resources/Entities";
+	private string _loadingPath = "Prefabs/Entities";
 	private Type type = typeof(Unit);
 
 	private int _fieldWidth = 128;
@@ -26,9 +26,10 @@ class UnitEditor : EditorWindow
 	private Vector2 scrollPos = Vector2.zero;
 
 
+    private int lol = 0;
+    private GameObject[] MB;
 
-
-	[MenuItem ("Window/Units")]
+    [MenuItem ("Window/Units")]
 	public static void  ShowWindow ()
 	{
 		EditorWindow.GetWindow (typeof(UnitEditor));
@@ -88,7 +89,6 @@ class UnitEditor : EditorWindow
 
 			GUILayout.Space (20);
 
-			Debug.Log (position.width);
 			scrollPos = EditorGUILayout.BeginScrollView (scrollPos);
 			GUILayout.BeginHorizontal ();
 			for (int i = 0; i <= _gameObjects.Count - 1; i++) {
@@ -146,14 +146,29 @@ class UnitEditor : EditorWindow
 						}
 					}
 
+                    if (j == _values.Count - 1)
+                    {
+
+                        for (int k = 0; k <= MB[0].GetComponent<Motherbase>().units.Length - 1; k++)
+                        {
+                            if (MB[0].GetComponent<Motherbase>().units[k] == _gameObjects[i])
+                            {
+                                GUILayout.EndVertical();
+                                MB[0].GetComponent<Motherbase>().maxNbOfUnits[k] = EditorGUILayout.IntField("Nb Spawn: ", MB[0].GetComponent<Motherbase>().maxNbOfUnits[k]);
+                                MB[1].GetComponent<Motherbase>().maxNbOfUnits[k] = MB[0].GetComponent<Motherbase>().maxNbOfUnits[k];
+                                GUILayout.BeginVertical();
+                            }
+                        }
 
 
-					GUILayout.EndVertical ();
-				}
+                        
+                    }
+                    GUILayout.EndVertical();
+                }
 
 
 
-				GUILayout.EndVertical ();
+                GUILayout.EndVertical ();
 
 				if ((i + 1) % perLine == 0) {
 					GUILayout.EndVertical ();
@@ -167,9 +182,10 @@ class UnitEditor : EditorWindow
 
 	void LoadPrefabs ()
 	{
-		//_prefabs = AssetDatabase.LoadAllAssetsAtPath (_loadingPath);
+        MB = GameObject.FindGameObjectsWithTag("MotherBase");
+        //_prefabs = AssetDatabase.LoadAllAssetsAtPath (_loadingPath);
 
-		_prefabs = Directory.GetFiles (Application.dataPath + "/" + _loadingPath, "*.prefab", SearchOption.AllDirectories);
+        _prefabs = Directory.GetFiles (Application.dataPath + "/" + _loadingPath, "*.prefab", SearchOption.AllDirectories);
 		_gameObjects = new List<GameObject> ();
 
 		foreach (string p in _prefabs) {

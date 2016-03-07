@@ -110,7 +110,7 @@ Material:
         first:
           name: _DissolvePatern
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: 52c692226518d8947be92ae7da35ec4c, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
