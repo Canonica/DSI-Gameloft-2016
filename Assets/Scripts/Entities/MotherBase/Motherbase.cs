@@ -270,7 +270,13 @@ public class Motherbase : Entity
                 }
 
                 unit._playerId = _playerId;
-                nav.SetDestination(waypoint.pos);
+                if (waypoint == null)
+                {
+                    nav.SetDestination(targetBase.transform.position);
+                    unit.laneEnd = true;
+                }
+                else
+                    nav.SetDestination(waypoint.pos);
                 unit._enemyMotherBase = targetBase;
                 unit.waypointDest = waypoint;
                 unit._laneSpawning = _laneSpawning;
