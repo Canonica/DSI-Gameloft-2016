@@ -22,7 +22,7 @@ public class Unit : Entity
     public int groupSpawn = 1;
     [Tweakable]
     public int _damage = 2;
-    // Utilisera les Spells
+
     public float _hatchTime = 1.0f;
 
 
@@ -56,6 +56,7 @@ public class Unit : Entity
     public AudioClip spawnFX;
     public AudioClip hitFX;
 
+    public int experienceByStack = 1;
 
     public override void Start()
     {
@@ -74,11 +75,7 @@ public class Unit : Entity
 
     public override void FixedUpdate()
     {
-        
-        
-
         base.FixedUpdate();
-
     }
 
     public override void Update()

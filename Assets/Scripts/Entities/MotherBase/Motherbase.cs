@@ -40,6 +40,13 @@ public class Motherbase : Entity
     public List<Spell> primarySpells;
     public List<Spell> secondarySpells;
 
+    public List<Upgrade> upgrades;
+    public float upgradeDelay = 0.3f;
+    public float lastUpgrade = 0.0f;
+
+    public List<int> experienceLevel;
+    public List<bool> hasUsedLevel;
+
     [Header("FX")]
     [SerializeField]
     private GameObject FxBlood;
@@ -60,13 +67,19 @@ public class Motherbase : Entity
 
     public override void Start()
     {
-        base.Start();
         cameraPos = Camera.main.transform.position;
         _currentLane = GetComponent<ChangeLane>();
+        hasUsedLevel = new List<bool>();
+        for (int i = 0; i < experienceLevel.Count; i++)
+        {
+            hasUsedLevel.Add(false);
+        }
+        base.Start();
     }
 
     public override void Update()
     {
+
         _laneSpawning = _currentLane.currentWP;
         //if (Input.GetButtonDown("RB_button_" + _playerId))
         //{
@@ -153,6 +166,32 @@ public class Motherbase : Entity
                 }
             }
 
+            float upgradeH = Input.GetAxis("DPad_XAxis_" + _playerId);
+            float upgradeV = Input.GetAxis("DPad_YAxis_" + _playerId);
+
+            if(lastUpgrade + upgradeDelay < Time.time)
+            {
+                if(upgradeH > 0.3) // RIGHT
+                {
+                    UseLevel(upgrades[1]);
+                }
+                /*else if (upgradeH < -0.3) // LEFT
+                {
+                    UseLevel(upgrades[2]);
+                }*/
+
+                if (upgradeV > 0.3) // UP
+                {
+                    UseLevel(upgrades[2]);
+                }
+                else if (upgradeV < -0.3) // DOWN
+                {
+                    UseLevel(upgrades[0]);
+                }
+            }
+
+
+
             if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)))
             {
                 //Actualiser le compteur de temps si cooldown
@@ -182,6 +221,30 @@ public class Motherbase : Entity
         _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
 
         base.Update();
+    }
+
+    public override void FixedUpdate()
+    {
+        int levelDispo = 0;
+
+        for (int i = 0; i < experienceLevel.Count; i++)
+        {
+            if (experienceLevel[i] == 0)
+            {
+                levelDispo++;
+            }
+        }
+        for (int i = 0; i < hasUsedLevel.Count; i++)
+        {
+            if (hasUsedLevel[i])
+            {
+                levelDispo--;
+            }
+        }
+
+        Debug.Log(levelDispo);
+
+        base.FixedUpdate();
     }
 
     public void getDamage(int dmg)
@@ -270,9 +333,12 @@ public class Motherbase : Entity
                     }
                 }
 
+                upgrades[typeOfUnit].Use(unit);
+
                 unit._playerId = _playerId;
                 nav.SetDestination(waypoint.pos);
                 unit._enemyMotherBase = targetBase;
+                unit._motherBase = this;
                 unit.waypointDest = waypoint;
                 unit._laneSpawning = _laneSpawning;
                 prefabOfUnit.transform.parent = transform.parent;
@@ -288,10 +354,47 @@ public class Motherbase : Entity
             if (currentNbOfUnits[nbOfUnits] < maxNbOfUnits[nbOfUnits])
             {
                 currentNbOfUnits[nbOfUnits]++;
-                yield return StartCoroutine(fillIcon(reloadUnitImage[nbOfUnits], units[nbOfUnits].GetComponent<Unit>()._hatchTime));
             }
-            yield return 0;
+            else
+            {
+                AddExperience(units[nbOfUnits].GetComponent<Unit>().experienceByStack);
+            }
+            yield return StartCoroutine(fillIcon(reloadUnitImage[nbOfUnits], units[nbOfUnits].GetComponent<Unit>()._hatchTime));
         }
+    }
+
+    private void AddExperience(int experience)
+    {
+        int exp = experience;
+        int level = 0;
+        do
+        {
+            int expCurr = Mathf.Max(experienceLevel[level] - exp, 0);
+            experienceLevel[level] = expCurr;
+            exp = Mathf.Max(exp - expCurr, 0);
+            level++;
+        }
+        while (exp > 0 && level < experienceLevel.Count);
+    }
+
+    private void UseLevel(Upgrade up)
+    {
+        int level = 0;
+        while (level < hasUsedLevel.Count && hasUsedLevel[level])
+        {
+            level++;
+        }
+        if(level < hasUsedLevel.Count)
+        {
+            if(experienceLevel[level] == 0)
+            {
+                hasUsedLevel[level] = true;
+                up.LevelUp();
+            }
+            
+        }
+        lastUpgrade = Time.time;
+            
     }
 
     public IEnumerator fillIcon(Image icon, float cdTimer)

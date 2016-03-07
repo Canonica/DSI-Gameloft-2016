@@ -1,6 +1,9 @@
 ﻿public class TestUpgrade : Upgrade
 {
-    public TestUpgrade(string parName, float parCost, float parValue, float parAddByLevel) : base(parName, parCost, parValue, UpgradeType.TestUpgrade, parAddByLevel) { }
+    void Start()
+    {
+
+    }
 
     public override float Apply()
     {
