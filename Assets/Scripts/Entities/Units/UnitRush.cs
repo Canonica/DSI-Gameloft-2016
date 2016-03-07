@@ -30,7 +30,7 @@ public class UnitRush : Unit {
     override public void OnTriggerEnter(Collider col)
     {
         base.OnTriggerEnter(col);
-        if (isFlying && _target)
+        if (isFlying && (_target || (col.tag == "MotherBase" && col.GetComponent<Motherbase>()._playerId != _playerId)))
         StartCoroutine(down());
     }
 

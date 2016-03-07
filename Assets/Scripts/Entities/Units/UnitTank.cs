@@ -23,6 +23,8 @@ public class UnitTank : Unit {
 
             for (int i = 0; i < _trigger.Count; i++)
             {
+                //float dist = Vector3.Distance(transform.position, _trigger[i].transform.position);
+                //Debug.Log(dist);
                 if (_trigger[i] && Vector3.Distance(transform.position, _trigger[i].transform.position) <= zoneBump)
                 {
                     _trigger[i].GetComponent<Unit>().applyBump(transform.position, bumpForce);

@@ -66,10 +66,10 @@ ModelImporter:
     400056: MASTER
     400058: //RootNode
     4300000: default
-    7400000: SWARM_RUN
-    7400002: SWARM_ATTACK
-    7400004: SWARM_IDLE
-    7400006: SWARM_DEATH
+    7400000: RUN
+    7400002: ATTACK
+    7400004: IDLE
+    7400006: DEATH
     9500000: //RootNode
     11100000: //RootNode
     13700000: default
@@ -95,7 +95,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: SWARM_RUN
+      name: RUN
       takeName: Take 001
       firstFrame: 96
       lastFrame: 110
@@ -183,7 +183,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: SWARM_IDLE
+      name: IDLE
       takeName: Take 001
       firstFrame: 0
       lastFrame: 95
@@ -271,7 +271,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: SWARM_ATTACK
+      name: ATTACK
       takeName: Take 001
       firstFrame: 184
       lastFrame: 198
@@ -359,7 +359,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: SWARM_DEATH
+      name: DEATH
       takeName: Take 001
       firstFrame: 295
       lastFrame: 318

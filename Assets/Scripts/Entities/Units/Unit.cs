@@ -73,6 +73,7 @@ public class Unit : Entity
         _allAnims = GetComponentInChildren<Animation>();
         if (spawnFX)
             SoundManager.Instance.playSound(spawnFX, 0.3f);
+        //_allAnims.Play("RUN");
     }
 
     // Update is called once per frame
@@ -123,9 +124,8 @@ public class Unit : Entity
 
     IEnumerator animDeath()
     {
-        int dureeAnim = 1;
-        //_allAnims.Play(_allAnims.Animations[4]);
-        yield return new WaitForSeconds(dureeAnim);
+        //_allAnims.Play("DEATH");
+        yield return new WaitForSeconds(0.5f);// _allAnims.GetClip("DEATH").length);
         dead();
     }
 
@@ -253,8 +253,11 @@ public class Unit : Entity
 
     IEnumerator reload()
     {
+        //_allAnims.Play("ATTACK");
+
         yield return new WaitForSeconds(attackSpeed);
         attackReady = true;
+        //_allAnims.Play("RUN");
     }
 
 
@@ -289,7 +292,6 @@ public class Unit : Entity
             Vector3 dir = transform.position - from;
             isBumped = true;
             force = force / bumpResist;
-            //dir.y = force*2;
             if (useSmoother == 0)
                 StartCoroutine(bump(dir * force));
             else

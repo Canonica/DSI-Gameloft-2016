@@ -85,6 +85,8 @@ ModelImporter:
     400076: //RootNode
     4300000: body
     7400000: RUN
+    7400002: ATTACK
+    7400004: DEATH
     9500000: //RootNode
     11100000: //RootNode
     13700000: body
@@ -115,6 +117,218 @@ ModelImporter:
       firstFrame: 51
       lastFrame: 82
       wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: body
+        weight: 1
+      - path: MASTER
+        weight: 1
+      - path: MASTER/Circle002
+        weight: 1
+      - path: MASTER/Circle002/IK Chain006
+        weight: 1
+      - path: MASTER/Circle003
+        weight: 1
+      - path: MASTER/Circle003/IK Chain007
+        weight: 1
+      - path: MASTER/Circle004
+        weight: 1
+      - path: MASTER/Circle004/IK Chain008
+        weight: 1
+      - path: MASTER/Circle005
+        weight: 1
+      - path: MASTER/Circle005/IK Chain005
+        weight: 1
+      - path: MASTER/Pelvis
+        weight: 1
+      - path: MASTER/Pelvis/Bone017
+        weight: 1
+      - path: MASTER/Pelvis/Bone017/Bone018
+        weight: 1
+      - path: MASTER/Pelvis/Bone017/Bone018/Bone019
+        weight: 1
+      - path: MASTER/Pelvis/Bone020
+        weight: 1
+      - path: MASTER/Pelvis/Bone020/Bone021
+        weight: 1
+      - path: MASTER/Pelvis/Bone020/Bone021/Bone022
+        weight: 1
+      - path: MASTER/Pelvis/Bone024
+        weight: 1
+      - path: MASTER/Pelvis/Bone024/Bone028
+        weight: 1
+      - path: MASTER/Pelvis/Bone024/Bone028/Bone025
+        weight: 1
+      - path: MASTER/Pelvis/Bone027
+        weight: 1
+      - path: MASTER/Pelvis/Bone027/Bone023
+        weight: 1
+      - path: MASTER/Pelvis/Bone027/Bone023/Bone026
+        weight: 1
+      - path: MASTER/Pelvis/Bone029
+        weight: 1
+      - path: MASTER/Pelvis/Circle001
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone030
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone030/Bone031
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone035
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone035/Bone036
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone035/Bone036/Bone037
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone038
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone038/Bone039
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone038/Bone039/Bone040
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone038/Bone039/Bone040/Bone041
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Circle006
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Circle006/IK Chain010
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Circle007
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Circle007/IK Chain009
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: ATTACK
+      takeName: Take 001
+      firstFrame: 83
+      lastFrame: 124
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: body
+        weight: 1
+      - path: MASTER
+        weight: 1
+      - path: MASTER/Circle002
+        weight: 1
+      - path: MASTER/Circle002/IK Chain006
+        weight: 1
+      - path: MASTER/Circle003
+        weight: 1
+      - path: MASTER/Circle003/IK Chain007
+        weight: 1
+      - path: MASTER/Circle004
+        weight: 1
+      - path: MASTER/Circle004/IK Chain008
+        weight: 1
+      - path: MASTER/Circle005
+        weight: 1
+      - path: MASTER/Circle005/IK Chain005
+        weight: 1
+      - path: MASTER/Pelvis
+        weight: 1
+      - path: MASTER/Pelvis/Bone017
+        weight: 1
+      - path: MASTER/Pelvis/Bone017/Bone018
+        weight: 1
+      - path: MASTER/Pelvis/Bone017/Bone018/Bone019
+        weight: 1
+      - path: MASTER/Pelvis/Bone020
+        weight: 1
+      - path: MASTER/Pelvis/Bone020/Bone021
+        weight: 1
+      - path: MASTER/Pelvis/Bone020/Bone021/Bone022
+        weight: 1
+      - path: MASTER/Pelvis/Bone024
+        weight: 1
+      - path: MASTER/Pelvis/Bone024/Bone028
+        weight: 1
+      - path: MASTER/Pelvis/Bone024/Bone028/Bone025
+        weight: 1
+      - path: MASTER/Pelvis/Bone027
+        weight: 1
+      - path: MASTER/Pelvis/Bone027/Bone023
+        weight: 1
+      - path: MASTER/Pelvis/Bone027/Bone023/Bone026
+        weight: 1
+      - path: MASTER/Pelvis/Bone029
+        weight: 1
+      - path: MASTER/Pelvis/Circle001
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone030
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone030/Bone031
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone035
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone035/Bone036
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone035/Bone036/Bone037
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone038
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone038/Bone039
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone038/Bone039/Bone040
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Bone038/Bone039/Bone040/Bone041
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Circle006
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Circle006/IK Chain010
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Circle007
+        weight: 1
+      - path: MASTER/Pelvis/Circle001/Circle007/IK Chain009
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: DEATH
+      takeName: Take 001
+      firstFrame: 124
+      lastFrame: 124.00001
+      wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
