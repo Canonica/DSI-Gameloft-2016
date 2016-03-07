@@ -980,6 +980,7 @@ MonoBehaviour:
   _damage: 1
   _hatchTime: 1
   bumpResist: 1
+  manaCost: 20
   smoother: 40
   _target: {fileID: 0}
   _trigger: []

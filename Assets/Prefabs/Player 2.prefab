@@ -430,19 +430,29 @@ MonoBehaviour:
   units:
   - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
   - {fileID: 170856, guid: 16387359b5695234bbc40af5ba9be44b, type: 2}
+  - {fileID: 170856, guid: 89293a87b10098544855b107086daeec, type: 2}
   - {fileID: 170856, guid: efcb646a5c6d9af41b780ac0f34e26a4, type: 2}
   delay: 0
   waypoint: {fileID: 0}
   targetBase: {fileID: 0}
   _currentLane: {fileID: 0}
   _laneSpawning: 0
-  maxNbOfUnits: 0a0000000300000003000000
-  currentNbOfUnits: 000000000000000000000000
+  maxNbOfUnits: 0a000000030000000500000003000000
+  currentNbOfUnits: 00000000000000000000000000000000
+  _maxMana: 500
+  _currentMana: 0
+  _delayMana: 1
+  _addMana: 10
+  _manaToSacrifice: 10
+  _manaImage: {fileID: 0}
+  _manaText: {fileID: 0}
   textCurrentNbOfUnits:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   reloadUnitImage:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

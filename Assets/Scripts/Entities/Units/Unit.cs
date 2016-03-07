@@ -29,6 +29,9 @@ public class Unit : Entity
     [Tweakable]
     public float bumpResist=1;
 
+    [Tweakable]
+    public int manaCost;
+
     [Header("Bump Option")]
     public int smoother = 20;
 

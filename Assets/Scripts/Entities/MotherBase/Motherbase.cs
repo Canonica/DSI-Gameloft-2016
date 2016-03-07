@@ -22,6 +22,19 @@ public class Motherbase : Entity
     public int[] maxNbOfUnits;
     public int[] currentNbOfUnits;
 
+    [Header("Mana Option")]
+
+    public int _maxMana;
+    public int _currentMana;
+
+    public float _delayMana;
+    public int _addMana;
+    public int _manaToSacrifice;
+    bool _canSacrificeMana;
+
+    public Image _manaImage;
+    public Text _manaText;
+
 
     public Text[] textCurrentNbOfUnits;
     public Image[] reloadUnitImage;
@@ -62,6 +75,8 @@ public class Motherbase : Entity
         base.Start();
         //cameraPos = Camera.main.transform.position;
         _currentLane = GetComponent<ChangeLane>();
+        _currentMana = 0;
+        _canSacrificeMana = true;
     }
 
     public override void Update()
@@ -101,10 +116,7 @@ public class Motherbase : Entity
         {
             if (!spawning)
             {
-                StartCoroutine(loadUnit(0));
-                StartCoroutine(loadUnit(1));
-                StartCoroutine(loadUnit(2));
-                StartCoroutine(loadUnit(3));
+                StartCoroutine(loadMana());
                 spawning = true;
             }
 
@@ -151,35 +163,54 @@ public class Motherbase : Entity
                     setNb--;
                 }
             }
+            if(Input.GetAxis("TriggersR_" + _playerId) > 0.3)
+            {
+                if (_manaToSacrifice <= _currentMana && _canSacrificeMana)
+                {
+                    _currentMana -= _manaToSacrifice;
+                    _canSacrificeMana = false;
+                    //Add xp;
+                }
+                else
+                {
+                    // can't add xp;
+                }
+            }
 
-            if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)))
+            if(Input.GetAxis("TriggersR_" + _playerId) == 0)
             {
-                //Actualiser le compteur de temps si cooldown
-                //Afficher le spell 1 dans l'UI
-            }
-            else
-            {
-                //Masquer le spell 1 dans l'UI
+                _canSacrificeMana = true;
             }
 
-            if ((Input.GetButtonDown("TriggersR_" + _playerId) || Input.GetKey(KeyCode.T)))
-            {
-                //Actualiser le compteur de temps si cooldown
-                //Afficher le spell 2 dans l'UI
-            }
-            else
-            {
-                //Masquer le spell 2 dans l'UI
-            }
+            //if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)))
+            //{
+            //    Actualiser le compteur de temps si cooldown
+            //    Afficher le spell 1 dans l'UI
+            //}
+            //else
+            //{
+            //    Masquer le spell 1 dans l'UI
+            //}
+
+            //if ((Input.GetButtonDown("TriggersR_" + _playerId) || Input.GetKey(KeyCode.T)))
+            //{
+            //    Actualiser le compteur de temps si cooldown
+            //    Afficher le spell 2 dans l'UI
+            //}
+            //else
+            //{
+            //    Masquer le spell 2 dans l'UI
+            //}
             
-            textCurrentNbOfUnits[0].text = currentNbOfUnits[0] + "/" + maxNbOfUnits[0];
-            textCurrentNbOfUnits[1].text = currentNbOfUnits[1] + "/" + maxNbOfUnits[1];
-            textCurrentNbOfUnits[2].text = currentNbOfUnits[2] + "/" + maxNbOfUnits[2];
-            textCurrentNbOfUnits[3].text = currentNbOfUnits[3] + "/" + maxNbOfUnits[3];
+            //textCurrentNbOfUnits[0].text = currentNbOfUnits[0] + "/" + maxNbOfUnits[0];
+            //textCurrentNbOfUnits[1].text = currentNbOfUnits[1] + "/" + maxNbOfUnits[1];
+            //textCurrentNbOfUnits[2].text = currentNbOfUnits[2] + "/" + maxNbOfUnits[2];
+            //textCurrentNbOfUnits[3].text = currentNbOfUnits[3] + "/" + maxNbOfUnits[3];
         }
 
         _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
-
+        _manaImage.fillAmount = ((float)_currentMana / (float)_maxMana);
+        _manaText.text = _currentMana + "/" + _maxMana;
         base.Update();
     }
 
@@ -209,88 +240,75 @@ public class Motherbase : Entity
 
     void corSpawnUnits(int typeOfUnit)
     {
-        if (currentNbOfUnits[typeOfUnit] > 0)
-        {
             if(typeOfUnit==0)
                 if (spawnSwarmFX)
                     SoundManager.Instance.playSound(spawnSwarmFX, 0.3f);
             int unitToSpawn = units[typeOfUnit].GetComponent<Unit>().groupSpawn;
             EndGameManager.instance.addSpawn(_playerId, unitToSpawn);
-
-            bool isActiveSpellPrimary = false;
-            bool isActiveSpellSecondary = false;
-            if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)) && primarySpellCd == null)
+            
+            //bool isActiveSpellPrimary = false;
+            //bool isActiveSpellSecondary = false;
+            //if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)) && primarySpellCd == null)
+            //{
+            //    primarySpellCd = StartCoroutine(corCooldownSpell(primarySpell));
+            //    cooldownPrimarySpell = Time.time;
+            //    isActiveSpellPrimary = true;
+            //}
+            //else if (primarySpellCd != null)
+            //{
+            //    Debug.Log("Recharge spell 1");
+            //}
+            //if ((Input.GetButtonDown("TriggersR_" + _playerId) || Input.GetKey(KeyCode.T)) && secondarySpellCd == null)
+            //{
+            //    secondarySpellCd = StartCoroutine(corCooldownSpell(secondarySpell));
+            //    cooldownSecondarySpell = Time.time;
+            //    isActiveSpellSecondary = true;
+            //}
+            //else if (secondarySpellCd != null)
+            //{
+            //    Debug.Log("Recharge spell 2");
+            //}
+            if(_currentMana >= units[typeOfUnit].GetComponent<Unit>().manaCost)
             {
-                primarySpellCd = StartCoroutine(corCooldownSpell(primarySpell));
-                cooldownPrimarySpell = Time.time;
-                isActiveSpellPrimary = true;
-            }
-            else if (primarySpellCd != null)
-            {
-                Debug.Log("Recharge spell 1");
-            }
-            if ((Input.GetButtonDown("TriggersR_" + _playerId) || Input.GetKey(KeyCode.T)) && secondarySpellCd == null)
-            {
-                secondarySpellCd = StartCoroutine(corCooldownSpell(secondarySpell));
-                cooldownSecondarySpell = Time.time;
-                isActiveSpellSecondary = true;
-            }
-            else if (secondarySpellCd != null)
-            {
-                Debug.Log("Recharge spell 2");
-            }
-
-            for (int i = 0; i < unitToSpawn; i++)
-            {
-                GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
-                Unit unit = prefabOfUnit.GetComponent<Unit>();
-                NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
-
-                if (isActiveSpellPrimary)
+                for (int i = 0; i < unitToSpawn; i++)
                 {
-                    switch (primarySpell._name)
-                    {
-                        case "BuffAtk":
-                            unit._damage += (int)primarySpell._value;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                if (isActiveSpellSecondary)
-                {
-                    switch (primarySpell._name)
-                    {
-                        case "BuffAtk":
-                            unit._damage += (int)primarySpell._value;
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                    GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
+                    Unit unit = prefabOfUnit.GetComponent<Unit>();
+                    NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
+                   
 
-                unit._playerId = _playerId;
-                nav.SetDestination(waypoint.pos);
-                unit._enemyMotherBase = targetBase;
-                unit.waypointDest = waypoint;
-                unit._laneSpawning = _laneSpawning;
-                prefabOfUnit.transform.parent = transform.parent;
-            }
-            currentNbOfUnits[typeOfUnit]--;
-        }
-    }
+                    //if (isActiveSpellPrimary)
+                    //{
+                    //    switch (primarySpell._name)
+                    //    {
+                    //        case "BuffAtk":
+                    //            unit._damage += (int)primarySpell._value;
+                    //            break;
+                    //        default:
+                    //            break;
+                    //    }
+                    //}
+                    //if (isActiveSpellSecondary)
+                    //{
+                    //    switch (primarySpell._name)
+                    //    {
+                    //        case "BuffAtk":
+                    //            unit._damage += (int)primarySpell._value;
+                    //            break;
+                    //        default:
+                    //            break;
+                    //    }
+                    //}
 
-    IEnumerator loadUnit(int nbOfUnits)
-    {
-        while (_life > 0)
-        {
-            if (currentNbOfUnits[nbOfUnits] < maxNbOfUnits[nbOfUnits])
-            {
-                currentNbOfUnits[nbOfUnits]++;
-                yield return StartCoroutine(fillIcon(reloadUnitImage[nbOfUnits], units[nbOfUnits].GetComponent<Unit>()._hatchTime));
+                    unit._playerId = _playerId;
+                    nav.SetDestination(waypoint.pos);
+                    unit._enemyMotherBase = targetBase;
+                    unit.waypointDest = waypoint;
+                    unit._laneSpawning = _laneSpawning;
+                    prefabOfUnit.transform.parent = transform.parent;
+                }
+                _currentMana -= units[typeOfUnit].GetComponent<Unit>().manaCost;
             }
-            yield return 0;
-        }
     }
 
     public IEnumerator fillIcon(Image icon, float cdTimer)
@@ -309,6 +327,16 @@ public class Motherbase : Entity
     {
         yield return new WaitForSeconds(spellToRecharge._cost);
         rechargeSpell(spellToRecharge);
+    }
+
+    IEnumerator loadMana()
+    {
+        while (_currentMana < _maxMana)
+        {
+            _currentMana += _addMana;
+            yield return new WaitForSeconds(_delayMana);
+        }
+       
     }
 
     void rechargeSpell(Spell spellToRecharge)
