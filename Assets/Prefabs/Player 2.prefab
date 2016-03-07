@@ -109,6 +109,10 @@ GameObject:
   - 114: {fileID: 11479908}
   - 114: {fileID: 11422314}
   - 114: {fileID: 11455634}
+  - 114: {fileID: 11481898}
+  - 114: {fileID: 11446236}
+  - 114: {fileID: 11430892}
+  - 114: {fileID: 11410452}
   m_Layer: 0
   m_Name: MotherBase
   m_TagString: MotherBase
@@ -364,6 +368,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 147466}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &11410452
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b24c4525c2f52e24f91ce024c7d05cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 
+  _cost: 0
+  _value: 0
+  _level: 0
 --- !u!114 &11421834
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -395,6 +414,36 @@ MonoBehaviour:
   currentWP: 1
   Lane: []
   cursor: {fileID: 164428}
+--- !u!114 &11430892
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b24c4525c2f52e24f91ce024c7d05cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 
+  _cost: 0
+  _value: 0
+  _level: 0
+--- !u!114 &11446236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b24c4525c2f52e24f91ce024c7d05cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 
+  _cost: 0
+  _value: 0
+  _level: 0
 --- !u!114 &11455634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -409,7 +458,6 @@ MonoBehaviour:
   _name: BuffAtk
   _cost: 0
   _value: 2
-  _type: 0
 --- !u!114 &11479908
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -422,6 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyMotherBase: {fileID: 0}
+  _motherBase: {fileID: 0}
   _life: 10
   _lifeMax: 2
   _playerId: 2
@@ -461,8 +510,33 @@ MonoBehaviour:
   secondarySpell: {fileID: 0}
   primarySpells: []
   secondarySpells: []
+  upgrades:
+  - {fileID: 11430892}
+  - {fileID: 11446236}
+  - {fileID: 11481898}
+  - {fileID: 11410452}
+  upgradeDelay: 0.3
+  lastUpgrade: 0
+  experienceLevel: 00000000000000000000000000000000
+  hasUsedLevel: 
   FxBlood: {fileID: 136768, guid: 03f876b3154aa9a419b0c305f0a6ae32, type: 2}
   spawnSwarmFX: {fileID: 0}
+  experienceByMana: 1
+--- !u!114 &11481898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b24c4525c2f52e24f91ce024c7d05cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 
+  _cost: 0
+  _value: 0
+  _level: 0
 --- !u!119 &11929086
 Projector:
   m_ObjectHideFlags: 1

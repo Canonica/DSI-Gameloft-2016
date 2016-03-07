@@ -109,6 +109,10 @@ GameObject:
   - 114: {fileID: 11427756}
   - 114: {fileID: 11419702}
   - 114: {fileID: 11462460}
+  - 114: {fileID: 11422624}
+  - 114: {fileID: 11403360}
+  - 114: {fileID: 11417746}
+  - 114: {fileID: 11498108}
   m_Layer: 0
   m_Name: MotherBase
   m_TagString: MotherBase
@@ -363,6 +367,36 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165684}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &11403360
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b24c4525c2f52e24f91ce024c7d05cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 
+  _cost: 0
+  _value: 0
+  _level: 0
+--- !u!114 &11417746
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b24c4525c2f52e24f91ce024c7d05cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 
+  _cost: 0
+  _value: 0
+  _level: 0
 --- !u!114 &11419702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -379,6 +413,21 @@ MonoBehaviour:
   currentWP: 1
   Lane: []
   cursor: {fileID: 118682}
+--- !u!114 &11422624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b24c4525c2f52e24f91ce024c7d05cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 
+  _cost: 0
+  _value: 0
+  _level: 0
 --- !u!114 &11427756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -391,6 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyMotherBase: {fileID: 0}
+  _motherBase: {fileID: 0}
   _life: 2
   _lifeMax: 2
   _playerId: 1
@@ -430,8 +480,18 @@ MonoBehaviour:
   secondarySpell: {fileID: 0}
   primarySpells: []
   secondarySpells: []
+  upgrades:
+  - {fileID: 11498108}
+  - {fileID: 11417746}
+  - {fileID: 11403360}
+  - {fileID: 11422624}
+  upgradeDelay: 0.3
+  lastUpgrade: 0
+  experienceLevel: 00000000000000000000000000000000
+  hasUsedLevel: 
   FxBlood: {fileID: 136768, guid: 03f876b3154aa9a419b0c305f0a6ae32, type: 2}
   spawnSwarmFX: {fileID: 0}
+  experienceByMana: 1
 --- !u!114 &11462460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -446,7 +506,6 @@ MonoBehaviour:
   _name: BuffAtk
   _cost: 0
   _value: 2
-  _type: 0
 --- !u!114 &11470812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -462,6 +521,21 @@ MonoBehaviour:
   cursorSensibility: 50
   minLimit: {x: -100, y: -100}
   maxLimit: {x: 100, y: 100}
+--- !u!114 &11498108
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b24c4525c2f52e24f91ce024c7d05cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 
+  _cost: 0
+  _value: 0
+  _level: 0
 --- !u!135 &13575406
 SphereCollider:
   m_ObjectHideFlags: 1
