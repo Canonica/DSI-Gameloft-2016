@@ -29,18 +29,25 @@ public class BaseUnit : Unit {
     public override void OnDeath()
     {
         base.OnDeath();
-        List<Unit> gos = new List<Unit>(GameObject.FindObjectsOfType<Unit>().Where(unit => unit._playerId == _motherBase._playerId));
-        Unit best = gos[0];
-        for (int i = 1; i < gos.Count; i++)
+        BaseUnit[] baseU = GameObject.FindObjectsOfType<BaseUnit>();
+        if(baseU.Length > 0)
         {
-            if(Vector3.Distance(best.transform.position, transform.position) > Vector3.Distance(gos[i].transform.position, transform.position))
+            List<BaseUnit> gos = new List<BaseUnit>(baseU.Where(unit => unit._playerId == _playerId));
+            if(gos.Count > 0)
             {
-                best = gos[i];
+                Unit best = gos[0];
+                for (int i = 1; i < gos.Count; i++)
+                {
+                    if(Vector3.Distance(best.transform.position, transform.position) > Vector3.Distance(gos[i].transform.position, transform.position))
+                    {
+                        best = gos[i];
+                    }
+                }
+                if(Vector3.Distance(best.transform.position, transform.position) < distanceMaxBetweenCockroachHeal)
+                {
+                    best._life += lifeRestored;
+                }
             }
-        }
-        if(Vector3.Distance(best.transform.position, transform.position) < distanceMaxBetweenCockroachHeal)
-        {
-            best._life += lifeRestored;
         }
     }
 

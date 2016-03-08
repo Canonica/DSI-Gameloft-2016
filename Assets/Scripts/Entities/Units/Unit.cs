@@ -159,7 +159,36 @@ public class Unit : Entity
     // true if it kill
     public virtual void Hit(int parDamage)
     {
+        parDamage = Protected(parDamage);
         _life -= parDamage;
+    }
+
+    private int Protected(int parDamage)
+    {
+        UnitTank[] tanks = GameObject.FindObjectsOfType<UnitTank>();
+        if (tanks.Length > 0)
+        {
+            List<UnitTank> gos = new List<UnitTank>(tanks.Where(unit => unit._playerId == _playerId));
+            if(gos.Count > 0)
+            {
+                UnitTank best = gos[0];
+                for (int i = 1; i < gos.Count; i++)
+                {
+                    if (Vector3.Distance(best.transform.position, transform.position) > Vector3.Distance(gos[i].transform.position, transform.position))
+                    {
+                        best = gos[i];
+                    }
+                }
+                if (best != this.GetComponent<UnitTank>() && Vector3.Distance(best.transform.position, transform.position) < best.negateDamageRange)
+                {
+                    Debug.Log("Reductions des degats");
+                    return (int) (parDamage * (1.0f - best.negateDamageAmount));
+                }
+            }
+        }
+        
+        
+        return parDamage;
     }
 
     void OnCollisionExit(Collision parOther)
@@ -267,7 +296,6 @@ public class Unit : Entity
 
     public virtual void Attack()
     {
-        Debug.Log("Attack from" + gameObject.name);
         if (_target && attackReady && !isStunn)
         {
             attackReady = false;
@@ -276,6 +304,12 @@ public class Unit : Entity
             {
                 if (hitFX)
                     SoundManager.Instance.playSound(hitFX, 1);
+                UnitTank unitT = unit.GetComponent<UnitTank>();
+                if(unitT && unitT.reflectDamage)
+                {
+                    Debug.Log("Renvoi des degats");
+                    Hit((int) (_damage * unitT.reflectDamageAmount));
+                }
                 unit.Hit(_damage);
                // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
                 EndGameManager.instance.addDamage(_playerId, _damage);
