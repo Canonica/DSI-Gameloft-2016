@@ -8,6 +8,9 @@ public class UnitJump : Unit {
     public int forceAOE = 1;
     float timeAOE = 2;
     public int heightJump = 5;
+    public bool hasUpgrade1;
+    public bool hasUpgrade2;
+    public bool hasUpgrade3;
     override
     public void Start()
     {

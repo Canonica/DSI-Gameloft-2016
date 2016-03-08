@@ -458,7 +458,7 @@ public class Motherbase : Entity
         {
             if(_currentMana < _maxMana)
             {
-                _currentMana += _addMana;
+                _currentMana = Mathf.Min(_currentMana + _addMana, _maxMana);
             }
             yield return new WaitForSeconds(_delayMana);
         }
