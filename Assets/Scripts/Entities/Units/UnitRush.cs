@@ -91,6 +91,25 @@ public class UnitRush : Unit {
         //}
     }
 
+    void Hit(Unit other)
+    {
+
+        if (bloodyRash)
+        {
+            other.Hit((int)((((float)_damage * _lifeMax) / _life) / bloodyFactor));
+        }
+        else
+        {
+            other.Hit(_damage);
+        }
+        if (lifeSteal)
+        {
+            Debug.Log("Life steal " + _damage * (valueLifeSteal / (float)100));
+            _life += (int)(_damage * (valueLifeSteal / (float)100));
+            _life = Mathf.Min(_life, _lifeMax);
+        }
+    }
+
     public override void Attack()
     {
         if (_target && attackReady)
@@ -101,20 +120,7 @@ public class UnitRush : Unit {
             {
                 if (hitFX)
                     SoundManager.Instance.playSound(hitFX, 1);
-                if(bloodyRash)
-                {
-                    unit.Hit(_damage * _lifeMax / _life / bloodyFactor);
-                }
-                else
-                {
-                    unit.Hit(_damage);
-                }
-                if (lifeSteal)
-                {
-                    Debug.Log("Life steal " + _damage * (valueLifeSteal / 100));
-                    _life += _damage*(valueLifeSteal/100);
-                    _life = Mathf.Min(_life, _lifeMax);
-                }
+                Hit(unit);
                 // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
                 EndGameManager.instance.addDamage(_playerId, _damage);
             }

@@ -93,8 +93,8 @@ public class UnitJump : Unit {
         
         //GetComponent<Collider>().enabled = true;
         _navMeshAgent.enabled = true;
-        if(!isActiveAOE)
-        StartCoroutine(AOE());
+        if (!isActiveAOE)
+            StartCoroutine(AOE());
     }
 
     IEnumerator AOE()
@@ -107,9 +107,19 @@ public class UnitJump : Unit {
                 EndGameManager.instance.addDamage(_playerId, _damage);
                 if (canStun && Random.Range(0, 100) > 50)
                 {
+                    Debug.Log("STUNNNN");
                     _trigger[i].GetComponent<Unit>().getStun();
                 }
-                _trigger[i].GetComponent<Unit>().Hit(_damage);
+                if(firstJump)
+                {
+                    firstJump = false;
+                    _trigger[i].GetComponent<Unit>().Hit(_damage * 2);
+                    Debug.Log("firstJump");
+                }
+                else
+                {
+                    _trigger[i].GetComponent<Unit>().Hit(_damage);
+                }
                 Debug.Log("Attack " + _trigger[i].name + " dmg " + _damage);
                 _trigger[i].GetComponent<Unit>().applyBump(transform.position, forceAOE);
             }
@@ -125,7 +135,9 @@ public class UnitJump : Unit {
         base.Hit(parDamage);
         if (_life<=0 && canExplode)
         {
+            Debug.Log("EXPLOSION");
             StartCoroutine(AOE());
+
         }
     }
 
