@@ -39,7 +39,7 @@ public class Unit : Entity
     [HideInInspector]
     public GameObject _target;
     protected NavMeshAgent _navMeshAgent;
-    [HideInInspector]
+
     public List<GameObject> _trigger;
     public float _distanceMinLane = 4f;
     [HideInInspector]
@@ -217,6 +217,7 @@ public class Unit : Entity
 
     public virtual void OnTriggerEnter(Collider parOther)
     {
+
         if (parOther.CompareTag("Unit") && parOther.GetComponent<Unit>()._playerId != _playerId && (parOther.GetComponent<Unit>()._actualLane == _actualLane || _actualLane == 0 || parOther.GetComponent<Unit>()._actualLane ==0))
         {
             
@@ -348,7 +349,7 @@ public class Unit : Entity
 
     IEnumerator bump(Vector3 distance, int localSmoother=0)
     {
-        _navMeshAgent.enabled = false;
+        //_navMeshAgent.enabled = false;
         GetComponent<Collider>().enabled = false;
         if (localSmoother == 0)
             localSmoother = smoother;
@@ -360,7 +361,7 @@ public class Unit : Entity
         isBumped = false;
         
         GetComponent<Collider>().enabled = true;
-        _navMeshAgent.enabled = true;
+        //_navMeshAgent.enabled = true;
     }
     
 

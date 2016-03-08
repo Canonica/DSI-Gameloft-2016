@@ -1221,8 +1221,6 @@ MonoBehaviour:
   _life: 25
   _lifeMax: 25
   _playerId: 0
-  _spells: []
-  _upgrades: []
   img: {fileID: 0}
   unitName: Unit
   attackSpeed: 0.6
@@ -1230,7 +1228,7 @@ MonoBehaviour:
   groupSpawn: 1
   _damage: 1
   _hatchTime: 5
-  bumpResist: 2
+  bumpResist: 10
   manaCost: 0
   smoother: 20
   _target: {fileID: 0}
@@ -1238,15 +1236,15 @@ MonoBehaviour:
   _distanceMinLane: 8
   waypointDest: {fileID: 0}
   laneEnd: 0
-  lastCollision: 0
   collideNum: 0
   isBumped: 0
-  _laneSpawning: 0
+  _actualLane: 0
+  timeStun: 1
   FxHitBlood: {fileID: 0}
   FxDeathBlood: {fileID: 0}
   spawnFX: {fileID: 8300000, guid: 0ba3df5c79a587b45b63705867cf5073, type: 3}
   hitFX: {fileID: 8300000, guid: a612730413ef0264e889702b12edfc6c, type: 3}
-  bumpForce: 2
+  bumpForce: 12
   zoneBump: 14
 --- !u!135 &13595940
 SphereCollider:
@@ -1326,7 +1324,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170856}
   m_Enabled: 1
-  m_Radius: 3
+  m_Radius: 2
   m_Speed: 5
   m_Acceleration: 100
   avoidancePriority: 50

@@ -117,6 +117,14 @@ public class Motherbase : Entity
         //    }
         //}
         // DEBUG
+        if (Input.GetKeyDown(KeyCode.Z) && _playerId == 1)
+        {
+            corSpawnUnits(0);
+        }
+        if (Input.GetKeyDown(KeyCode.E) && _playerId == 2)
+        {
+            corSpawnUnits(0);
+        }
         if (Input.GetKeyDown(KeyCode.D) && _playerId == 2)
         {
             corSpawnUnits(2);

@@ -885,7 +885,7 @@ MonoBehaviour:
   _hatchTime: 3
   bumpResist: 1
   manaCost: 0
-  smoother: 30
+  smoother: 60
   _target: {fileID: 0}
   _trigger: []
   _distanceMinLane: 8

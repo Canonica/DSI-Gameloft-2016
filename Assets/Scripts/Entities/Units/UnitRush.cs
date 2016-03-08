@@ -6,12 +6,12 @@ public class UnitRush : Unit {
     public float flyHeight = 5;
     float baseHeight;
     public bool isFlying;
-    public bool lifeSteal = true;
+    bool lifeSteal = false;
 
     [Range(1,100)]
     public int valueLifeSteal = 50;
-    public bool rangedAttack = false;
-    bool rangedReady = false;
+    bool rangedAttack = false;
+    bool rangedReady = true;
     public float rangedAttackSpeed= 1;
     public int rangedDamage = 1;
 
@@ -93,11 +93,9 @@ public class UnitRush : Unit {
         
         if (_target && lifeSteal&&attackReady)
         {
-            Debug.Log("Life steal " + _damage * (valueLifeSteal / 100));
             _life += _damage * (valueLifeSteal / 100);
             _life = Mathf.Min(_life, _lifeMax);
         }
-        Debug.Log("RUSH ATTACK");
         base.Attack();
     }
 

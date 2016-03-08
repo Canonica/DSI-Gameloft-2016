@@ -53,6 +53,7 @@ public class UnitJump : Unit {
     {
         if (_target && attackReady)
         {
+            attackReady = false;
             StartCoroutine(AOE());
             //StartCoroutine(jump());
         }
@@ -61,6 +62,10 @@ public class UnitJump : Unit {
     IEnumerator dash()
     {
         yield return new WaitForSeconds(Random.Range(0, 1f));
+        if (!_target)
+        {
+            yield break;
+        }
         if (_target.GetComponent<UnitRush>() && _target.GetComponent<UnitRush>().isFlying)
         {
             yield break;
@@ -76,16 +81,24 @@ public class UnitJump : Unit {
         // Calcul direction
         Vector3 dir = _target.transform.position - transform.position;
         float dist = Vector3.Distance(_target.transform.position, transform.position);
-
-        // Calcul de la courbe d'ascention
         Vector3 dirJump = (dir.normalized * dist) ;
 
         // smoother = nombre de fram utilisé pour faire le saut
         for (int i = 0; i < smoother; i++)
         {
-            // Parcour de la courbe
-            transform.position = transform.position + (dirJump / smoother);
-            yield return 0;
+            if (_target)
+            {
+                dir = _target.transform.position - transform.position;
+                dist = Vector3.Distance(_target.transform.position, transform.position);
+                dirJump = (dir.normalized * dist);
+                transform.position = transform.position + (dirJump / smoother);
+                yield return 0;
+            }
+            else
+            {
+                break;
+            }
+            
         }
 
         //GetComponent<Collider>().enabled = true;
@@ -144,7 +157,7 @@ public class UnitJump : Unit {
 
     IEnumerator AOE()
     {
-        attackReady = false;
+        
         isActiveAOE = true;
         for (int i=0; i < _trigger.Count;i++)
         {
