@@ -6,11 +6,13 @@ public class UnitRush : Unit {
     public float flyHeight = 5;
     float baseHeight;
     public bool isFlying;
-    public bool lifeSteal = true;
+    public bool lifeSteal = false;
+    public bool bloodyRash = false;
+    public int bloodyFactor = 1;
 
     [Range(1,100)]
     public int valueLifeSteal = 50;
-    public bool rangedAttack = true;
+    public bool rangedAttack = false;
     bool rangedReady = true;
     public float rangedAttackSpeed= 1;
     public int rangedDamage = 1;
@@ -25,6 +27,7 @@ public class UnitRush : Unit {
         isFlying = true;
         _distanceMinLane += flyHeight;
     }
+
     override
     public void FixedUpdate()
     {
@@ -98,7 +101,14 @@ public class UnitRush : Unit {
             {
                 if (hitFX)
                     SoundManager.Instance.playSound(hitFX, 1);
-                unit.Hit(_damage);
+                if(bloodyRash)
+                {
+                    unit.Hit(_damage * _lifeMax / _life / bloodyFactor);
+                }
+                else
+                {
+                    unit.Hit(_damage);
+                }
                 if (lifeSteal)
                 {
                     Debug.Log("Life steal " + _damage * (valueLifeSteal / 100));
@@ -116,7 +126,7 @@ public class UnitRush : Unit {
     IEnumerator up()
     {
         float height = baseHeight;
-        while (height < flyHeight &&isFlying)
+        while (height < flyHeight && isFlying)
         {
             height += height / smoother;
             _navMeshAgent.baseOffset = height;

@@ -7,12 +7,12 @@ public class UnitJump : Unit {
     bool isActiveAOE = false;
     public int forceAOE = 1;
     float timeAOE = 2;
-    bool canStun = true;
-    bool canExplode = true;
+    public bool canStun = false;
+    public bool canExplode = false;
     public int heightJump = 5;
-    public bool hasUpgrade1;
-    public bool hasUpgrade2;
-    public bool hasUpgrade3;
+    public bool firstJump = false;
+
+
     override
     public void Start()
     {
