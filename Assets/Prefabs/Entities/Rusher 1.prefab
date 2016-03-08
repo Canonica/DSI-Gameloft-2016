@@ -475,7 +475,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 37.14897, y: 26.333492, z: 43.370064}
+  m_LocalPosition: {x: 2.844925, y: -3.8, z: 22.593597}
   m_LocalScale: {x: 0.5, y: 0.3, z: 0.5}
   m_Children:
   - {fileID: 478370}
@@ -738,8 +738,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 23, z: 2}
-  m_Center: {x: 0, y: -8, z: 0}
+  m_Size: {x: 10, y: 7, z: 6}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!111 &11155836
 Animation:
   m_ObjectHideFlags: 1
@@ -794,19 +794,13 @@ MonoBehaviour:
   lastCollision: 0
   collideNum: 0
   isBumped: 0
-  _actualLane: 0
-  timeStun: 1
+  _laneSpawning: 0
   FxHitBlood: {fileID: 136768, guid: a3f845a46e0bd5b4eb338d73e2d939cb, type: 2}
   FxDeathBlood: {fileID: 136768, guid: b83a7ff2ca8aaff468bd682f70fe7457, type: 2}
   spawnFX: {fileID: 0}
   hitFX: {fileID: 0}
   flyHeight: 20
   isFlying: 0
-  lifeSteal: 1
-  valueLifeSteal: 50
-  rangedAttack: 1
-  rangedAttackSpeed: 1
-  rangedDamage: 1
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -848,7 +842,7 @@ SkinnedMeshRenderer:
   serializedVersion: 2
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
-  m_Mesh: {fileID: 4300002, guid: 54140b6154ee254499f05391047d59e1, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 54140b6154ee254499f05391047d59e1, type: 3}
   m_Bones:
   - {fileID: 406762}
   - {fileID: 411410}
@@ -892,7 +886,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: 12
+  m_BaseOffset: 4.5
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 0
 --- !u!1001 &100100000

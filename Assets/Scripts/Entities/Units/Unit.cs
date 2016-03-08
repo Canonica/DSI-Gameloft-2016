@@ -13,7 +13,7 @@ public class Unit : Entity
     [Tweakable]
     public string unitName = "Unit";
 
-    [Header("Unit Stats")]
+    [Header("Unit Option")]
     [Tweakable]
     public float attackSpeed = 1;
     protected bool attackReady = false;
@@ -36,22 +36,16 @@ public class Unit : Entity
     public int smoother = 20;
 
     [Header("Other")]
-    [HideInInspector]
     public GameObject _target;
     protected NavMeshAgent _navMeshAgent;
-    [HideInInspector]
     public List<GameObject> _trigger;
     public float _distanceMinLane = 4f;
-    [HideInInspector]
     public Waypoint waypointDest;
-    [HideInInspector]
     public bool laneEnd = false;
-    [HideInInspector]
+    public float lastCollision = 0;
     public int collideNum = 0;
-    [HideInInspector]
     public bool isBumped = false;
     private int _startingLife;
-    [HideInInspector]
     public int _actualLane;
     bool isStunn = false;
     [Tweakable]
@@ -73,7 +67,6 @@ public class Unit : Entity
 
     public override void Start()
     {
-        _actualLane = 0;
         _startingLife = _life;
         base.Start();
         if (bumpResist == 0)
@@ -85,14 +78,18 @@ public class Unit : Entity
         _allAnims = GetComponentInChildren<Animation>();
         if (spawnFX)
             SoundManager.Instance.playSound(spawnFX, 0.3f);
-        //_allAnims.Play("RUN");
+        _allAnims.Play("RUN");
     }
 
     // Update is called once per frame
 
     public override void FixedUpdate()
     {
+        
+        
+
         base.FixedUpdate();
+
     }
 
     public override void Update()
@@ -105,7 +102,6 @@ public class Unit : Entity
             }
             else
             {
-                _actualLane = waypointDest.transform.parent.GetComponent<Lane>().num;
                 waypointDest = waypointDest.Next(_playerId);
                 if (waypointDest.isTeleport)
                 {
@@ -117,10 +113,10 @@ public class Unit : Entity
         }
 
         
-        if (attackReady && _target && collideNum > 0)
-        {
-            Attack();
-        }
+        //if (attackReady && _target)
+        //{
+        //    Attack();
+        //}
 
         base.Update();
     }
@@ -147,8 +143,8 @@ public class Unit : Entity
 
     IEnumerator animDeath()
     {
-        //_allAnims.Play("DEATH");
-        yield return new WaitForSeconds(0.5f);// _allAnims.GetClip("DEATH").length);
+        _allAnims.Play("DEATH");
+        yield return new WaitForSeconds(_allAnims.GetClip("DEATH").length);// _allAnims.GetClip("DEATH").length);
         dead();
     }
 
@@ -171,11 +167,8 @@ public class Unit : Entity
         GameObject other = parOther.gameObject;
         if (other && other.CompareTag("Unit") && other.GetComponent<Unit>()._playerId != _playerId)
         {
-            //_target = other;
-            if (collideNum > 0)
-            {
-                collideNum--;
-            }
+            _target = other;
+            collideNum--;
         }
     }
 
@@ -217,7 +210,7 @@ public class Unit : Entity
 
     public virtual void OnTriggerEnter(Collider parOther)
     {
-        if (parOther.CompareTag("Unit") && parOther.GetComponent<Unit>()._playerId != _playerId && (parOther.GetComponent<Unit>()._actualLane == _actualLane || _actualLane == 0 || parOther.GetComponent<Unit>()._actualLane ==0))
+        if (parOther.CompareTag("Unit") && parOther.GetComponent<Unit>()._playerId != _playerId && parOther.GetComponent<Unit>()._actualLane == _actualLane)
         {
             
             if (_trigger.IndexOf(parOther.gameObject) < 0)
@@ -292,20 +285,19 @@ public class Unit : Entity
         else
         {
             
-            //if (!_target)
-                //applyBump(_target.transform.position, 0.1f, 2);
+            if (!_target)
+                applyBump(_target.transform.position, 0.1f, 2);
             
         }
     }
 
     public virtual IEnumerator reload()
     {
-        //_allAnims.Play("ATTACK");
+        _allAnims.Play("ATTACK");
         attackReady = false;
         yield return new WaitForSeconds(attackSpeed);
         attackReady = true;
-        //Attack();
-        //_allAnims.Play("RUN");
+        _allAnims.Play("RUN");
     }
 
 
