@@ -16,7 +16,7 @@ public class Unit : Entity
     [Header("Unit Option")]
     [Tweakable]
     public float attackSpeed = 1;
-    bool attackReady = false;
+    protected bool attackReady = false;
     [Tweakable]
     public float _movementSpeed = 5.0f;
     [Tweakable]
@@ -109,6 +109,13 @@ public class Unit : Entity
             }
             takeDestination();
         }
+
+        
+        //if (attackReady && _target)
+        //{
+        //    Attack();
+        //}
+
         base.Update();
     }
 
@@ -255,7 +262,7 @@ public class Unit : Entity
         }
     }
 
-    IEnumerator reload()
+    public IEnumerator reload()
     {
         //_allAnims.Play("ATTACK");
 

@@ -22,10 +22,6 @@ public class UnitJump : Unit {
     override public void OnCollisionEnter(Collision col)
     {
         base.OnCollisionEnter(col);
-        if (isActiveAOE&&_target)
-        {
-            
-        }
     }
 
     override public void OnTriggerEnter(Collider col)
@@ -40,11 +36,13 @@ public class UnitJump : Unit {
 
     override public void Attack()
     {
-        if (_target)
+        if (_target&& attackReady)
+            attackReady = false;
         {
-            StartCoroutine(AOE());
+            //StartCoroutine(AOE());
+            StartCoroutine(jump());
+            StartCoroutine(reload());
         }
-        base.Attack();
     }
 
     IEnumerator jump()
@@ -54,7 +52,7 @@ public class UnitJump : Unit {
         Vector3 dir = _target.transform.position - transform.position;
         float dist = Vector3.Distance(_target.transform.position, transform.position);
         Vector3 dirJump = (dir.normalized * dist) / 2;
-        dirJump.y += heightJump;
+        dirJump.y = heightJump;
 
         for (int i = 0; i < smoother ; i++)
         {
@@ -68,18 +66,21 @@ public class UnitJump : Unit {
             transform.position = transform.position + (dirJump / smoother);
             yield return 0;
         }
-        isActiveAOE = true;
+        
         GetComponent<Collider>().enabled = true;
         _navMeshAgent.enabled = true;
+        if(!isActiveAOE)
         StartCoroutine(AOE());
     }
 
     IEnumerator AOE()
     {
+        isActiveAOE = true;
         for (int i=0; i < _trigger.Count;i++)
         {
             if (_trigger[i] )
             {
+                EndGameManager.instance.addDamage(_playerId, _damage);
                 _trigger[i].GetComponent<Unit>().Hit(_damage);
                 _trigger[i].GetComponent<Unit>().applyBump(transform.position, forceAOE);
             }
