@@ -510,7 +510,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 416230, guid: ec30b1051c02ae945820a0468bbddb31, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11419978, guid: ec30b1051c02ae945820a0468bbddb31, type: 2}
       propertyPath: currentGamestate
@@ -3622,7 +3622,7 @@ MonoBehaviour:
   - {fileID: 1652043369}
   upgradeDelay: 0.3
   lastUpgrade: 0
-  experienceLevel: 00000000000000000000000000000000
+  experienceLevel: 00000000f4010000f4010000f4010000
   hasUsedLevel: 
   FxBlood: {fileID: 136768, guid: 03f876b3154aa9a419b0c305f0a6ae32, type: 2}
   spawnSwarmFX: {fileID: 0}
@@ -3942,7 +3942,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22456414, guid: 13f28a53765d2964fbcad540f96387cc, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 22456414, guid: 13f28a53765d2964fbcad540f96387cc, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -4866,7 +4866,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22444938, guid: 39b4ae5b39a3b104f8c3da097ff9f52b, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 22444938, guid: 39b4ae5b39a3b104f8c3da097ff9f52b, type: 2}
       propertyPath: m_AnchoredPosition.x

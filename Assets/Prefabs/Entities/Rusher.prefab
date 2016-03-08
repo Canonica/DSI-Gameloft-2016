@@ -770,12 +770,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyMotherBase: {fileID: 0}
+  _motherBase: {fileID: 0}
   _life: 10
   _lifeMax: 10
   _playerId: 0
   _spells: []
   _upgrades: []
-  img: Assets/Editor/Fly.png
+  img: {fileID: 0}
   unitName: Unit
   attackSpeed: 0.2
   _movementSpeed: 40
@@ -783,6 +784,7 @@ MonoBehaviour:
   _damage: 3
   _hatchTime: 5
   bumpResist: 1
+  manaCost: 0
   smoother: 20
   _target: {fileID: 0}
   _trigger: []
@@ -799,6 +801,11 @@ MonoBehaviour:
   hitFX: {fileID: 0}
   flyHeight: 20
   isFlying: 0
+  lifeSteal: 0
+  valueLifeSteal: 100
+  rangedAttack: 0
+  rangedAttackSpeed: 1
+  rangedDamage: 1
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1

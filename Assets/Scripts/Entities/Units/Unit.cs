@@ -47,7 +47,9 @@ public class Unit : Entity
     public bool isBumped = false;
     private int _startingLife;
     public int _laneSpawning;
-
+    bool isStunn = false;
+    [Tweakable]
+    public float timeStun = 1;
 
     [Header("FX")]
     [SerializeField]
@@ -148,7 +150,7 @@ public class Unit : Entity
 
     
     // true if it kill
-    public void Hit(int parDamage)
+    public virtual void Hit(int parDamage)
     {
         _life -= parDamage;
     }
@@ -180,6 +182,24 @@ public class Unit : Entity
             mother.getDamage(_damage);
             Hit(_life);
         }
+    }
+
+    public void getStun()
+    {
+        if (!isStunn)
+        {
+            isStunn = true;
+            _navMeshAgent.SetDestination(transform.position);
+            StartCoroutine(stunTime());
+        }
+        
+    }
+
+    IEnumerator stunTime()
+    {
+        yield return new WaitForSeconds(timeStun);
+        isStunn = false;
+        takeDestination();
     }
 
     public virtual void OnTriggerEnter(Collider parOther)
@@ -239,7 +259,7 @@ public class Unit : Entity
 
     public virtual void Attack()
     {
-        if (_target && attackReady)
+        if (_target && attackReady && !isStunn)
         {
             attackReady = false;
             Unit unit = _target.GetComponent<Unit>();
@@ -265,7 +285,7 @@ public class Unit : Entity
     public IEnumerator reload()
     {
         //_allAnims.Play("ATTACK");
-
+        attackReady = false;
         yield return new WaitForSeconds(attackSpeed);
         attackReady = true;
         //_allAnims.Play("RUN");

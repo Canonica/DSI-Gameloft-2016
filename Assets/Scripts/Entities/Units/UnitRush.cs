@@ -6,8 +6,14 @@ public class UnitRush : Unit {
     public float flyHeight = 5;
     float baseHeight;
     public bool isFlying;
-    public bool lifeSteal = false;
-    public bool rangedAttack = false;
+    public bool lifeSteal = true;
+
+    [Range(1,100)]
+    public int valueLifeSteal = 50;
+    public bool rangedAttack = true;
+    bool rangedReady = true;
+    public float rangedAttackSpeed= 1;
+    public int rangedDamage = 1;
 
     override
     public void Start()
@@ -30,6 +36,27 @@ public class UnitRush : Unit {
         //}
     }
 
+    override
+    public void Update()
+    {
+        base.Update();
+
+        if (_target && rangedAttack && rangedReady)
+        {
+            Debug.Log("Ranged attack");
+            rangedReady = false;
+            _target.GetComponent<Unit>().Hit(rangedDamage);
+            StartCoroutine(rangedCooldown());
+
+        }
+    }
+
+    IEnumerator rangedCooldown()
+    {
+        yield return new WaitForSeconds(rangedAttackSpeed);
+        rangedReady = true;
+    }
+
     override public void OnTriggerEnter(Collider col)
     {
         base.OnTriggerEnter(col);
@@ -50,8 +77,27 @@ public class UnitRush : Unit {
 
     public override void Attack()
     {
-        base.Attack();
-
+        if (_target && attackReady)
+        {
+            attackReady = false;
+            Unit unit = _target.GetComponent<Unit>();
+            if (unit && unit._playerId != _playerId)
+            {
+                if (hitFX)
+                    SoundManager.Instance.playSound(hitFX, 1);
+                unit.Hit(_damage);
+                if (lifeSteal)
+                {
+                    Debug.Log("Life steal " + _damage * (valueLifeSteal / 100));
+                    _life += _damage*(valueLifeSteal/100);
+                    _life = Mathf.Min(_life, _lifeMax);
+                }
+                // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
+                EndGameManager.instance.addDamage(_playerId, _damage);
+            }
+            
+            StartCoroutine(reload());
+        }
     }
 
     IEnumerator up()

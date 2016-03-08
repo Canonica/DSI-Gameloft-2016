@@ -7,6 +7,8 @@ public class UnitJump : Unit {
     bool isActiveAOE = false;
     public int forceAOE = 1;
     float timeAOE = 2;
+    bool canStun = true;
+    bool canExplode = true;
     public int heightJump = 5;
     override
     public void Start()
@@ -37,11 +39,11 @@ public class UnitJump : Unit {
     override public void Attack()
     {
         if (_target&& attackReady)
-            attackReady = false;
         {
+            attackReady = false;
             //StartCoroutine(AOE());
             StartCoroutine(jump());
-            StartCoroutine(reload());
+            
         }
     }
 
@@ -92,11 +94,25 @@ public class UnitJump : Unit {
             if (_trigger[i] )
             {
                 EndGameManager.instance.addDamage(_playerId, _damage);
+                if (canStun && Random.Range(0, 100) > 50)
+                {
+                    _trigger[i].GetComponent<Unit>().getStun();
+                }
                 _trigger[i].GetComponent<Unit>().Hit(_damage);
                 _trigger[i].GetComponent<Unit>().applyBump(transform.position, forceAOE);
             }
             yield return 0;
         }
         isActiveAOE = false;
+        StartCoroutine(reload());
+    }
+
+    public override void Hit(int parDamage)
+    {
+        if (canExplode)
+        {
+            StartCoroutine(AOE());
+        }
+        base.Hit(parDamage);
     }
 }
