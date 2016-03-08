@@ -3622,7 +3622,7 @@ MonoBehaviour:
   - {fileID: 1652043369}
   upgradeDelay: 0.3
   lastUpgrade: 0
-  experienceLevel: 00000000000000000000000000000000
+  experienceLevel: f4010000f4010000f4010000f4010000
   hasUsedLevel: 
   FxBlood: {fileID: 136768, guid: 03f876b3154aa9a419b0c305f0a6ae32, type: 2}
   spawnSwarmFX: {fileID: 0}

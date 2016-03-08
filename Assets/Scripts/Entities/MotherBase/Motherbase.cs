@@ -273,7 +273,7 @@ public class Motherbase : Entity
             }
         }
 
-        Debug.Log(levelDispo);
+        Debug.Log("lvl"+levelDispo);
 
         base.FixedUpdate();
     }

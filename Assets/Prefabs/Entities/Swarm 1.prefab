@@ -333,7 +333,7 @@ GameObject:
   - 195: {fileID: 19576698}
   - 54: {fileID: 5481366}
   m_Layer: 0
-  m_Name: Swarm
+  m_Name: Swarm 1
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -647,7 +647,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 609.9497, y: -116.11829, z: -0.3613348}
+  m_LocalPosition: {x: 22.981026, y: 4.6382885, z: 8.744878}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 464900}
@@ -1018,7 +1018,7 @@ SkinnedMeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 18eb2b387257af94e8fc52c6b8e69e23, type: 2}
+  - {fileID: 2100000, guid: 5742e734499b01f41bff1b4e81102450, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
