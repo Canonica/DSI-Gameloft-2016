@@ -47,10 +47,21 @@ public class UnitJump : Unit {
 
     IEnumerator jump()
     {
+        if (_target.GetComponent<UnitRush>()&& _target.GetComponent<UnitRush>().isFlying)
+        {
+            yield break;
+        }
+
+        if (_target.transform.position.y > transform.position.y)
+        {
+            yield break;
+        }
+
         GetComponent<Collider>().enabled = false;
         _navMeshAgent.enabled = false;
         Vector3 dir = _target.transform.position - transform.position;
         float dist = Vector3.Distance(_target.transform.position, transform.position);
+        
         Vector3 dirJump = (dir.normalized * dist) / 2;
         dirJump.y = heightJump;
 

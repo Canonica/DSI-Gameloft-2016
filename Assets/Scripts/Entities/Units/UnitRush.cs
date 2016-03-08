@@ -6,6 +6,9 @@ public class UnitRush : Unit {
     public float flyHeight = 5;
     float baseHeight;
     public bool isFlying;
+    public bool lifeSteal = false;
+    public bool rangedAttack = false;
+
     override
     public void Start()
     {
@@ -45,6 +48,12 @@ public class UnitRush : Unit {
         //}
     }
 
+    public override void Attack()
+    {
+        base.Attack();
+
+    }
+
     IEnumerator up()
     {
         float height = baseHeight;
@@ -55,6 +64,7 @@ public class UnitRush : Unit {
             yield return 0;
         }
         _navMeshAgent.baseOffset = flyHeight;
+        
     }
 
     IEnumerator down()
