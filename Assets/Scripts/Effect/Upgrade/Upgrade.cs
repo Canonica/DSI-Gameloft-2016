@@ -2,54 +2,80 @@
 
 public class Upgrade : Effect
 {
-    Motherbase _mb;
-    public int _level;
+    [HideInInspector]
+    public Motherbase _mb;
+
+    public int _levelMax = 3;
+    public bool _levelOne;
+    public bool _levelTwo;
+    public bool _levelThree;
+
 
     void Start()
     {
         _mb = GetComponent<Motherbase>();
-        _level = 0;
     }
 
     public virtual void LevelOne(Unit unit)
     {
-        unit._damage += 2;
+        //unit._damage += 2;
     }
 
     public virtual void LevelTwo(Unit unit)
     {
-        unit._hatchTime -= 0.5f;
+        // unit._hatchTime -= 0.5f;
     }
 
-    public virtual void LevelThree(int index)
+    public virtual void LevelThree(Unit unit)
     {
-        if(index < _mb.maxNbOfUnits.Length)
+        /*if(index < _mb.maxNbOfUnits.Length)
         {
             _mb.maxNbOfUnits[index] += 5;
-        }
+        }*/
     }
 
-    public void LevelUp()
+    public bool LevelUp()
     {
-        if (_level < 3)
+
+        bool hasLevelUp = false;
+
+        int level = Random.Range(0, _levelMax * 100);
+
+        if ((level < 100 || (_levelTwo && _levelThree)) && !_levelOne)
         {
-            _level++;
+            _levelOne = true;
+            hasLevelUp = true;
         }
-        if (_level > 2)
+        else if ((level < 200 || _levelThree) && !_levelTwo)
         {
-            LevelThree(_mb.upgrades.IndexOf(this));
+            _levelTwo = true;
+            hasLevelUp = true;
         }
+
+        else if (level < 300 && !_levelThree)
+        {
+            _levelThree = true;
+            hasLevelUp = true;
+        }
+
+
+        return hasLevelUp;
+
     }
 
     public void Use(Unit unit)
     {
-        if(_level > 0)
+        if (_levelOne)
         {
             LevelOne(unit);
         }
-        if (_level > 1)
+        if (_levelTwo)
         {
             LevelTwo(unit);
+        }
+        if (_levelThree)
+        {
+            LevelThree(unit);
         }
     }
 
