@@ -880,7 +880,7 @@ MonoBehaviour:
   _upgrades: []
   img: {fileID: 0}
   unitName: Unit
-  attackSpeed: 0.2
+  attackSpeed: 1
   _movementSpeed: 10
   groupSpawn: 1
   _damage: 2
@@ -896,7 +896,8 @@ MonoBehaviour:
   lastCollision: 0
   collideNum: 0
   isBumped: 0
-  _laneSpawning: 0
+  _actualLane: 0
+  timeStun: 1
   FxHitBlood: {fileID: 136768, guid: a3f845a46e0bd5b4eb338d73e2d939cb, type: 2}
   FxDeathBlood: {fileID: 136768, guid: b83a7ff2ca8aaff468bd682f70fe7457, type: 2}
   spawnFX: {fileID: 0}
@@ -917,7 +918,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 12
+  m_Radius: 6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &13723350
 SkinnedMeshRenderer:
@@ -986,7 +987,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170856}
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_Speed: 5
   m_Acceleration: 100
   avoidancePriority: 0
