@@ -34,32 +34,47 @@ public class Upgrade : Effect
         }*/
     }
 
-    public bool LevelUp()
+    public int PreLevelUp()
     {
-
-        bool hasLevelUp = false;
-
-        int level = Random.Range(0, _levelMax * 100);
-
-        if ((level < 100 || (_levelTwo && _levelThree)) && !_levelOne)
+        int level = -1;
+        if (!(_levelOne && _levelTwo && _levelThree))
         {
-            _levelOne = true;
-            hasLevelUp = true;
+            level = Random.Range(0, _levelMax * 100);
+
+            if ((level < 100 || (_levelTwo && _levelThree)) && !_levelOne)
+            {
+                level = 1;
+            }
+            else if ((level < 200 || _levelThree) && !_levelTwo)
+            {
+                level = 2;
+            }
+            else if (level < 300 && !_levelThree)
+            {
+                level = 3;
+            }
         }
-        else if ((level < 200 || _levelThree) && !_levelTwo)
+        return level;
+
+    }
+
+    public bool LevelUp(int level)
+    {
+        if (level == 1)
         {
-            _levelTwo = true;
-            hasLevelUp = true;
+            return _levelOne = true;
         }
-
-        else if (level < 300 && !_levelThree)
+        else if (level == 2)
         {
-            _levelThree = true;
-            hasLevelUp = true;
+            return _levelTwo = true;
         }
 
+        else if (level == 3)
+        {
+            return _levelThree = true;
+        }
 
-        return hasLevelUp;
+        return false;
 
     }
 
