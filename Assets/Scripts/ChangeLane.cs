@@ -64,22 +64,22 @@ public class ChangeLane : MonoBehaviour
                 if (canMove)
                     StartCoroutine(moveTop());
             }
-            if (h <= -0.9f && id == 2)
+            if (h <= -0.4f && id == 2)
             {
                 if (canMove)
                     StartCoroutine(moveBot());
             }
-            if (h >= 0.9f&& id == 2)
+            if (h >= 0.4f && id == 2)
             {
                 if (canMove)
                     StartCoroutine(moveTop());
             }
-            if (h <= -0.9f&& id ==1)
+            if (h <= -0.4f&& id ==1)
             {
                 if (canMove)
                     StartCoroutine(moveTop());
             }
-            if (h >= 0.9f && id ==1)
+            if (h >= 0.4f && id ==1)
             {
                 if (canMove)
                     StartCoroutine(moveBot());

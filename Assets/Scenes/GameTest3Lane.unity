@@ -6330,6 +6330,18 @@ Prefab:
       propertyPath: isTeleport
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11498926, guid: 8272d45d096ca5a48af8d3870b160c88, type: 2}
+      propertyPath: num
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11454008, guid: 8272d45d096ca5a48af8d3870b160c88, type: 2}
+      propertyPath: num
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11425714, guid: 8272d45d096ca5a48af8d3870b160c88, type: 2}
+      propertyPath: num
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8272d45d096ca5a48af8d3870b160c88, type: 2}
   m_IsPrefabParent: 0

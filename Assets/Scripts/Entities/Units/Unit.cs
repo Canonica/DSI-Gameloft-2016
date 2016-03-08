@@ -67,6 +67,7 @@ public class Unit : Entity
 
     public override void Start()
     {
+        _actualLane = 0;
         _startingLife = _life;
         base.Start();
         if (bumpResist == 0)
@@ -102,6 +103,7 @@ public class Unit : Entity
             }
             else
             {
+                _actualLane = waypointDest.transform.parent.GetComponent<Lane>().num;
                 waypointDest = waypointDest.Next(_playerId);
                 if (waypointDest.isTeleport)
                 {
@@ -210,7 +212,7 @@ public class Unit : Entity
 
     public virtual void OnTriggerEnter(Collider parOther)
     {
-        if (parOther.CompareTag("Unit") && parOther.GetComponent<Unit>()._playerId != _playerId && parOther.GetComponent<Unit>()._actualLane == _actualLane)
+        if (parOther.CompareTag("Unit") && parOther.GetComponent<Unit>()._playerId != _playerId && (parOther.GetComponent<Unit>()._actualLane == _actualLane || _actualLane == 0 || parOther.GetComponent<Unit>()._actualLane ==0))
         {
             
             if (_trigger.IndexOf(parOther.gameObject) < 0)

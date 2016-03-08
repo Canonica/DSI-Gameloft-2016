@@ -380,7 +380,7 @@ public class Motherbase : Entity
                     
                 unit._enemyMotherBase = targetBase;
                 unit.waypointDest = waypoint;
-                unit._actualLane = _laneSpawning;
+                unit._actualLane = 0;
                 prefabOfUnit.transform.parent = transform.parent;
             }
             _currentMana -= units[typeOfUnit].GetComponent<Unit>().manaCost;
