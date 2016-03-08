@@ -10,6 +10,9 @@ public class UnitJump : Unit {
     bool canStun = true;
     bool canExplode = true;
     public int heightJump = 5;
+    public bool hasUpgrade1;
+    public bool hasUpgrade2;
+    public bool hasUpgrade3;
     override
     public void Start()
     {
