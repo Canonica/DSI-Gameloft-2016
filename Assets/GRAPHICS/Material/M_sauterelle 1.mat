@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: M_volant
+  m_Name: M_sauterelle 1
   m_Shader: {fileID: 4800000, guid: 5c59871f32ed55e4a91255d5ab3489fe, type: 3}
   m_ShaderKeywords: _OUTLINEON_ON
   m_LightmapFlags: 5
@@ -82,7 +82,7 @@ Material:
         first:
           name: _Diffuse
         second:
-          m_Texture: {fileID: 2800000, guid: 8763da7a356e4ac44afbf931ff8e4c36, type: 3}
+          m_Texture: {fileID: 2800000, guid: 730d814991877c346b4823d69963fa06, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -110,7 +110,7 @@ Material:
         first:
           name: _DissolvePatern
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: 52c692226518d8947be92ae7da35ec4c, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -172,7 +172,7 @@ Material:
       data:
         first:
           name: _FresnelValue
-        second: 3
+        second: 5
       data:
         first:
           name: _InflateSpeed
@@ -205,16 +205,16 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: 0.588, g: 0.588, b: 0.588, a: 1}
       data:
         first:
           name: _DiffuseColor
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: 0.9044118, g: 0.86717135, b: 0.8113106, a: 1}
       data:
         first:
           name: _FresnelColor
-        second: {r: 0.10080837, g: 0.048659172, b: 0.2647059, a: 1}
+        second: {r: 0.09411766, g: 0.09411766, b: 0.09411766, a: 1}
       data:
         first:
           name: _OutlineColor
-        second: {r: 0.07493513, g: 0.1544118, b: 0.09192671, a: 1}
+        second: {r: 0.037316553, g: 0.066176474, b: 0.017517302, a: 1}
