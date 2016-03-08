@@ -779,13 +779,13 @@ MonoBehaviour:
   primarySpells: []
   secondarySpells: []
   upgrades:
-  - {fileID: 1652043359}
-  - {fileID: 1652043360}
-  - {fileID: 1652043361}
+  - {fileID: 1652043369}
   - {fileID: 1652043362}
+  - {fileID: 1652043361}
+  - {fileID: 1652043360}
   upgradeDelay: 0.3
   lastUpgrade: 0
-  experienceLevel: 00000000000000000000000000000000
+  experienceLevel: f4010000f4010000f4010000f4010000
   hasUsedLevel: 
   FxBlood: {fileID: 136768, guid: 03f876b3154aa9a419b0c305f0a6ae32, type: 2}
   spawnSwarmFX: {fileID: 0}
@@ -3390,6 +3390,39 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 163120, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
   m_PrefabInternal: {fileID: 1357095166}
+--- !u!114 &1108263747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1108263746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a7ba538d7082543b08b4aa8cf4912c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 
+  _cost: 0
+  _value: 0
+  _mb: {fileID: 0}
+  _levelMax: 3
+  _levelOne: 0
+  _levelTwo: 0
+  _levelThree: 0
+  hasUpgradedCockroach: 0
+  numberCRUpgrade: 1
+--- !u!114 &1108263748 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11430892, guid: 1e19f0f8889aa544c9a151a5799bd6c7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1357095166}
+  m_Script: {fileID: 11500000, guid: b24c4525c2f52e24f91ce024c7d05cb2, type: 3}
+--- !u!114 &1108263749 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11446236, guid: 1e19f0f8889aa544c9a151a5799bd6c7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1357095166}
+  m_Script: {fileID: 11500000, guid: b24c4525c2f52e24f91ce024c7d05cb2, type: 3}
 --- !u!1 &1130280688
 GameObject:
   m_ObjectHideFlags: 0
@@ -4103,7 +4136,40 @@ Prefab:
       propertyPath: units.Array.data[2]
       value: 
       objectReference: {fileID: 170856, guid: 3b03f4694dc2f1f4e97cb992d6b66a44, type: 2}
-    m_RemovedComponents: []
+    - target: {fileID: 11479908, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
+      propertyPath: experienceLevel.Array.data[0]
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 11479908, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
+      propertyPath: experienceLevel.Array.data[1]
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 11479908, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
+      propertyPath: experienceLevel.Array.data[2]
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 11479908, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
+      propertyPath: experienceLevel.Array.data[3]
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 11479908, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
+      propertyPath: upgrades.Array.data[0]
+      value: 
+      objectReference: {fileID: 1108263747}
+    - target: {fileID: 11479908, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
+      propertyPath: upgrades.Array.data[3]
+      value: 
+      objectReference: {fileID: 1108263748}
+    - target: {fileID: 11479908, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
+      propertyPath: upgrades.Array.data[1]
+      value: 
+      objectReference: {fileID: 1108263748}
+    - target: {fileID: 11479908, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
+      propertyPath: upgrades.Array.data[2]
+      value: 
+      objectReference: {fileID: 1108263749}
+    m_RemovedComponents:
+    - {fileID: 11410452, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1e19f0f8889aa544c9a151a5799bd6c7, type: 2}
   m_IsPrefabParent: 0
 --- !u!114 &1357095167 stripped
@@ -5224,7 +5290,7 @@ GameObject:
   - 114: {fileID: 1652043362}
   - 114: {fileID: 1652043361}
   - 114: {fileID: 1652043360}
-  - 114: {fileID: 1652043359}
+  - 114: {fileID: 1652043369}
   m_Layer: 0
   m_Name: MotherBase
   m_TagString: MotherBase
@@ -5232,22 +5298,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1652043359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11498108, guid: 8c6f086dc0ba3b8428c6527fb604753b,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1652043358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b24c4525c2f52e24f91ce024c7d05cb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _name: 
-  _cost: 0
-  _value: 0
-  _level: 0
 --- !u!114 &1652043360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5263,7 +5313,11 @@ MonoBehaviour:
   _name: 
   _cost: 0
   _value: 0
-  _level: 0
+  _mb: {fileID: 0}
+  _levelMax: 3
+  _levelOne: 0
+  _levelTwo: 0
+  _levelThree: 0
 --- !u!114 &1652043361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5279,7 +5333,11 @@ MonoBehaviour:
   _name: 
   _cost: 0
   _value: 0
-  _level: 0
+  _mb: {fileID: 0}
+  _levelMax: 3
+  _levelOne: 0
+  _levelTwo: 0
+  _levelThree: 0
 --- !u!114 &1652043362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5295,7 +5353,11 @@ MonoBehaviour:
   _name: 
   _cost: 0
   _value: 0
-  _level: 0
+  _mb: {fileID: 0}
+  _levelMax: 3
+  _levelOne: 0
+  _levelTwo: 0
+  _levelThree: 0
 --- !u!114 &1652043363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5390,6 +5452,27 @@ Transform:
   - {fileID: 1883535505}
   m_Father: {fileID: 982623117}
   m_RootOrder: 0
+--- !u!114 &1652043369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1652043358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a7ba538d7082543b08b4aa8cf4912c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 
+  _cost: 0
+  _value: 0
+  _mb: {fileID: 0}
+  _levelMax: 3
+  _levelOne: 0
+  _levelTwo: 0
+  _levelThree: 0
+  hasUpgradedCockroach: 0
+  numberCRUpgrade: 1
 --- !u!114 &1674576306 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11412806, guid: 13f28a53765d2964fbcad540f96387cc,

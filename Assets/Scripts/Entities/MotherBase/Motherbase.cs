@@ -273,7 +273,6 @@ public class Motherbase : Entity
             }
         }
 
-        Debug.Log("lvl"+levelDispo);
 
         base.FixedUpdate();
     }
@@ -336,8 +335,6 @@ public class Motherbase : Entity
         {
             for (int i = 0; i < unitToSpawn; i++)
             {
-
-                Debug.Log("AGBUIDFVIUAQBHEGUIVUEIOBKZAEUHGOUIZEGHUEZAKGH");
                 GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
                 Unit unit = prefabOfUnit.GetComponent<Unit>();
                 NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
