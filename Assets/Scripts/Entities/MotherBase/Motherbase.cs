@@ -194,11 +194,11 @@ public class Motherbase : Entity
 
                 if (upgradeV > 0.3) // UP
                 {
-                    UseLevel(upgrades[2]);
+                    UseLevel(upgrades[0]);
                 }
                 else if (upgradeV < -0.3) // DOWN
                 {
-                    UseLevel(upgrades[0]);
+                    UseLevel(upgrades[2]);
                 }
             }
 
@@ -336,6 +336,8 @@ public class Motherbase : Entity
         {
             for (int i = 0; i < unitToSpawn; i++)
             {
+
+                Debug.Log("AGBUIDFVIUAQBHEGUIVUEIOBKZAEUHGOUIZEGHUEZAKGH");
                 GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
                 Unit unit = prefabOfUnit.GetComponent<Unit>();
                 NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
@@ -408,8 +410,8 @@ public class Motherbase : Entity
         do
         {
             int expCurr = Mathf.Max(experienceLevel[level] - exp, 0);
+            exp = Mathf.Max(exp - experienceLevel[level], 0);
             experienceLevel[level] = expCurr;
-            exp = Mathf.Max(exp - expCurr, 0);
             level++;
         }
         while (exp > 0 && level < experienceLevel.Count);
@@ -426,8 +428,7 @@ public class Motherbase : Entity
         {
             if (experienceLevel[level] == 0)
             {
-                hasUsedLevel[level] = true;
-                up.LevelUp();
+                hasUsedLevel[level] = up.LevelUp();
             }
 
         }
