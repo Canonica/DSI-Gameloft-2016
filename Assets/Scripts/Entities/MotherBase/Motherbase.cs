@@ -73,7 +73,6 @@ public class Motherbase : Entity
     void Awake()
     {
         spawning = false;
-        maxExperienceLevel = new List<int>(experienceLevel);
     }
 
 
@@ -86,8 +85,12 @@ public class Motherbase : Entity
         _currentMana = 0;
         _canSacrificeMana = true;
         _currentLane = GetComponent<ChangeLane>();
+        experienceLevel = new List<int>();
+        for (int i = 0; i < maxExperienceLevel.Count; i++)
+        {
+            experienceLevel.Add(maxExperienceLevel[i]);
+        }
         hasUsedLevel = new List<bool>();
-        
         for (int i = 0; i < experienceLevel.Count; i++)
         {
             hasUsedLevel.Add(false);
@@ -190,18 +193,18 @@ public class Motherbase : Entity
                 {
                     UseLevel(upgrades[1]);
                 }
-                /*else if (upgradeH < -0.3) // LEFT
+                else if (upgradeH < -0.3) // LEFT
                 {
                     UseLevel(upgrades[2]);
-                }*/
+                }
 
                 if (upgradeV > 0.3) // UP
                 {
-                    UseLevel(upgrades[0]);
+                    UseLevel(upgrades[3]);
                 }
                 else if (upgradeV < -0.3) // DOWN
                 {
-                    UseLevel(upgrades[2]);
+                    UseLevel(upgrades[0]);
                 }
             }
 
