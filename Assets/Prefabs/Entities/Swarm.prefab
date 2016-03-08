@@ -969,7 +969,7 @@ MonoBehaviour:
   _enemyMotherBase: {fileID: 0}
   _motherBase: {fileID: 0}
   _life: 3
-  _lifeMax: 6
+  _lifeMax: 3
   _playerId: 0
   _spells: []
   _upgrades: []
@@ -997,6 +997,7 @@ MonoBehaviour:
   FxDeathBlood: {fileID: 0}
   spawnFX: {fileID: 0}
   hitFX: {fileID: 0}
+  distanceMaxBetweenCockroachHeal: 3
   isRegeneratingCR: 0
   lifeRestored: 0
 --- !u!135 &13595940

@@ -2464,9 +2464,9 @@ MonoBehaviour:
   secondarySpells: []
   upgrades:
   - {fileID: 1652043369}
-  - {fileID: 1652043362}
-  - {fileID: 1652043361}
   - {fileID: 1652043360}
+  - {fileID: 1652043359}
+  - {fileID: 1652043362}
   upgradeDelay: 0.3
   lastUpgrade: 0
   experienceLevel: f4010000f4010000f4010000f4010000
@@ -7032,9 +7032,9 @@ GameObject:
   - 114: {fileID: 1652043364}
   - 114: {fileID: 1652043363}
   - 114: {fileID: 1652043362}
-  - 114: {fileID: 1652043361}
-  - 114: {fileID: 1652043360}
   - 114: {fileID: 1652043369}
+  - 114: {fileID: 1652043360}
+  - 114: {fileID: 1652043359}
   m_Layer: 0
   m_Name: MotherBase
   m_TagString: MotherBase
@@ -7042,16 +7042,15 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1652043360
+--- !u!114 &1652043359
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11417746, guid: 8c6f086dc0ba3b8428c6527fb604753b,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1652043358}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b24c4525c2f52e24f91ce024c7d05cb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 23ed9647b07cc544681dd0682ab6d467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _name: 
@@ -7062,16 +7061,15 @@ MonoBehaviour:
   _levelOne: 0
   _levelTwo: 0
   _levelThree: 0
---- !u!114 &1652043361
+--- !u!114 &1652043360
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11403360, guid: 8c6f086dc0ba3b8428c6527fb604753b,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1652043358}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b24c4525c2f52e24f91ce024c7d05cb2, type: 3}
+  m_Script: {fileID: 11500000, guid: a2b805b79396b5f4da8fe1bbf3130388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _name: 
