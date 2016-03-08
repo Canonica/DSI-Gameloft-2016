@@ -120,13 +120,13 @@ public class Motherbase : Entity
         // DEBUG
         if (Input.GetKeyDown(KeyCode.D) && _playerId == 2)
         {
-            currentNbOfUnits[0] = 50;
-            corSpawnUnits(0);
+            //currentNbOfUnits[0] = 50;
+            corSpawnUnits(2);
         }
         if (Input.GetKeyDown(KeyCode.S) && _playerId == 1)
         {
-            currentNbOfUnits[0] = 50;
-            corSpawnUnits(0);
+            //currentNbOfUnits[0] = 50;
+            corSpawnUnits(2);
         }
 
         if (GameManager.instance.currentGamestate == GameManager.gameState.Playing)
@@ -285,11 +285,11 @@ public class Motherbase : Entity
         Instantiate(FxBlood, transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
         if (_playerId == 1)
         {
-            XInput.instance.useVibe(0, 1, 1, 1);
+            //XInput.instance.useVibe(0, 1, 1, 1);
         }
         else
         {
-            XInput.instance.useVibe(1, 1, 1, 1);
+            //XInput.instance.useVibe(1, 1, 1, 1);
         }
 
         if (dmg > _life)
