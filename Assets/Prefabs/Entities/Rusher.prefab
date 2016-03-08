@@ -475,7 +475,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.8236237, y: -2.66, z: 26.374352}
+  m_LocalPosition: {x: 24.664516, y: 4.664175, z: 13.519571}
   m_LocalScale: {x: 0.5, y: 0.3, z: 0.5}
   m_Children:
   - {fileID: 478370}
@@ -738,8 +738,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 7, z: 6}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2, y: 23, z: 2}
+  m_Center: {x: 0, y: -8, z: 0}
 --- !u!111 &11155836
 Animation:
   m_ObjectHideFlags: 1
@@ -848,7 +848,7 @@ SkinnedMeshRenderer:
   serializedVersion: 2
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
-  m_Mesh: {fileID: 4300000, guid: 54140b6154ee254499f05391047d59e1, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 54140b6154ee254499f05391047d59e1, type: 3}
   m_Bones:
   - {fileID: 406762}
   - {fileID: 411410}
@@ -892,7 +892,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: 4.5
+  m_BaseOffset: 12
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 0
 --- !u!1001 &100100000

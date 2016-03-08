@@ -90,46 +90,21 @@ public class UnitRush : Unit {
 
     public override void Attack()
     {
-        if (_target && attackReady)
-        {
-            attackReady = false;
-            Unit unit = _target.GetComponent<Unit>();
-            if (unit && unit._playerId != _playerId)
-            {
-                if (hitFX)
-                    SoundManager.Instance.playSound(hitFX, 1);
-                unit.Hit(_damage);
-                if (lifeSteal)
-                {
-                    Debug.Log("Life steal " + _damage * (valueLifeSteal / 100));
-                    _life += _damage*(valueLifeSteal/100);
-                    _life = Mathf.Min(_life, _lifeMax);
-                }
-                // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
-                EndGameManager.instance.addDamage(_playerId, _damage);
-            }
-            
-            StartCoroutine(reload());
-        }
-    }
-
-    IEnumerator up()
-    {
-        float height = baseHeight;
-        while (height < flyHeight &&isFlying)
-        {
-            height += height / smoother;
-            _navMeshAgent.baseOffset = height;
-            yield return 0;
-        }
-        _navMeshAgent.baseOffset = flyHeight;
         
+        if (_target && lifeSteal&&attackReady)
+        {
+            Debug.Log("Life steal " + _damage * (valueLifeSteal / 100));
+            _life += _damage * (valueLifeSteal / 100);
+            _life = Mathf.Min(_life, _lifeMax);
+        }
+        Debug.Log("RUSH ATTACK");
+        base.Attack();
     }
 
     IEnumerator down()
     {
         isFlying = false;
-        float height = _navMeshAgent.baseOffset;
+        float height = _navMeshAgent.baseOffset- baseHeight;
         while (height >= baseHeight)
         {
             height -= height/smoother;

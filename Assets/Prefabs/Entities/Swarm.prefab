@@ -969,7 +969,7 @@ MonoBehaviour:
   _enemyMotherBase: {fileID: 0}
   _motherBase: {fileID: 0}
   _life: 3
-  _lifeMax: 6
+  _lifeMax: 3
   _playerId: 0
   _spells: []
   _upgrades: []

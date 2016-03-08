@@ -13,7 +13,7 @@ public class Unit : Entity
     [Tweakable]
     public string unitName = "Unit";
 
-    [Header("Unit Option")]
+    [Header("Unit Stats")]
     [Tweakable]
     public float attackSpeed = 1;
     protected bool attackReady = false;
@@ -36,16 +36,22 @@ public class Unit : Entity
     public int smoother = 20;
 
     [Header("Other")]
+    [HideInInspector]
     public GameObject _target;
     protected NavMeshAgent _navMeshAgent;
+    [HideInInspector]
     public List<GameObject> _trigger;
     public float _distanceMinLane = 4f;
+    [HideInInspector]
     public Waypoint waypointDest;
+    [HideInInspector]
     public bool laneEnd = false;
-    public float lastCollision = 0;
+    [HideInInspector]
     public int collideNum = 0;
+    [HideInInspector]
     public bool isBumped = false;
     private int _startingLife;
+    [HideInInspector]
     public int _actualLane;
     bool isStunn = false;
     [Tweakable]
@@ -86,11 +92,7 @@ public class Unit : Entity
 
     public override void FixedUpdate()
     {
-        
-        
-
         base.FixedUpdate();
-
     }
 
     public override void Update()
@@ -115,10 +117,10 @@ public class Unit : Entity
         }
 
         
-        //if (attackReady && _target)
-        //{
-        //    Attack();
-        //}
+        if (attackReady && _target && collideNum > 0)
+        {
+            Attack();
+        }
 
         base.Update();
     }
@@ -169,8 +171,11 @@ public class Unit : Entity
         GameObject other = parOther.gameObject;
         if (other && other.CompareTag("Unit") && other.GetComponent<Unit>()._playerId != _playerId)
         {
-            _target = other;
-            collideNum--;
+            //_target = other;
+            if (collideNum > 0)
+            {
+                collideNum--;
+            }
         }
     }
 
@@ -299,6 +304,7 @@ public class Unit : Entity
         attackReady = false;
         yield return new WaitForSeconds(attackSpeed);
         attackReady = true;
+        //Attack();
         //_allAnims.Play("RUN");
     }
 

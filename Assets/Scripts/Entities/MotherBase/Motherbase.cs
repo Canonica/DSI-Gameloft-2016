@@ -5,33 +5,31 @@ using System.Collections.Generic;
 
 public class Motherbase : Entity
 {
-    // Utilisera les Upgrades
-    // Possèdera les Spells
 
-    [Header("Spawner Option")]
+    [Header("MotherBase - Spawner Option")]
     public GameObject[] units;
-    public float delay;
+    [HideInInspector]
     public Waypoint waypoint;
     public GameObject targetBase;
     bool spawning;
     int typeOfUnit;
+    [HideInInspector]
     public ChangeLane _currentLane;
+    [HideInInspector]
     public int _laneSpawning;
-
     int setNb;
-    public int[] maxNbOfUnits;
-    public int[] currentNbOfUnits;
 
     [Header("Mana Option")]
 
     public int _maxMana;
     public int _currentMana;
-
+    public int experienceByMana = 1;
     public float _delayMana;
     public int _addMana;
     public int _manaToSacrifice;
     bool _canSacrificeMana;
 
+    [Header("Editor Option")]
     public Image _manaImage;
     public Text _manaText;
 
@@ -39,6 +37,7 @@ public class Motherbase : Entity
     public Image[] reloadUnitImage;
     public Image _lifeImage;
 
+    [Header("Spell Option")]
     public Spell primarySpell;
     public Spell secondarySpell;
 
@@ -50,7 +49,7 @@ public class Motherbase : Entity
 
     public List<Spell> primarySpells;
     public List<Spell> secondarySpells;
-
+    [Header("Upgrades Option")]
     public List<Upgrade> upgrades;
     public float upgradeDelay = 0.3f;
     public float lastUpgrade = 0.0f;
@@ -67,7 +66,7 @@ public class Motherbase : Entity
     [Header("Sound")]
     public AudioClip spawnSwarmFX;
 
-    public int experienceByMana = 1;
+   
 
     // Use this for initialization
     void Awake()
@@ -120,13 +119,11 @@ public class Motherbase : Entity
         // DEBUG
         if (Input.GetKeyDown(KeyCode.D) && _playerId == 2)
         {
-            currentNbOfUnits[0] = 50;
-            corSpawnUnits(0);
+            corSpawnUnits(2);
         }
         if (Input.GetKeyDown(KeyCode.S) && _playerId == 1)
         {
-            currentNbOfUnits[0] = 50;
-            corSpawnUnits(0);
+            corSpawnUnits(2);
         }
 
         if (GameManager.instance.currentGamestate == GameManager.gameState.Playing)
@@ -285,11 +282,11 @@ public class Motherbase : Entity
         Instantiate(FxBlood, transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
         if (_playerId == 1)
         {
-            XInput.instance.useVibe(0, 1, 1, 1);
+            XInput.instance.useVibe(0, 1, 0.5f, 0.5f);
         }
         else
         {
-            XInput.instance.useVibe(1, 1, 1, 1);
+            XInput.instance.useVibe(1, 1, 0.5f, 0.5f);
         }
 
         if (dmg > _life)
@@ -384,22 +381,6 @@ public class Motherbase : Entity
                 prefabOfUnit.transform.parent = transform.parent;
             }
             _currentMana -= units[typeOfUnit].GetComponent<Unit>().manaCost;
-        }
-    }
-
-    IEnumerator loadUnit(int nbOfUnits)
-    {
-        while (_life > 0)
-        {
-            if (currentNbOfUnits[nbOfUnits] < maxNbOfUnits[nbOfUnits])
-            {
-                currentNbOfUnits[nbOfUnits]++;
-            }
-            else
-            {
-                AddExperience(experienceByMana);
-            }
-            yield return StartCoroutine(fillIcon(reloadUnitImage[nbOfUnits], units[nbOfUnits].GetComponent<Unit>()._hatchTime));
         }
     }
 
