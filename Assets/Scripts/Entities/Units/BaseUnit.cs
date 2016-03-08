@@ -4,6 +4,8 @@ using System.Linq;
 
 public class BaseUnit : Unit {
 
+    public float distanceMaxBetweenCockroachHeal = 3.0f;
+
     /*
         Increases the number of cockroach spawned (to 4/5)
         When a cockroach dies, it heals a nearby cockroach
@@ -36,8 +38,10 @@ public class BaseUnit : Unit {
                 best = gos[i];
             }
         }
-
-        best._life += lifeRestored;
+        if(Vector3.Distance(best.transform.position, transform.position) < distanceMaxBetweenCockroachHeal)
+        {
+            best._life += lifeRestored;
+        }
     }
 
     public void Berzerker()
