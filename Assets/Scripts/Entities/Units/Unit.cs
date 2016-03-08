@@ -33,7 +33,7 @@ public class Unit : Entity
     public int manaCost;
 
     [Header("Bump Option")]
-    public int smoother = 20;
+    public int smoother = 5;
 
     [Header("Other")]
     [HideInInspector]
@@ -183,18 +183,18 @@ public class Unit : Entity
     {
         GameObject other = parOther.gameObject;
         Motherbase mother = other.GetComponent<Motherbase>();
+        if (mother && other.CompareTag("MotherBase") && mother._playerId != _playerId)
+        {
+            EndGameManager.instance.addDamage(_playerId, _damage);
+            EndGameManager.instance.addDamage((_playerId % 2) + 1, _life);
+            mother.getDamage(_damage);
+            dead();
+        }else
         if (other && other.CompareTag("Unit") && other.GetComponent<Unit>()._playerId != _playerId)
         {
             _target = other;
             collideNum++;
             Attack();
-        }
-        else if (mother && other.CompareTag("MotherBase") && mother._playerId != _playerId)
-        {
-            EndGameManager.instance.addDamage(_playerId, _damage);
-            EndGameManager.instance.addDamage((_playerId % 2) + 1, _life);
-            mother.getDamage(_damage);
-            Hit(_life);
         }
     }
 
@@ -274,7 +274,6 @@ public class Unit : Entity
 
     public virtual void Attack()
     {
-        Debug.Log("Attack from" + gameObject.name);
         if (_target && attackReady && !isStunn)
         {
             attackReady = false;
@@ -322,12 +321,10 @@ public class Unit : Entity
             {
 
                 _navMeshAgent.SetDestination(waypointDest.pos);
-
             }
             else
             {
-                StopAllCoroutines();
-                //Destroy(this.gameObject);
+                dead();
             }
             
         }
@@ -337,19 +334,21 @@ public class Unit : Entity
     {
         if (!isBumped)
         {
-            Vector3 dir = transform.position - from;
             isBumped = true;
+            Vector3 dir = transform.position - from;
+            
             force = force / bumpResist;
             if (useSmoother == 0)
-                StartCoroutine(bump(dir * force));
+                StartCoroutine(bump(dir.normalized * force));
             else
-                StartCoroutine(bump(dir * force, useSmoother));
+                StartCoroutine(bump(dir.normalized * force, useSmoother));
         }
         
     }
 
     IEnumerator bump(Vector3 distance, int localSmoother=0)
     {
+        _navMeshAgent.enabled = false;
         GetComponent<Collider>().enabled = false;
         if (localSmoother == 0)
             localSmoother = smoother;
@@ -359,7 +358,9 @@ public class Unit : Entity
             yield return 0;
         }
         isBumped = false;
+        
         GetComponent<Collider>().enabled = true;
+        _navMeshAgent.enabled = true;
     }
     
 

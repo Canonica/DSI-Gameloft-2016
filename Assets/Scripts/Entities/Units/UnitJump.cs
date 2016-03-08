@@ -6,10 +6,10 @@ public class UnitJump : Unit {
     [HideInInspector]
     public bool isJumping = false;
     bool isActiveAOE = false;
-    public int forceAOE = 1;
+    public int forceAOE ;
     float timeAOE = 2;
-    bool canStun = true;
-    bool canExplode = true;
+    bool canStun = false;
+    bool canExplode = false;
     public int heightJump = 5;
     
     public bool hasUpgrade1;
@@ -44,8 +44,8 @@ public class UnitJump : Unit {
         base.OnTriggerEnter(col);
         if (_target && !isJumping&& attackReady)
         {
-            isJumping = true;
-            StartCoroutine(jump());
+            
+            StartCoroutine(dash());
         }
     }
 
@@ -58,17 +58,55 @@ public class UnitJump : Unit {
         }
     }
 
+    IEnumerator dash()
+    {
+        yield return new WaitForSeconds(Random.Range(0, 1f));
+        if (_target.GetComponent<UnitRush>() && _target.GetComponent<UnitRush>().isFlying)
+        {
+            yield break;
+        }
+        if (_target.GetComponent<UnitJump>() && _target.GetComponent<UnitJump>().isJumping)
+        {
+            yield break;
+        }
+        isJumping = true;
+        //GetComponent<Collider>().enabled = false;
+        //_navMeshAgent.enabled = false;
+
+        // Calcul direction
+        Vector3 dir = _target.transform.position - transform.position;
+        float dist = Vector3.Distance(_target.transform.position, transform.position);
+
+        // Calcul de la courbe d'ascention
+        Vector3 dirJump = (dir.normalized * dist) ;
+
+        // smoother = nombre de fram utilisé pour faire le saut
+        for (int i = 0; i < smoother; i++)
+        {
+            // Parcour de la courbe
+            transform.position = transform.position + (dirJump / smoother);
+            yield return 0;
+        }
+
+        //GetComponent<Collider>().enabled = true;
+        //_navMeshAgent.enabled = true;
+
+        if (!isActiveAOE)
+            StartCoroutine(AOE());
+    }
+
     IEnumerator jump()
     {
+        yield return new WaitForSeconds(Random.Range(0, 10)/10);
         if (_target.GetComponent<UnitRush>()&& _target.GetComponent<UnitRush>().isFlying)
         {
             yield break;
         }
-        if (_target.transform.position.y > transform.position.y)
+        if (_target.GetComponent<UnitJump>().isJumping)
         {
             yield break;
         }
-
+        isJumping = true;
         //GetComponent<Collider>().enabled = false;
         _navMeshAgent.enabled = false;
 
@@ -110,15 +148,13 @@ public class UnitJump : Unit {
         isActiveAOE = true;
         for (int i=0; i < _trigger.Count;i++)
         {
-            if (_trigger[i] )
+            if (_trigger[i])
             {
-                EndGameManager.instance.addDamage(_playerId, _damage);
                 if (canStun && Random.Range(0, 100) > 50)
                 {
                     _trigger[i].GetComponent<Unit>().getStun();
                 }
                 _trigger[i].GetComponent<Unit>().Hit(_damage);
-                Debug.Log("Attack " + _trigger[i].name + " dmg " + _damage);
                 _trigger[i].GetComponent<Unit>().applyBump(transform.position, forceAOE);
             }
             yield return 0;
@@ -133,13 +169,10 @@ public class UnitJump : Unit {
         base.Hit(parDamage);
         if (_life<=0 && canExplode)
         {
+            StopAllCoroutines();
+            isActiveAOE = false;
             StartCoroutine(AOE());
         }
     }
-
-    public override IEnumerator reload()
-    {
-        yield return base.reload();
-        Attack();
-    }
+    
 }

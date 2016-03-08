@@ -10,8 +10,8 @@ public class UnitRush : Unit {
 
     [Range(1,100)]
     public int valueLifeSteal = 50;
-    public bool rangedAttack = true;
-    bool rangedReady = true;
+    public bool rangedAttack = false;
+    bool rangedReady = false;
     public float rangedAttackSpeed= 1;
     public int rangedDamage = 1;
 
