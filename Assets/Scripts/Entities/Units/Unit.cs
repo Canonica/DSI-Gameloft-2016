@@ -128,9 +128,9 @@ public class Unit : Entity
             //Instantiate(FxDeathBlood, this.gameObject.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
             Camera.main.DOKill(true);
             Camera.main.DOShakePosition(0.05f * _startingLife / 4, 0.3f * _startingLife / 4);
-            
-            StartCoroutine(animDeath());
-            
+            dead();
+            //StartCoroutine(animDeath());
+
         }
     }
 
@@ -192,7 +192,6 @@ public class Unit : Entity
             _navMeshAgent.SetDestination(transform.position);
             StartCoroutine(stunTime());
         }
-        
     }
 
     IEnumerator stunTime()
@@ -206,6 +205,8 @@ public class Unit : Entity
     {
         if (parOther.CompareTag("Unit") && parOther.GetComponent<Unit>()._playerId != _playerId)
         {
+            
+            if (_trigger.IndexOf(parOther.gameObject) < 0)
             _trigger.Add(parOther.gameObject);
             if (!_target)
             {
@@ -259,6 +260,7 @@ public class Unit : Entity
 
     public virtual void Attack()
     {
+        Debug.Log("Attack from" + gameObject.name);
         if (_target && attackReady && !isStunn)
         {
             attackReady = false;
@@ -282,7 +284,7 @@ public class Unit : Entity
         }
     }
 
-    public IEnumerator reload()
+    public virtual IEnumerator reload()
     {
         //_allAnims.Play("ATTACK");
         attackReady = false;

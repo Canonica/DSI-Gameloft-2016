@@ -23,13 +23,21 @@ public class UnitJump : Unit {
 
     override public void OnCollisionEnter(Collision col)
     {
-        base.OnCollisionEnter(col);
+        //base.OnCollisionEnter(col);
+        Motherbase mother = col.gameObject.GetComponent<Motherbase>();
+        if (mother && col.gameObject.CompareTag("MotherBase") && mother._playerId != _playerId)
+        {
+            EndGameManager.instance.addDamage(_playerId, _damage);
+            EndGameManager.instance.addDamage((_playerId % 2) + 1, _life);
+            mother.getDamage(_damage);
+            Hit(_life);
+        }
     }
 
     override public void OnTriggerEnter(Collider col)
     {
         base.OnTriggerEnter(col);
-        if (_target && !isJumping)
+        if (_target && !isJumping&& attackReady)
         {
             isJumping = true;
             StartCoroutine(jump());
@@ -43,7 +51,6 @@ public class UnitJump : Unit {
             attackReady = false;
             //StartCoroutine(AOE());
             StartCoroutine(jump());
-            
         }
     }
 
@@ -59,7 +66,7 @@ public class UnitJump : Unit {
             yield break;
         }
 
-        GetComponent<Collider>().enabled = false;
+        //GetComponent<Collider>().enabled = false;
         _navMeshAgent.enabled = false;
         Vector3 dir = _target.transform.position - transform.position;
         float dist = Vector3.Distance(_target.transform.position, transform.position);
@@ -80,7 +87,7 @@ public class UnitJump : Unit {
             yield return 0;
         }
         
-        GetComponent<Collider>().enabled = true;
+        //GetComponent<Collider>().enabled = true;
         _navMeshAgent.enabled = true;
         if(!isActiveAOE)
         StartCoroutine(AOE());
@@ -99,6 +106,7 @@ public class UnitJump : Unit {
                     _trigger[i].GetComponent<Unit>().getStun();
                 }
                 _trigger[i].GetComponent<Unit>().Hit(_damage);
+                Debug.Log("Attack " + _trigger[i].name + " dmg " + _damage);
                 _trigger[i].GetComponent<Unit>().applyBump(transform.position, forceAOE);
             }
             yield return 0;
@@ -109,10 +117,17 @@ public class UnitJump : Unit {
 
     public override void Hit(int parDamage)
     {
-        if (canExplode)
+        
+        base.Hit(parDamage);
+        if (_life<=0 && canExplode)
         {
             StartCoroutine(AOE());
         }
-        base.Hit(parDamage);
+    }
+
+    public override IEnumerator reload()
+    {
+        yield return base.reload();
+        Attack();
     }
 }

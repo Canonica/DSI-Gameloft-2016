@@ -60,6 +60,19 @@ public class UnitRush : Unit {
     override public void OnTriggerEnter(Collider col)
     {
         base.OnTriggerEnter(col);
+        if (_target)
+        {
+            if (!_target.GetComponent<UnitJump>() && col.gameObject.GetComponent<UnitJump>())
+            {
+                _target = col.gameObject;
+            }
+            else if (_target.GetComponent<UnitTank>() && col.gameObject.GetComponent<UnitTank>())
+            {
+                _target = col.gameObject;
+            }
+        }
+        
+
         if (isFlying && (_target || (col.tag == "MotherBase" && col.GetComponent<Motherbase>()._playerId != _playerId)))
         StartCoroutine(down());
     }

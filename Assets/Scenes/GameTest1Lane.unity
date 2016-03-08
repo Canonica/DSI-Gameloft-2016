@@ -2343,8 +2343,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyMotherBase: {fileID: 1652043358}
   _motherBase: {fileID: 1108263750}
-  _life: 2
-  _lifeMax: 5
+  _life: 99
+  _lifeMax: 99
   _playerId: 2
   _spells: []
   _upgrades: []
@@ -2361,8 +2361,8 @@ MonoBehaviour:
   maxNbOfUnits: 0a000000030000000500000003000000
   currentNbOfUnits: 00000000000000000000000000000000
   _maxMana: 1000
-  _currentMana: 0
-  _delayMana: 1
+  _currentMana: 600
+  _delayMana: 0.1
   _addMana: 10
   _manaToSacrifice: 10
   _manaImage: {fileID: 1730945573}
@@ -3576,8 +3576,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyMotherBase: {fileID: 1108263746}
   _motherBase: {fileID: 1652043361}
-  _life: 2
-  _lifeMax: 5
+  _life: 99
+  _lifeMax: 99
   _playerId: 1
   _spells: []
   _upgrades: []
@@ -3594,8 +3594,8 @@ MonoBehaviour:
   maxNbOfUnits: 0a000000030000000500000003000000
   currentNbOfUnits: 00000000000000000000000000000000
   _maxMana: 1000
-  _currentMana: 0
-  _delayMana: 1
+  _currentMana: 600
+  _delayMana: 0.1
   _addMana: 10
   _manaToSacrifice: 10
   _manaImage: {fileID: 1730945571}
