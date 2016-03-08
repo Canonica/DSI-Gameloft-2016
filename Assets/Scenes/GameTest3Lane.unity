@@ -2424,7 +2424,7 @@ MonoBehaviour:
   _enemyMotherBase: {fileID: 1108263746}
   _motherBase: {fileID: 230611551}
   _life: 2
-  _lifeMax: 10
+  _lifeMax: 1000
   _playerId: 1
   units:
   - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
@@ -2438,8 +2438,8 @@ MonoBehaviour:
   _maxMana: 500
   _currentMana: 0
   experienceByMana: 1
-  _delayMana: 0.01
-  _addMana: 10
+  _delayMana: 0.1
+  _addMana: 4
   _manaToSacrifice: 10
   _manaImage: {fileID: 612741213}
   _manaText: {fileID: 2138460452}
@@ -5866,12 +5866,12 @@ MonoBehaviour:
   _enemyMotherBase: {fileID: 1652043358}
   _motherBase: {fileID: 1357095167}
   _life: 10
-  _lifeMax: 10
+  _lifeMax: 1000
   _playerId: 2
   units:
   - {fileID: 170856, guid: bdb6572f1e17e9f45875a808b6276482, type: 2}
   - {fileID: 170856, guid: 5f9c662908dead84bbd385fd4b78977d, type: 2}
-  - {fileID: 170856, guid: 89293a87b10098544855b107086daeec, type: 2}
+  - {fileID: 170856, guid: 3b03f4694dc2f1f4e97cb992d6b66a44, type: 2}
   - {fileID: 170856, guid: 9a3b145580f119b478c50eee0af405c7, type: 2}
   waypoint: {fileID: 0}
   targetBase: {fileID: 1652043358}
@@ -5880,8 +5880,8 @@ MonoBehaviour:
   _maxMana: 500
   _currentMana: 0
   experienceByMana: 1
-  _delayMana: 0.01
-  _addMana: 10
+  _delayMana: 0.1
+  _addMana: 4
   _manaToSacrifice: 10
   _manaImage: {fileID: 1730945571}
   _manaText: {fileID: 1674576306}

@@ -6,6 +6,7 @@ public class Entity : MonoBehaviour {
     public GameObject _enemyMotherBase;
     public Motherbase _motherBase;
     public int _life;
+    [Tweakable]
     public int _lifeMax;
     public int _playerId = 0;
         

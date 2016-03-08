@@ -3,12 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class BaseUnit : Unit {
-
-    /*
-        Increases the number of cockroach spawned (to 4/5)
-        When a cockroach dies, it heals a nearby cockroach
-        All new cockroaches are now improved, with increased stats and new visuals (berserk)
-    */
+    
 
     public bool isRegeneratingCR;
     public int lifeRestored;
