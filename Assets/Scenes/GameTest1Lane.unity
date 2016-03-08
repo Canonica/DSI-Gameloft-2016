@@ -2343,8 +2343,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyMotherBase: {fileID: 1652043358}
   _motherBase: {fileID: 1108263750}
-  _life: 10
-  _lifeMax: 2
+  _life: 2
+  _lifeMax: 5
   _playerId: 2
   _spells: []
   _upgrades: []
@@ -2360,7 +2360,7 @@ MonoBehaviour:
   _laneSpawning: 0
   maxNbOfUnits: 0a000000030000000500000003000000
   currentNbOfUnits: 00000000000000000000000000000000
-  _maxMana: 500
+  _maxMana: 1000
   _currentMana: 0
   _delayMana: 1
   _addMana: 10
@@ -3577,7 +3577,7 @@ MonoBehaviour:
   _enemyMotherBase: {fileID: 1108263746}
   _motherBase: {fileID: 1652043361}
   _life: 2
-  _lifeMax: 2
+  _lifeMax: 5
   _playerId: 1
   _spells: []
   _upgrades: []
@@ -3593,7 +3593,7 @@ MonoBehaviour:
   _laneSpawning: 0
   maxNbOfUnits: 0a000000030000000500000003000000
   currentNbOfUnits: 00000000000000000000000000000000
-  _maxMana: 500
+  _maxMana: 1000
   _currentMana: 0
   _delayMana: 1
   _addMana: 10

@@ -9,7 +9,7 @@ public class Unit : Entity
 {
     [Header("Tool")]
     [Tweakable]
-    public string img = "Unit";
+    public Texture2D img;
     [Tweakable]
     public string unitName = "Unit";
 
