@@ -16,21 +16,23 @@ public class ChangeLane : MonoBehaviour
         mBase = GetComponent<Motherbase>();
         Lane = new GameObject[nbLane];
         int cmpt = 0;
-        if (GameObject.Find("LaneTop"))
+        if (GameObject.Find("LaneBot"))
         {
-            Lane[cmpt] = GameObject.Find("LaneTop");
+            Lane[cmpt] = GameObject.Find("LaneBot");
             cmpt++;
         }
+        
         if (GameObject.Find("LaneMid"))
         {
             Lane[cmpt] = GameObject.Find("LaneMid");
             cmpt++;
         }
-        if (GameObject.Find("LaneBot"))
+        if (GameObject.Find("LaneTop"))
         {
-            Lane[cmpt] = GameObject.Find("LaneBot");
+            Lane[cmpt] = GameObject.Find("LaneTop");
+            cmpt++;
         }
-        
+
     }
 
     // Use this for initialization
@@ -62,7 +64,6 @@ public class ChangeLane : MonoBehaviour
                 if (canMove)
                     StartCoroutine(moveTop());
             }
-
             if (h <= -0.9f)
             {
                 if (canMove)

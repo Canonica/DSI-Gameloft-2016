@@ -22,6 +22,19 @@ public class Motherbase : Entity
     public int[] maxNbOfUnits;
     public int[] currentNbOfUnits;
 
+    [Header("Mana Option")]
+
+    public int _maxMana;
+    public int _currentMana;
+
+    public float _delayMana;
+    public int _addMana;
+    public int _manaToSacrifice;
+    bool _canSacrificeMana;
+
+    public Image _manaImage;
+    public Text _manaText;
+
 
     public Text[] textCurrentNbOfUnits;
     public Image[] reloadUnitImage;
@@ -30,14 +43,21 @@ public class Motherbase : Entity
     public Spell primarySpell;
     public Spell secondarySpell;
 
-     float cooldownPrimarySpell;
-     float cooldownSecondarySpell;
+    float cooldownPrimarySpell;
+    float cooldownSecondarySpell;
 
-     Coroutine primarySpellCd;
-     Coroutine secondarySpellCd;
+    Coroutine primarySpellCd;
+    Coroutine secondarySpellCd;
 
     public List<Spell> primarySpells;
     public List<Spell> secondarySpells;
+
+    public List<Upgrade> upgrades;
+    public float upgradeDelay = 0.3f;
+    public float lastUpgrade = 0.0f;
+
+    public List<int> experienceLevel;
+    public List<bool> hasUsedLevel;
 
     [Header("FX")]
     [SerializeField]
@@ -46,10 +66,11 @@ public class Motherbase : Entity
     [Header("Sound")]
     public AudioClip spawnSwarmFX;
 
+    public int experienceByMana = 1;
+
     // Use this for initialization
     void Awake()
     {
-        _lifeMax = 10;
         spawning = false;
     }
 
@@ -59,13 +80,21 @@ public class Motherbase : Entity
 
     public override void Start()
     {
-        base.Start();
         //cameraPos = Camera.main.transform.position;
+        _currentMana = 0;
+        _canSacrificeMana = true;
         _currentLane = GetComponent<ChangeLane>();
+        hasUsedLevel = new List<bool>();
+        for (int i = 0; i < experienceLevel.Count; i++)
+        {
+            hasUsedLevel.Add(false);
+        }
+        base.Start();
     }
 
     public override void Update()
     {
+
         _laneSpawning = _currentLane.currentWP;
         //if (Input.GetButtonDown("RB_button_" + _playerId))
         //{
@@ -91,7 +120,7 @@ public class Motherbase : Entity
             currentNbOfUnits[0] = 50;
             corSpawnUnits(0);
         }
-        if (Input.GetKeyDown(KeyCode.S)&& _playerId ==1)
+        if (Input.GetKeyDown(KeyCode.S) && _playerId == 1)
         {
             currentNbOfUnits[0] = 50;
             corSpawnUnits(0);
@@ -101,16 +130,13 @@ public class Motherbase : Entity
         {
             if (!spawning)
             {
-                StartCoroutine(loadUnit(0));
-                StartCoroutine(loadUnit(1));
-                StartCoroutine(loadUnit(2));
-                StartCoroutine(loadUnit(3));
+                StartCoroutine(loadMana());
                 spawning = true;
             }
 
             if (Input.GetButtonDown("Fire " + _playerId))
             {
-                
+
                 typeOfUnit = 0;
                 corSpawnUnits(typeOfUnit);
             }
@@ -129,7 +155,7 @@ public class Motherbase : Entity
 
             if (Input.GetButtonDown("Y_button_" + _playerId))
             {
-               typeOfUnit = 3;
+                typeOfUnit = 3;
                 corSpawnUnits(typeOfUnit);
             }
 
@@ -151,42 +177,111 @@ public class Motherbase : Entity
                     setNb--;
                 }
             }
-
-            if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)))
-            {
-                //Actualiser le compteur de temps si cooldown
-                //Afficher le spell 1 dans l'UI
-            }
-            else
-            {
-                //Masquer le spell 1 dans l'UI
-            }
-
-            if ((Input.GetButtonDown("TriggersR_" + _playerId) || Input.GetKey(KeyCode.T)))
-            {
-                //Actualiser le compteur de temps si cooldown
-                //Afficher le spell 2 dans l'UI
-            }
-            else
-            {
-                //Masquer le spell 2 dans l'UI
-            }
             
-            textCurrentNbOfUnits[0].text = currentNbOfUnits[0] + "/" + maxNbOfUnits[0];
-            textCurrentNbOfUnits[1].text = currentNbOfUnits[1] + "/" + maxNbOfUnits[1];
-            textCurrentNbOfUnits[2].text = currentNbOfUnits[2] + "/" + maxNbOfUnits[2];
-            textCurrentNbOfUnits[3].text = currentNbOfUnits[3] + "/" + maxNbOfUnits[3];
+            float upgradeH = Input.GetAxis("DPad_XAxis_" + _playerId);
+            float upgradeV = Input.GetAxis("DPad_YAxis_" + _playerId);
+
+            if (lastUpgrade + upgradeDelay < Time.time)
+            {
+                if (upgradeH > 0.3) // RIGHT
+                {
+                    UseLevel(upgrades[1]);
+                }
+                /*else if (upgradeH < -0.3) // LEFT
+                {
+                    UseLevel(upgrades[2]);
+                }*/
+
+                if (upgradeV > 0.3) // UP
+                {
+                    UseLevel(upgrades[2]);
+                }
+                else if (upgradeV < -0.3) // DOWN
+                {
+                    UseLevel(upgrades[0]);
+                }
+            }
+
+
+
+            if (Input.GetAxis("TriggersR_" + _playerId) > 0.3)
+            {
+                if (_manaToSacrifice <= _currentMana && _canSacrificeMana)
+                {
+                    _currentMana -= _manaToSacrifice;
+                    _canSacrificeMana = false;
+                    AddExperience(_manaToSacrifice*experienceByMana);
+                }
+                else
+                {
+                    // can't add xp;
+                }
+            }
+            if (Input.GetAxis("TriggersR_" + _playerId) == 0)
+            {
+                _canSacrificeMana = true;
+            }
+
+            //if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)))
+            //{
+            //    Actualiser le compteur de temps si cooldown
+            //    Afficher le spell 1 dans l'UI
+            //}
+            //else
+            //{
+            //    Masquer le spell 1 dans l'UI
+            //}
+
+            //if ((Input.GetButtonDown("TriggersR_" + _playerId) || Input.GetKey(KeyCode.T)))
+            //{
+            //    Actualiser le compteur de temps si cooldown
+            //    Afficher le spell 2 dans l'UI
+            //}
+            //else
+            //{
+            //    Masquer le spell 2 dans l'UI
+            //}
+
+            //textCurrentNbOfUnits[0].text = currentNbOfUnits[0] + "/" + maxNbOfUnits[0];
+            //textCurrentNbOfUnits[1].text = currentNbOfUnits[1] + "/" + maxNbOfUnits[1];
+            //textCurrentNbOfUnits[2].text = currentNbOfUnits[2] + "/" + maxNbOfUnits[2];
+            //textCurrentNbOfUnits[3].text = currentNbOfUnits[3] + "/" + maxNbOfUnits[3];
         }
 
-        _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
-
+        //_lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
+        _manaImage.fillAmount = ((float)_currentMana / (float)_maxMana);
+        _manaText.text = _currentMana + "/" + _maxMana;
         base.Update();
+    }
+
+    public override void FixedUpdate()
+    {
+        int levelDispo = 0;
+
+        for (int i = 0; i < experienceLevel.Count; i++)
+        {
+            if (experienceLevel[i] == 0)
+            {
+                levelDispo++;
+            }
+        }
+        for (int i = 0; i < hasUsedLevel.Count; i++)
+        {
+            if (hasUsedLevel[i])
+            {
+                levelDispo--;
+            }
+        }
+
+        Debug.Log(levelDispo);
+
+        base.FixedUpdate();
     }
 
     public void getDamage(int dmg)
     {
         Instantiate(FxBlood, transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
-        if(_playerId == 1)
+        if (_playerId == 1)
         {
             XInput.instance.useVibe(0, 1, 1, 1);
         }
@@ -194,7 +289,7 @@ public class Motherbase : Entity
         {
             XInput.instance.useVibe(1, 1, 1, 1);
         }
-        
+
         if (dmg > _life)
         {
             _life = 0;
@@ -209,80 +304,84 @@ public class Motherbase : Entity
 
     void corSpawnUnits(int typeOfUnit)
     {
-        if (currentNbOfUnits[typeOfUnit] > 0)
+        if (typeOfUnit == 0)
+            if (spawnSwarmFX)
+                SoundManager.Instance.playSound(spawnSwarmFX, 0.3f);
+        int unitToSpawn = units[typeOfUnit].GetComponent<Unit>().groupSpawn;
+        EndGameManager.instance.addSpawn(_playerId, unitToSpawn);
+
+        //bool isActiveSpellPrimary = false;
+        //bool isActiveSpellSecondary = false;
+        //if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)) && primarySpellCd == null)
+        //{
+        //    primarySpellCd = StartCoroutine(corCooldownSpell(primarySpell));
+        //    cooldownPrimarySpell = Time.time;
+        //    isActiveSpellPrimary = true;
+        //}
+        //else if (primarySpellCd != null)
+        //{
+        //    Debug.Log("Recharge spell 1");
+        //}
+        //if ((Input.GetButtonDown("TriggersR_" + _playerId) || Input.GetKey(KeyCode.T)) && secondarySpellCd == null)
+        //{
+        //    secondarySpellCd = StartCoroutine(corCooldownSpell(secondarySpell));
+        //    cooldownSecondarySpell = Time.time;
+        //    isActiveSpellSecondary = true;
+        //}
+        //else if (secondarySpellCd != null)
+        //{
+        //    Debug.Log("Recharge spell 2");
+        //}
+        if (_currentMana >= units[typeOfUnit].GetComponent<Unit>().manaCost)
         {
-            if(typeOfUnit==0)
-                if (spawnSwarmFX)
-                    SoundManager.Instance.playSound(spawnSwarmFX, 0.3f);
-            int unitToSpawn = units[typeOfUnit].GetComponent<Unit>().groupSpawn;
-            EndGameManager.instance.addSpawn(_playerId, unitToSpawn);
-
-            bool isActiveSpellPrimary = false;
-            bool isActiveSpellSecondary = false;
-            if ((Input.GetButtonDown("TriggersL_" + _playerId) || Input.GetKey(KeyCode.R)) && primarySpellCd == null)
-            {
-                primarySpellCd = StartCoroutine(corCooldownSpell(primarySpell));
-                cooldownPrimarySpell = Time.time;
-                isActiveSpellPrimary = true;
-            }
-            else if (primarySpellCd != null)
-            {
-                Debug.Log("Recharge spell 1");
-            }
-            if ((Input.GetButtonDown("TriggersR_" + _playerId) || Input.GetKey(KeyCode.T)) && secondarySpellCd == null)
-            {
-                secondarySpellCd = StartCoroutine(corCooldownSpell(secondarySpell));
-                cooldownSecondarySpell = Time.time;
-                isActiveSpellSecondary = true;
-            }
-            else if (secondarySpellCd != null)
-            {
-                Debug.Log("Recharge spell 2");
-            }
-
             for (int i = 0; i < unitToSpawn; i++)
             {
                 GameObject prefabOfUnit = Instantiate(units[typeOfUnit], transform.position, transform.rotation) as GameObject;
                 Unit unit = prefabOfUnit.GetComponent<Unit>();
                 NavMeshAgent nav = prefabOfUnit.GetComponent<NavMeshAgent>();
 
-                if (isActiveSpellPrimary)
-                {
-                    switch (primarySpell._name)
-                    {
-                        case "BuffAtk":
-                            unit._damage += (int)primarySpell._value;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                if (isActiveSpellSecondary)
-                {
-                    switch (primarySpell._name)
-                    {
-                        case "BuffAtk":
-                            unit._damage += (int)primarySpell._value;
-                            break;
-                        default:
-                            break;
-                    }
-                }
 
+                //if (isActiveSpellPrimary)
+                //{
+                //    switch (primarySpell._name)
+                //    {
+                //        case "BuffAtk":
+                //            unit._damage += (int)primarySpell._value;
+                //            break;
+                //        default:
+                //            break;
+                //    }
+                //}
+                //if (isActiveSpellSecondary)
+                //{
+                //    switch (primarySpell._name)
+                //    {
+                //        case "BuffAtk":
+                //            unit._damage += (int)primarySpell._value;
+                //            break;
+                //        default:
+                //            break;
+                //    }
+                //}
+                upgrades[typeOfUnit].Use(unit);
                 unit._playerId = _playerId;
+                unit._motherBase = this;
                 if (waypoint == null)
                 {
                     nav.SetDestination(targetBase.transform.position);
                     unit.laneEnd = true;
                 }
                 else
+                {
                     nav.SetDestination(waypoint.pos);
+                }
+                    
                 unit._enemyMotherBase = targetBase;
                 unit.waypointDest = waypoint;
                 unit._laneSpawning = _laneSpawning;
                 prefabOfUnit.transform.parent = transform.parent;
             }
-            currentNbOfUnits[typeOfUnit]--;
+            _currentMana -= units[typeOfUnit].GetComponent<Unit>().manaCost;
         }
     }
 
@@ -293,10 +392,46 @@ public class Motherbase : Entity
             if (currentNbOfUnits[nbOfUnits] < maxNbOfUnits[nbOfUnits])
             {
                 currentNbOfUnits[nbOfUnits]++;
-                yield return StartCoroutine(fillIcon(reloadUnitImage[nbOfUnits], units[nbOfUnits].GetComponent<Unit>()._hatchTime));
             }
-            yield return 0;
+            else
+            {
+                AddExperience(experienceByMana);
+            }
+            yield return StartCoroutine(fillIcon(reloadUnitImage[nbOfUnits], units[nbOfUnits].GetComponent<Unit>()._hatchTime));
         }
+    }
+
+    private void AddExperience(int experience)
+    {
+        int exp = experience;
+        int level = 0;
+        do
+        {
+            int expCurr = Mathf.Max(experienceLevel[level] - exp, 0);
+            experienceLevel[level] = expCurr;
+            exp = Mathf.Max(exp - expCurr, 0);
+            level++;
+        }
+        while (exp > 0 && level < experienceLevel.Count);
+    }
+
+    private void UseLevel(Upgrade up)
+    {
+        int level = 0;
+        while (level < hasUsedLevel.Count && hasUsedLevel[level])
+        {
+            level++;
+        }
+        if (level < hasUsedLevel.Count)
+        {
+            if (experienceLevel[level] == 0)
+            {
+                hasUsedLevel[level] = true;
+                up.LevelUp();
+            }
+
+        }
+        lastUpgrade = Time.time;
     }
 
     public IEnumerator fillIcon(Image icon, float cdTimer)
@@ -317,9 +452,22 @@ public class Motherbase : Entity
         rechargeSpell(spellToRecharge);
     }
 
+    IEnumerator loadMana()
+    {
+        while (_life>0)
+        {
+            if(_currentMana < _maxMana)
+            {
+                _currentMana += _addMana;
+            }
+            yield return new WaitForSeconds(_delayMana);
+        }
+
+    }
+
     void rechargeSpell(Spell spellToRecharge)
     {
-        if(spellToRecharge == primarySpell && primarySpells.Count > 0)
+        if (spellToRecharge == primarySpell && primarySpells.Count > 0)
         {
             int rand = Random.Range(0, primarySpells.Count);
             spellToRecharge = primarySpells[rand];

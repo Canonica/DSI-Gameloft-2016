@@ -2,35 +2,55 @@
 
 public class Upgrade : Effect
 {
-    public enum UpgradeType
-    {
-        //Mettre les catégories d'Upgrade ici
-        TestUpgrade,
-        TestUpgrade2,
-        TestUpgrade4,
-        END,
-    }
-    
-    public UpgradeType _type;
-    public float _level;
-    public float _addByLevel;
+    Motherbase _mb;
+    public int _level;
 
-    public Upgrade(string parName, float parCost, float parValue, UpgradeType parType , float parAddByLevel) : base(parName, parCost, parValue)
+    void Start()
     {
+        _mb = GetComponent<Motherbase>();
         _level = 0;
-        _addByLevel = parAddByLevel;
-        _type = parType;
     }
 
-    public override float Apply()
+    public virtual void LevelOne(Unit unit)
     {
-        Debug.Log("Upgrade : " + _name + " /// Cost : " + _cost);
-        return base.Apply() * (_level);
+        unit._damage += 2;
+    }
+
+    public virtual void LevelTwo(Unit unit)
+    {
+        unit._hatchTime -= 0.5f;
+    }
+
+    public virtual void LevelThree(int index)
+    {
+        if(index < _mb.maxNbOfUnits.Length)
+        {
+            _mb.maxNbOfUnits[index] += 5;
+        }
     }
 
     public void LevelUp()
     {
-        _level += _addByLevel;
+        if (_level < 3)
+        {
+            _level++;
+        }
+        if (_level > 2)
+        {
+            LevelThree(_mb.upgrades.IndexOf(this));
+        }
+    }
+
+    public void Use(Unit unit)
+    {
+        if(_level > 0)
+        {
+            LevelOne(unit);
+        }
+        if (_level > 1)
+        {
+            LevelTwo(unit);
+        }
     }
 
 }
