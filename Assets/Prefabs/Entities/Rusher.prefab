@@ -774,12 +774,10 @@ MonoBehaviour:
   _life: 10
   _lifeMax: 10
   _playerId: 0
-  _spells: []
-  _upgrades: []
   img: {fileID: 0}
   unitName: Unit
   attackSpeed: 0.2
-  _movementSpeed: 5
+  _movementSpeed: 15
   groupSpawn: 1
   _damage: 3
   _hatchTime: 5
@@ -791,7 +789,6 @@ MonoBehaviour:
   _distanceMinLane: 8
   waypointDest: {fileID: 0}
   laneEnd: 0
-  lastCollision: 0
   collideNum: 0
   isBumped: 0
   _actualLane: 0
