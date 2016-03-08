@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyMotherBase: {fileID: 0}
+  _motherBase: {fileID: 0}
   _life: 15
   _lifeMax: 15
   _playerId: 0
@@ -119,6 +120,7 @@ MonoBehaviour:
   _damage: 2
   _hatchTime: 3
   bumpResist: 1
+  manaCost: 0
   smoother: 20
   _target: {fileID: 0}
   _trigger: []
@@ -134,7 +136,7 @@ MonoBehaviour:
   spawnFX: {fileID: 0}
   hitFX: {fileID: 0}
   isJumping: 0
-  forceAOE: 4
+  forceAOE: 2
   heightJump: 5
 --- !u!135 &13595940
 SphereCollider:
