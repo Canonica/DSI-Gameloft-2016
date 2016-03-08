@@ -64,12 +64,22 @@ public class ChangeLane : MonoBehaviour
                 if (canMove)
                     StartCoroutine(moveTop());
             }
-            if (h <= -0.9f)
+            if (h <= -0.9f && id == 2)
+            {
+                if (canMove)
+                    StartCoroutine(moveBot());
+            }
+            if (h >= 0.9f&& id == 2)
             {
                 if (canMove)
                     StartCoroutine(moveTop());
             }
-            if (h >= 0.9f)
+            if (h <= -0.9f&& id ==1)
+            {
+                if (canMove)
+                    StartCoroutine(moveTop());
+            }
+            if (h >= 0.9f && id ==1)
             {
                 if (canMove)
                     StartCoroutine(moveBot());
@@ -150,7 +160,7 @@ public class ChangeLane : MonoBehaviour
     {
         if (Lane[currentWP])
         {
-            cursor.transform.position = Lane[currentWP].GetComponent<Lane>().getFirst(id).pos + Vector3.up * 10;
+            cursor.transform.position = Lane[currentWP].GetComponent<Lane>().getFirst(id).pos ;
             mBase.waypoint = Lane[currentWP].GetComponent<Lane>().getFirst(id);
         }
             
