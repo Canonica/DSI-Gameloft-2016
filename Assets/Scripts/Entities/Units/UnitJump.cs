@@ -99,6 +99,7 @@ public class UnitJump : Unit {
 
     IEnumerator AOE()
     {
+        Debug.Log("UJBHVF IUUUUGBREUGBIYZEBNVGUIBEUIBENZBEIU");
         isActiveAOE = true;
         for (int i=0; i < _trigger.Count;i++)
         {
@@ -119,6 +120,12 @@ public class UnitJump : Unit {
                 else
                 {
                     _trigger[i].GetComponent<Unit>().Hit(_damage);
+                }
+                UnitTank unitT = _trigger[i].GetComponent<UnitTank>();
+                if (unitT && unitT.reflectDamage)
+                {
+                    Debug.Log("Renvoi des degats");
+                    Hit((int)(_damage * unitT.reflectDamageAmount));
                 }
                 Debug.Log("Attack " + _trigger[i].name + " dmg " + _damage);
                 _trigger[i].GetComponent<Unit>().applyBump(transform.position, forceAOE);
