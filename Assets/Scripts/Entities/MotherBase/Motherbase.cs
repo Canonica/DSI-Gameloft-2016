@@ -35,7 +35,6 @@ public class Motherbase : Entity
     public Image _manaImage;
     public Text _manaText;
 
-
     public Text[] textCurrentNbOfUnits;
     public Image[] reloadUnitImage;
     public Image _lifeImage;
@@ -57,6 +56,8 @@ public class Motherbase : Entity
     public float lastUpgrade = 0.0f;
 
     public List<int> experienceLevel;
+    public List<int> maxExperienceLevel;
+
     public List<bool> hasUsedLevel;
 
     [Header("FX")]
@@ -72,6 +73,7 @@ public class Motherbase : Entity
     void Awake()
     {
         spawning = false;
+        maxExperienceLevel = new List<int>(experienceLevel);
     }
 
 
@@ -85,6 +87,7 @@ public class Motherbase : Entity
         _canSacrificeMana = true;
         _currentLane = GetComponent<ChangeLane>();
         hasUsedLevel = new List<bool>();
+        
         for (int i = 0; i < experienceLevel.Count; i++)
         {
             hasUsedLevel.Add(false);
