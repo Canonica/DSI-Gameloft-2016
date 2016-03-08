@@ -118,6 +118,7 @@ MonoBehaviour:
   groupSpawn: 1
   _damage: 2
   _hatchTime: 3
+  bumpResist: 1
   smoother: 20
   _target: {fileID: 0}
   _trigger: []
@@ -133,7 +134,8 @@ MonoBehaviour:
   spawnFX: {fileID: 0}
   hitFX: {fileID: 0}
   isJumping: 0
-  forceAOE: 1
+  forceAOE: 4
+  heightJump: 5
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1

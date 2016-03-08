@@ -7,7 +7,7 @@ public class UnitJump : Unit {
     bool isActiveAOE = false;
     public int forceAOE = 1;
     float timeAOE = 2;
-    int heightJump = 5;
+    public int heightJump = 5;
     override
     public void Start()
     {
@@ -36,6 +36,15 @@ public class UnitJump : Unit {
             isJumping = true;
             StartCoroutine(jump());
         }
+    }
+
+    override public void Attack()
+    {
+        if (_target)
+        {
+            StartCoroutine(AOE());
+        }
+        base.Attack();
     }
 
     IEnumerator jump()
@@ -71,6 +80,7 @@ public class UnitJump : Unit {
         {
             if (_trigger[i] )
             {
+                _trigger[i].GetComponent<Unit>().Hit(_damage);
                 _trigger[i].GetComponent<Unit>().applyBump(transform.position, forceAOE);
             }
             yield return 0;

@@ -13,18 +13,21 @@ public class MenuManager : MonoBehaviour
 	public GameObject OptionsCanvas;
 	public GameObject ConnectCanvas;
 	public GameObject LobbyCanvas;
+    public GameObject StoryCanvas;
 
-	public GameObject PauseCanvas;
+    public GameObject PauseCanvas;
 
 	public CanvasGroup MainMenuCanvasGroup;
 	public CanvasGroup CreditsCanvasGroup;
 	public CanvasGroup OptionsCanvasGroup;
 	public CanvasGroup LobbyCanvasGroup;
-	public float fadeInSpeed;
+    public CanvasGroup StoryCanvasGroup;
+    public float fadeInSpeed;
 	public float fadeOutSpeed;
     
 	bool isOptions;
 	bool isCredit;
+    bool isStory;
 
 
 	void Awake ()
@@ -41,19 +44,26 @@ public class MenuManager : MonoBehaviour
 			CreditsCanvas = GameObject.Find ("CreditsCanvas");
 			OptionsCanvas = GameObject.Find ("OptionsCanvas");
 			LobbyCanvas = GameObject.Find ("LobbyCanvas");
+            StoryCanvas = GameObject.Find("StoryCanvas");
 
-			MainMenuCanvasGroup = MainMenuCanvas.GetComponent<CanvasGroup> ();
-			CreditsCanvasGroup = CreditsCanvas.GetComponent<CanvasGroup> ();
-			OptionsCanvasGroup = OptionsCanvas.GetComponent<CanvasGroup> ();
-			LobbyCanvasGroup = LobbyCanvas.GetComponent<CanvasGroup> ();
+            MainMenuCanvasGroup = MainMenuCanvas.GetComponent<CanvasGroup>();
+			CreditsCanvasGroup = CreditsCanvas.GetComponent<CanvasGroup>();
+			OptionsCanvasGroup = OptionsCanvas.GetComponent<CanvasGroup>();
+			LobbyCanvasGroup = LobbyCanvas.GetComponent<CanvasGroup>();
+            StoryCanvasGroup = StoryCanvas.GetComponent<CanvasGroup>();
 
-			foreach (Transform child in MainMenuCanvas.transform) {
+            foreach (Transform child in MainMenuCanvas.transform) {
 				switch (child.name) {
 				case "PlayButton":
 					child.GetComponent<Button> ().onClick.AddListener (() => {
 						ShowLobby ();
 					});
 					break;
+                case "StoryButton":
+                    child.GetComponent<Button>().onClick.AddListener(() => {
+                        ShowStory();
+                    });
+                    break;
 				case "OptionsButton":
 					child.GetComponent<Button> ().onClick.AddListener (() => {
 						ShowOptions ();
@@ -64,6 +74,7 @@ public class MenuManager : MonoBehaviour
 				//		ShowCredits ();
 				//	});
 				//	break;
+
 				case "QuitButton":
 					child.GetComponent<Button> ().onClick.AddListener (() => {
 						Quit ();
@@ -82,15 +93,20 @@ public class MenuManager : MonoBehaviour
 			LobbyCanvas.transform.FindChild ("MainMenuButton").GetComponent<Button> ().onClick.AddListener (() => {
 				Main_Menu_From_Lobby ();
 			});
+            StoryCanvas.transform.FindChild("MainMenuButton").GetComponent<Button>().onClick.AddListener(() =>
+            {
+                Main_Menu_From_Story();
+            });
 
-           
 
-			MainMenuCanvas.SetActive (false);
+
+            MainMenuCanvas.SetActive (false);
 			CreditsCanvas.SetActive (false);
 			OptionsCanvas.SetActive (false);
 			LobbyCanvas.SetActive (false);
-            
-			StartCoroutine (fadeIn (MainMenuCanvasGroup, fadeInSpeed));
+            StoryCanvas.SetActive(false);
+
+            StartCoroutine (fadeIn (MainMenuCanvasGroup, fadeInSpeed));
 		}
 		if (level == 2) {
 			PauseCanvas = GameObject.Find ("PauseCanvas");
@@ -175,7 +191,18 @@ public class MenuManager : MonoBehaviour
 
 	}
 
-	public void ShowOptions ()
+    public void Main_Menu_From_Story()
+    {
+        HideAll();
+        MainMenuCanvas.SetActive(true);
+        StartCoroutine(fadeIn(MainMenuCanvasGroup, fadeInSpeed));
+        StartCoroutine(fadeOut(StoryCanvasGroup));
+        MainMenuCanvas.GetComponent<MenuHandler>().enabled = true;
+        StoryCanvas.GetComponent<MenuHandler>().enabled = false;
+
+    }
+
+    public void ShowOptions ()
 	{
 		HideAll ();
 		OptionsCanvas.SetActive (true);
@@ -207,7 +234,17 @@ public class MenuManager : MonoBehaviour
 		CreditsCanvas.GetComponent<MenuHandler> ().enabled = true;
 	}
 
-	public void Restart ()
+    public void ShowStory()
+    {
+        HideAll();
+        StoryCanvas.SetActive(true);
+        StartCoroutine(fadeIn(StoryCanvasGroup, fadeInSpeed));
+        StartCoroutine(fadeOut(MainMenuCanvasGroup));
+        MainMenuCanvas.GetComponent<MenuHandler>().enabled = false;
+        StoryCanvas.GetComponent<MenuHandler>().enabled = true;
+    }
+
+    public void Restart ()
 	{
 		GameManager.GetInstance ().currentGamestate = GameManager.gameState.Playing;
 		Time.timeScale = 1;

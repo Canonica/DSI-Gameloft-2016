@@ -9,14 +9,30 @@ public class ChangeLane : MonoBehaviour
     public int currentWP = 0;
     public GameObject[] Lane;
     public GameObject cursor;
+    public int nbLane = 3;
     Motherbase mBase;
     void Awake()
     {
         mBase = GetComponent<Motherbase>();
-        Lane = new GameObject[3];
-        Lane[2] = GameObject.Find("LaneTop");
-        Lane[1] = GameObject.Find("LaneMid");
-        Lane[0] = GameObject.Find("LaneBot");
+        Lane = new GameObject[nbLane];
+        int cmpt = 0;
+        if (GameObject.Find("LaneBot"))
+        {
+            Lane[cmpt] = GameObject.Find("LaneBot");
+            cmpt++;
+        }
+        
+        if (GameObject.Find("LaneMid"))
+        {
+            Lane[cmpt] = GameObject.Find("LaneMid");
+            cmpt++;
+        }
+        if (GameObject.Find("LaneTop"))
+        {
+            Lane[cmpt] = GameObject.Find("LaneTop");
+            cmpt++;
+        }
+
     }
 
     // Use this for initialization
@@ -48,7 +64,6 @@ public class ChangeLane : MonoBehaviour
                 if (canMove)
                     StartCoroutine(moveTop());
             }
-
             if (h <= -0.9f)
             {
                 if (canMove)
@@ -133,7 +148,11 @@ public class ChangeLane : MonoBehaviour
 
     void applyChange()
     {
-        cursor.transform.position = Lane[currentWP].GetComponent<Lane>().getFirst(id).pos + Vector3.up * 10;
-        mBase.waypoint = Lane[currentWP].GetComponent<Lane>().getFirst(id);
+        if (Lane[currentWP])
+        {
+            cursor.transform.position = Lane[currentWP].GetComponent<Lane>().getFirst(id).pos + Vector3.up * 10;
+            mBase.waypoint = Lane[currentWP].GetComponent<Lane>().getFirst(id);
+        }
+            
     }
 }

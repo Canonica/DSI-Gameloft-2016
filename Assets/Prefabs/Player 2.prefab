@@ -414,6 +414,7 @@ MonoBehaviour:
   currentWP: 1
   Lane: []
   cursor: {fileID: 164428}
+  nbLane: 3
 --- !u!114 &11430892
 MonoBehaviour:
   m_ObjectHideFlags: 1

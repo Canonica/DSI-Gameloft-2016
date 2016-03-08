@@ -71,7 +71,6 @@ public class Motherbase : Entity
     // Use this for initialization
     void Awake()
     {
-        _lifeMax = 10;
         spawning = false;
     }
 
@@ -249,7 +248,7 @@ public class Motherbase : Entity
             //textCurrentNbOfUnits[3].text = currentNbOfUnits[3] + "/" + maxNbOfUnits[3];
         }
 
-        _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
+        //_lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
         _manaImage.fillAmount = ((float)_currentMana / (float)_maxMana);
         _manaText.text = _currentMana + "/" + _maxMana;
         base.Update();
@@ -367,7 +366,16 @@ public class Motherbase : Entity
                 upgrades[typeOfUnit].Use(unit);
                 unit._playerId = _playerId;
                 unit._motherBase = this;
-                nav.SetDestination(waypoint.pos);
+                if (waypoint == null)
+                {
+                    nav.SetDestination(targetBase.transform.position);
+                    unit.laneEnd = true;
+                }
+                else
+                {
+                    nav.SetDestination(waypoint.pos);
+                }
+                    
                 unit._enemyMotherBase = targetBase;
                 unit.waypointDest = waypoint;
                 unit._laneSpawning = _laneSpawning;
@@ -446,9 +454,12 @@ public class Motherbase : Entity
 
     IEnumerator loadMana()
     {
-        while (_currentMana < _maxMana)
+        while (_life>0)
         {
-            _currentMana += _addMana;
+            if(_currentMana < _maxMana)
+            {
+                _currentMana += _addMana;
+            }
             yield return new WaitForSeconds(_delayMana);
         }
 

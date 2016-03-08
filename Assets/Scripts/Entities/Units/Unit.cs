@@ -119,7 +119,7 @@ public class Unit : Entity
             //Instantiate(FxDeathBlood, this.gameObject.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
             Camera.main.DOKill(true);
             Camera.main.DOShakePosition(0.05f * _startingLife / 4, 0.3f * _startingLife / 4);
-            EndGameManager.instance.addDeath(_playerId);
+            
             StartCoroutine(animDeath());
             
         }
@@ -135,6 +135,7 @@ public class Unit : Entity
     void dead()
     {
         StopAllCoroutines();
+        EndGameManager.instance.addDeath(_playerId);
         Destroy(this.gameObject);
     }
 
