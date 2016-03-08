@@ -46,7 +46,7 @@ public class Unit : Entity
     public int collideNum = 0;
     public bool isBumped = false;
     private int _startingLife;
-    public int _laneSpawning;
+    public int _actualLane;
     bool isStunn = false;
     [Tweakable]
     public float timeStun = 1;
@@ -210,7 +210,7 @@ public class Unit : Entity
 
     public virtual void OnTriggerEnter(Collider parOther)
     {
-        if (parOther.CompareTag("Unit") && parOther.GetComponent<Unit>()._playerId != _playerId)
+        if (parOther.CompareTag("Unit") && parOther.GetComponent<Unit>()._playerId != _playerId && parOther.GetComponent<Unit>()._actualLane == _actualLane)
         {
             
             if (_trigger.IndexOf(parOther.gameObject) < 0)
@@ -319,7 +319,7 @@ public class Unit : Entity
             else
             {
                 StopAllCoroutines();
-                Destroy(this.gameObject);
+                //Destroy(this.gameObject);
             }
             
         }

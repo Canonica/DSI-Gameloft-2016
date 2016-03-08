@@ -79,6 +79,7 @@ public class UnitJump : Unit {
 
         for (int i = 0; i < smoother ; i++)
         {
+            Debug.Log("jump"); 
             transform.position = transform.position + (dirJump / smoother);
             yield return 0;
         }
