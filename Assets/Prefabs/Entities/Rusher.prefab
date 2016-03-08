@@ -801,6 +801,11 @@ MonoBehaviour:
   hitFX: {fileID: 0}
   flyHeight: 20
   isFlying: 0
+  lifeSteal: 0
+  valueLifeSteal: 100
+  rangedAttack: 0
+  rangedAttackSpeed: 1
+  rangedDamage: 1
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1

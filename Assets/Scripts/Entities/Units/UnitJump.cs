@@ -7,6 +7,8 @@ public class UnitJump : Unit {
     bool isActiveAOE = false;
     public int forceAOE = 1;
     float timeAOE = 2;
+    bool canStun = true;
+    bool canExplode = true;
     public int heightJump = 5;
     public bool hasUpgrade1;
     public bool hasUpgrade2;
@@ -24,13 +26,21 @@ public class UnitJump : Unit {
 
     override public void OnCollisionEnter(Collision col)
     {
-        base.OnCollisionEnter(col);
+        //base.OnCollisionEnter(col);
+        Motherbase mother = col.gameObject.GetComponent<Motherbase>();
+        if (mother && col.gameObject.CompareTag("MotherBase") && mother._playerId != _playerId)
+        {
+            EndGameManager.instance.addDamage(_playerId, _damage);
+            EndGameManager.instance.addDamage((_playerId % 2) + 1, _life);
+            mother.getDamage(_damage);
+            Hit(_life);
+        }
     }
 
     override public void OnTriggerEnter(Collider col)
     {
         base.OnTriggerEnter(col);
-        if (_target && !isJumping)
+        if (_target && !isJumping&& attackReady)
         {
             isJumping = true;
             StartCoroutine(jump());
@@ -40,20 +50,30 @@ public class UnitJump : Unit {
     override public void Attack()
     {
         if (_target&& attackReady)
-            attackReady = false;
         {
+            attackReady = false;
             //StartCoroutine(AOE());
             StartCoroutine(jump());
-            StartCoroutine(reload());
         }
     }
 
     IEnumerator jump()
     {
-        GetComponent<Collider>().enabled = false;
+        if (_target.GetComponent<UnitRush>()&& _target.GetComponent<UnitRush>().isFlying)
+        {
+            yield break;
+        }
+
+        if (_target.transform.position.y > transform.position.y)
+        {
+            yield break;
+        }
+
+        //GetComponent<Collider>().enabled = false;
         _navMeshAgent.enabled = false;
         Vector3 dir = _target.transform.position - transform.position;
         float dist = Vector3.Distance(_target.transform.position, transform.position);
+        
         Vector3 dirJump = (dir.normalized * dist) / 2;
         dirJump.y = heightJump;
 
@@ -70,7 +90,7 @@ public class UnitJump : Unit {
             yield return 0;
         }
         
-        GetComponent<Collider>().enabled = true;
+        //GetComponent<Collider>().enabled = true;
         _navMeshAgent.enabled = true;
         if(!isActiveAOE)
         StartCoroutine(AOE());
@@ -84,11 +104,33 @@ public class UnitJump : Unit {
             if (_trigger[i] )
             {
                 EndGameManager.instance.addDamage(_playerId, _damage);
+                if (canStun && Random.Range(0, 100) > 50)
+                {
+                    _trigger[i].GetComponent<Unit>().getStun();
+                }
                 _trigger[i].GetComponent<Unit>().Hit(_damage);
+                Debug.Log("Attack " + _trigger[i].name + " dmg " + _damage);
                 _trigger[i].GetComponent<Unit>().applyBump(transform.position, forceAOE);
             }
             yield return 0;
         }
         isActiveAOE = false;
+        StartCoroutine(reload());
+    }
+
+    public override void Hit(int parDamage)
+    {
+        
+        base.Hit(parDamage);
+        if (_life<=0 && canExplode)
+        {
+            StartCoroutine(AOE());
+        }
+    }
+
+    public override IEnumerator reload()
+    {
+        yield return base.reload();
+        Attack();
     }
 }

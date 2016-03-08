@@ -13,12 +13,14 @@ public class Upgrade : Effect
 
     public virtual void LevelOne(Unit unit)
     {
-        unit._damage += 2;
+        UnitRush unitRush = (UnitRush)unit;
+        unitRush.lifeSteal = true;
     }
 
     public virtual void LevelTwo(Unit unit)
     {
-        unit._hatchTime -= 0.5f;
+        UnitRush unitRush = (UnitRush)unit;
+        unitRush.rangedAttack = true;
     }
 
     public virtual void LevelThree(int index)

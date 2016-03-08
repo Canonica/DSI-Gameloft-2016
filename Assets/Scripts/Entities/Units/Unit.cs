@@ -47,7 +47,9 @@ public class Unit : Entity
     public bool isBumped = false;
     private int _startingLife;
     public int _laneSpawning;
-
+    bool isStunn = false;
+    [Tweakable]
+    public float timeStun = 1;
 
     [Header("FX")]
     [SerializeField]
@@ -126,9 +128,9 @@ public class Unit : Entity
             //Instantiate(FxDeathBlood, this.gameObject.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
             Camera.main.DOKill(true);
             Camera.main.DOShakePosition(0.05f * _startingLife / 4, 0.3f * _startingLife / 4);
-            
-            StartCoroutine(animDeath());
-            
+            dead();
+            //StartCoroutine(animDeath());
+
         }
     }
 
@@ -148,7 +150,7 @@ public class Unit : Entity
 
     
     // true if it kill
-    public void Hit(int parDamage)
+    public virtual void Hit(int parDamage)
     {
         _life -= parDamage;
     }
@@ -182,10 +184,29 @@ public class Unit : Entity
         }
     }
 
+    public void getStun()
+    {
+        if (!isStunn)
+        {
+            isStunn = true;
+            _navMeshAgent.SetDestination(transform.position);
+            StartCoroutine(stunTime());
+        }
+    }
+
+    IEnumerator stunTime()
+    {
+        yield return new WaitForSeconds(timeStun);
+        isStunn = false;
+        takeDestination();
+    }
+
     public virtual void OnTriggerEnter(Collider parOther)
     {
         if (parOther.CompareTag("Unit") && parOther.GetComponent<Unit>()._playerId != _playerId)
         {
+            
+            if (_trigger.IndexOf(parOther.gameObject) < 0)
             _trigger.Add(parOther.gameObject);
             if (!_target)
             {
@@ -239,7 +260,8 @@ public class Unit : Entity
 
     public virtual void Attack()
     {
-        if (_target && attackReady)
+        Debug.Log("Attack from" + gameObject.name);
+        if (_target && attackReady && !isStunn)
         {
             attackReady = false;
             Unit unit = _target.GetComponent<Unit>();
@@ -262,10 +284,10 @@ public class Unit : Entity
         }
     }
 
-    public IEnumerator reload()
+    public virtual IEnumerator reload()
     {
         //_allAnims.Play("ATTACK");
-
+        attackReady = false;
         yield return new WaitForSeconds(attackSpeed);
         attackReady = true;
         //_allAnims.Play("RUN");

@@ -969,7 +969,7 @@ MonoBehaviour:
   _enemyMotherBase: {fileID: 0}
   _motherBase: {fileID: 0}
   _life: 3
-  _lifeMax: 3
+  _lifeMax: 6
   _playerId: 0
   _spells: []
   _upgrades: []
@@ -992,6 +992,7 @@ MonoBehaviour:
   collideNum: 0
   isBumped: 0
   _laneSpawning: 0
+  timeStun: 1
   FxHitBlood: {fileID: 0}
   FxDeathBlood: {fileID: 0}
   spawnFX: {fileID: 0}
@@ -1006,7 +1007,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &13718136
 SkinnedMeshRenderer:
