@@ -53,8 +53,6 @@ public class MenuHandler : MonoBehaviour
 
 				StopAllCoroutines ();
 			}
-
-			Debug.Log (buttonArray [indice]);
 			buttonArray [indice].Select ();
 		}
             

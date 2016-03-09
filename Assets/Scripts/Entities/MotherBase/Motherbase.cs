@@ -110,7 +110,7 @@ public class Motherbase : Entity
 
     public override void Update()
     {
-        Debug.Log(_canSacrificeMana);
+
 
         _laneSpawning = _currentLane.currentWP;
         //if (Input.GetButtonDown("RB_button_" + _playerId))
@@ -201,10 +201,10 @@ public class Motherbase : Entity
             }
 
 
-            Debug.Log(Input.GetAxis("TriggersR_" + _playerId));
+
             if (Input.GetAxis("TriggersR_" + _playerId) > 0.3)
             {
-                Debug.Log(_playerId);
+
                 if (_manaToSacrifice <= _currentMana && _canSacrificeMana)
                 {
                     _currentMana -= _manaToSacrifice;
