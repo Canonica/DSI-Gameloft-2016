@@ -168,7 +168,7 @@ public class UnitJump : Unit {
         List<GameObject> localList = GetComponentInChildren<BumpJumper>().bumpList;
         for (int i=0; i < localList.Count;i++)
         {
-            if (localList[i])
+            if (localList[i]&& localList[i].GetComponent<Unit>()._playerId != _playerId)
             {
                 if(canStun)
                 {
