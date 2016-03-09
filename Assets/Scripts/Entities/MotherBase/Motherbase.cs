@@ -368,8 +368,10 @@ public class Motherbase : Entity
     public void getDamage(int dmg)
     {
         Instantiate(FxBlood, transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
-        XInput.instance.useVibe(_playerId-1 , 1, 0.5f, 0.5f);
-        
+        XInput.instance.useVibe(_playerId-1 , 0.5f, 0.5f, 0.5f);
+
+        Camera.main.DOKill(true);
+        Camera.main.DOShakePosition(0.5f , 1, 1 ,20);
 
         if (dmg > _life)
         {
