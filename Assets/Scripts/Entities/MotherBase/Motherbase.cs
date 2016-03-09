@@ -238,7 +238,7 @@ public class Motherbase : Entity
             //textCurrentNbOfUnits[3].text = currentNbOfUnits[3] + "/" + maxNbOfUnits[3];
         }
 
-        //_lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
+        _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
         _manaImage.fillAmount = ((float)_currentMana / (float)_maxMana);
         _manaText.text = _currentMana + "/" + _maxMana;
         base.Update();
@@ -458,11 +458,11 @@ public class Motherbase : Entity
         timer = 0;
     }
 
-    IEnumerator corCooldownSpell(Spell spellToRecharge)
-    {
-        yield return new WaitForSeconds(spellToRecharge._cost);
-        rechargeSpell(spellToRecharge);
-    }
+    //IEnumerator corCooldownSpell(Spell spellToRecharge)
+    //{
+    //    yield return new WaitForSeconds(spellToRecharge._cost);
+    //    rechargeSpell(spellToRecharge);
+    //}
 
     IEnumerator loadMana()
     {
@@ -477,18 +477,18 @@ public class Motherbase : Entity
 
     }
 
-    void rechargeSpell(Spell spellToRecharge)
-    {
-        if (spellToRecharge == primarySpell && primarySpells.Count > 0)
-        {
-            int rand = Random.Range(0, primarySpells.Count);
-            spellToRecharge = primarySpells[rand];
-        }
-        else if (spellToRecharge == secondarySpell && secondarySpells.Count > 0)
-        {
-            int rand = Random.Range(0, secondarySpells.Count);
-            spellToRecharge = primarySpells[rand];
-        }
-    }
+    //void rechargeSpell(Spell spellToRecharge)
+    //{
+    //    if (spellToRecharge == primarySpell && primarySpells.Count > 0)
+    //    {
+    //        int rand = Random.Range(0, primarySpells.Count);
+    //        spellToRecharge = primarySpells[rand];
+    //    }
+    //    else if (spellToRecharge == secondarySpell && secondarySpells.Count > 0)
+    //    {
+    //        int rand = Random.Range(0, secondarySpells.Count);
+    //        spellToRecharge = primarySpells[rand];
+    //    }
+    //}
 
 }
