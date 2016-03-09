@@ -9,11 +9,14 @@ public class XInput : MonoBehaviour
     PlayerIndex playerIndex;
     GamePadState state;
     GamePadState prevState;
-    
+    bool[] buttondown;
 
     void Awake()
     {
         instance = this;
+        buttondown = new bool[2];
+        buttondown[0] = false;
+        buttondown[1] = false;
     }
     
     void Update()
@@ -36,7 +39,6 @@ public class XInput : MonoBehaviour
         }
         prevState = state;
         state = GamePad.GetState(playerIndex);
-
         // Set vibration according to triggers
         //GamePad.SetVibration(playerIndex, vibe.x, vibe.y);
 
@@ -56,25 +58,50 @@ public class XInput : MonoBehaviour
 
     public ButtonState getButton(int id, char bt)
     {
-        
+        id--;
+
         switch (bt)
         {
             case 'A':
-                return GamePad.GetState((PlayerIndex)(id - 1)).Buttons.A;
+                return GamePad.GetState((PlayerIndex)id).Buttons.A;
             case 'B':
-                return GamePad.GetState((PlayerIndex)(id - 1)).Buttons.B;
+                return GamePad.GetState((PlayerIndex)id).Buttons.B;
                 
             case 'X':
-                return GamePad.GetState((PlayerIndex)(id - 1)).Buttons.X;
+                return GamePad.GetState((PlayerIndex)id ).Buttons.X;
                 
             case 'Y':
-                return GamePad.GetState((PlayerIndex)(id - 1)).Buttons.Y;
+                return GamePad.GetState((PlayerIndex)id ).Buttons.Y;
                 
             default:
                 Debug.Log("ERROR X INPUT");
-                return new ButtonState();
+                return ButtonState.Released;
         }
         
+    }
+
+    public ButtonState getDPad(int id, char bt)
+    {
+        id--;
+
+        switch (bt)
+        {
+            case 'U':
+                return GamePad.GetState((PlayerIndex)id).DPad.Up;
+            case 'D':
+                return GamePad.GetState((PlayerIndex)id).DPad.Down;
+
+            case 'L':
+                return GamePad.GetState((PlayerIndex)id).DPad.Left;
+
+            case 'R':
+                return GamePad.GetState((PlayerIndex)id).DPad.Right;
+
+            default:
+                Debug.Log("ERROR X INPUT");
+                return ButtonState.Released;
+        }
+
     }
 
     public float getYStick(int id)
