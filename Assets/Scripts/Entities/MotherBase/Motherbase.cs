@@ -256,7 +256,7 @@ public class Motherbase : Entity
             //textCurrentNbOfUnits[3].text = currentNbOfUnits[3] + "/" + maxNbOfUnits[3];
         }
 
-        //_lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
+        _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
         _manaImage.fillAmount = ((float)_currentMana / (float)_maxMana);
         _manaText.text = _currentMana + "/" + _maxMana;
         base.Update();
