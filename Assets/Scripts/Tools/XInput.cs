@@ -54,6 +54,34 @@ public class XInput : MonoBehaviour
         return GamePad.GetState((PlayerIndex)(id - 1)).Triggers.Right;
     }
 
+    public ButtonState getButton(int id, char bt)
+    {
+        
+        switch (bt)
+        {
+            case 'A':
+                return GamePad.GetState((PlayerIndex)(id - 1)).Buttons.A;
+            case 'B':
+                return GamePad.GetState((PlayerIndex)(id - 1)).Buttons.B;
+                
+            case 'X':
+                return GamePad.GetState((PlayerIndex)(id - 1)).Buttons.X;
+                
+            case 'Y':
+                return GamePad.GetState((PlayerIndex)(id - 1)).Buttons.Y;
+                
+            default:
+                Debug.Log("ERROR X INPUT");
+                return new ButtonState();
+        }
+        
+    }
+
+    public float getYStick(int id)
+    {
+       return GamePad.GetState((PlayerIndex)(id - 1)).ThumbSticks.Left.Y;
+    }
+
     IEnumerator vibration(PlayerIndex id, float time, float force1, float force2)
     {
         GamePad.SetVibration(id, force1, force2);

@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using DG.Tweening;
+using XInputDotNetPure;
 
 public class Motherbase : Entity
 {
@@ -156,70 +157,57 @@ public class Motherbase : Entity
                 StartCoroutine(loadMana());
                 spawning = true;
             }
-            if (Input.GetButtonDown("Fire " + _playerId))
+
+
+            //if (Input.GetButtonDown("Fire " + _playerId))
+            if(XInput.instance.getButton(_playerId, 'A') == ButtonState.Pressed)
             {
 
                 typeOfUnit = 0;
                 corSpawnUnits(typeOfUnit);
             }
 
-            if (Input.GetButtonDown("B_button_" + _playerId))
+            //if (Input.GetButtonDown("B_button_" + _playerId))
+
+            if (XInput.instance.getButton(_playerId, 'B') == ButtonState.Pressed)
             {
                 typeOfUnit = 1;
                 corSpawnUnits(typeOfUnit);
             }
 
-            if (Input.GetButtonDown("X_button_" + _playerId))
+
+            if (XInput.instance.getButton(_playerId, 'X') == ButtonState.Pressed)//if (Input.GetButtonDown("X_button_" + _playerId))
             {
                 typeOfUnit = 2;
                 corSpawnUnits(typeOfUnit);
             }
 
-            if (Input.GetButtonDown("Y_button_" + _playerId))
+            //if (Input.GetButtonDown("Y_button_" + _playerId))
+            if (XInput.instance.getButton(_playerId, 'A') == ButtonState.Pressed)
             {
                 typeOfUnit = 3;
                 corSpawnUnits(typeOfUnit);
             }
 
-            if (Input.GetButtonDown("RB_button_" + _playerId))
-            {
-                if (setNb > (units.Length) / 4)
-                {
-                    setNb--;
-                }
-                else
-                {
-                    setNb++;
-                }
-            }
-            if (Input.GetButtonDown("LB_button_" + _playerId))
-            {
-                if (setNb > 0)
-                {
-                    setNb--;
-                }
-            }
-
-
-
             //if (Input.GetAxis("TriggersR_" + _playerId) > 0.3)
             if (XInput.instance.getTrigger(_playerId) > 0.3)
             {
 
-            if (_manaToSacrifice <= _currentMana && _canSacrificeMana)
-            {
-                Debug.Log("add mana" + _playerId);
-                _currentMana -= _manaToSacrifice;
-                _canSacrificeMana = false;
-                AddExperience(_manaToSacrifice*experienceByMana);
-                StartCoroutine(delaySacrifice());
+                if (_manaToSacrifice <= _currentMana && _canSacrificeMana)
+                {
+                    Debug.Log("add mana" + _playerId);
+                    _currentMana -= _manaToSacrifice;
+                    _canSacrificeMana = false;
+                    AddExperience(_manaToSacrifice*experienceByMana);
+                    StartCoroutine(delaySacrifice());
+                }
+                else
+                {
+                    // can't add xp;
+                }
             }
-            else
-            {
-                // can't add xp;
-            }
-            }
-            if (Input.GetAxis("TriggersR_" + _playerId) == 0)
+
+            if (XInput.instance.getTrigger(_playerId) == 0)
             {
                 _canSacrificeMana = true;
             }
