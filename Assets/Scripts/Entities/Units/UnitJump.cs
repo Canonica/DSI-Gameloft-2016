@@ -14,12 +14,15 @@ public class UnitJump : Unit {
     public int heightJump = 5;
     public bool firstJump = false;
 
+    public ParticleSystem PS_Stomp;
+    public ParticleSystem PS_Stun;
     
     override
     public void Start()
     {
         base.Start();
     }
+
     override
     public void FixedUpdate()
     {
@@ -54,6 +57,7 @@ public class UnitJump : Unit {
         if (_target && attackReady)
         {
             attackReady = false;
+            //_allAnims.Play("ATTACK");
             StartCoroutine(AOE());
             //StartCoroutine(jump());
         }
@@ -103,6 +107,8 @@ public class UnitJump : Unit {
 
         //GetComponent<Collider>().enabled = true;
         //_navMeshAgent.enabled = true;
+        Debug.Log("RUNNNNNNNNNNN");
+        _allAnims.Play("RUN");
 
         if (!isActiveAOE)
             StartCoroutine(AOE());
@@ -147,7 +153,7 @@ public class UnitJump : Unit {
             transform.position = transform.position + (dirJump / smoother);
             yield return 0;
         }
-        
+
         //GetComponent<Collider>().enabled = true;
         _navMeshAgent.enabled = true;
 
@@ -162,6 +168,14 @@ public class UnitJump : Unit {
         {
             if (_trigger[i])
             {
+                if(canStun)
+                {
+                    PS_Stun.Play(true);
+                }
+                else
+                {
+                    PS_Stomp.Play(true);
+                }
                 if (canStun && Random.Range(0, 100) > 50)
                 {
                     _trigger[i].GetComponent<Unit>().getStun();
@@ -191,7 +205,6 @@ public class UnitJump : Unit {
     public override void Hit(int parDamage)
     {
         
-        base.Hit(parDamage);
         if (_life<=0 && canExplode)
         {
             canExplode = false;
@@ -200,6 +213,7 @@ public class UnitJump : Unit {
             StartCoroutine(AOE());
 
         }
+        base.Hit(parDamage);
     }
     
 }
