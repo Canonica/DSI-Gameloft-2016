@@ -77,6 +77,7 @@ public class UnitRush : Unit {
         
 
         if (isFlying && (_target || (col.tag == "MotherBase" && col.GetComponent<Motherbase>()._playerId != _playerId)))
+
         StartCoroutine(down());
     }
 
@@ -126,7 +127,7 @@ public class UnitRush : Unit {
                 EndGameManager.instance.addDamage(_playerId, _damage);
             }
             
-            StartCoroutine(reload());
+            StartCoroutine(attacking());
         }
     }
 
@@ -142,7 +143,7 @@ public class UnitRush : Unit {
     //}
 
     IEnumerator down()
-    {
+    {    
         isFlying = false;
         float height = _navMeshAgent.baseOffset- baseHeight;
         while (height >= baseHeight)
@@ -151,7 +152,8 @@ public class UnitRush : Unit {
             _navMeshAgent.baseOffset = height;
             yield return 0;
         }
-        
         _navMeshAgent.baseOffset = baseHeight;
     }
+
+
 }

@@ -85,7 +85,7 @@ public class UnitTank : Unit {
             return;
         }
 
-        StartCoroutine(reload());
+        StartCoroutine(attacking());
     }
 
     IEnumerator PoisonousGas()

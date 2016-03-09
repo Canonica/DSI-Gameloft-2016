@@ -1138,6 +1138,7 @@ MonoBehaviour:
   _actualLane: 0
   timeStun: 1
   FxDeathBlood: {fileID: 141720}
+  DeathAnim: {fileID: 194962, guid: 3c60b8ba44fac4b4086d1c61f8067a9b, type: 2}
   spawnFX: {fileID: 0}
   hitFX: {fileID: 0}
   distanceMaxBetweenCockroachHeal: 3

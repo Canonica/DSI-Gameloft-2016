@@ -1119,6 +1119,7 @@ MonoBehaviour:
   _actualLane: 0
   timeStun: 1
   FxDeathBlood: {fileID: 132640}
+  DeathAnim: {fileID: 176476, guid: a8435547317ee124984a98f1432ceb6d, type: 2}
   spawnFX: {fileID: 0}
   hitFX: {fileID: 0}
   isJumping: 0

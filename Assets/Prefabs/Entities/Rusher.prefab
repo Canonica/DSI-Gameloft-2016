@@ -883,6 +883,7 @@ MonoBehaviour:
   _actualLane: 0
   timeStun: 1
   FxDeathBlood: {fileID: 101068}
+  DeathAnim: {fileID: 121524, guid: 6e1a8db578c8cef4ca4e5296fbecb9cd, type: 2}
   spawnFX: {fileID: 0}
   hitFX: {fileID: 0}
   flyHeight: 20

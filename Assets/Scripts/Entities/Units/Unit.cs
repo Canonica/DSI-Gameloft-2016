@@ -58,6 +58,7 @@ public class Unit : Entity
 
     [SerializeField]
     private GameObject FxDeathBlood;
+    public GameObject DeathAnim;
 
     [Header("Sound")]
     public AudioClip spawnFX;
@@ -134,11 +135,6 @@ public class Unit : Entity
         }
     }
 
-    public virtual void OnDeath()
-    {
-
-    }
-
     IEnumerator animDeath()
     {
         _allAnims.Play("DEATH");
@@ -147,8 +143,13 @@ public class Unit : Entity
         dead();
     }
 
+    public virtual void OnDeath()
+    {
+    }
+
     void dead()
     {
+        Destroy(Instantiate(DeathAnim,transform.position, Quaternion.identity), 3);
         StopAllCoroutines();
         EndGameManager.instance.addDeath(_playerId);
         Destroy(this.gameObject);
@@ -302,6 +303,7 @@ public class Unit : Entity
     {
         if (_target && attackReady && !isStunn)
         {
+            StartCoroutine(attacking());
             attackReady = false;
             Unit unit = _target.GetComponent<Unit>();
             if (unit && unit._playerId != _playerId)
@@ -318,7 +320,7 @@ public class Unit : Entity
                // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
                 EndGameManager.instance.addDamage(_playerId, _damage);
             }
-            StartCoroutine(reload());
+            
         }
         else
         {
@@ -329,14 +331,25 @@ public class Unit : Entity
         }
     }
 
-    public virtual IEnumerator reload()
+    public virtual IEnumerator attacking()
     {
         _allAnims.Play("ATTACK");
+        _navMeshAgent.Stop();
+        yield return new WaitForSeconds(_allAnims.GetClip("ATTACK").length);
+        StartCoroutine(reload());
+        _navMeshAgent.Resume();
+        _allAnims.Play("RUN");
+
+    }
+
+    public virtual IEnumerator reload()
+    {
+       
         attackReady = false;
         yield return new WaitForSeconds(attackSpeed);
         attackReady = true;
         //Attack();
-        _allAnims.Play("RUN");
+        
     }
 
 

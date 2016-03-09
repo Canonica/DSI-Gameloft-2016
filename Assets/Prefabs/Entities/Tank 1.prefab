@@ -1360,6 +1360,7 @@ MonoBehaviour:
   _actualLane: 0
   timeStun: 1
   FxDeathBlood: {fileID: 123710}
+  DeathAnim: {fileID: 177132, guid: 87d958562d650aa44b3876f911a4e024, type: 2}
   spawnFX: {fileID: 8300000, guid: 0ba3df5c79a587b45b63705867cf5073, type: 3}
   hitFX: {fileID: 8300000, guid: a612730413ef0264e889702b12edfc6c, type: 3}
   bumpForce: 12
