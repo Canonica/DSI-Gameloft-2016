@@ -748,7 +748,7 @@ Transform:
   m_GameObject: {fileID: 170856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 50.560547, y: 1.44133, z: 62.204014}
-  m_LocalScale: {x: 1, y: 2.5, z: 1}
+  m_LocalScale: {x: 0.5, y: 1.25, z: 0.5}
   m_Children:
   - {fileID: 420202}
   m_Father: {fileID: 0}
@@ -1245,6 +1245,15 @@ MonoBehaviour:
   hitFX: {fileID: 8300000, guid: a612730413ef0264e889702b12edfc6c, type: 3}
   bumpForce: 12
   zoneBump: 14
+  reflectDamage: 0
+  reflectDamageAmount: 1
+  negateDamage: 0
+  negateDamageAmount: 1
+  negateDamageRange: 10
+  poison: 0
+  isActivePoison: 0
+  poisonDelay: 1
+  poisonDamage: 1
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1

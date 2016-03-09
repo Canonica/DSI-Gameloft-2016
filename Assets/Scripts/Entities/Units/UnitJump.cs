@@ -194,6 +194,7 @@ public class UnitJump : Unit {
         base.Hit(parDamage);
         if (_life<=0 && canExplode)
         {
+            canExplode = false;
             StopAllCoroutines();
             isActiveAOE = false;
             StartCoroutine(AOE());

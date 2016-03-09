@@ -575,7 +575,7 @@ Transform:
   m_GameObject: {fileID: 170856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.077879906, y: -7, z: 31.447214}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 421138}
   m_Father: {fileID: 0}
@@ -900,10 +900,10 @@ MonoBehaviour:
   hitFX: {fileID: 0}
   isJumping: 0
   forceAOE: 5
+  canStun: 0
+  canExplode: 0
   heightJump: 5
-  hasUpgrade1: 0
-  hasUpgrade2: 0
-  hasUpgrade3: 0
+  firstJump: 0
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1

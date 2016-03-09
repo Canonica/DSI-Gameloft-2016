@@ -70,6 +70,7 @@ public class UnitTank : Unit {
             {
                 //float dist = Vector3.Distance(transform.position, _trigger[i].transform.position);
                 //Debug.Log(dist);
+                if(_trigger[i])
                 _trigger[i].GetComponent<Unit>().applyBump(transform.position, bumpForce);
                 
             }

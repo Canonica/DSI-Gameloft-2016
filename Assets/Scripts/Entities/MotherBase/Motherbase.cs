@@ -200,6 +200,7 @@ public class Motherbase : Entity
                     _currentMana -= _manaToSacrifice;
                     _canSacrificeMana = false;
                     AddExperience(_manaToSacrifice*experienceByMana);
+                    StartCoroutine(delaySacrifice());
                 }
                 else
                 {
@@ -241,6 +242,12 @@ public class Motherbase : Entity
         _manaImage.fillAmount = ((float)_currentMana / (float)_maxMana);
         _manaText.text = _currentMana + "/" + _maxMana;
         base.Update();
+    }
+
+    IEnumerator delaySacrifice()
+    {
+        yield return new WaitForSeconds(0.3f);
+        _canSacrificeMana = true;
     }
 
     public override void FixedUpdate()
