@@ -49,6 +49,11 @@ public class XInput : MonoBehaviour
         StartCoroutine(vibration((PlayerIndex)(id), time,  force1,  force2));
     }
 
+    public float getTrigger(int id)
+    {
+        return GamePad.GetState((PlayerIndex)(id - 1)).Triggers.Right;
+    }
+
     IEnumerator vibration(PlayerIndex id, float time, float force1, float force2)
     {
         GamePad.SetVibration(id, force1, force2);

@@ -94,6 +94,7 @@ public class UnitTank : Unit {
         {
             for (int i = 0; i < _trigger.Count; i++)
             {
+                if(_trigger[i])
                 _trigger[i].GetComponent<Unit>().Hit(poisonDamage);
             }
             Debug.Log("Poison degats");

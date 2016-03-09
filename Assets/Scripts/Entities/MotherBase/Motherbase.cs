@@ -202,20 +202,22 @@ public class Motherbase : Entity
 
 
 
-            if (Input.GetAxis("TriggersR_" + _playerId) > 0.3)
+            //if (Input.GetAxis("TriggersR_" + _playerId) > 0.3)
+            if (XInput.instance.getTrigger(_playerId) > 0.3)
             {
 
-                if (_manaToSacrifice <= _currentMana && _canSacrificeMana)
-                {
-                    _currentMana -= _manaToSacrifice;
-                    _canSacrificeMana = false;
-                    AddExperience(_manaToSacrifice*experienceByMana);
-                    StartCoroutine(delaySacrifice());
-                }
-                else
-                {
-                    // can't add xp;
-                }
+            if (_manaToSacrifice <= _currentMana && _canSacrificeMana)
+            {
+                Debug.Log("add mana" + _playerId);
+                _currentMana -= _manaToSacrifice;
+                _canSacrificeMana = false;
+                AddExperience(_manaToSacrifice*experienceByMana);
+                StartCoroutine(delaySacrifice());
+            }
+            else
+            {
+                // can't add xp;
+            }
             }
             if (Input.GetAxis("TriggersR_" + _playerId) == 0)
             {

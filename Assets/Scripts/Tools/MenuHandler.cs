@@ -117,11 +117,10 @@ public class MenuHandler : MonoBehaviour
 		//speakerMenuMove = SoundManager.Instance.playSound(audioclipMenuMove, 100);
 		//speakerMenuMove.GetComponent<AudioSource>().loop = false;
 		if (indice == 0) {
-           
-			if (stillDown == true) {
-				indice++;
-			}
-			
+            if (stillDown == true && buttonArray.Count > 1)
+            {
+                indice++;
+            }
 		} else if (indice != 0) {
 
 			if (stillUp == true) {
