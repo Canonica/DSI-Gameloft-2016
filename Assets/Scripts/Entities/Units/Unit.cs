@@ -7,31 +7,28 @@ using System;
 
 public class Unit : Entity
 {
+    
+
+    [Header("Unit Tweak")]
+    [Tweakable]
+    public float attackSpeed;
+    [Tweakable]
+    public float _movementSpeed;
+    [Tweakable]
+    public int groupSpawn;
+    [Tweakable]
+    public int _damage ;
+    [Tweakable]
+    public float bumpResist = 1;
+    [Tweakable]
+    public int manaCost;
+
     [Header("Tool")]
     [Tweakable]
     public Texture2D img;
     [Tweakable]
     public string unitName = "Unit";
-
-    [Header("Unit Stats")]
-    [Tweakable]
-    public float attackSpeed = 1;
     protected bool attackReady = false;
-    [Tweakable]
-    public float _movementSpeed = 5.0f;
-    [Tweakable]
-    public int groupSpawn = 1;
-    [Tweakable]
-    public int _damage = 2;
-    // Utilisera les Spells
-    [Tweakable]
-    public float _hatchTime = 1.0f;
-    [Tweakable]
-    public float bumpResist=1;
-
-    [Tweakable]
-    public int manaCost;
-
     [Header("Bump Option")]
     public int smoother = 5;
 
