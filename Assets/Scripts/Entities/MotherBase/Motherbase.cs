@@ -73,7 +73,7 @@ public class Motherbase : Entity
     [Header("Sound")]
     public AudioClip spawnSwarmFX;
 
-   
+    bool buttonPressedA = false, buttonPressedB = false, buttonPressedX = false, buttonPressedY = false;
 
     // Use this for initialization
     void Awake()
@@ -160,33 +160,50 @@ public class Motherbase : Entity
 
 
             //if (Input.GetButtonDown("Fire " + _playerId))
-            if(XInput.instance.getButton(_playerId, 'A') == ButtonState.Pressed)
+            if(XInput.instance.getButton(_playerId, 'A') == ButtonState.Pressed && !buttonPressedA)
             {
-
+                buttonPressedA = true;
                 typeOfUnit = 0;
                 corSpawnUnits(typeOfUnit);
             }
+            else if (XInput.instance.getButton(_playerId, 'A') == ButtonState.Released && buttonPressedA)
+            {
+                buttonPressedA = false;
+            }
 
-            //if (Input.GetButtonDown("B_button_" + _playerId))
-
-            if (XInput.instance.getButton(_playerId, 'B') == ButtonState.Pressed)
+            if (XInput.instance.getButton(_playerId, 'B') == ButtonState.Pressed && !buttonPressedB)
             {
                 typeOfUnit = 1;
+                buttonPressedB = true;
                 corSpawnUnits(typeOfUnit);
+            }
+            else if (XInput.instance.getButton(_playerId, 'B') == ButtonState.Released && buttonPressedB)
+            {
+                buttonPressedB = false;
             }
 
 
-            if (XInput.instance.getButton(_playerId, 'X') == ButtonState.Pressed)//if (Input.GetButtonDown("X_button_" + _playerId))
+            if (XInput.instance.getButton(_playerId, 'X') == ButtonState.Pressed && !buttonPressedX)//if (Input.GetButtonDown("X_button_" + _playerId))
             {
                 typeOfUnit = 2;
+                buttonPressedX = true;
                 corSpawnUnits(typeOfUnit);
+            }
+            else if (XInput.instance.getButton(_playerId, 'X') == ButtonState.Released && buttonPressedX)
+            {
+                buttonPressedX= false;
             }
 
             //if (Input.GetButtonDown("Y_button_" + _playerId))
-            if (XInput.instance.getButton(_playerId, 'A') == ButtonState.Pressed)
+            if (XInput.instance.getButton(_playerId, 'Y') == ButtonState.Pressed && !buttonPressedY)
             {
                 typeOfUnit = 3;
+                buttonPressedY = true;
                 corSpawnUnits(typeOfUnit);
+            }
+            else if (XInput.instance.getButton(_playerId, 'Y') == ButtonState.Released && buttonPressedY)
+            {
+                buttonPressedY = false;
             }
 
             //if (Input.GetAxis("TriggersR_" + _playerId) > 0.3)
@@ -231,11 +248,6 @@ public class Motherbase : Entity
             //{
             //    Masquer le spell 2 dans l'UI
             //}
-
-            //textCurrentNbOfUnits[0].text = currentNbOfUnits[0] + "/" + maxNbOfUnits[0];
-            //textCurrentNbOfUnits[1].text = currentNbOfUnits[1] + "/" + maxNbOfUnits[1];
-            //textCurrentNbOfUnits[2].text = currentNbOfUnits[2] + "/" + maxNbOfUnits[2];
-            //textCurrentNbOfUnits[3].text = currentNbOfUnits[3] + "/" + maxNbOfUnits[3];
         }
 
         _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
@@ -292,25 +304,47 @@ public class Motherbase : Entity
             }
             else
             {
-                float upgradeH = Input.GetAxis("DPad_XAxis_" + _playerId);
-                float upgradeV = Input.GetAxis("DPad_YAxis_" + _playerId);
+                //float upgradeH = Input.GetAxis("DPad_XAxis_" + _playerId);
+                //float upgradeV = Input.GetAxis("DPad_YAxis_" + _playerId);
+
+                //if (lastUpgrade + upgradeDelay < Time.time)
+                //{
+                //    if (upgradeH > 0.3) // RIGHT
+                //    {
+                //        UseLevel(1, upgradeNumber[1]);
+                //    }
+                //    else if (upgradeH < -0.3) // LEFT
+                //    {
+                //        UseLevel(2, upgradeNumber[2]);
+                //    }
+
+                //    if (upgradeV > 0.3) // UP
+                //    {
+                //        UseLevel(3, upgradeNumber[3]);
+                //    }
+                //    else if (upgradeV < -0.3) // DOWN
+                //    {
+                //        UseLevel(0, upgradeNumber[0]);
+                //    }
+                //}
 
                 if (lastUpgrade + upgradeDelay < Time.time)
                 {
-                    if (upgradeH > 0.3) // RIGHT
+                    
+                    if (XInput.instance.getDPad(_playerId, 'R') == ButtonState.Pressed) // RIGHT
                     {
                         UseLevel(1, upgradeNumber[1]);
                     }
-                    else if (upgradeH < -0.3) // LEFT
+                    else if (XInput.instance.getDPad(_playerId, 'L') == ButtonState.Pressed) // LEFT
                     {
                         UseLevel(2, upgradeNumber[2]);
                     }
 
-                    if (upgradeV > 0.3) // UP
+                    if (XInput.instance.getDPad(_playerId, 'U') == ButtonState.Pressed) // UP
                     {
                         UseLevel(3, upgradeNumber[3]);
                     }
-                    else if (upgradeV < -0.3) // DOWN
+                    else if (XInput.instance.getDPad(_playerId, 'D') == ButtonState.Pressed) // DOWN
                     {
                         UseLevel(0, upgradeNumber[0]);
                     }
@@ -334,8 +368,10 @@ public class Motherbase : Entity
     public void getDamage(int dmg)
     {
         Instantiate(FxBlood, transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
-        XInput.instance.useVibe(_playerId-1 , 1, 0.5f, 0.5f);
-        
+        XInput.instance.useVibe(_playerId-1 , 0.5f, 0.5f, 0.5f);
+
+        Camera.main.DOKill(true);
+        Camera.main.DOShakePosition(0.5f , 1, 1 ,20);
 
         if (dmg > _life)
         {

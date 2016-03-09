@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class UnitJump : Unit {
 
@@ -164,9 +165,10 @@ public class UnitJump : Unit {
     IEnumerator AOE()
     {
         isActiveAOE = true;
-        for (int i=0; i < _trigger.Count;i++)
+        List<GameObject> localList = GetComponentInChildren<BumpJumper>().bumpList;
+        for (int i=0; i < localList.Count;i++)
         {
-            if (_trigger[i])
+            if (localList[i])
             {
                 if(canStun)
                 {
@@ -178,23 +180,23 @@ public class UnitJump : Unit {
                 }
                 if (canStun && Random.Range(0, 100) > 50)
                 {
-                    _trigger[i].GetComponent<Unit>().getStun();
+                    localList[i].GetComponent<Unit>().getStun();
                 }
                 if(firstJump)
                 {
                     firstJump = false;
-                    _trigger[i].GetComponent<Unit>().Hit(_damage * 2);
+                    localList[i].GetComponent<Unit>().Hit(_damage * 2);
                 }
                 else
                 {
-                    _trigger[i].GetComponent<Unit>().Hit(_damage);
+                    localList[i].GetComponent<Unit>().Hit(_damage);
                 }
-                UnitTank unitT = _trigger[i].GetComponent<UnitTank>();
+                UnitTank unitT = localList[i].GetComponent<UnitTank>();
                 if (unitT && unitT.reflectDamage)
                 {
                     Hit((int)(_damage * unitT.reflectDamageAmount));
                 }
-                _trigger[i].GetComponent<Unit>().applyBump(transform.position, forceAOE);
+                localList[i].GetComponent<Unit>().applyBump(transform.position, forceAOE);
             }
             yield return 0;
         }

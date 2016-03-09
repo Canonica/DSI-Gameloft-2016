@@ -127,8 +127,7 @@ public class Unit : Entity
             OnDeath();
 
             //Instantiate(FxDeathBlood, this.gameObject.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
-            Camera.main.DOKill(true);
-            Camera.main.DOShakePosition(0.05f * _startingLife / 4, 0.3f * _startingLife / 4);
+            
             dead();
             //StartCoroutine(animDeath());
 
