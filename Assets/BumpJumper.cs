@@ -6,7 +6,6 @@ public class BumpJumper : MonoBehaviour {
     public List<GameObject> bumpList;
     public void OnTriggerEnter(Collider parOther)
     {
-        Debug.Log("trigg");
         if (parOther.CompareTag("Unit"))
         {
             if (bumpList.IndexOf(parOther.gameObject) < 0)

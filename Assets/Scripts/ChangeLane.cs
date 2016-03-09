@@ -53,6 +53,22 @@ public class ChangeLane : MonoBehaviour
             float h = XInput.instance.getYStick(id);//Input.GetAxisRaw("L_YAxis_" + id);
             //float v = Input.GetAxisRaw("L_XAxis_" + id);
 
+            if (h > 0.4)
+            {
+                currentWP = 2;
+                applyChange();
+            }
+            if (h < -0.4)
+            {
+                currentWP = 0;
+                applyChange();
+            }
+            if (h < 0.1f && h > -0.1f)
+            {
+                currentWP = 1;
+                applyChange();
+            }
+
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 if (canMove)
@@ -63,32 +79,32 @@ public class ChangeLane : MonoBehaviour
             {
                 if (canMove)
                     StartCoroutine(moveTop());
-            }
-            if (h <= -0.4f && id == 2)
-            {
-                if (canMove)
-                    StartCoroutine(moveTop());
-            }
-            if (h >= 0.4f && id == 2)
-            {
-                if (canMove)
-                    StartCoroutine(moveBot());
-            }
-            if (h <= -0.4f&& id ==1)
-            {
-                if (canMove)
-                    StartCoroutine(moveBot());
-            }
-            if (h >= 0.4f && id ==1)
-            {
-                if (canMove)
-                    StartCoroutine(moveTop());
-            }
-            if (h < 0.1f && h > -0.1f)
-            {
-                canMove = true;
-                StopAllCoroutines();
-            }
+            } 
+            //if (h <= -0.4f && id == 2)
+            //{
+            //    if (canMove)
+            //        StartCoroutine(moveTop());
+            //}
+            //if (h >= 0.4f && id == 2)
+            //{
+            //    if (canMove)
+            //        StartCoroutine(moveBot());
+            //}
+            //if (h <= -0.4f&& id ==1)
+            //{
+            //    if (canMove)
+            //        StartCoroutine(moveBot());
+            //}
+            //if (h >= 0.4f && id ==1)
+            //{
+            //    if (canMove)
+            //        StartCoroutine(moveTop());
+            //}
+            //if (h < 0.1f && h > -0.1f)
+            //{
+            //    canMove = true;
+            //    StopAllCoroutines();
+            //}
         }
     }
 
