@@ -29,7 +29,8 @@ public class HornetUpgrade : Upgrade {
         UnitRush rushUnit = (UnitRush)unit;
         if (rushUnit)
         {
-            rushUnit.bloodyRash = true;
+            //rushUnit.bloodyRash = true;
+            rushUnit.stunAttack = true;
         }
     }
 }

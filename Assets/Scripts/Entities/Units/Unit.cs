@@ -7,7 +7,7 @@ using System;
 
 public class Unit : Entity
 {
-    
+
 
     [Header("Unit Tweak")]
     [Tweakable]
@@ -17,7 +17,7 @@ public class Unit : Entity
     [Tweakable]
     public int groupSpawn;
     [Tweakable]
-    public int _damage ;
+    public int _damage;
     [Tweakable]
     public float bumpResist = 1;
     [Tweakable]
@@ -66,7 +66,6 @@ public class Unit : Entity
 
     protected Animation _allAnims;
 
-
     public override void Start()
     {
         _actualLane = 0;
@@ -112,7 +111,7 @@ public class Unit : Entity
             takeDestination();
         }
 
-        
+
         if (attackReady && _target && collideNum > 0)
         {
             Attack();
@@ -155,7 +154,7 @@ public class Unit : Entity
         Destroy(this.gameObject);
     }
 
-    
+
     // true if it kill
     public virtual void Hit(int parDamage)
     {
@@ -170,25 +169,57 @@ public class Unit : Entity
         if (tanks.Length > 0)
         {
             List<UnitTank> gos = new List<UnitTank>(tanks.Where(unit => unit._playerId == _playerId));
-            if(gos.Count > 0)
+            if (gos.Count > 0)
             {
-                UnitTank best = gos[0];
-                for (int i = 1; i < gos.Count; i++)
+                bool isArmored = false;
+                for (int i = 0; i < gos.Count; i++)
                 {
-                    if (Vector3.Distance(best.transform.position, transform.position) > Vector3.Distance(gos[i].transform.position, transform.position))
+                    UnitTank best = gos[i];
+                    if (best != GetComponent<UnitTank>() && best.negateDamage && Vector3.Distance(best.transform.position, transform.position) < best.negateDamageRange)
                     {
-                        best = gos[i];
+                        isArmored = true;
                     }
                 }
-                if (best != this.GetComponent<UnitTank>() && Vector3.Distance(best.transform.position, transform.position) < best.negateDamageRange)
+                if (isArmored)
                 {
                     Debug.Log("Reductions des degats");
-                    return (int) (parDamage * (1.0f - best.negateDamageAmount));
+                    return (int)(parDamage * (1.0f - gos[0].negateDamageAmount));
                 }
             }
         }
-        
-        
+
+
+        return parDamage;
+    }
+
+    private int Augmented(int parDamage)
+    {
+        UnitTank[] tanks = GameObject.FindObjectsOfType<UnitTank>();
+        if (tanks.Length > 0)
+        {
+            List<UnitTank> gos = new List<UnitTank>(tanks.Where(unit => unit._playerId == _playerId));
+            if (gos.Count > 0)
+            {
+                bool isBuffed = false;
+                UnitTank best = null;
+                for (int i = 0; i < gos.Count; i++)
+                {
+                    best = gos[i];
+                    Debug.Log((best != GetComponent<UnitTank>() ? "Other unit" : "This Unit") + (best.buffy ? " Tank Buff" : " Tank Non Buff") +
+                        (Vector3.Distance(best.transform.position, transform.position) < best.buffedUnitRange ? " In Range" : " Not In Range"));
+                    if (best != GetComponent<UnitTank>() && best.buffy && Vector3.Distance(best.transform.position, transform.position) < best.buffedUnitRange)
+                    {
+                        isBuffed = true;
+                        break;
+                    }
+                }
+                if (isBuffed)
+                {
+                    Debug.Log("Augmentation des degats");
+                    return (int)(parDamage * (1.0f + best.buffedUnit));
+                }
+            }
+        }
         return parDamage;
     }
 
@@ -215,7 +246,8 @@ public class Unit : Entity
             EndGameManager.instance.addDamage((_playerId % 2) + 1, _life);
             mother.getDamage(_damage);
             dead();
-        }else
+        }
+        else
         if (other && other.CompareTag("Unit") && other.GetComponent<Unit>()._playerId != _playerId)
         {
             _target = other;
@@ -244,11 +276,11 @@ public class Unit : Entity
     public virtual void OnTriggerEnter(Collider parOther)
     {
 
-        if (parOther.CompareTag("Unit") && parOther.GetComponent<Unit>()._playerId != _playerId && (parOther.GetComponent<Unit>()._actualLane == _actualLane || _actualLane == 0 || parOther.GetComponent<Unit>()._actualLane ==0))
+        if (parOther.CompareTag("Unit") && parOther.GetComponent<Unit>()._playerId != _playerId && (parOther.GetComponent<Unit>()._actualLane == _actualLane || _actualLane == 0 || parOther.GetComponent<Unit>()._actualLane == 0))
         {
-            
+
             if (_trigger.IndexOf(parOther.gameObject) < 0)
-            _trigger.Add(parOther.gameObject);
+                _trigger.Add(parOther.gameObject);
             if (!_target)
             {
                 changeTarget();
@@ -260,14 +292,14 @@ public class Unit : Entity
 
     public virtual void OnTriggerExit(Collider parOther)
     {
-        
+
         _trigger.Remove(parOther.gameObject);
         if (_target == parOther.gameObject)
             changeTarget();
 
     }
 
-    protected void changeTarget()
+    protected virtual void changeTarget()
     {
         _trigger = _trigger.Where(trigger => trigger != null).ToList();
 
@@ -284,14 +316,14 @@ public class Unit : Entity
     }
 
     IEnumerator targetMove()
-    { 
-        while (_trigger.Count>0)
+    {
+        while (_trigger.Count > 0)
         {
             if (_target == null)
                 changeTarget();
             else
             {
-                if(_navMeshAgent.enabled == true)
+                if (_navMeshAgent.enabled == true)
                     _navMeshAgent.SetDestination(_target.transform.position);
             }
             yield return new WaitForSeconds(0.5f);
@@ -311,23 +343,24 @@ public class Unit : Entity
                 if (hitFX)
                     SoundManager.Instance.playSound(hitFX, 1);
                 UnitTank unitT = unit.GetComponent<UnitTank>();
-                if(unitT && unitT.reflectDamage)
+                if (unitT && unitT.reflectDamage)
                 {
                     Debug.Log("Renvoi des degats");
-                    Hit((int) (_damage * unitT.reflectDamageAmount));
+                    Hit((int)(_damage * unitT.reflectDamageAmount));
                 }
-                unit.Hit(_damage);
-               // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
+
+                unit.Hit(Augmented(_damage));
+                // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
                 EndGameManager.instance.addDamage(_playerId, _damage);
             }
             
         }
         else
         {
-            
+
             if (!_target)
                 applyBump(_target.transform.position, 0.1f, 2);
-            
+
         }
     }
 
@@ -371,43 +404,43 @@ public class Unit : Entity
             {
                 dead();
             }
-            
+
         }
     }
 
-    public void applyBump(Vector3 from, float force, int useSmoother=0)
+    public void applyBump(Vector3 from, float force, int useSmoother = 0)
     {
         if (!isBumped)
         {
             isBumped = true;
             Vector3 dir = transform.position - from;
-            
+
             force = force / bumpResist;
             if (useSmoother == 0)
                 StartCoroutine(bump(dir.normalized * force));
             else
                 StartCoroutine(bump(dir.normalized * force, useSmoother));
         }
-        
+
     }
 
-    IEnumerator bump(Vector3 distance, int localSmoother=0)
+    IEnumerator bump(Vector3 distance, int localSmoother = 0)
     {
         //_navMeshAgent.enabled = false;
         GetComponent<Collider>().enabled = false;
         if (localSmoother == 0)
             localSmoother = smoother;
-        for (int i=0; i< localSmoother; i++)
+        for (int i = 0; i < localSmoother; i++)
         {
             transform.position = transform.position + (distance / localSmoother);
             yield return 0;
         }
         isBumped = false;
-        
+
         GetComponent<Collider>().enabled = true;
         //_navMeshAgent.enabled = true;
     }
-    
 
-    
+
+
 }

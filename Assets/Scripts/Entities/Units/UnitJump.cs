@@ -48,7 +48,7 @@ public class UnitJump : Unit {
         base.OnTriggerEnter(col);
         if (_target && !isJumping&& attackReady)
         {
-            
+            isJumping = true;
             StartCoroutine(dash());
         }
     }
@@ -79,7 +79,6 @@ public class UnitJump : Unit {
         {
             yield break;
         }
-        isJumping = true;
         //GetComponent<Collider>().enabled = false;
         //_navMeshAgent.enabled = false;
 
@@ -108,14 +107,12 @@ public class UnitJump : Unit {
 
         //GetComponent<Collider>().enabled = true;
         //_navMeshAgent.enabled = true;
-        Debug.Log("RUNNNNNNNNNNN");
-        _allAnims.Play("RUN");
 
         if (!isActiveAOE)
             StartCoroutine(AOE());
     }
 
-    IEnumerator jump()
+    /*IEnumerator jump()
     {
         yield return new WaitForSeconds(Random.Range(0, 10)/10);
         if (_target.GetComponent<UnitRush>()&& _target.GetComponent<UnitRush>().isFlying)
@@ -160,7 +157,7 @@ public class UnitJump : Unit {
 
         if(!isActiveAOE)
         StartCoroutine(AOE());
-    }
+    }*/
 
     IEnumerator AOE()
     {
@@ -200,6 +197,8 @@ public class UnitJump : Unit {
             }
             yield return 0;
         }
+        Debug.Log("RUNNNNNNNNNNN");
+        _allAnims.Play("RUN");
         isActiveAOE = false;
         StartCoroutine(reload());
     }

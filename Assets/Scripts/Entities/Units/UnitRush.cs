@@ -14,8 +14,10 @@ public class UnitRush : Unit {
     public int valueLifeSteal = 50;
     public bool rangedAttack = false;
     bool rangedReady = true;
-    public float rangedAttackSpeed= 1;
     public int rangedDamage = 1;
+
+    public bool stunAttack;
+    bool stunAttackReady = true;
 
     override
     public void Start()
@@ -49,15 +51,14 @@ public class UnitRush : Unit {
             Debug.Log("Ranged attack");
             rangedReady = false;
             _target.GetComponent<Unit>().Hit(rangedDamage);
-            StartCoroutine(rangedCooldown());
-
+            //StartCoroutine(rangedCooldown());
         }
-    }
-
-    IEnumerator rangedCooldown()
-    {
-        yield return new WaitForSeconds(rangedAttackSpeed);
-        rangedReady = true;
+        if (_target && stunAttack && stunAttackReady)
+        {
+            Debug.Log("Ranged attack");
+            stunAttackReady = false;
+            _target.GetComponent<Unit>().getStun();
+        }
     }
 
     override public void OnTriggerEnter(Collider col)
@@ -79,6 +80,13 @@ public class UnitRush : Unit {
         if (isFlying && (_target || (col.tag == "MotherBase" && col.GetComponent<Motherbase>()._playerId != _playerId)))
 
         StartCoroutine(down());
+    }
+
+    protected override void changeTarget()
+    {
+        base.changeTarget();
+        rangedReady = true;
+        stunAttackReady = true;
     }
 
     override public void OnTriggerExit(Collider parOther)

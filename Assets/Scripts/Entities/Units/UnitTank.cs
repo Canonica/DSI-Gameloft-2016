@@ -23,6 +23,11 @@ public class UnitTank : Unit {
 
     public ParticleSystem PS_poison;
 
+    public bool buffy = false;
+    [Range(0, 1)]
+    public float buffedUnit;
+    public float buffedUnitRange = 5.0f;
+
     override
     public void Start()
     {
@@ -74,7 +79,9 @@ public class UnitTank : Unit {
                 //float dist = Vector3.Distance(transform.position, _trigger[i].transform.position);
                 //Debug.Log(dist);
                 if(_trigger[i])
-                _trigger[i].GetComponent<Unit>().applyBump(transform.position, bumpForce);
+                {
+                    _trigger[i].GetComponent<Unit>().applyBump(transform.position, bumpForce);
+                }
                 
             }
             //_target.GetComponent<Unit>().applyBump(transform.position, bumpForce);
