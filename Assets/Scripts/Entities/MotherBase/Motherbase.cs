@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class Motherbase : Entity
 {
@@ -36,6 +37,7 @@ public class Motherbase : Entity
     public Text[] textCurrentNbOfUnits;
     public Image[] reloadUnitImage;
     public Image _lifeImage;
+    
 
     [Header("Spell Option")]
     public Spell primarySpell;
@@ -54,6 +56,9 @@ public class Motherbase : Entity
     public float upgradeDelay = 0.3f;
     public float lastUpgrade = 0.0f;
 
+    public CanvasGroup _arrowImages;
+    public CanvasGroup[] _arrowArray;
+
     public List<int> experienceLevel;
     public List<int> maxExperienceLevel;
 
@@ -64,7 +69,6 @@ public class Motherbase : Entity
     [Header("FX")]
     [SerializeField]
     private GameObject FxBlood;
-
     [Header("Sound")]
     public AudioClip spawnSwarmFX;
 
@@ -96,11 +100,17 @@ public class Motherbase : Entity
         {
             hasUsedLevel.Add(false);
         }
+        _arrowImages.alpha = 1;
+        for (int i = 0; i < _arrowArray.Length; i++)
+        {
+            _arrowArray[i].alpha = 0;
+        }
         base.Start();
     }
 
     public override void Update()
     {
+        Debug.Log(_canSacrificeMana);
 
         _laneSpawning = _currentLane.currentWP;
         //if (Input.GetButtonDown("RB_button_" + _playerId))
@@ -146,7 +156,6 @@ public class Motherbase : Entity
                 StartCoroutine(loadMana());
                 spawning = true;
             }
-
             if (Input.GetButtonDown("Fire " + _playerId))
             {
 
@@ -192,9 +201,10 @@ public class Motherbase : Entity
             }
 
 
-
+            Debug.Log(Input.GetAxis("TriggersR_" + _playerId));
             if (Input.GetAxis("TriggersR_" + _playerId) > 0.3)
             {
+                Debug.Log(_playerId);
                 if (_manaToSacrifice <= _currentMana && _canSacrificeMana)
                 {
                     _currentMana -= _manaToSacrifice;
@@ -269,15 +279,26 @@ public class Motherbase : Entity
             }
         }
 
-        if(levelDispo > 0)
+        if (levelDispo > 0)
         {
-            if(upgradeNumber == null || upgradeNumber.Count == 0)
+              //_arrowImages.DOFade(1, 0.5f);
+
+            if (upgradeNumber == null || upgradeNumber.Count == 0)
             {
                 upgradeNumber = new List<int>();
                 for (int i = 0; i < upgrades.Count; i++)
                 {
                     upgradeNumber.Add(upgrades[i].PreLevelUp());
+                    if (upgradeNumber[i] != -1)
+                    {
+                        _arrowArray[i].DOFade(1, 0.5f);
+                    }
+                    else
+                    {
+                        _arrowArray[i].alpha = 0;
+                    }
                 }
+
             }
             else
             {
@@ -305,11 +326,18 @@ public class Motherbase : Entity
                     }
                 }
 
-                
-            }
-            
-        }
 
+            }
+
+        }
+        else
+        {
+            for (int i = 0; i < _arrowArray.Length; i++)
+            {
+                _arrowArray[i].DOFade(0, 0.5f);
+            }
+             //_arrowImages.DOFade(0, 0.5f);
+        }
         base.FixedUpdate();
     }
 
@@ -433,6 +461,11 @@ public class Motherbase : Entity
         if(indexLevel > 0)
         {
             upgrades[indexUpgrade].LevelUp(indexLevel);
+            for (int i = 0; i < upgrades.Count; i++)
+            {
+                upgrades[i].HideImage();
+                upgrades[i]._imageBase.enabled = true;
+            }
             upgradeNumber.Clear();
             upgradeNumber = null;
             int level = 0;

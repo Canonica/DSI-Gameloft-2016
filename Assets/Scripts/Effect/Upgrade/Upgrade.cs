@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class Upgrade : Effect
 {
@@ -10,10 +12,17 @@ public class Upgrade : Effect
     public bool _levelTwo;
     public bool _levelThree;
 
+    public Image _imageBase;
+    public Image _imageLevelOne;
+    public Image _imageLevelTwo;
+    public Image _imageLevelThree;
 
     void Start()
     {
         _mb = GetComponent<Motherbase>();
+        _imageLevelOne.enabled = false;
+        _imageLevelTwo.enabled = false;
+        _imageLevelThree.enabled = false;
     }
 
     public virtual void LevelOne(Unit unit)
@@ -40,17 +49,20 @@ public class Upgrade : Effect
         if (!(_levelOne && _levelTwo && _levelThree))
         {
             level = Random.Range(0, _levelMax * 100);
-
+            HideImage();
             if ((level < 100 || (_levelTwo && _levelThree)) && !_levelOne)
             {
+                _imageLevelOne.enabled = true;
                 level = 1;
             }
             else if ((level < 200 || _levelThree) && !_levelTwo)
             {
+                _imageLevelTwo.enabled = true;
                 level = 2;
             }
             else if (level < 300 && !_levelThree)
             {
+                _imageLevelThree.enabled = true;
                 level = 3;
             }
         }
@@ -62,15 +74,21 @@ public class Upgrade : Effect
     {
         if (level == 1)
         {
+            _imageBase.enabled = true;
+            _imageLevelOne.enabled = false;
             return _levelOne = true;
         }
         else if (level == 2)
         {
+            _imageBase.enabled = true;
+            _imageLevelTwo.enabled = false;
             return _levelTwo = true;
         }
 
         else if (level == 3)
         {
+            _imageBase.enabled = true;
+            _imageLevelThree.enabled = false;
             return _levelThree = true;
         }
 
@@ -94,4 +112,11 @@ public class Upgrade : Effect
         }
     }
 
+    public void HideImage()
+    {
+        _imageBase.enabled = false;
+        _imageLevelOne.enabled = false;
+        _imageLevelTwo.enabled = false;
+        _imageLevelThree.enabled = false;
+    }
 }
