@@ -21,6 +21,8 @@ public class UnitTank : Unit {
     public float poisonDelay = 1.0f;
     public int poisonDamage = 1;
 
+    public ParticleSystem PS_poison;
+
     override
     public void Start()
     {
@@ -31,6 +33,7 @@ public class UnitTank : Unit {
     {
         if(poison && poisonGas == null)
         {
+            PS_poison.Play(true);
             poisonGas = StartCoroutine(PoisonousGas());
         }
         if(isActivePoison)

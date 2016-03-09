@@ -6,6 +6,8 @@ public class BaseUnit : Unit {
 
     public float distanceMaxBetweenCockroachHeal = 3.0f;
 
+    public ParticleSystem PS_Heal;
+
     /*
         Increases the number of cockroach spawned (to 4/5)
         When a cockroach dies, it heals a nearby cockroach
@@ -35,7 +37,7 @@ public class BaseUnit : Unit {
             List<BaseUnit> gos = new List<BaseUnit>(baseU.Where(unit => unit._playerId == _playerId));
             if(gos.Count > 0)
             {
-                Unit best = gos[0];
+                BaseUnit best = gos[0];
                 for (int i = 1; i < gos.Count; i++)
                 {
                     if(Vector3.Distance(best.transform.position, transform.position) > Vector3.Distance(gos[i].transform.position, transform.position))
@@ -45,6 +47,7 @@ public class BaseUnit : Unit {
                 }
                 if(Vector3.Distance(best.transform.position, transform.position) < distanceMaxBetweenCockroachHeal)
                 {
+                    best.PS_Heal.Play(true);
                     best._life += lifeRestored;
                 }
             }

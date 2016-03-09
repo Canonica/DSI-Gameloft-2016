@@ -55,8 +55,6 @@ public class Unit : Entity
     public float timeStun = 1;
 
     [Header("FX")]
-    [SerializeField]
-    private GameObject FxHitBlood;
 
     [SerializeField]
     private GameObject FxDeathBlood;
@@ -65,7 +63,7 @@ public class Unit : Entity
     public AudioClip spawnFX;
     public AudioClip hitFX;
 
-    private Animation _allAnims;
+    protected Animation _allAnims;
 
 
     public override void Start()
@@ -145,6 +143,7 @@ public class Unit : Entity
     IEnumerator animDeath()
     {
         _allAnims.Play("DEATH");
+        FxDeathBlood.GetComponent<ParticleSystem>().Play(true);
         yield return new WaitForSeconds(_allAnims.GetClip("DEATH").length);// _allAnims.GetClip("DEATH").length);
         dead();
     }
@@ -161,6 +160,7 @@ public class Unit : Entity
     public virtual void Hit(int parDamage)
     {
         parDamage = Protected(parDamage);
+
         _life -= parDamage;
     }
 
@@ -337,7 +337,7 @@ public class Unit : Entity
         yield return new WaitForSeconds(attackSpeed);
         attackReady = true;
         //Attack();
-        //_allAnims.Play("RUN");
+        _allAnims.Play("RUN");
     }
 
 
