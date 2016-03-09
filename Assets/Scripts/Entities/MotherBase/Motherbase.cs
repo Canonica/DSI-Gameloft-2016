@@ -59,6 +59,8 @@ public class Motherbase : Entity
 
     public List<bool> hasUsedLevel;
 
+    public List<int> upgradeNumber;
+
     [Header("FX")]
     [SerializeField]
     private GameObject FxBlood;
@@ -72,7 +74,6 @@ public class Motherbase : Entity
     void Awake()
     {
         spawning = false;
-        maxExperienceLevel = new List<int>(experienceLevel);
     }
 
 
@@ -85,8 +86,12 @@ public class Motherbase : Entity
         _currentMana = 0;
         _canSacrificeMana = true;
         _currentLane = GetComponent<ChangeLane>();
+        experienceLevel = new List<int>();
+        for (int i = 0; i < maxExperienceLevel.Count; i++)
+        {
+            experienceLevel.Add(maxExperienceLevel[i]);
+        }
         hasUsedLevel = new List<bool>();
-        
         for (int i = 0; i < experienceLevel.Count; i++)
         {
             hasUsedLevel.Add(false);
@@ -185,30 +190,6 @@ public class Motherbase : Entity
                     setNb--;
                 }
             }
-            
-            float upgradeH = Input.GetAxis("DPad_XAxis_" + _playerId);
-            float upgradeV = Input.GetAxis("DPad_YAxis_" + _playerId);
-
-            if (lastUpgrade + upgradeDelay < Time.time)
-            {
-                if (upgradeH > 0.3) // RIGHT
-                {
-                    UseLevel(upgrades[1]);
-                }
-                /*else if (upgradeH < -0.3) // LEFT
-                {
-                    UseLevel(upgrades[2]);
-                }*/
-
-                if (upgradeV > 0.3) // UP
-                {
-                    UseLevel(upgrades[0]);
-                }
-                else if (upgradeV < -0.3) // DOWN
-                {
-                    UseLevel(upgrades[2]);
-                }
-            }
 
 
 
@@ -281,6 +262,46 @@ public class Motherbase : Entity
             }
         }
 
+        if(levelDispo > 0)
+        {
+            if(upgradeNumber == null || upgradeNumber.Count == 0)
+            {
+                upgradeNumber = new List<int>();
+                for (int i = 0; i < upgrades.Count; i++)
+                {
+                    upgradeNumber.Add(upgrades[i].PreLevelUp());
+                }
+            }
+            else
+            {
+                float upgradeH = Input.GetAxis("DPad_XAxis_" + _playerId);
+                float upgradeV = Input.GetAxis("DPad_YAxis_" + _playerId);
+
+                if (lastUpgrade + upgradeDelay < Time.time)
+                {
+                    if (upgradeH > 0.3) // RIGHT
+                    {
+                        UseLevel(1, upgradeNumber[1]);
+                    }
+                    else if (upgradeH < -0.3) // LEFT
+                    {
+                        UseLevel(2, upgradeNumber[2]);
+                    }
+
+                    if (upgradeV > 0.3) // UP
+                    {
+                        UseLevel(3, upgradeNumber[3]);
+                    }
+                    else if (upgradeV < -0.3) // DOWN
+                    {
+                        UseLevel(0, upgradeNumber[0]);
+                    }
+                }
+
+                
+            }
+            
+        }
 
         base.FixedUpdate();
     }
@@ -288,14 +309,8 @@ public class Motherbase : Entity
     public void getDamage(int dmg)
     {
         Instantiate(FxBlood, transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
-        if (_playerId == 1)
-        {
-            XInput.instance.useVibe(0, 1, 0.5f, 0.5f);
-        }
-        else
-        {
-            XInput.instance.useVibe(1, 1, 0.5f, 0.5f);
-        }
+        XInput.instance.useVibe(_playerId-1 , 1, 0.5f, 0.5f);
+        
 
         if (dmg > _life)
         {
@@ -406,22 +421,22 @@ public class Motherbase : Entity
         while (exp > 0 && level < experienceLevel.Count);
     }
 
-    private void UseLevel(Upgrade up)
+    private void UseLevel(int indexUpgrade, int indexLevel)
     {
-        int level = 0;
-        while (level < hasUsedLevel.Count && hasUsedLevel[level])
+        if(indexLevel > 0)
         {
-            level++;
-        }
-        if (level < hasUsedLevel.Count)
-        {
-            if (experienceLevel[level] == 0)
+            upgrades[indexUpgrade].LevelUp(indexLevel);
+            upgradeNumber.Clear();
+            upgradeNumber = null;
+            int level = 0;
+            while (hasUsedLevel[level])
             {
-                hasUsedLevel[level] = up.LevelUp();
+                level++;
             }
-
+            hasUsedLevel[level] = true;
+            lastUpgrade = Time.time;
         }
-        lastUpgrade = Time.time;
+        
     }
 
     public IEnumerator fillIcon(Image icon, float cdTimer)

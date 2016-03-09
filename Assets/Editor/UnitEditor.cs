@@ -127,7 +127,7 @@ class UnitEditor : EditorWindow
             MB[1].GetComponent<Motherbase>()._addMana = MB[0].GetComponent<Motherbase>()._addMana;
 
             MB[0].GetComponent<Motherbase>()._manaToSacrifice = EditorGUILayout.IntField("Mana à sacrifier: ", MB[0].GetComponent<Motherbase>()._manaToSacrifice);
-            MB[1].GetComponent<Motherbase>()._addMana = MB[0].GetComponent<Motherbase>()._manaToSacrifice;
+            MB[1].GetComponent<Motherbase>()._manaToSacrifice = MB[0].GetComponent<Motherbase>()._manaToSacrifice;
 
             MB[0].GetComponent<Motherbase>().experienceByMana = EditorGUILayout.IntField("Multiplicateur mana sacrifiée : ", MB[0].GetComponent<Motherbase>().experienceByMana);
             MB[1].GetComponent<Motherbase>().experienceByMana = MB[0].GetComponent<Motherbase>().experienceByMana;

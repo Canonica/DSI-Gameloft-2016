@@ -8,13 +8,13 @@ public class UnitJump : Unit {
     bool isActiveAOE = false;
     public int forceAOE ;
     float timeAOE = 2;
-    bool canStun = false;
-    bool canExplode = false;
+
+    public bool canStun = false;
+    public bool canExplode = false;
     public int heightJump = 5;
+    public bool firstJump = false;
+
     
-    public bool hasUpgrade1;
-    public bool hasUpgrade2;
-    public bool hasUpgrade3;
     override
     public void Start()
     {
@@ -157,7 +157,6 @@ public class UnitJump : Unit {
 
     IEnumerator AOE()
     {
-        
         isActiveAOE = true;
         for (int i=0; i < _trigger.Count;i++)
         {
@@ -167,7 +166,20 @@ public class UnitJump : Unit {
                 {
                     _trigger[i].GetComponent<Unit>().getStun();
                 }
-                _trigger[i].GetComponent<Unit>().Hit(_damage);
+                if(firstJump)
+                {
+                    firstJump = false;
+                    _trigger[i].GetComponent<Unit>().Hit(_damage * 2);
+                }
+                else
+                {
+                    _trigger[i].GetComponent<Unit>().Hit(_damage);
+                }
+                UnitTank unitT = _trigger[i].GetComponent<UnitTank>();
+                if (unitT && unitT.reflectDamage)
+                {
+                    Hit((int)(_damage * unitT.reflectDamageAmount));
+                }
                 _trigger[i].GetComponent<Unit>().applyBump(transform.position, forceAOE);
             }
             yield return 0;
@@ -185,6 +197,7 @@ public class UnitJump : Unit {
             StopAllCoroutines();
             isActiveAOE = false;
             StartCoroutine(AOE());
+
         }
     }
     

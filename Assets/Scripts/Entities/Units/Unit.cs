@@ -82,7 +82,7 @@ public class Unit : Entity
         _allAnims = GetComponentInChildren<Animation>();
         if (spawnFX)
             SoundManager.Instance.playSound(spawnFX, 0.3f);
-        //_allAnims.Play("RUN");
+        _allAnims.Play("RUN");
     }
 
     // Update is called once per frame
@@ -144,8 +144,8 @@ public class Unit : Entity
 
     IEnumerator animDeath()
     {
-        //_allAnims.Play("DEATH");
-        yield return new WaitForSeconds(0.5f);// _allAnims.GetClip("DEATH").length);
+        _allAnims.Play("DEATH");
+        yield return new WaitForSeconds(_allAnims.GetClip("DEATH").length);// _allAnims.GetClip("DEATH").length);
         dead();
     }
 
@@ -160,7 +160,36 @@ public class Unit : Entity
     // true if it kill
     public virtual void Hit(int parDamage)
     {
+        parDamage = Protected(parDamage);
         _life -= parDamage;
+    }
+
+    private int Protected(int parDamage)
+    {
+        UnitTank[] tanks = GameObject.FindObjectsOfType<UnitTank>();
+        if (tanks.Length > 0)
+        {
+            List<UnitTank> gos = new List<UnitTank>(tanks.Where(unit => unit._playerId == _playerId));
+            if(gos.Count > 0)
+            {
+                UnitTank best = gos[0];
+                for (int i = 1; i < gos.Count; i++)
+                {
+                    if (Vector3.Distance(best.transform.position, transform.position) > Vector3.Distance(gos[i].transform.position, transform.position))
+                    {
+                        best = gos[i];
+                    }
+                }
+                if (best != this.GetComponent<UnitTank>() && Vector3.Distance(best.transform.position, transform.position) < best.negateDamageRange)
+                {
+                    Debug.Log("Reductions des degats");
+                    return (int) (parDamage * (1.0f - best.negateDamageAmount));
+                }
+            }
+        }
+        
+        
+        return parDamage;
     }
 
     void OnCollisionExit(Collision parOther)
@@ -280,6 +309,12 @@ public class Unit : Entity
             {
                 if (hitFX)
                     SoundManager.Instance.playSound(hitFX, 1);
+                UnitTank unitT = unit.GetComponent<UnitTank>();
+                if(unitT && unitT.reflectDamage)
+                {
+                    Debug.Log("Renvoi des degats");
+                    Hit((int) (_damage * unitT.reflectDamageAmount));
+                }
                 unit.Hit(_damage);
                // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
                 EndGameManager.instance.addDamage(_playerId, _damage);
@@ -289,15 +324,15 @@ public class Unit : Entity
         else
         {
             
-            //if (!_target)
-                //applyBump(_target.transform.position, 0.1f, 2);
+            if (!_target)
+                applyBump(_target.transform.position, 0.1f, 2);
             
         }
     }
 
     public virtual IEnumerator reload()
     {
-        //_allAnims.Play("ATTACK");
+        _allAnims.Play("ATTACK");
         attackReady = false;
         yield return new WaitForSeconds(attackSpeed);
         attackReady = true;

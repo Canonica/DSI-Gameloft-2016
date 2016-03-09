@@ -5,8 +5,22 @@ public class UnitTank : Unit {
 
     public float bumpForce;
     public float zoneBump;
-    bool stayPos = false;
-    Vector3 pos;
+
+    public bool reflectDamage;
+    [Range(0,1)]
+    public float reflectDamageAmount = 1.0f;
+
+    public bool negateDamage;
+    [Range(0, 1)]
+    public float negateDamageAmount = 1.0f;
+    public float negateDamageRange = 10.0f;
+
+    public bool poison;
+    public bool isActivePoison;
+    public Coroutine poisonGas;
+    public float poisonDelay = 1.0f;
+    public int poisonDamage = 1;
+
     override
     public void Start()
     {
@@ -15,7 +29,14 @@ public class UnitTank : Unit {
     override
     public void FixedUpdate()
     {
-        
+        if(poison && poisonGas == null)
+        {
+            poisonGas = StartCoroutine(PoisonousGas());
+        }
+        if(isActivePoison)
+        {
+            base.Attack();
+        }
         base.FixedUpdate();
     }
 
@@ -61,5 +82,19 @@ public class UnitTank : Unit {
         }
 
         StartCoroutine(reload());
+    }
+
+    IEnumerator PoisonousGas()
+    {
+        while(_life > 0)
+        {
+            for (int i = 0; i < _trigger.Count; i++)
+            {
+                _trigger[i].GetComponent<Unit>().Hit(poisonDamage);
+            }
+            Debug.Log("Poison degats");
+            yield return new WaitForSeconds(poisonDelay);
+        }
+        poison = false;
     }
 }
