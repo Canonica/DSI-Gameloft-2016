@@ -291,6 +291,8 @@ GameObject:
   - 4: {fileID: 421138}
   - 95: {fileID: 9541042}
   - 111: {fileID: 11147924}
+  - 135: {fileID: 13539860}
+  - 114: {fileID: 11411822}
   m_Layer: 0
   m_Name: SK_Sauterelle
   m_TagString: Untagged
@@ -1070,6 +1072,18 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &11411822
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 143228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac1e69f5286fd2245a24a475e6d6ee90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bumpList: []
 --- !u!114 &11461838
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1115,6 +1129,18 @@ MonoBehaviour:
   firstJump: 0
   PS_Stomp: {fileID: 19878450}
   PS_Stun: {fileID: 19847768}
+--- !u!135 &13539860
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 143228}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1

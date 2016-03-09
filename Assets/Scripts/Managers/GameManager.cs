@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
 			CameraEffect.saturation = (CameraEffect.saturation * 29 + 0.1f) / 30;
 		} else if (currentGamestate == gameState.Playing) {
 			Time.timeScale = (Time.timeScale * 29 + 1) / 30;
-			CameraEffect.saturation = (CameraEffect.saturation * 29 + 1) / 30;
+			//CameraEffect.saturation = (CameraEffect.saturation * 29 + 1) / 30;
 		}
 
 
