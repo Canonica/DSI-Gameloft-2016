@@ -748,7 +748,7 @@ Transform:
   m_GameObject: {fileID: 170856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 613.6195, y: -113.9003, z: 0}
-  m_LocalScale: {x: 0.5, y: 1.25, z: 0.5}
+  m_LocalScale: {x: 1, y: 2.5, z: 1}
   m_Children:
   - {fileID: 420202}
   m_Father: {fileID: 0}
@@ -1241,8 +1241,7 @@ MonoBehaviour:
   lastCollision: 0
   collideNum: 0
   isBumped: 0
-  _actualLane: 0
-  timeStun: 1
+  _laneSpawning: 0
   FxHitBlood: {fileID: 0}
   FxDeathBlood: {fileID: 0}
   spawnFX: {fileID: 8300000, guid: 0ba3df5c79a587b45b63705867cf5073, type: 3}

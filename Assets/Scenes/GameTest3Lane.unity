@@ -2071,7 +2071,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 416230, guid: ec30b1051c02ae945820a0468bbddb31, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11419978, guid: ec30b1051c02ae945820a0468bbddb31, type: 2}
       propertyPath: currentGamestate
@@ -2426,22 +2426,18 @@ MonoBehaviour:
   _life: 2
   _lifeMax: 10
   _playerId: 1
-  _spells: []
-  _upgrades: []
   units:
   - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
   - {fileID: 170856, guid: 16387359b5695234bbc40af5ba9be44b, type: 2}
   - {fileID: 170856, guid: 89293a87b10098544855b107086daeec, type: 2}
   - {fileID: 170856, guid: efcb646a5c6d9af41b780ac0f34e26a4, type: 2}
-  delay: 0
   waypoint: {fileID: 0}
   targetBase: {fileID: 1108263746}
   _currentLane: {fileID: 0}
   _laneSpawning: 0
-  maxNbOfUnits: 0a000000030000000500000003000000
-  currentNbOfUnits: 00000000000000000000000000000000
   _maxMana: 500
   _currentMana: 0
+  experienceByMana: 1
   _delayMana: 1
   _addMana: 10
   _manaToSacrifice: 10
@@ -2474,7 +2470,6 @@ MonoBehaviour:
   hasUsedLevel: 
   FxBlood: {fileID: 136768, guid: 03f876b3154aa9a419b0c305f0a6ae32, type: 2}
   spawnSwarmFX: {fileID: 0}
-  experienceByMana: 1
 --- !u!1001 &242766746
 Prefab:
   m_ObjectHideFlags: 0
@@ -3617,7 +3612,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f679efa8de91739458934c0be17349f2, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f679efa8de91739458934c0be17349f2, type: 3}
       propertyPath: m_LocalScale.x
@@ -5873,22 +5868,18 @@ MonoBehaviour:
   _life: 10
   _lifeMax: 10
   _playerId: 2
-  _spells: []
-  _upgrades: []
   units:
   - {fileID: 170856, guid: bdb6572f1e17e9f45875a808b6276482, type: 2}
   - {fileID: 170856, guid: 5f9c662908dead84bbd385fd4b78977d, type: 2}
   - {fileID: 170856, guid: 3b03f4694dc2f1f4e97cb992d6b66a44, type: 2}
   - {fileID: 170856, guid: 9a3b145580f119b478c50eee0af405c7, type: 2}
-  delay: 0
   waypoint: {fileID: 0}
   targetBase: {fileID: 1652043358}
   _currentLane: {fileID: 0}
   _laneSpawning: 0
-  maxNbOfUnits: 0a000000030000000500000003000000
-  currentNbOfUnits: 00000000000000000000000000000000
   _maxMana: 500
   _currentMana: 0
+  experienceByMana: 1
   _delayMana: 1
   _addMana: 10
   _manaToSacrifice: 10
@@ -5921,7 +5912,6 @@ MonoBehaviour:
   hasUsedLevel: 
   FxBlood: {fileID: 136768, guid: 03f876b3154aa9a419b0c305f0a6ae32, type: 2}
   spawnSwarmFX: {fileID: 0}
-  experienceByMana: 1
 --- !u!1 &1360292127
 GameObject:
   m_ObjectHideFlags: 0
@@ -6160,7 +6150,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463338, guid: 8272d45d096ca5a48af8d3870b160c88, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11410186, guid: 8272d45d096ca5a48af8d3870b160c88, type: 2}
       propertyPath: isTeleport
@@ -6329,6 +6319,18 @@ Prefab:
     - target: {fileID: 11411504, guid: 8272d45d096ca5a48af8d3870b160c88, type: 2}
       propertyPath: isTeleport
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11498926, guid: 8272d45d096ca5a48af8d3870b160c88, type: 2}
+      propertyPath: num
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11454008, guid: 8272d45d096ca5a48af8d3870b160c88, type: 2}
+      propertyPath: num
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11425714, guid: 8272d45d096ca5a48af8d3870b160c88, type: 2}
+      propertyPath: num
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8272d45d096ca5a48af8d3870b160c88, type: 2}
@@ -7752,7 +7754,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f679efa8de91739458934c0be17349f2, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f679efa8de91739458934c0be17349f2, type: 3}
       propertyPath: m_LocalScale.x
@@ -10151,7 +10153,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22444938, guid: 39b4ae5b39a3b104f8c3da097ff9f52b, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 22444938, guid: 39b4ae5b39a3b104f8c3da097ff9f52b, type: 2}
       propertyPath: m_AnchoredPosition.x

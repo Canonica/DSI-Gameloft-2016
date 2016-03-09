@@ -382,7 +382,11 @@ MonoBehaviour:
   _name: 
   _cost: 0
   _value: 0
-  _level: 0
+  _mb: {fileID: 0}
+  _levelMax: 3
+  _levelOne: 0
+  _levelTwo: 0
+  _levelThree: 0
 --- !u!114 &11421834
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -429,7 +433,11 @@ MonoBehaviour:
   _name: 
   _cost: 0
   _value: 0
-  _level: 0
+  _mb: {fileID: 0}
+  _levelMax: 3
+  _levelOne: 0
+  _levelTwo: 0
+  _levelThree: 0
 --- !u!114 &11446236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -444,7 +452,11 @@ MonoBehaviour:
   _name: 
   _cost: 0
   _value: 0
-  _level: 0
+  _mb: {fileID: 0}
+  _levelMax: 3
+  _levelOne: 0
+  _levelTwo: 0
+  _levelThree: 0
 --- !u!114 &11455634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -475,22 +487,18 @@ MonoBehaviour:
   _life: 10
   _lifeMax: 2
   _playerId: 2
-  _spells: []
-  _upgrades: []
   units:
   - {fileID: 170856, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
   - {fileID: 170856, guid: 16387359b5695234bbc40af5ba9be44b, type: 2}
   - {fileID: 170856, guid: 89293a87b10098544855b107086daeec, type: 2}
   - {fileID: 170856, guid: efcb646a5c6d9af41b780ac0f34e26a4, type: 2}
-  delay: 0
   waypoint: {fileID: 0}
   targetBase: {fileID: 0}
   _currentLane: {fileID: 0}
   _laneSpawning: 0
-  maxNbOfUnits: 0a000000030000000500000003000000
-  currentNbOfUnits: 00000000000000000000000000000000
   _maxMana: 500
   _currentMana: 0
+  experienceByMana: 1
   _delayMana: 1
   _addMana: 10
   _manaToSacrifice: 10
@@ -519,10 +527,10 @@ MonoBehaviour:
   upgradeDelay: 0.3
   lastUpgrade: 0
   experienceLevel: 00000000000000000000000000000000
+  maxExperienceLevel: 
   hasUsedLevel: 
   FxBlood: {fileID: 136768, guid: 03f876b3154aa9a419b0c305f0a6ae32, type: 2}
   spawnSwarmFX: {fileID: 0}
-  experienceByMana: 1
 --- !u!114 &11481898
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -537,7 +545,11 @@ MonoBehaviour:
   _name: 
   _cost: 0
   _value: 0
-  _level: 0
+  _mb: {fileID: 0}
+  _levelMax: 3
+  _levelOne: 0
+  _levelTwo: 0
+  _levelThree: 0
 --- !u!119 &11929086
 Projector:
   m_ObjectHideFlags: 1

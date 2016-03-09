@@ -6,13 +6,11 @@ public class UnitRush : Unit {
     public float flyHeight = 5;
     float baseHeight;
     public bool isFlying;
-    public bool lifeSteal = false;
-    public bool bloodyRash = false;
-    public int bloodyFactor = 1;
+    public bool lifeSteal = true;
 
     [Range(1,100)]
     public int valueLifeSteal = 50;
-    public bool rangedAttack = false;
+    public bool rangedAttack = true;
     bool rangedReady = true;
     public float rangedAttackSpeed= 1;
     public int rangedDamage = 1;
@@ -27,7 +25,6 @@ public class UnitRush : Unit {
         isFlying = true;
         _distanceMinLane += flyHeight;
     }
-
     override
     public void FixedUpdate()
     {
@@ -91,61 +88,23 @@ public class UnitRush : Unit {
         //}
     }
 
-    void Hit(Unit other)
-    {
-
-        if (bloodyRash)
-        {
-            other.Hit((int)((((float)_damage * _lifeMax) / _life) / bloodyFactor));
-        }
-        else
-        {
-            other.Hit(_damage);
-        }
-        if (lifeSteal)
-        {
-            Debug.Log("Life steal " + _damage * (valueLifeSteal / (float)100));
-            _life += (int)(_damage * (valueLifeSteal / (float)100));
-            _life = Mathf.Min(_life, _lifeMax);
-        }
-    }
-
     public override void Attack()
     {
-        if (_target && attackReady)
-        {
-            attackReady = false;
-            Unit unit = _target.GetComponent<Unit>();
-            if (unit && unit._playerId != _playerId)
-            {
-                if (hitFX)
-                    SoundManager.Instance.playSound(hitFX, 1);
-                Hit(unit);
-                // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
-                EndGameManager.instance.addDamage(_playerId, _damage);
-            }
-            
-            StartCoroutine(reload());
-        }
-    }
-
-    IEnumerator up()
-    {
-        float height = baseHeight;
-        while (height < flyHeight && isFlying)
-        {
-            height += height / smoother;
-            _navMeshAgent.baseOffset = height;
-            yield return 0;
-        }
-        _navMeshAgent.baseOffset = flyHeight;
         
+        if (_target && lifeSteal&&attackReady)
+        {
+            Debug.Log("Life steal " + _damage * (valueLifeSteal / 100));
+            _life += _damage * (valueLifeSteal / 100);
+            _life = Mathf.Min(_life, _lifeMax);
+        }
+        Debug.Log("RUSH ATTACK");
+        base.Attack();
     }
 
     IEnumerator down()
     {
         isFlying = false;
-        float height = _navMeshAgent.baseOffset;
+        float height = _navMeshAgent.baseOffset- baseHeight;
         while (height >= baseHeight)
         {
             height -= height/smoother;

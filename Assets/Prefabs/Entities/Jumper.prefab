@@ -874,26 +874,23 @@ MonoBehaviour:
   _enemyMotherBase: {fileID: 0}
   _motherBase: {fileID: 0}
   _life: 15
-  _lifeMax: 15
+  _lifeMax: 60
   _playerId: 0
-  _spells: []
-  _upgrades: []
   img: {fileID: 0}
   unitName: Unit
   attackSpeed: 1
-  _movementSpeed: 10
+  _movementSpeed: 20
   groupSpawn: 1
-  _damage: 2
+  _damage: 20
   _hatchTime: 3
-  bumpResist: 1
-  manaCost: 0
+  bumpResist: 2
+  manaCost: 80
   smoother: 20
   _target: {fileID: 0}
   _trigger: []
   _distanceMinLane: 8
   waypointDest: {fileID: 0}
   laneEnd: 0
-  lastCollision: 0
   collideNum: 0
   isBumped: 0
   _actualLane: 0
