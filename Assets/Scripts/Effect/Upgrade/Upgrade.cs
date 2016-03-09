@@ -50,12 +50,12 @@ public class Upgrade : Effect
         {
             level = Random.Range(0, _levelMax * 100);
             HideImage();
-            if ((level < 100 || (_levelTwo && _levelThree)) && !_levelOne)
+            /*if ((level < 100 || (_levelTwo && _levelThree)) && !_levelOne)
             {
                 _imageLevelOne.enabled = true;
                 level = 1;
             }
-            else if ((level < 200 || _levelThree) && !_levelTwo)
+            else */if ((level < 200 || _levelThree) && !_levelTwo)
             {
                 _imageLevelTwo.enabled = true;
                 level = 2;
@@ -72,13 +72,13 @@ public class Upgrade : Effect
 
     public bool LevelUp(int level)
     {
-        if (level == 1)
+        /*if (level == 1)
         {
             _imageBase.enabled = true;
             _imageLevelOne.enabled = false;
             return _levelOne = true;
         }
-        else if (level == 2)
+        else */if (level == 2)
         {
             _imageBase.enabled = true;
             _imageLevelTwo.enabled = false;
@@ -98,10 +98,10 @@ public class Upgrade : Effect
 
     public void Use(Unit unit)
     {
-        if (_levelOne)
+        /*if (_levelOne)
         {
             LevelOne(unit);
-        }
+        }*/
         if (_levelTwo)
         {
             LevelTwo(unit);
