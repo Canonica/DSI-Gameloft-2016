@@ -1375,6 +1375,9 @@ MonoBehaviour:
   poisonDelay: 1
   poisonDamage: 1
   PS_poison: {fileID: 19830898}
+  buffy: 0
+  buffedUnit: 0.4
+  buffedUnitRange: 10
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1
