@@ -1219,17 +1219,16 @@ MonoBehaviour:
   _enemyMotherBase: {fileID: 0}
   _motherBase: {fileID: 0}
   _life: 25
-  _lifeMax: 25
   _playerId: 0
+  _lifeMax: 120
+  attackSpeed: 1.5
+  _movementSpeed: 3
+  groupSpawn: 1
+  _damage: 0
+  bumpResist: 4
+  manaCost: 300
   img: {fileID: 0}
   unitName: Unit
-  attackSpeed: 0.6
-  _movementSpeed: 6
-  groupSpawn: 1
-  _damage: 1
-  _hatchTime: 5
-  bumpResist: 10
-  manaCost: 0
   smoother: 20
   _target: {fileID: 0}
   _trigger: []

@@ -5,11 +5,13 @@ public class Entity : MonoBehaviour {
     [Header("Entity")]
     public GameObject _enemyMotherBase;
     public Motherbase _motherBase;
+    [HideInInspector]
     public int _life;
+    public int _playerId = 0;
+
     [Tweakable]
     public int _lifeMax;
-    public int _playerId = 0;
-        
+
     public virtual void Start ()
     {
         _life = _lifeMax;
