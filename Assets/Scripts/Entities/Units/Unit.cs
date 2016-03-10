@@ -62,7 +62,7 @@ public class Unit : Entity
     public GameObject DeathAnim;
 
     [Header("Sound")]
-    public AudioClip spawnFX;
+    public AudioClip spawnSFX;
     public AudioClip hitFX;
 
     public int damageToQueen;
@@ -81,8 +81,11 @@ public class Unit : Entity
         _navMeshAgent.speed = _movementSpeed;
         attackReady = true;
         _allAnims = GetComponentInChildren<Animation>();
-        if (spawnFX)
-            SoundManager.Instance.playSound(spawnFX, 0.3f);
+        if (spawnSFX&& UnityEngine.Random.Range(0, 4)>=3)
+        {
+            SoundManager.Instance.playSound(spawnSFX, 0.3f);
+        }
+            
         _allAnims.Play("RUN");
     }
 
