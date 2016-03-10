@@ -432,7 +432,4 @@ public class Unit : Entity
         GetComponent<Collider>().enabled = true;
         //_navMeshAgent.enabled = true;
     }
-
-
-
 }
