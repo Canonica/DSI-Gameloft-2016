@@ -54,6 +54,7 @@ public class XInput : MonoBehaviour
         vibePlayer[id]++;
         StartCoroutine(vibration((PlayerIndex)(id), time,  force1,  force2));
     }
+    
 
     public float getTrigger(int id)
     {

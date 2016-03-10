@@ -121,7 +121,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 118500}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12feee1743998574c8b283e9b0ee7997, type: 3}
   m_Name: 
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68eda2f6adfe1f34fac81aae49ff360b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGamestate: 0
+  currentGamestate: 3
   player1: {fileID: 0}
   player2: {fileID: 0}
   ESystem: {fileID: 0}
@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8399df5338125a94a85217e845a86de0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swarmSFX: {fileID: 8300000, guid: 8d119c112af6fdb44b161984c5dc4edd, type: 3}
   speakerPrefab: {fileID: 145562, guid: 7f16768d53c51f34c856a1733583d0d6, type: 2}
   lowPitchRange: 0.95
   highPitchRange: 1.05

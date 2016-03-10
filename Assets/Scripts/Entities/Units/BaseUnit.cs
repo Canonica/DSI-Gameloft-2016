@@ -58,6 +58,12 @@ public class BaseUnit : Unit {
         }
     }
 
+    public override void Attack()
+    {
+        SoundManager.Instance.swarmSound();
+        base.Attack();
+    }
+
     public void Berzerker()
     {
         // change l'apparence de l'entité
