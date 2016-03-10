@@ -10,6 +10,7 @@ public class MantisUpgrade : Upgrade {
         if (jumpUnit)
         {
             jumpUnit.canStun = true;
+            jumpUnit.applyLevelUp();
         }
     }
 
@@ -20,6 +21,7 @@ public class MantisUpgrade : Upgrade {
         if (jumpUnit)
         {
             jumpUnit.firstJump = true;
+            jumpUnit.applyLevelUp();
         }
     }
 
@@ -30,6 +32,7 @@ public class MantisUpgrade : Upgrade {
         if (jumpUnit)
         {
             jumpUnit.canExplode = true;
+            jumpUnit.applyLevelUp();
         }
     }
 }

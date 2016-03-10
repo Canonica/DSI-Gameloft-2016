@@ -13,6 +13,7 @@ public class GoliathusUpgrade : Upgrade {
         {
             //tankUnit.poison = true;
             tankUnit.buffy = true;
+            tankUnit.applyLevelUp();
         }
     }
 

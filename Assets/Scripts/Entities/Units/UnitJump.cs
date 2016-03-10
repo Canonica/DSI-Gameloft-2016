@@ -17,6 +17,12 @@ public class UnitJump : Unit {
 
     public ParticleSystem PS_Stomp;
     public ParticleSystem PS_Stun;
+
+    public GameObject leg1;
+    public GameObject leg2;
+    public GameObject bubons;
+
+    public GameObject fxExplo;
     
     override
     public void Start()
@@ -28,6 +34,20 @@ public class UnitJump : Unit {
     public void FixedUpdate()
     {
         base.FixedUpdate();
+    }
+
+    public override void applyLevelUp()
+    {
+        if(canExplode)
+        {
+            bubons.SetActive(true);
+            
+        }
+        else if(firstJump)
+        {
+            leg1.SetActive(true);
+            leg2.SetActive(true);
+        }
     }
 
     override public void OnCollisionEnter(Collision col)
@@ -265,16 +285,17 @@ public class UnitJump : Unit {
 
     public override void Hit(int parDamage)
     {
+        base.Hit(parDamage);
         
         if (_life<=0 && canExplode)
         {
+            Destroy(Instantiate(fxExplo, transform.position, Quaternion.identity), 3.0f);
             canExplode = false;
             StopAllCoroutines();
             isActiveAOE = false;
             StartCoroutine(AOE());
 
         }
-        base.Hit(parDamage);
     }
     
 }

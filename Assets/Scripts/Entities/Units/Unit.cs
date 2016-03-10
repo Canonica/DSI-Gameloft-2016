@@ -290,6 +290,11 @@ public class Unit : Entity
         }
     }
 
+    public virtual void applyLevelUp()
+    {
+
+    }
+
     public virtual void OnTriggerExit(Collider parOther)
     {
 

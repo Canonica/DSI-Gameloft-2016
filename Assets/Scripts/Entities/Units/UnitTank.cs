@@ -28,6 +28,8 @@ public class UnitTank : Unit {
     public float buffedUnit;
     public float buffedUnitRange = 5.0f;
 
+    public GameObject pikes;
+
     override
     public void Start()
     {
@@ -46,6 +48,15 @@ public class UnitTank : Unit {
             base.Attack();
         }
         base.FixedUpdate();
+    }
+
+    public override void applyLevelUp()
+    {
+        if (buffy)
+        {
+            pikes.SetActive(true);
+        }
+
     }
 
     public override void Update()
