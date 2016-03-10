@@ -81,7 +81,7 @@ public class Unit : Entity
         _navMeshAgent.speed = _movementSpeed;
         attackReady = true;
         _allAnims = GetComponentInChildren<Animation>();
-        if (spawnSFX&& UnityEngine.Random.Range(0, 4)>=3)
+        if (spawnSFX)//&& UnityEngine.Random.Range(0, 4)>=3)
         {
             SoundManager.Instance.playSound(spawnSFX, 0.3f);
         }
