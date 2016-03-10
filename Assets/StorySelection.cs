@@ -1,19 +1,45 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using DG.Tweening;
 
 public class StorySelection : MonoBehaviour
 {
-	int right = 0;
-	int displayedRight = 0;
+	private int j;
+	private int right = 0;
+	private int displayedRight = 0;
 
-	bool Inputable = true;
-	int NbKids;
+	private bool Inputable = true;
+	private int NbKids;
+
+	[SerializeField]
+	private Sprite locked;
 	// Use this for initialization
 	void Start ()
 	{
-		NbKids = GetComponentsInChildren<Image> ().Length - 1;
+		PlayerPrefs.SetInt ("STORY_KEY_39", 1);
+
+		GameObject template = GetComponentInChildren<Image> ().gameObject;
+		Debug.Log (template.name);
+
+		List<int> keys = StoryManager.instance.spritesKeys;
+		for (int i = 0; i <= keys.Count - 1; i++) {
+			if (PlayerPrefs.GetInt ("STORY_KEY_" + keys [i]) == 1) {
+				GameObject n = Instantiate (template) as GameObject;
+				n.GetComponent<Image> ().sprite = StoryManager.instance.sprites [i];
+				n.transform.parent = transform;
+				n.transform.localScale = new Vector3 (1, 1, 1);
+			} else {
+				GameObject n = Instantiate (template) as GameObject;
+				n.GetComponent<Image> ().sprite = locked;
+				n.transform.parent = transform;
+				n.transform.localScale = new Vector3 (1, 1, 1);
+			}
+		}
+
+		Destroy (template);
+		NbKids = GetComponentsInChildren<Image> ().Length - 2;
 	}
 	
 	// Update is called once per frame
