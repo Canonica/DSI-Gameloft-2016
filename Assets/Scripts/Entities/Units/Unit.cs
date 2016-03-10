@@ -157,7 +157,7 @@ public class Unit : Entity
     {
         Destroy(Instantiate(DeathAnim,transform.position, Quaternion.identity), 3);
         StopAllCoroutines();
-        EndGameManager.instance.addDeath(_playerId);
+        //EndGameManager.instance.addDeath(_playerId);
         Destroy(this.gameObject);
     }
 
@@ -250,7 +250,8 @@ public class Unit : Entity
         if (mother && other.CompareTag("MotherBase") && mother._playerId != _playerId)
         {
             
-            //EndGameManager.instance.addDamage((_playerId % 2) + 1, _life);
+            EndGameManager.instance.addDamage((_playerId % 2) + 1, _life);
+            EndGameManager.instance.addDamage(_playerId, damageToQueen);
             mother.getDamage(damageToQueen);
             dead();
         }
