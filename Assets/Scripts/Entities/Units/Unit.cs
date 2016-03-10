@@ -5,6 +5,8 @@ using DG.Tweening;
 using System.Linq;
 using System;
 
+
+
 public class Unit : Entity
 {
 
@@ -63,6 +65,8 @@ public class Unit : Entity
     [Header("Sound")]
     public AudioClip spawnFX;
     public AudioClip hitFX;
+
+    public int damageToQueen;
 
     protected Animation _allAnims;
 
@@ -244,7 +248,7 @@ public class Unit : Entity
         {
             EndGameManager.instance.addDamage(_playerId, _damage);
             EndGameManager.instance.addDamage((_playerId % 2) + 1, _life);
-            mother.getDamage(_damage);
+            mother.getDamage(damageToQueen);
             dead();
         }
         else
