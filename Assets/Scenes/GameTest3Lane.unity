@@ -154,6 +154,10 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 14024423}
   m_Mesh: {fileID: 4300000, guid: 9608571d4a6095e46bd112b93161d95c, type: 3}
+--- !u!1 &16863820 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 158772, guid: 13f28a53765d2964fbcad540f96387cc, type: 2}
+  m_PrefabInternal: {fileID: 573551415}
 --- !u!1 &20026725
 GameObject:
   m_ObjectHideFlags: 0
@@ -1906,6 +1910,10 @@ ParticleSystem:
     subEmitterCollision1: {fileID: 0}
     subEmitterDeath: {fileID: 0}
     subEmitterDeath1: {fileID: 0}
+--- !u!1 &114060421 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 108938, guid: 13f28a53765d2964fbcad540f96387cc, type: 2}
+  m_PrefabInternal: {fileID: 573551415}
 --- !u!1001 &116388838
 Prefab:
   m_ObjectHideFlags: 0
@@ -4249,10 +4257,17 @@ MonoBehaviour:
   maxExperienceLevel: 64000000c80000002c01000090010000
   hasUsedLevel: 
   upgradeNumber: 
+  UnitsSprite:
+  - {fileID: 16863820}
+  - {fileID: 114060421}
+  - {fileID: 819685623}
+  - {fileID: 1541393907}
   FxBlood: {fileID: 136768, guid: 03f876b3154aa9a419b0c305f0a6ae32, type: 2}
   spawnSwarmFX: {fileID: 0}
+  UpgradeSprite: {fileID: 135604, guid: 6273caa3dc37f4d4b96a4be914d41e14, type: 2}
   ManaCostCanvas: {fileID: 108570, guid: a7e869d5c75e3e645a5b668c0e674974, type: 2}
-  ManaText: {fileID: 0}
+  TouchSprite: {fileID: 122696, guid: b8bf6d6f63a214f43a2fb9a26ad4f844, type: 2}
+  ManaText: {fileID: 108570, guid: a7e869d5c75e3e645a5b668c0e674974, type: 2}
   ManaFull: {fileID: 0}
 --- !u!1 &255529522
 GameObject:
@@ -5616,6 +5631,10 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 453348219}
   m_Mesh: {fileID: 4300000, guid: 80bbb36322704e34bb0813edb71487f9, type: 3}
+--- !u!1 &495532611 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 166278, guid: 13f28a53765d2964fbcad540f96387cc, type: 2}
+  m_PrefabInternal: {fileID: 573551415}
 --- !u!114 &497763365 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11462728, guid: 13f28a53765d2964fbcad540f96387cc,
@@ -6208,6 +6227,22 @@ Prefab:
       propertyPath: m_Name
       value: Mana_Text2
       objectReference: {fileID: 0}
+    - target: {fileID: 22410984, guid: 13f28a53765d2964fbcad540f96387cc, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22410984, guid: 13f28a53765d2964fbcad540f96387cc, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22408622, guid: 13f28a53765d2964fbcad540f96387cc, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22408622, guid: 13f28a53765d2964fbcad540f96387cc, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 13f28a53765d2964fbcad540f96387cc, type: 2}
   m_IsPrefabParent: 0
@@ -6312,7 +6347,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 429164, guid: 8a7792af5b1798c47931033083b8c70f, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 429164, guid: 8a7792af5b1798c47931033083b8c70f, type: 2}
       propertyPath: m_LocalScale.x
@@ -7666,6 +7701,10 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1130280689}
   m_RootOrder: 0
+--- !u!1 &819685623 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 196960, guid: 13f28a53765d2964fbcad540f96387cc, type: 2}
+  m_PrefabInternal: {fileID: 573551415}
 --- !u!1 &827644632
 GameObject:
   m_ObjectHideFlags: 0
@@ -10000,6 +10039,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65a83d75e5bc9aa4387696059b5119cf, type: 3}
   m_IsPrefabParent: 0
+--- !u!1 &1101808963 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 180516, guid: 13f28a53765d2964fbcad540f96387cc, type: 2}
+  m_PrefabInternal: {fileID: 573551415}
 --- !u!1 &1108263746
 GameObject:
   m_ObjectHideFlags: 0
@@ -10893,6 +10936,10 @@ CanvasGroup:
   m_PrefabParentObject: {fileID: 22539722, guid: 13f28a53765d2964fbcad540f96387cc,
     type: 2}
   m_PrefabInternal: {fileID: 573551415}
+--- !u!1 &1327372146 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 134934, guid: 13f28a53765d2964fbcad540f96387cc, type: 2}
+  m_PrefabInternal: {fileID: 573551415}
 --- !u!1 &1336279427
 GameObject:
   m_ObjectHideFlags: 0
@@ -11225,10 +11272,17 @@ MonoBehaviour:
   maxExperienceLevel: 64000000c80000002c01000090010000
   hasUsedLevel: 
   upgradeNumber: 
+  UnitsSprite:
+  - {fileID: 1327372146}
+  - {fileID: 1101808963}
+  - {fileID: 495532611}
+  - {fileID: 1634572448}
   FxBlood: {fileID: 136768, guid: a027e7c83d0eb5b4690f648d437e8995, type: 2}
   spawnSwarmFX: {fileID: 0}
+  UpgradeSprite: {fileID: 135604, guid: 6273caa3dc37f4d4b96a4be914d41e14, type: 2}
   ManaCostCanvas: {fileID: 108570, guid: a7e869d5c75e3e645a5b668c0e674974, type: 2}
-  ManaText: {fileID: 0}
+  TouchSprite: {fileID: 122696, guid: b8bf6d6f63a214f43a2fb9a26ad4f844, type: 2}
+  ManaText: {fileID: 108570, guid: a7e869d5c75e3e645a5b668c0e674974, type: 2}
   ManaFull: {fileID: 0}
 --- !u!1 &1365409311
 GameObject:
@@ -11924,6 +11978,10 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1532474458}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1541393907 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 195608, guid: 13f28a53765d2964fbcad540f96387cc, type: 2}
+  m_PrefabInternal: {fileID: 573551415}
 --- !u!1 &1554467976
 GameObject:
   m_ObjectHideFlags: 0
@@ -12447,6 +12505,10 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1622509859}
   m_Mesh: {fileID: 4300000, guid: ee4469c2f952da743a59ddaa3f5851a9, type: 3}
+--- !u!1 &1634572448 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 172272, guid: 13f28a53765d2964fbcad540f96387cc, type: 2}
+  m_PrefabInternal: {fileID: 573551415}
 --- !u!1 &1652043358
 GameObject:
   m_ObjectHideFlags: 0
