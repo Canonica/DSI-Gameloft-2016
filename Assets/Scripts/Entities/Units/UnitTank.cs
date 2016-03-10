@@ -92,6 +92,7 @@ public class UnitTank : Unit {
                 Unit unit = _trigger[i].GetComponent<Unit>();
                 unit.applyBump(transform.position, bumpForce);
                 unit.Hit(_damage);
+                EndGameManager.instance.addDamage(_playerId, _damage);
             }
         }
 

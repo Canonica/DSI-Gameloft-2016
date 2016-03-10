@@ -10,13 +10,17 @@ public class XInput : MonoBehaviour
     GamePadState state;
     GamePadState prevState;
     bool[] buttondown;
-
+    int[] vibePlayer;
     void Awake()
     {
         instance = this;
         buttondown = new bool[2];
         buttondown[0] = false;
         buttondown[1] = false;
+
+        vibePlayer = new int[2];
+        vibePlayer[0] = 0;
+        vibePlayer[1] = 0;
     }
     
     void Update()
@@ -47,6 +51,7 @@ public class XInput : MonoBehaviour
 
     public void useVibe(int id, float time, float force1, float force2)
     {
+        vibePlayer[id]++;
         StartCoroutine(vibration((PlayerIndex)(id), time,  force1,  force2));
     }
 
@@ -118,6 +123,14 @@ public class XInput : MonoBehaviour
     {
         GamePad.SetVibration(id, force1, force2);
         yield return new WaitForSeconds(time);
+        vibePlayer[(int)id]--;
+        if(vibePlayer[(int)id] ==0)
         GamePad.SetVibration(id, 0, 0);
+    }
+
+    void OnDestroy()
+    {
+        GamePad.SetVibration((PlayerIndex)0, 0, 0);
+        GamePad.SetVibration((PlayerIndex)1, 0, 0);
     }
 }

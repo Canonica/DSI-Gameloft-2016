@@ -122,6 +122,7 @@ public class UnitJump : Unit {
                 }
                 else
                 {
+                    EndGameManager.instance.addDamage(_playerId, _damage);
                     localList[i].GetComponent<Unit>().Hit(_damage);
                 }
                 UnitTank unitT = localList[i].GetComponent<UnitTank>();
