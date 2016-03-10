@@ -18,6 +18,9 @@ public class BaseUnit : Unit {
     public bool isRegeneratingCR;
     public int lifeRestored;
 
+    public GameObject berserkerMesh;
+    public GameObject baseMesh;
+
     // Use this for initialization
     override
     public void Start() {
@@ -58,6 +61,8 @@ public class BaseUnit : Unit {
     public void Berzerker()
     {
         // change l'apparence de l'entité
-        attackSpeed *= 0.5f;
+        attackSpeed *= 1.5f;
+        baseMesh.SetActive(false);
+        berserkerMesh.SetActive(true);
     }
 }

@@ -20,6 +20,7 @@ public class HornetUpgrade : Upgrade {
         if (rushUnit)
         {
             rushUnit.rangedAttack = true;
+            rushUnit.applyLevelUp();
         }
     }
 

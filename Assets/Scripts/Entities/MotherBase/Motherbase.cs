@@ -329,6 +329,10 @@ public class Motherbase : Entity
 	public void getDamage (int dmg)
 	{
 		Instantiate (FxBlood, transform.position, Quaternion.Euler (new Vector3 (-50, 0, 0)));
+        if(_playerId == 2)
+        {
+            Instantiate(FxBlood, transform.position, Quaternion.Euler(new Vector3(-50, 180, 0)));
+        }
 		XInput.instance.useVibe (_playerId - 1, 0.5f, 0.5f, 0.5f);
 
 		Camera.main.DOKill (true);

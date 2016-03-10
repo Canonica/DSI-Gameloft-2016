@@ -43,6 +43,7 @@ public class CockroachUpgrade : Upgrade {
         if (baseUnit)
         {
             baseUnit.Berzerker();
+            
         }
     }
 

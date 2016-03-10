@@ -15,6 +15,7 @@ public class UnitRush : Unit {
     public bool rangedAttack = false;
     bool rangedReady = true;
     public int rangedDamage = 1;
+    public GameObject dard;
 
     public bool stunAttack;
     bool stunAttackReady = true;
@@ -39,6 +40,15 @@ public class UnitRush : Unit {
         //    isFlying = false;
         //    StartCoroutine(down());
         //}
+    }
+
+    public override void applyLevelUp()
+    {
+        if (rangedAttack)
+        {
+            dard.SetActive(true);
+        }
+        
     }
 
     override
