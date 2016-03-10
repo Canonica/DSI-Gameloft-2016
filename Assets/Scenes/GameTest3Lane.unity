@@ -369,7 +369,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 466232, guid: cf26dd76e98494d408d39103e02e0d51, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cf26dd76e98494d408d39103e02e0d51, type: 2}
@@ -2707,7 +2707,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 416230, guid: ec30b1051c02ae945820a0468bbddb31, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 11419978, guid: ec30b1051c02ae945820a0468bbddb31, type: 2}
       propertyPath: currentGamestate
@@ -5294,6 +5294,7 @@ MonoBehaviour:
   upgradeNumber: 
   FxBlood: {fileID: 136768, guid: 03f876b3154aa9a419b0c305f0a6ae32, type: 2}
   spawnSwarmFX: {fileID: 0}
+  ManaCostCanvas: {fileID: 108570, guid: a7e869d5c75e3e645a5b668c0e674974, type: 2}
 --- !u!1 &255529522
 GameObject:
   m_ObjectHideFlags: 0
@@ -7748,7 +7749,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 456524405}
   m_Layer: 0
-  m_Name: Mana_bar (1)
+  m_Name: Mana_bar2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8763,7 +8764,7 @@ GameObject:
   - 222: {fileID: 569005237}
   - 114: {fileID: 1730945575}
   m_Layer: 0
-  m_Name: Mana_Text
+  m_Name: Mana_Text1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13693,6 +13694,14 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 22402656, guid: 07579057afc98d541a745d1cd06e0161, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22402656, guid: 07579057afc98d541a745d1cd06e0161, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 07579057afc98d541a745d1cd06e0161, type: 2}
   m_IsPrefabParent: 0
@@ -13862,7 +13871,7 @@ GameObject:
   - 222: {fileID: 1069312969}
   - 114: {fileID: 2138460452}
   m_Layer: 0
-  m_Name: Mana_Text
+  m_Name: Mana_Text2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16556,6 +16565,7 @@ MonoBehaviour:
   upgradeNumber: 
   FxBlood: {fileID: 136768, guid: 03f876b3154aa9a419b0c305f0a6ae32, type: 2}
   spawnSwarmFX: {fileID: 0}
+  ManaCostCanvas: {fileID: 108570, guid: a7e869d5c75e3e645a5b668c0e674974, type: 2}
 --- !u!1 &1365409311
 GameObject:
   m_ObjectHideFlags: 0
@@ -17020,7 +17030,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463338, guid: 8272d45d096ca5a48af8d3870b160c88, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8272d45d096ca5a48af8d3870b160c88, type: 2}
@@ -21630,7 +21640,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 1903634817}
   m_Layer: 0
-  m_Name: Mana_bar
+  m_Name: Mana_bar1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22206,7 +22216,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400172, guid: 0d73b7ee99075844993763fb31f4c918, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400018, guid: 0d73b7ee99075844993763fb31f4c918, type: 3}
       propertyPath: m_LocalRotation.x
@@ -24942,7 +24952,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22444938, guid: 39b4ae5b39a3b104f8c3da097ff9f52b, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 22444938, guid: 39b4ae5b39a3b104f8c3da097ff9f52b, type: 2}
       propertyPath: m_AnchoredPosition.x
