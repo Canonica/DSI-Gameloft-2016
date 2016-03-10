@@ -83,7 +83,7 @@ public class Unit : Entity
         _allAnims = GetComponentInChildren<Animation>();
         if (spawnSFX)//&& UnityEngine.Random.Range(0, 4)>=3)
         {
-            SoundManager.Instance.playSound(spawnSFX, 0.3f);
+            SoundManager.Instance.playSound(spawnSFX, 0.1f);
         }
             
         _allAnims.Play("RUN");

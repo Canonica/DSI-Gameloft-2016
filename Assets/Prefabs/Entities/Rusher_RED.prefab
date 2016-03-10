@@ -1143,7 +1143,7 @@ MonoBehaviour:
   timeStun: 1
   FxDeathBlood: {fileID: 116252}
   DeathAnim: {fileID: 121524, guid: 6e1a8db578c8cef4ca4e5296fbecb9cd, type: 2}
-  spawnSFX: {fileID: 8300000, guid: 56e96e6bdd9757048b1aa824903b0e91, type: 3}
+  spawnSFX: {fileID: 8300000, guid: 1982771244e0dad42bf6316c68ae1522, type: 3}
   hitFX: {fileID: 0}
   damageToQueen: 0
   flyHeight: 20
