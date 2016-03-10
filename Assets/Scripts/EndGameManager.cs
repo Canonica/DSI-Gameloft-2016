@@ -9,6 +9,13 @@ public class EndGameManager : MonoBehaviour {
     public int[] playerDeath;
     public int[] playerDamage;
     public int[] playerSpawn;
+
+    public Image Victory1;
+    public Image Defeat1;
+
+    public Image Victory2;
+    public Image Defeat2;
+
     public CanvasGroup UICanvasGroup;
 
     void Awake()
@@ -59,13 +66,17 @@ public class EndGameManager : MonoBehaviour {
         player2UI.SetActive(true);
         if (idLoser == 1)
         {
-            player1UI.transform.Find("Result").GetComponent<Text>().text = "Defeat";
-            player2UI.transform.Find("Result").GetComponent<Text>().text = "Victory";
+            Victory2.enabled = true;
+            Defeat1.enabled = true;
+            //player1UI.transform.Find("Result").GetComponent<Text>().text = "Defeat";
+            //player2UI.transform.Find("Result").GetComponent<Text>().text = "Victory";
         }
         else
         {
-            player2UI.transform.Find("Result").GetComponent<Text>().text = "Defeat";
-            player1UI.transform.Find("Result").GetComponent<Text>().text = "Victory";
+            Victory1.enabled = true;
+            Defeat2.enabled = true;
+            //player2UI.transform.Find("Result").GetComponent<Text>().text = "Defeat";
+            //player1UI.transform.Find("Result").GetComponent<Text>().text = "Victory";
         }
         initPlayer(player1UI, 1);
         initPlayer(player2UI, 2);
