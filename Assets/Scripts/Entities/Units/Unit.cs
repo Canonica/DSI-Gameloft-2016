@@ -35,7 +35,6 @@ public class Unit : Entity
     public int smoother = 5;
 
     [Header("Other")]
-    [HideInInspector]
     public GameObject _target;
     protected NavMeshAgent _navMeshAgent;
 
@@ -63,7 +62,7 @@ public class Unit : Entity
     public GameObject DeathAnim;
 
     [Header("Sound")]
-    public AudioClip spawnFX;
+    public AudioClip spawnSFX;
     public AudioClip hitFX;
 
     public int damageToQueen;
@@ -82,8 +81,11 @@ public class Unit : Entity
         _navMeshAgent.speed = _movementSpeed;
         attackReady = true;
         _allAnims = GetComponentInChildren<Animation>();
-        if (spawnFX)
-            SoundManager.Instance.playSound(spawnFX, 0.3f);
+        if (spawnSFX)//&& UnityEngine.Random.Range(0, 4)>=3)
+        {
+            SoundManager.Instance.playSound(spawnSFX, 0.3f);
+        }
+            
         _allAnims.Play("RUN");
     }
 
@@ -301,7 +303,7 @@ public class Unit : Entity
 
     public virtual void OnTriggerExit(Collider parOther)
     {
-
+        
         _trigger.Remove(parOther.gameObject);
         if (_target == parOther.gameObject)
             changeTarget();

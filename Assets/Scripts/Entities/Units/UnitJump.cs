@@ -63,6 +63,17 @@ public class UnitJump : Unit {
         //}
     }
 
+    public override void OnTriggerExit(Collider parOther)
+    {
+        if (parOther.gameObject != _target)
+        {
+            _trigger.Remove(parOther.gameObject);
+        }
+
+
+    }
+
+
     override public void OnTriggerEnter(Collider col)
     {
         base.OnTriggerEnter(col);
@@ -240,9 +251,9 @@ public class UnitJump : Unit {
 
     IEnumerator AOE()
     {
-        _allAnims.Play("AOE_ATTACK");
+        _allAnims.Play("ATTACK");
         StartCoroutine(reload());
-        yield return new WaitForSeconds(_allAnims.GetClip("AOE_ATTACK").length - 0.2f);
+        yield return new WaitForSeconds(_allAnims.GetClip("ATTACK").length - 0.2f);
         isActiveAOE = true;
         List<GameObject> localList = GetComponentInChildren<BumpJumper>().bumpList;
         for (int i=0; i < localList.Count;i++)

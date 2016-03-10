@@ -76,7 +76,6 @@ public class EndGameManager : MonoBehaviour {
         Transform panel = obj.transform.Find("PanelStats");
         panel.Find("Kill").GetComponent<Text>().text += playerDeath[id%2+1];
         panel.Find("Damage").GetComponent<Text>().text += playerDamage[id];
-        panel.Find("APM").GetComponent<Text>().text ="APM : "+ Random.Range(10,400);
         panel.Find("Unit").GetComponent<Text>().text += playerSpawn[id];
         
     }
