@@ -519,7 +519,6 @@ public class Motherbase : Entity
 	{
 
 		GameObject Touch = Instantiate (TouchSprite);
-		GameObject Papa = new GameObject ();
 		Touch.transform.parent = XpBar.GetComponentInChildren<Impulse> ().transform;
 
 //		Touch.transform.position = new Vector2 (XpBar.GetComponentInChildren<GridLayoutGroup> ().transform.position.x - XpBar.GetComponentInChildren<GridLayoutGroup> ().gameObject.GetComponent<RectTransform> ().sizeDelta.x * .44f, XpBar.GetComponentInChildren<GridLayoutGroup> ().transform.position.y + XpBar.GetComponentInChildren<GridLayoutGroup> ().gameObject.GetComponent<RectTransform> ().sizeDelta.y);
