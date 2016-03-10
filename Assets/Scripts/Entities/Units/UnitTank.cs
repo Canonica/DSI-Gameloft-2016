@@ -67,32 +67,38 @@ public class UnitTank : Unit {
         
     }
 
+    public override IEnumerator attacking()
+    {
+        _allAnims.Play("ATTACK");
+        _navMeshAgent.Stop();
+        StartCoroutine(reload());
+        yield return new WaitForSeconds(_allAnims.GetClip("ATTACK").length - 0.65f);
+
+        for (int i = 0; i < _trigger.Count; i++)
+        {
+            if (_trigger[i])
+            {
+                Unit unit = _trigger[i].GetComponent<Unit>();
+                unit.applyBump(transform.position, bumpForce);
+                unit.Hit(_damage);
+            }
+        }
+
+        yield return new WaitForSeconds(0.65f);
+        _navMeshAgent.Resume();
+        _allAnims.Play("RUN");
+
+    }
 
     override public void Attack()
     {
-        
-        if (_target&&attackReady)
+
+        if (_target && attackReady)
         {
             attackReady = false;
-            for (int i = 0; i < _trigger.Count; i++)
-            {
-                //float dist = Vector3.Distance(transform.position, _trigger[i].transform.position);
-                //Debug.Log(dist);
-                if(_trigger[i])
-                {
-                    _trigger[i].GetComponent<Unit>().applyBump(transform.position, bumpForce);
-                }
-                
-            }
-            //_target.GetComponent<Unit>().applyBump(transform.position, bumpForce);
-        }
-        else
-        {
-            changeTarget();
-            return;
+            StartCoroutine(attacking());
         }
 
-        StartCoroutine(attacking());
     }
 
     IEnumerator PoisonousGas()

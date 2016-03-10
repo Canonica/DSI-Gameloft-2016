@@ -1340,13 +1340,13 @@ MonoBehaviour:
   _motherBase: {fileID: 0}
   _life: 25
   _playerId: 0
-  _lifeMax: 120
-  attackSpeed: 1.5
-  _movementSpeed: 3
+  _lifeMax: 350
+  attackSpeed: 3
+  _movementSpeed: 8
   groupSpawn: 1
-  _damage: 0
-  bumpResist: 4
-  manaCost: 300
+  _damage: 15
+  bumpResist: 1000
+  manaCost: 150
   img: {fileID: 0}
   unitName: Unit
   smoother: 20
@@ -1376,8 +1376,8 @@ MonoBehaviour:
   poisonDamage: 1
   PS_poison: {fileID: 19830898}
   buffy: 0
-  buffedUnit: 0.4
-  buffedUnitRange: 10
+  buffedUnit: 0
+  buffedUnitRange: 5
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1

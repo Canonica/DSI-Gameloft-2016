@@ -350,17 +350,9 @@ public class Unit : Entity
                 }
 
                 unit.Hit(Augmented(_damage));
-                // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
                 EndGameManager.instance.addDamage(_playerId, _damage);
             }
             
-        }
-        else
-        {
-
-            if (!_target)
-                applyBump(_target.transform.position, 0.1f, 2);
-
         }
     }
 
@@ -368,8 +360,8 @@ public class Unit : Entity
     {
         _allAnims.Play("ATTACK");
         _navMeshAgent.Stop();
-        yield return new WaitForSeconds(_allAnims.GetClip("ATTACK").length);
         StartCoroutine(reload());
+        yield return new WaitForSeconds(_allAnims.GetClip("ATTACK").length);
         _navMeshAgent.Resume();
         _allAnims.Play("RUN");
 
@@ -386,7 +378,7 @@ public class Unit : Entity
     }
 
 
-    void takeDestination()
+    public void takeDestination()
     {
         if (laneEnd)
         {
