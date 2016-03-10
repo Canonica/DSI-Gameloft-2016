@@ -45,11 +45,10 @@ public class StorySelection : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		
-
 		if (Mathf.Abs (Input.GetAxis ("L_XAxis_0")) >= 0.9f && Inputable) {
 			Inputable = false;
 			Invoke ("InputBack", 0.2f);
+            float yAxis = XInput.instance.getYStick(1);
 			if (2760 * (int)Mathf.Sign (Input.GetAxis ("L_XAxis_0")) + right >= 0 && right + 2760 * (int)Mathf.Sign (Input.GetAxis ("L_XAxis_0")) <= NbKids * 2760)
 				right += 2760 * (int)Mathf.Sign (Input.GetAxis ("L_XAxis_0"));
 		}

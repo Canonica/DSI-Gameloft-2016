@@ -300,7 +300,8 @@ public class UnitJump : Unit {
         
         if (_life<=0 && canExplode)
         {
-            Destroy(Instantiate(fxExplo, transform.position, Quaternion.identity), 3.0f);
+            //Vector3 newPosition = new Vector3(transform.position.x, transform.position.y+8.0f, transform.position.z);
+            Destroy(Instantiate(fxExplo, transform.position, Quaternion.Euler(-90, 0, 0)), 3.0f);
             canExplode = false;
             StopAllCoroutines();
             isActiveAOE = false;

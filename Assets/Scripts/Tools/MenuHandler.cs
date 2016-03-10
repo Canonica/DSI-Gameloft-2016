@@ -26,7 +26,9 @@ public class MenuHandler : MonoBehaviour
 	void Update ()
 	{
 		if (GameManager.instance.currentGamestate == GameManager.gameState.Menu) {
-			if (Input.GetAxis ("L_YAxis_0") > 0 || Input.GetKeyDown ("down")) {
+            float yAxis = XInput.instance.getYStick(1);
+            yAxis += XInput.instance.getYStick(2);
+            if ( yAxis < -0.3f || Input.GetKeyDown ("down")) {
 				//vers le bas
 				if (dirDown == false) {
 					dirDown = true;
@@ -38,7 +40,7 @@ public class MenuHandler : MonoBehaviour
 
 
 				}
-			} else if (Input.GetAxis ("L_YAxis_0") < 0 || Input.GetKeyDown ("up")) {
+			} else if (yAxis > 0.3f || Input.GetKeyDown ("up")) {
 				//vers le haut
 				if (dirUp == false) {
 					dirUp = true;
