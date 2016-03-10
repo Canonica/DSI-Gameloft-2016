@@ -140,6 +140,7 @@ class UnitEditor : EditorWindow
 
             for (int i = 0; i <= _gameObjects.Count - 1; i++)
             {
+                EditorUtility.SetDirty(_gameObjects[i]);
                 Component u = _gameObjects[i].GetComponent(type.ToString());
 
                 GUILayout.BeginVertical(GUILayout.MaxWidth(rowWidth));
