@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: M_volant 1
   m_Shader: {fileID: 4800000, guid: 5c59871f32ed55e4a91255d5ab3489fe, type: 3}
-  m_ShaderKeywords: _OUTLINEON_ON
+  m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: 2450
   stringTagMap: {}
@@ -96,14 +96,14 @@ Material:
         first:
           name: _InflatePatern
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: d6d6cfec2d6fd484e88f24f628fbdf60, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _Inflatemask
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: fab1de306460ae146b077e10cdf6e73c, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -116,6 +116,20 @@ Material:
       data:
         first:
           name: _DissolveRamp
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Emission
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Specular
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -180,7 +194,7 @@ Material:
       data:
         first:
           name: _InflateValue
-        second: 3
+        second: 0.5
       data:
         first:
           name: _Dissolve
@@ -192,11 +206,19 @@ Material:
       data:
         first:
           name: _OutlineOn
-        second: 1
+        second: 0
       data:
         first:
           name: _OutlineWidth
         second: 0.4
+      data:
+        first:
+          name: _SpecularValue
+        second: 0
+      data:
+        first:
+          name: _Roughness
+        second: 0
     m_Colors:
       data:
         first:
@@ -213,7 +235,7 @@ Material:
       data:
         first:
           name: _FresnelColor
-        second: {r: 0.10080837, g: 0.048659172, b: 0.2647059, a: 1}
+        second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
           name: _OutlineColor

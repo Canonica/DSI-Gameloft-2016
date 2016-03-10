@@ -58,59 +58,118 @@ public class UnitJump : Unit {
         if (_target && attackReady)
         {
             attackReady = false;
-            //_allAnims.Play("ATTACK");
             StartCoroutine(AOE());
-            //StartCoroutine(jump());
         }
+    }
+
+    public void DashAttack()
+    {
+        attackReady = false;
+        StartCoroutine(reload());
+        isActiveAOE = true;
+        List<GameObject> localList = GetComponentInChildren<BumpJumper>().bumpList;
+        for (int i = 0; i < localList.Count; i++)
+        {
+            if (localList[i] && localList[i].GetComponent<Unit>()._playerId != _playerId)
+            {
+                if (canStun)
+                {
+                    PS_Stun.Play(true);
+                }
+                else
+                {
+                    PS_Stomp.Play(true);
+                }
+                if (canStun && Random.Range(0, 100) > 50)
+                {
+                    localList[i].GetComponent<Unit>().getStun();
+                }
+                if (firstJump)
+                {
+                    firstJump = false;
+                    localList[i].GetComponent<Unit>().Hit(_damage * 2);
+                }
+                else
+                {
+                    localList[i].GetComponent<Unit>().Hit(_damage);
+                }
+                UnitTank unitT = localList[i].GetComponent<UnitTank>();
+                if (unitT && unitT.reflectDamage)
+                {
+                    Hit((int)(_damage * unitT.reflectDamageAmount));
+                }
+            }
+        }
+        _allAnims.Play("RUN");
+        isActiveAOE = false;
     }
 
     IEnumerator dash()
     {
-        yield return new WaitForSeconds(Random.Range(0, 1f));
-        if (!_target)
-        {
-            yield break;
-        }
-        if (_target.GetComponent<UnitRush>() && _target.GetComponent<UnitRush>().isFlying)
-        {
-            yield break;
-        }
-        if (_target.GetComponent<UnitJump>() && _target.GetComponent<UnitJump>().isJumping)
-        {
-            yield break;
-        }
+        //yield return new WaitForSeconds(Random.Range(0, 1f));
+        //if (!_target)
+        //{
+        //    yield break;
+        //}
+        //if (_target.GetComponent<UnitRush>() && _target.GetComponent<UnitRush>().isFlying)
+        //{
+        //    yield break;
+        //}
+        //if (_target.GetComponent<UnitJump>() && _target.GetComponent<UnitJump>().isJumping)
+        //{
+        //    yield break;
+        //}
         //GetComponent<Collider>().enabled = false;
         //_navMeshAgent.enabled = false;
 
         // Calcul direction
-        Vector3 dir = _target.transform.position - transform.position;
-        float dist = Vector3.Distance(_target.transform.position, transform.position);
-        Vector3 dirJump = (dir.normalized * dist) ;
+        //Vector3 dir = _target.transform.position - transform.position;
+        //float dist = Vector3.Distance(_target.transform.position, transform.position);
+        //Vector3 dirJump = (dir.normalized * dist) ;
 
-        // smoother = nombre de fram utilisé pour faire le saut
-        for (int i = 0; i < smoother; i++)
+        //// smoother = nombre de fram utilisé pour faire le saut
+        //for (int i = 0; i < smoother; i++)
+        //{
+        //    if (_target)
+        //    {
+        //        dir = _target.transform.position - transform.position;
+        //        dist = Vector3.Distance(_target.transform.position, transform.position);
+        //        dirJump = (dir.normalized * dist);
+        //        transform.position = transform.position + (dirJump / smoother);
+        //        yield return 0;
+        //    }
+        //    else
+        //    {
+        //        break;
+        //    }
+
+        //}
+
+        isJumping = true;
+
+        float dist = Vector3.Distance(_target.transform.position, transform.position);
+        float startTime = Time.time;
+        Vector3 startPosition = transform.position;
+
+        while (dist > 1f && _target)
         {
-            if (_target)
-            {
-                dir = _target.transform.position - transform.position;
-                dist = Vector3.Distance(_target.transform.position, transform.position);
-                dirJump = (dir.normalized * dist);
-                transform.position = transform.position + (dirJump / smoother);
-                yield return 0;
-            }
-            else
-            {
-                break;
-            }
-            
+            transform.position = Vector3.Lerp(startPosition, _target.transform.position, (Time.time - startTime) / 0.2f);
+
+            dist = Vector3.Distance(_target.transform.position, transform.position);
+            yield return new WaitForEndOfFrame();
         }
+
+        DashAttack();
+        _allAnims.Play("RUN");
+        isJumping = false;
 
         //GetComponent<Collider>().enabled = true;
         //_navMeshAgent.enabled = true;
 
-        if (!isActiveAOE)
-            StartCoroutine(AOE());
+        //if (!isActiveAOE)
+        //    StartCoroutine(AOE());
     }
+
 
     /*IEnumerator jump()
     {
@@ -161,6 +220,9 @@ public class UnitJump : Unit {
 
     IEnumerator AOE()
     {
+        _allAnims.Play("AOE_ATTACK");
+        StartCoroutine(reload());
+        yield return new WaitForSeconds(_allAnims.GetClip("AOE_ATTACK").length - 0.2f);
         isActiveAOE = true;
         List<GameObject> localList = GetComponentInChildren<BumpJumper>().bumpList;
         for (int i=0; i < localList.Count;i++)
@@ -193,14 +255,12 @@ public class UnitJump : Unit {
                 {
                     Hit((int)(_damage * unitT.reflectDamageAmount));
                 }
-                localList[i].GetComponent<Unit>().applyBump(transform.position, forceAOE);
+               // localList[i].GetComponent<Unit>().applyBump(transform.position, forceAOE);
             }
-            yield return 0;
         }
-        Debug.Log("RUNNNNNNNNNNN");
+        yield return new WaitForSeconds(0.2f);
         _allAnims.Play("RUN");
         isActiveAOE = false;
-        StartCoroutine(reload());
     }
 
     public override void Hit(int parDamage)
