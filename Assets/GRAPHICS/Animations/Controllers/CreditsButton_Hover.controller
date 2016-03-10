@@ -39,9 +39,9 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 3350a1ea99db01946ab2f6ae41f7c2cc, type: 3}
+      value: {fileID: 21300000, guid: 1d7a49b46e8108f4589f06deaadd2541, type: 3}
     - time: 0.33333334
-      value: {fileID: 21300000, guid: 3350a1ea99db01946ab2f6ae41f7c2cc, type: 3}
+      value: {fileID: 21300000, guid: 1d7a49b46e8108f4589f06deaadd2541, type: 3}
     attribute: m_Sprite
     path: 
     classID: 114
@@ -66,8 +66,8 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 3350a1ea99db01946ab2f6ae41f7c2cc, type: 3}
-    - {fileID: 21300000, guid: 3350a1ea99db01946ab2f6ae41f7c2cc, type: 3}
+    - {fileID: 21300000, guid: 1d7a49b46e8108f4589f06deaadd2541, type: 3}
+    - {fileID: 21300000, guid: 1d7a49b46e8108f4589f06deaadd2541, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -235,7 +235,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: dc738a57b10d29c4e9d051d4dce513bf, type: 3}
+      value: {fileID: 21300000, guid: 0a9d30fc67122fa4db93d3e0c0285f2d, type: 3}
     attribute: m_Sprite
     path: 
     classID: 114
@@ -254,7 +254,7 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: dc738a57b10d29c4e9d051d4dce513bf, type: 3}
+    - {fileID: 21300000, guid: 0a9d30fc67122fa4db93d3e0c0285f2d, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -286,7 +286,7 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: PlayButton_Hover
+  m_Name: CreditsButton_Hover
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Normal
