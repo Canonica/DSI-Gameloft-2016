@@ -20,7 +20,8 @@ public class Upgrade : Effect
     void Start()
     {
         _mb = GetComponent<Motherbase>();
-        _imageLevelOne.enabled = false;
+        _imageBase.enabled = true;
+        //_imageLevelOne.enabled = false;
         _imageLevelTwo.enabled = false;
         _imageLevelThree.enabled = false;
     }
@@ -46,7 +47,7 @@ public class Upgrade : Effect
     public int PreLevelUp()
     {
         int level = -1;
-        if (!(_levelOne && _levelTwo && _levelThree))
+        if (!(_levelTwo && _levelThree))
         {
             level = Random.Range(0, _levelMax * 100);
             HideImage();
