@@ -117,6 +117,20 @@ public class GameManager : MonoBehaviour
 		} 
 	}
 
+	public void SetInput ()
+	{
+		ESystem.GetComponent<StandaloneInputModule> ().verticalAxis = "L_YAxis_inv_" + (pauser - 1);
+		ESystem.GetComponent<StandaloneInputModule> ().submitButton = "Submit_" + (pauser - 1);
+		ESystem.GetComponent<StandaloneInputModule> ().cancelButton = "Cancel_" + (pauser - 1);
+	}
+
+	public void NoInput ()
+	{
+		ESystem.GetComponent<StandaloneInputModule> ().verticalAxis = "Null";
+		ESystem.GetComponent<StandaloneInputModule> ().submitButton = "Submit_" + (pauser - 1);
+		ESystem.GetComponent<StandaloneInputModule> ().cancelButton = "Cancel_" + (pauser - 1);
+	}
+
 	void OnLevelWasLoaded (int level)
 	{
 		if (level == 2) {

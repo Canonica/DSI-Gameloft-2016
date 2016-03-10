@@ -36,12 +36,16 @@ public class PauseCanvas : MonoBehaviour
 
 	public void HowToPlay ()
 	{
-		if (GameManager.instance.currentGamestate == GameManager.gameState.Pause)
+		if (GameManager.instance.currentGamestate == GameManager.gameState.Pause) {
 			GetComponent<Animator> ().SetBool ("HowToPlay", true);	
+
+			GameManager.instance.NoInput ();
+		}
 	}
 
 	public void UnHowToPlay ()
 	{
 		GetComponent<Animator> ().SetBool ("HowToPlay", false);	
+		GameManager.instance.SetInput ();
 	}
 }
