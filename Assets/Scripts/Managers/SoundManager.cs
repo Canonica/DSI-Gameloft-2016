@@ -26,7 +26,7 @@ public class SoundManager : MonoBehaviour
         speakerPrefab = Resources.Load<GameObject>("Speaker");
     }
 
-    public GameObject playSound(AudioClip myclip, float volume)
+    public void playSound(AudioClip myclip, float volume, bool pLoop = false)
     {
         speaker = (GameObject)Instantiate(speakerPrefab, Vector3.zero, Quaternion.identity);
         AudioSource audioSource = speaker.GetComponent<AudioSource>();
@@ -35,10 +35,10 @@ public class SoundManager : MonoBehaviour
         audioSource.clip = myclip;
         audioSource.Play();
         audioSource.volume = volume;
-        return speaker;
+        audioSource.loop = pLoop;
     }
 
-    public GameObject RandomizeSfx(params AudioClip[] clips)
+    public void RandomizeSfx( bool pLoop = false, params AudioClip[] clips)
     {
         int randomIndex = Random.Range(0, clips.Length);
         speaker = (GameObject)Instantiate(speakerPrefab, Vector3.zero, Quaternion.identity);
@@ -47,6 +47,6 @@ public class SoundManager : MonoBehaviour
         audioSource.pitch = randomPitch;
         audioSource.clip = clips[randomIndex];
         audioSource.Play();
-        return speaker;
+        audioSource.loop = pLoop;
     }
 }

@@ -18,6 +18,7 @@ ExportedObj/
 *.booproj
 *.svd
 *.pdb
+*.dll
 
 
 # Unity3D generated meta files
@@ -25,3 +26,19 @@ ExportedObj/
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
+Assets/Demigiant.meta
+Assets/Demigiant/DOTween.meta
+Assets/Demigiant/DOTween/DOTween.XML
+Assets/Demigiant/DOTween/DOTween.dll.meta
+Assets/Demigiant/DOTween/DOTween43.dll.meta
+Assets/Demigiant/DOTween/DOTween46.dll.meta
+Assets/Demigiant/DOTween/DOTween50.dll.meta
+Assets/Demigiant/DOTween/Editor.meta
+Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll.meta
+Assets/Scripts/Tools/XInput.cs.meta~HEAD
+Assets/Scripts/Tools/XInput.cs.meta~HEAD.meta
+Assets/Prefabs/Resources/FX.meta~HEAD
+Assets/Prefabs/Resources/FX.meta~HEAD.meta
+Assets/Prefabs/Resources/FX.meta~origin_Lobby
+Assets/Prefabs/Resources/FX.meta~origin_Lobby.meta
+Assets/Demigiant/DOTween/DOTween.XML.meta
