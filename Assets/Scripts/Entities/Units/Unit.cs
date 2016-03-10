@@ -33,7 +33,6 @@ public class Unit : Entity
     public int smoother = 5;
 
     [Header("Other")]
-    [HideInInspector]
     public GameObject _target;
     protected NavMeshAgent _navMeshAgent;
 
@@ -292,7 +291,7 @@ public class Unit : Entity
 
     public virtual void OnTriggerExit(Collider parOther)
     {
-
+        
         _trigger.Remove(parOther.gameObject);
         if (_target == parOther.gameObject)
             changeTarget();
