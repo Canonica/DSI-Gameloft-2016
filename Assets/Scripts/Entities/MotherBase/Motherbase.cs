@@ -54,7 +54,7 @@ public class Motherbase : Entity
 	public List<Spell> secondarySpells;
 	[Header ("Upgrades Option")]
 	public List<Upgrade> upgrades;
-	public float upgradeDelay = 0.3f;
+	public float upgradeDelay = 0.51f;
 	public float lastUpgrade = 0.0f;
 
 	public CanvasGroup _arrowImages;
@@ -67,6 +67,8 @@ public class Motherbase : Entity
 
 	public List<int> upgradeNumber;
 
+	public List<GameObject> UnitsSprite;
+
 	[Header ("FX")]
 	[SerializeField]
 	private GameObject FxBlood;
@@ -75,12 +77,18 @@ public class Motherbase : Entity
 
 
 
+	public GameObject UpgradeSprite;
 	public GameObject ManaCostCanvas;
+	public GameObject TouchSprite;
 	public GameObject ManaText;
 	public GameObject ManaFull;
 
+	private List<GameObject> Upgrader = new List<GameObject> ();
+
 	bool buttonPressedA = false, buttonPressedB = false, buttonPressedX = false, buttonPressedY = false;
 
+	private int lastLevelDispo = 0;
+	private GameObject XpBar;
 	// Use this for initialization
 	void Awake ()
 	{
@@ -113,6 +121,8 @@ public class Motherbase : Entity
 
 		ManaText = GameObject.Find ("Mana_Text" + _playerId);
 		ManaFull = GameObject.Find ("Mana_Full" + _playerId);
+
+		XpBar = GameObject.Find ("XpBar" + _playerId);
 	}
 
 	public override void Update ()
@@ -236,6 +246,37 @@ public class Motherbase : Entity
 		_lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
 		_manaImage.fillAmount = ((float)_currentMana / (float)_maxMana);
 		_manaText.text = _currentMana + "/" + _maxMana;
+
+
+
+		for (int i = 0; i <= UnitsSprite.Count - 1; i++) {
+
+			if (_currentMana < units [i].GetComponent<Unit> ().manaCost) {
+				Image[] changes = UnitsSprite [i].GetComponentsInChildren<Image> ();
+				for (int j = 0; j <= changes.Length - 1; j++) {
+					changes [j].DOColor (new Color (1, 1, 1, 0.4f), .5f);
+					changes [j].transform.DOScale (new Vector3 (0.5f, 0.5f, 0.5f), .5f);
+
+
+					if (changes [j].transform.parent.parent.parent.name != "Stack") {
+						changes [j].transform.DORotate (new Vector3 (0, 0, 90f), .5f);
+					}
+				}
+
+			} else if (UnitsSprite [i].GetComponentInChildren<Image> ().color.a <= 0.5f) {
+				Image[] changes = UnitsSprite [i].GetComponentsInChildren<Image> ();
+				for (int j = 0; j <= changes.Length - 1; j++) {
+					changes [j].DOColor (new Color (1, 1, 1, 1f), .5f);
+					changes [j].transform.DOScale (new Vector3 (1, 1, 1), .5f);
+					if (changes [j].transform.parent.parent.parent.name != "Stack") {
+						changes [j].transform.DORotate (new Vector3 (0, 0, 0), .5f);
+					}
+				}
+			}
+		}
+
+
+
 		base.Update ();
 	}
 
@@ -252,6 +293,12 @@ public class Motherbase : Entity
 		for (int i = 0; i < experienceLevel.Count; i++) {
 			if (experienceLevel [i] == 0) {
 				levelDispo++;
+				if (levelDispo > lastLevelDispo) {
+					lastLevelDispo = levelDispo;
+					GameObject up = Instantiate (UpgradeSprite) as GameObject;
+					up.transform.parent = XpBar.GetComponentInChildren<GridLayoutGroup> ().transform;
+					Upgrader.Add (up);
+				}
 			}
 		}
 		for (int i = 0; i < hasUsedLevel.Count; i++) {
@@ -262,10 +309,11 @@ public class Motherbase : Entity
 
 		if (levelDispo > 0) {
 			//_arrowImages.DOFade(1, 0.5f);
-
 			if (upgradeNumber == null || upgradeNumber.Count == 0) {
+//				Debug.Log (upgradeNumber.Count);
 				upgradeNumber = new List<int> ();
 				for (int i = 0; i < upgrades.Count; i++) {
+
 					upgradeNumber.Add (upgrades [i].PreLevelUp ());
 					if (upgradeNumber [i] != -1) {
 						_arrowArray [i].DOFade (1, 0.5f);
@@ -305,12 +353,14 @@ public class Motherbase : Entity
 						UseLevel (1, upgradeNumber [1]);
 					} else if (XInput.instance.getDPad (_playerId, 'L') == ButtonState.Pressed) { // LEFT
 						UseLevel (2, upgradeNumber [2]);
-					}
-
-					if (XInput.instance.getDPad (_playerId, 'U') == ButtonState.Pressed) { // UP
+					} else if (XInput.instance.getDPad (_playerId, 'U') == ButtonState.Pressed) { // UP
 						UseLevel (3, upgradeNumber [3]);
 					} else if (XInput.instance.getDPad (_playerId, 'D') == ButtonState.Pressed) { // DOWN
+//						Debug.Log (upgradeNumber [0]);
 						UseLevel (0, upgradeNumber [0]);
+
+
+//							(empty.GetComponent<RectTransform> ().anchoredPosition, 1f).OnComplete (() => Debug.Log ("lol"));
 					}
 				}
 
@@ -328,6 +378,9 @@ public class Motherbase : Entity
 
 	public void getDamage (int dmg)
 	{
+		_lifeImage.transform.parent.DOKill (true);
+		_lifeImage.transform.parent.DOShakePosition (0.1f, 10);
+
 		Instantiate (FxBlood, transform.position, Quaternion.Euler (new Vector3 (-50, 0, 0)));
         if(_playerId == 2)
         {
@@ -379,19 +432,28 @@ public class Motherbase : Entity
 		//}
 		if (_currentMana >= units [typeOfUnit].GetComponent<Unit> ().manaCost) {
 
+
+			GameObject Touch = Instantiate (TouchSprite);
+			Touch.transform.parent = UnitsSprite [typeOfUnit].transform;
+			UnitsSprite [typeOfUnit].transform.DOKill (true);
+			UnitsSprite [typeOfUnit].transform.DOShakePosition (0.1f, 10);
+			Touch.transform.position = UnitsSprite [typeOfUnit].GetComponentsInChildren<Image> () [1].transform.position;
 //			units [typeOfUnit].GetComponent<Unit> ().manaCost
 			Debug.Log (Mathf.Sign (transform.position.x - _enemyMotherBase.transform.position.x));
 			GameObject myManaCanvas = Instantiate (ManaCostCanvas, transform.position + new Vector3 (Random.Range (-10f, 10f), 0, 5 * Mathf.Sign (transform.position.x - _enemyMotherBase.transform.position.x)), Quaternion.Euler (0, -90, 0)) as GameObject;
 			Text[] myTexts = myManaCanvas.GetComponentsInChildren<Text> ();
 			myTexts [0].text = "- " + units [typeOfUnit].GetComponent<Unit> ().manaCost;
-			myTexts [0].transform.localScale = new Vector3 (.3f, .3f, .3f) + new Vector3 (.3f, .3f, .3f) * units [typeOfUnit].GetComponent<Unit> ().manaCost / 150f;
+			myTexts [0].transform.localScale = new Vector3 (.5f, .5f, .5f) + new Vector3 (.2f, .2f, .2f) * units [typeOfUnit].GetComponent<Unit> ().manaCost / 150f;
 			myTexts [1].text = "- " + units [typeOfUnit].GetComponent<Unit> ().manaCost;
-			myTexts [1].transform.localScale = new Vector3 (.3f, .3f, .3f) + new Vector3 (.3f, .3f, .3f) * units [typeOfUnit].GetComponent<Unit> ().manaCost / 150f;
+			myTexts [1].transform.localScale = new Vector3 (.5f, .5f, .5f) + new Vector3 (.2f, .2f, .2f) * units [typeOfUnit].GetComponent<Unit> ().manaCost / 150f;
 
-			ManaText.GetComponent<Text> ().DOKill ();
-			ManaFull.GetComponent<Text> ().DOKill ();
+
+//			Instantiate(TouchSprite, )
+			ManaText.GetComponent<Text> ().DOKill (true);
+			ManaFull.GetComponent<Text> ().DOKill (true);
 			ManaText.GetComponent<Text> ().DOBlendableColor (new Color (0x00, 0xe7, 0xfc), 0f);
 			ManaText.GetComponent<Text> ().DOBlendableColor (new Color (0xff, 0xff, 0xff), 1f).SetEase (Ease.InOutCirc);
+			ManaText.transform.DOKill (true);
 			ManaText.transform.DOShakePosition (0.2f, 10);
 			ManaFull.transform.DOShakePosition (0.2f, 5);
 
@@ -447,11 +509,28 @@ public class Motherbase : Entity
 				prefabOfUnit.transform.parent = transform.parent;
 			}
 			_currentMana -= units [typeOfUnit].GetComponent<Unit> ().manaCost;
+		} else {
+			GameObject Touch = Instantiate (TouchSprite);
+			Touch.transform.parent = UnitsSprite [typeOfUnit].transform;
+			UnitsSprite [typeOfUnit].transform.DOKill (true);
+			UnitsSprite [typeOfUnit].transform.DOShakePosition (0.1f, 10);
+			Touch.transform.position = UnitsSprite [typeOfUnit].GetComponentsInChildren<Image> () [1].transform.position;
+			Touch.GetComponent<Image> ().color = new Color (0xff / 255f, 0x1d / 255f, 0x1d / 255f);
 		}
 	}
 
 	private void AddExperience (int experience)
 	{
+
+		GameObject Touch = Instantiate (TouchSprite);
+		GameObject Papa = new GameObject ();
+		Touch.transform.parent = XpBar.GetComponentInChildren<Impulse> ().transform;
+
+//		Touch.transform.position = new Vector2 (XpBar.GetComponentInChildren<GridLayoutGroup> ().transform.position.x - XpBar.GetComponentInChildren<GridLayoutGroup> ().gameObject.GetComponent<RectTransform> ().sizeDelta.x * .44f, XpBar.GetComponentInChildren<GridLayoutGroup> ().transform.position.y + XpBar.GetComponentInChildren<GridLayoutGroup> ().gameObject.GetComponent<RectTransform> ().sizeDelta.y);
+		Touch.transform.position = XpBar.GetComponentInChildren<Impulse> ().transform.position;
+		Touch.GetComponent<Image> ().color = new Color (0xd2 / 255f, 0xc3 / 255f, 0x2a / 255f);
+		// 0x d2 c3 2a
+
 		int exp = experience;
 		int level = 0;
 		do {
@@ -460,6 +539,10 @@ public class Motherbase : Entity
 			experienceLevel [level] = expCurr;
 			level++;
 		} while (exp > 0 && level < experienceLevel.Count);
+
+		if (exp > 0) {
+			XpBar.GetComponentInChildren<Text> ().DOFade (1f, 0.5f);
+		}
 	}
 
 	private void UseLevel (int indexUpgrade, int indexLevel)
@@ -478,8 +561,48 @@ public class Motherbase : Entity
 			}
 			hasUsedLevel [level] = true;
 			lastUpgrade = Time.time;
+
+
+
+			GameObject empty = Instantiate (new GameObject ());
+			empty.AddComponent <RectTransform> ();
+//			empty.AddComponent <Image> ();
+			empty.transform.parent = UnitsSprite [indexUpgrade].GetComponentInChildren<GridLayoutGroup> ().transform;
+			GameObject movable = Upgrader [Upgrader.Count - 1];
+			Upgrader.RemoveAt (Upgrader.Count - 1);
+
+			Vector3 lastPos = movable.GetComponent<RectTransform> ().position;
+//			Debug.Log (movable.GetComponent<RectTransform> ().anchoredPosition);
+			movable.transform.SetParent (empty.transform.parent.parent, true);
+			movable.GetComponent<Animator> ().enabled = false;
+
+			movable.GetComponent<RectTransform> ().position = lastPos;
+//			Debug.Log (movable.GetComponent<RectTransform> ().anchoredPosition);
+			movable.GetComponent<RectTransform> ().anchorMax = new Vector2 (0.5f, 0.5f);
+			movable.GetComponent<RectTransform> ().anchorMin = new Vector2 (0.5f, 0.5f);
+//			movable.GetComponent<RectTransform> ().DOAnchorPos (empty.transform.parent.GetComponent<RectTransform> ().anchoredPosition + new Vector2 (empty.transform.parent.GetComponent<RectTransform> ().GetComponentsInChildren<Image> ().Length * 4, 0), 0.5f).SetEase (Ease.InOutCirc).OnComplete (() => movable.transform.SetParent (empty.transform, true));
+			movable.GetComponent<RectTransform> ().DOAnchorPosY (empty.transform.parent.GetComponent<RectTransform> ().anchoredPosition.y + new Vector2 (empty.transform.parent.GetComponent<RectTransform> ().GetComponentsInChildren<Image> ().Length * 4, 0).y, 0.3f).SetEase (Ease.InOutCubic);
+			movable.GetComponent<RectTransform> ().DOAnchorPosX (empty.transform.parent.GetComponent<RectTransform> ().anchoredPosition.x + new Vector2 (empty.transform.parent.GetComponent<RectTransform> ().GetComponentsInChildren<Image> ().Length * 4, 0).x, 0.5f).SetEase (Ease.InOutCubic).OnComplete (() => movable.transform.SetParent (empty.transform, true));
+
+			movable.GetComponent<RectTransform> ().DOScale (new Vector3 (2, 2, 2), 0.25f).SetEase (Ease.InOutCirc).OnComplete (() => movable.GetComponent<RectTransform> ().DOScale (new Vector3 (0.5f, 0.5f, 0.5f), 0.25f).SetEase (Ease.InOutCirc));
+			StartCoroutine (ImGonnaSetYouStraight (movable));
+			GameObject Touch = Instantiate (TouchSprite);
+			Touch.transform.parent = UnitsSprite [indexUpgrade].transform;
+			UnitsSprite [indexUpgrade].transform.DOKill (true);
+			UnitsSprite [indexUpgrade].transform.DOShakePosition (0.1f, 10);
+			Touch.transform.position = UnitsSprite [indexUpgrade].GetComponentsInChildren<Image> () [1].transform.position;
+			Touch.GetComponent<Image> ().color = new Color (0xd2 / 255f, 0xc3 / 255f, 0x2a / 255f);
+			Instantiate (Touch, Touch.transform.position, Touch.transform.rotation);
+
 		}
         
+	}
+
+	IEnumerator ImGonnaSetYouStraight (GameObject o)
+	{
+		yield return new WaitForSeconds (1f);
+		o.GetComponentsInChildren<Image> () [0].transform.DORotate (new Vector3 (0, 0, 30), 0.5f); 
+		o.GetComponentsInChildren<Image> () [1].transform.DORotate (new Vector3 (0, 0, -30), 0.5f); 
 	}
 
 	public IEnumerator fillIcon (Image icon, float cdTimer)
