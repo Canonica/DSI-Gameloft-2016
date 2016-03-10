@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using DG.Tweening;
+using XInputDotNetPure;
 
 public class Motherbase : Entity
 {
@@ -36,6 +38,7 @@ public class Motherbase : Entity
     public Text[] textCurrentNbOfUnits;
     public Image[] reloadUnitImage;
     public Image _lifeImage;
+    
 
     [Header("Spell Option")]
     public Spell primarySpell;
@@ -54,25 +57,28 @@ public class Motherbase : Entity
     public float upgradeDelay = 0.3f;
     public float lastUpgrade = 0.0f;
 
+    public CanvasGroup _arrowImages;
+    public CanvasGroup[] _arrowArray;
+
     public List<int> experienceLevel;
     public List<int> maxExperienceLevel;
 
     public List<bool> hasUsedLevel;
 
+    public List<int> upgradeNumber;
+
     [Header("FX")]
     [SerializeField]
     private GameObject FxBlood;
-
     [Header("Sound")]
     public AudioClip spawnSwarmFX;
 
-   
+    bool buttonPressedA = false, buttonPressedB = false, buttonPressedX = false, buttonPressedY = false;
 
     // Use this for initialization
     void Awake()
     {
         spawning = false;
-        maxExperienceLevel = new List<int>(experienceLevel);
     }
 
 
@@ -85,17 +91,27 @@ public class Motherbase : Entity
         _currentMana = 0;
         _canSacrificeMana = true;
         _currentLane = GetComponent<ChangeLane>();
+        experienceLevel = new List<int>();
+        for (int i = 0; i < maxExperienceLevel.Count; i++)
+        {
+            experienceLevel.Add(maxExperienceLevel[i]);
+        }
         hasUsedLevel = new List<bool>();
-        
         for (int i = 0; i < experienceLevel.Count; i++)
         {
             hasUsedLevel.Add(false);
+        }
+        _arrowImages.alpha = 1;
+        for (int i = 0; i < _arrowArray.Length; i++)
+        {
+            _arrowArray[i].alpha = 0;
         }
         base.Start();
     }
 
     public override void Update()
     {
+
 
         _laneSpawning = _currentLane.currentWP;
         //if (Input.GetButtonDown("RB_button_" + _playerId))
@@ -142,90 +158,73 @@ public class Motherbase : Entity
                 spawning = true;
             }
 
-            if (Input.GetButtonDown("Fire " + _playerId))
-            {
 
+            //if (Input.GetButtonDown("Fire " + _playerId))
+            if(XInput.instance.getButton(_playerId, 'A') == ButtonState.Pressed && !buttonPressedA)
+            {
+                buttonPressedA = true;
                 typeOfUnit = 0;
                 corSpawnUnits(typeOfUnit);
             }
+            else if (XInput.instance.getButton(_playerId, 'A') == ButtonState.Released && buttonPressedA)
+            {
+                buttonPressedA = false;
+            }
 
-            if (Input.GetButtonDown("B_button_" + _playerId))
+            if (XInput.instance.getButton(_playerId, 'B') == ButtonState.Pressed && !buttonPressedB)
             {
                 typeOfUnit = 1;
+                buttonPressedB = true;
                 corSpawnUnits(typeOfUnit);
             }
+            else if (XInput.instance.getButton(_playerId, 'B') == ButtonState.Released && buttonPressedB)
+            {
+                buttonPressedB = false;
+            }
 
-            if (Input.GetButtonDown("X_button_" + _playerId))
+
+            if (XInput.instance.getButton(_playerId, 'X') == ButtonState.Pressed && !buttonPressedX)//if (Input.GetButtonDown("X_button_" + _playerId))
             {
                 typeOfUnit = 2;
+                buttonPressedX = true;
                 corSpawnUnits(typeOfUnit);
             }
+            else if (XInput.instance.getButton(_playerId, 'X') == ButtonState.Released && buttonPressedX)
+            {
+                buttonPressedX= false;
+            }
 
-            if (Input.GetButtonDown("Y_button_" + _playerId))
+            //if (Input.GetButtonDown("Y_button_" + _playerId))
+            if (XInput.instance.getButton(_playerId, 'Y') == ButtonState.Pressed && !buttonPressedY)
             {
                 typeOfUnit = 3;
+                buttonPressedY = true;
                 corSpawnUnits(typeOfUnit);
             }
-
-            if (Input.GetButtonDown("RB_button_" + _playerId))
+            else if (XInput.instance.getButton(_playerId, 'Y') == ButtonState.Released && buttonPressedY)
             {
-                if (setNb > (units.Length) / 4)
-                {
-                    setNb--;
-                }
-                else
-                {
-                    setNb++;
-                }
-            }
-            if (Input.GetButtonDown("LB_button_" + _playerId))
-            {
-                if (setNb > 0)
-                {
-                    setNb--;
-                }
-            }
-            
-            float upgradeH = Input.GetAxis("DPad_XAxis_" + _playerId);
-            float upgradeV = Input.GetAxis("DPad_YAxis_" + _playerId);
-
-            if (lastUpgrade + upgradeDelay < Time.time)
-            {
-                if (upgradeH > 0.3) // RIGHT
-                {
-                    UseLevel(upgrades[1]);
-                }
-                /*else if (upgradeH < -0.3) // LEFT
-                {
-                    UseLevel(upgrades[2]);
-                }*/
-
-                if (upgradeV > 0.3) // UP
-                {
-                    UseLevel(upgrades[0]);
-                }
-                else if (upgradeV < -0.3) // DOWN
-                {
-                    UseLevel(upgrades[2]);
-                }
+                buttonPressedY = false;
             }
 
-
-
-            if (Input.GetAxis("TriggersR_" + _playerId) > 0.3)
+            //if (Input.GetAxis("TriggersR_" + _playerId) > 0.3)
+            if (XInput.instance.getTrigger(_playerId) > 0.3)
             {
+
                 if (_manaToSacrifice <= _currentMana && _canSacrificeMana)
                 {
+                    Debug.Log("add mana" + _playerId);
                     _currentMana -= _manaToSacrifice;
                     _canSacrificeMana = false;
                     AddExperience(_manaToSacrifice*experienceByMana);
+                    StartCoroutine(delaySacrifice());
                 }
                 else
                 {
                     // can't add xp;
                 }
             }
-            if (Input.GetAxis("TriggersR_" + _playerId) == 0)
+
+            if (XInput.instance.getTrigger(_playerId) == 0)
             {
                 _canSacrificeMana = true;
             }
@@ -249,17 +248,18 @@ public class Motherbase : Entity
             //{
             //    Masquer le spell 2 dans l'UI
             //}
-
-            //textCurrentNbOfUnits[0].text = currentNbOfUnits[0] + "/" + maxNbOfUnits[0];
-            //textCurrentNbOfUnits[1].text = currentNbOfUnits[1] + "/" + maxNbOfUnits[1];
-            //textCurrentNbOfUnits[2].text = currentNbOfUnits[2] + "/" + maxNbOfUnits[2];
-            //textCurrentNbOfUnits[3].text = currentNbOfUnits[3] + "/" + maxNbOfUnits[3];
         }
 
-        //_lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
+        _lifeImage.fillAmount = (float)((float)_life / (float)_lifeMax);
         _manaImage.fillAmount = ((float)_currentMana / (float)_maxMana);
         _manaText.text = _currentMana + "/" + _maxMana;
         base.Update();
+    }
+
+    IEnumerator delaySacrifice()
+    {
+        yield return new WaitForSeconds(0.3f);
+        _canSacrificeMana = true;
     }
 
     public override void FixedUpdate()
@@ -281,21 +281,97 @@ public class Motherbase : Entity
             }
         }
 
+        if (levelDispo > 0)
+        {
+              //_arrowImages.DOFade(1, 0.5f);
 
+            if (upgradeNumber == null || upgradeNumber.Count == 0)
+            {
+                upgradeNumber = new List<int>();
+                for (int i = 0; i < upgrades.Count; i++)
+                {
+                    upgradeNumber.Add(upgrades[i].PreLevelUp());
+                    if (upgradeNumber[i] != -1)
+                    {
+                        _arrowArray[i].DOFade(1, 0.5f);
+                    }
+                    else
+                    {
+                        _arrowArray[i].alpha = 0;
+                    }
+                }
+
+            }
+            else
+            {
+                //float upgradeH = Input.GetAxis("DPad_XAxis_" + _playerId);
+                //float upgradeV = Input.GetAxis("DPad_YAxis_" + _playerId);
+
+                //if (lastUpgrade + upgradeDelay < Time.time)
+                //{
+                //    if (upgradeH > 0.3) // RIGHT
+                //    {
+                //        UseLevel(1, upgradeNumber[1]);
+                //    }
+                //    else if (upgradeH < -0.3) // LEFT
+                //    {
+                //        UseLevel(2, upgradeNumber[2]);
+                //    }
+
+                //    if (upgradeV > 0.3) // UP
+                //    {
+                //        UseLevel(3, upgradeNumber[3]);
+                //    }
+                //    else if (upgradeV < -0.3) // DOWN
+                //    {
+                //        UseLevel(0, upgradeNumber[0]);
+                //    }
+                //}
+
+                if (lastUpgrade + upgradeDelay < Time.time)
+                {
+                    
+                    if (XInput.instance.getDPad(_playerId, 'R') == ButtonState.Pressed) // RIGHT
+                    {
+                        UseLevel(1, upgradeNumber[1]);
+                    }
+                    else if (XInput.instance.getDPad(_playerId, 'L') == ButtonState.Pressed) // LEFT
+                    {
+                        UseLevel(2, upgradeNumber[2]);
+                    }
+
+                    if (XInput.instance.getDPad(_playerId, 'U') == ButtonState.Pressed) // UP
+                    {
+                        UseLevel(3, upgradeNumber[3]);
+                    }
+                    else if (XInput.instance.getDPad(_playerId, 'D') == ButtonState.Pressed) // DOWN
+                    {
+                        UseLevel(0, upgradeNumber[0]);
+                    }
+                }
+
+
+            }
+
+        }
+        else
+        {
+            for (int i = 0; i < _arrowArray.Length; i++)
+            {
+                _arrowArray[i].DOFade(0, 0.5f);
+            }
+             //_arrowImages.DOFade(0, 0.5f);
+        }
         base.FixedUpdate();
     }
 
     public void getDamage(int dmg)
     {
         Instantiate(FxBlood, transform.position, Quaternion.Euler(new Vector3(-50, 0, 0)));
-        if (_playerId == 1)
-        {
-            XInput.instance.useVibe(0, 1, 0.5f, 0.5f);
-        }
-        else
-        {
-            XInput.instance.useVibe(1, 1, 0.5f, 0.5f);
-        }
+        XInput.instance.useVibe(_playerId-1 , 0.5f, 0.5f, 0.5f);
+
+        Camera.main.DOKill(true);
+        Camera.main.DOShakePosition(0.5f , 1, 1 ,20);
 
         if (dmg > _life)
         {
@@ -406,22 +482,27 @@ public class Motherbase : Entity
         while (exp > 0 && level < experienceLevel.Count);
     }
 
-    private void UseLevel(Upgrade up)
+    private void UseLevel(int indexUpgrade, int indexLevel)
     {
-        int level = 0;
-        while (level < hasUsedLevel.Count && hasUsedLevel[level])
+        if(indexLevel > 0)
         {
-            level++;
-        }
-        if (level < hasUsedLevel.Count)
-        {
-            if (experienceLevel[level] == 0)
+            upgrades[indexUpgrade].LevelUp(indexLevel);
+            for (int i = 0; i < upgrades.Count; i++)
             {
-                hasUsedLevel[level] = up.LevelUp();
+                upgrades[i].HideImage();
+                upgrades[i]._imageBase.enabled = true;
             }
-
+            upgradeNumber.Clear();
+            upgradeNumber = null;
+            int level = 0;
+            while (hasUsedLevel[level])
+            {
+                level++;
+            }
+            hasUsedLevel[level] = true;
+            lastUpgrade = Time.time;
         }
-        lastUpgrade = Time.time;
+        
     }
 
     public IEnumerator fillIcon(Image icon, float cdTimer)
@@ -436,11 +517,11 @@ public class Motherbase : Entity
         timer = 0;
     }
 
-    IEnumerator corCooldownSpell(Spell spellToRecharge)
-    {
-        yield return new WaitForSeconds(spellToRecharge._cost);
-        rechargeSpell(spellToRecharge);
-    }
+    //IEnumerator corCooldownSpell(Spell spellToRecharge)
+    //{
+    //    yield return new WaitForSeconds(spellToRecharge._cost);
+    //    rechargeSpell(spellToRecharge);
+    //}
 
     IEnumerator loadMana()
     {
@@ -455,18 +536,18 @@ public class Motherbase : Entity
 
     }
 
-    void rechargeSpell(Spell spellToRecharge)
-    {
-        if (spellToRecharge == primarySpell && primarySpells.Count > 0)
-        {
-            int rand = Random.Range(0, primarySpells.Count);
-            spellToRecharge = primarySpells[rand];
-        }
-        else if (spellToRecharge == secondarySpell && secondarySpells.Count > 0)
-        {
-            int rand = Random.Range(0, secondarySpells.Count);
-            spellToRecharge = primarySpells[rand];
-        }
-    }
+    //void rechargeSpell(Spell spellToRecharge)
+    //{
+    //    if (spellToRecharge == primarySpell && primarySpells.Count > 0)
+    //    {
+    //        int rand = Random.Range(0, primarySpells.Count);
+    //        spellToRecharge = primarySpells[rand];
+    //    }
+    //    else if (spellToRecharge == secondarySpell && secondarySpells.Count > 0)
+    //    {
+    //        int rand = Random.Range(0, secondarySpells.Count);
+    //        spellToRecharge = primarySpells[rand];
+    //    }
+    //}
 
 }

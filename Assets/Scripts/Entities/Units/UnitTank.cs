@@ -5,8 +5,29 @@ public class UnitTank : Unit {
 
     public float bumpForce;
     public float zoneBump;
-    bool stayPos = false;
-    Vector3 pos;
+
+    public bool reflectDamage;
+    [Range(0,1)]
+    public float reflectDamageAmount = 1.0f;
+
+    public bool negateDamage;
+    [Range(0, 1)]
+    public float negateDamageAmount = 1.0f;
+    public float negateDamageRange = 10.0f;
+
+    public bool poison;
+    public bool isActivePoison;
+    public Coroutine poisonGas;
+    public float poisonDelay = 1.0f;
+    public int poisonDamage = 1;
+
+    public ParticleSystem PS_poison;
+
+    public bool buffy = false;
+    [Range(0, 1)]
+    public float buffedUnit;
+    public float buffedUnitRange = 5.0f;
+
     override
     public void Start()
     {
@@ -15,7 +36,15 @@ public class UnitTank : Unit {
     override
     public void FixedUpdate()
     {
-        
+        if(poison && poisonGas == null)
+        {
+            PS_poison.Play(true);
+            poisonGas = StartCoroutine(PoisonousGas());
+        }
+        if(isActivePoison)
+        {
+            base.Attack();
+        }
         base.FixedUpdate();
     }
 
@@ -49,7 +78,10 @@ public class UnitTank : Unit {
             {
                 //float dist = Vector3.Distance(transform.position, _trigger[i].transform.position);
                 //Debug.Log(dist);
-                _trigger[i].GetComponent<Unit>().applyBump(transform.position, bumpForce);
+                if(_trigger[i])
+                {
+                    _trigger[i].GetComponent<Unit>().applyBump(transform.position, bumpForce);
+                }
                 
             }
             //_target.GetComponent<Unit>().applyBump(transform.position, bumpForce);
@@ -60,6 +92,21 @@ public class UnitTank : Unit {
             return;
         }
 
-        StartCoroutine(reload());
+        StartCoroutine(attacking());
+    }
+
+    IEnumerator PoisonousGas()
+    {
+        while(_life > 0)
+        {
+            for (int i = 0; i < _trigger.Count; i++)
+            {
+                if(_trigger[i])
+                _trigger[i].GetComponent<Unit>().Hit(poisonDamage);
+            }
+            Debug.Log("Poison degats");
+            yield return new WaitForSeconds(poisonDelay);
+        }
+        poison = false;
     }
 }

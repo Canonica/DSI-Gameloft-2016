@@ -12,9 +12,9 @@ public class CockroachUpgrade : Upgrade {
        All new cockroaches are now improved, with increased stats and new visuals (berserk)
    */
 
-    public override void LevelOne(Unit unit)
+    public override void LevelTwo(Unit unit)
     {
-        base.LevelOne(unit);
+        base.LevelTwo(unit);
         BaseUnit baseUnit = (BaseUnit)unit;
         if(baseUnit)
         {
@@ -26,9 +26,9 @@ public class CockroachUpgrade : Upgrade {
         }
     }
 
-    public override void LevelTwo(Unit unit)
+    public override void LevelOne(Unit unit)
     {
-        base.LevelTwo(unit);
+        base.LevelOne(unit);
         BaseUnit baseUnit = (BaseUnit)unit;
         if (baseUnit)
         {

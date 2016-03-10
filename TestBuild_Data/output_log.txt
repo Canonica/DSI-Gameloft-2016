@@ -1,0 +1,57 @@
+Initialize engine version: 5.3.3f1 (910d71450a97)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 870M (ID=0x1199)
+    Vendor:   NVIDIA
+    VRAM:     3007 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\DOTween.dll (this message is harmless)
+Loading E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\DOTween.dll into Unity Child Domain
+Platform assembly: E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\XInputDotNetPure.dll (this message is harmless)
+Loading E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\XInputDotNetPure.dll into Unity Child Domain
+Platform assembly: E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\XInputDotNetPure.dll (this message is harmless)
+Loading E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\XInputDotNetPure.dll into Unity Child Domain
+- Completed reload, in  0.267 seconds
+Platform assembly: E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: E:\Documents\GitHub\DSI-Gameloft-2016\TestBuild_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 3840x1104 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.639632 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.531527 ms
+
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 521.
+Total: 0.586672 ms (FindLiveObjects: 0.041054 ms CreateObjectMapping: 0.025043 ms MarkObjects: 0.507025 ms  DeleteObjects: 0.012316 ms)
+
+Image
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 1bc4 -> priority: 1 
+  Thread -> id: e04 -> priority: 1 

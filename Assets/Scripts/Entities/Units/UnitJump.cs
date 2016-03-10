@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class UnitJump : Unit {
 
@@ -8,18 +9,21 @@ public class UnitJump : Unit {
     bool isActiveAOE = false;
     public int forceAOE ;
     float timeAOE = 2;
-    bool canStun = false;
-    bool canExplode = false;
+
+    public bool canStun = false;
+    public bool canExplode = false;
     public int heightJump = 5;
+    public bool firstJump = false;
+
+    public ParticleSystem PS_Stomp;
+    public ParticleSystem PS_Stun;
     
-    public bool hasUpgrade1;
-    public bool hasUpgrade2;
-    public bool hasUpgrade3;
     override
     public void Start()
     {
         base.Start();
     }
+
     override
     public void FixedUpdate()
     {
@@ -44,7 +48,7 @@ public class UnitJump : Unit {
         base.OnTriggerEnter(col);
         if (_target && !isJumping&& attackReady)
         {
-            
+            isJumping = true;
             StartCoroutine(dash());
         }
     }
@@ -54,6 +58,7 @@ public class UnitJump : Unit {
         if (_target && attackReady)
         {
             attackReady = false;
+            //_allAnims.Play("ATTACK");
             StartCoroutine(AOE());
             //StartCoroutine(jump());
         }
@@ -74,7 +79,6 @@ public class UnitJump : Unit {
         {
             yield break;
         }
-        isJumping = true;
         //GetComponent<Collider>().enabled = false;
         //_navMeshAgent.enabled = false;
 
@@ -108,7 +112,7 @@ public class UnitJump : Unit {
             StartCoroutine(AOE());
     }
 
-    IEnumerator jump()
+    /*IEnumerator jump()
     {
         yield return new WaitForSeconds(Random.Range(0, 10)/10);
         if (_target.GetComponent<UnitRush>()&& _target.GetComponent<UnitRush>().isFlying)
@@ -147,31 +151,54 @@ public class UnitJump : Unit {
             transform.position = transform.position + (dirJump / smoother);
             yield return 0;
         }
-        
+
         //GetComponent<Collider>().enabled = true;
         _navMeshAgent.enabled = true;
 
         if(!isActiveAOE)
         StartCoroutine(AOE());
-    }
+    }*/
 
     IEnumerator AOE()
     {
-        
         isActiveAOE = true;
-        for (int i=0; i < _trigger.Count;i++)
+        List<GameObject> localList = GetComponentInChildren<BumpJumper>().bumpList;
+        for (int i=0; i < localList.Count;i++)
         {
-            if (_trigger[i])
+            if (localList[i]&& localList[i].GetComponent<Unit>()._playerId != _playerId)
             {
+                if(canStun)
+                {
+                    PS_Stun.Play(true);
+                }
+                else
+                {
+                    PS_Stomp.Play(true);
+                }
                 if (canStun && Random.Range(0, 100) > 50)
                 {
-                    _trigger[i].GetComponent<Unit>().getStun();
+                    localList[i].GetComponent<Unit>().getStun();
                 }
-                _trigger[i].GetComponent<Unit>().Hit(_damage);
-                _trigger[i].GetComponent<Unit>().applyBump(transform.position, forceAOE);
+                if(firstJump)
+                {
+                    firstJump = false;
+                    localList[i].GetComponent<Unit>().Hit(_damage * 2);
+                }
+                else
+                {
+                    localList[i].GetComponent<Unit>().Hit(_damage);
+                }
+                UnitTank unitT = localList[i].GetComponent<UnitTank>();
+                if (unitT && unitT.reflectDamage)
+                {
+                    Hit((int)(_damage * unitT.reflectDamageAmount));
+                }
+                localList[i].GetComponent<Unit>().applyBump(transform.position, forceAOE);
             }
             yield return 0;
         }
+        Debug.Log("RUNNNNNNNNNNN");
+        _allAnims.Play("RUN");
         isActiveAOE = false;
         StartCoroutine(reload());
     }
@@ -179,13 +206,15 @@ public class UnitJump : Unit {
     public override void Hit(int parDamage)
     {
         
-        base.Hit(parDamage);
         if (_life<=0 && canExplode)
         {
+            canExplode = false;
             StopAllCoroutines();
             isActiveAOE = false;
             StartCoroutine(AOE());
+
         }
+        base.Hit(parDamage);
     }
     
 }

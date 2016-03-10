@@ -89,7 +89,7 @@ Material:
         first:
           name: _OpacityMask
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: b9d0f47dc6454124db117fc6aa265413, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -116,6 +116,20 @@ Material:
       data:
         first:
           name: _DissolveRamp
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Emission
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Specular
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -197,6 +211,14 @@ Material:
         first:
           name: _OutlineWidth
         second: 1
+      data:
+        first:
+          name: _SpecularValue
+        second: 0
+      data:
+        first:
+          name: _Roughness
+        second: 0
     m_Colors:
       data:
         first:

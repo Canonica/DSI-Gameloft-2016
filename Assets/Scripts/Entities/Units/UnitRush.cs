@@ -6,14 +6,18 @@ public class UnitRush : Unit {
     public float flyHeight = 5;
     float baseHeight;
     public bool isFlying;
-    bool lifeSteal = false;
+    public bool lifeSteal = false;
+    public bool bloodyRash = false;
+    public int bloodyFactor = 1;
 
     [Range(1,100)]
     public int valueLifeSteal = 50;
-    bool rangedAttack = false;
+    public bool rangedAttack = false;
     bool rangedReady = true;
-    public float rangedAttackSpeed= 1;
     public int rangedDamage = 1;
+
+    public bool stunAttack;
+    bool stunAttackReady = true;
 
     override
     public void Start()
@@ -25,6 +29,7 @@ public class UnitRush : Unit {
         isFlying = true;
         _distanceMinLane += flyHeight;
     }
+
     override
     public void FixedUpdate()
     {
@@ -46,15 +51,14 @@ public class UnitRush : Unit {
             Debug.Log("Ranged attack");
             rangedReady = false;
             _target.GetComponent<Unit>().Hit(rangedDamage);
-            StartCoroutine(rangedCooldown());
-
+            //StartCoroutine(rangedCooldown());
         }
-    }
-
-    IEnumerator rangedCooldown()
-    {
-        yield return new WaitForSeconds(rangedAttackSpeed);
-        rangedReady = true;
+        if (_target && stunAttack && stunAttackReady)
+        {
+            Debug.Log("Ranged attack");
+            stunAttackReady = false;
+            _target.GetComponent<Unit>().getStun();
+        }
     }
 
     override public void OnTriggerEnter(Collider col)
@@ -74,7 +78,15 @@ public class UnitRush : Unit {
         
 
         if (isFlying && (_target || (col.tag == "MotherBase" && col.GetComponent<Motherbase>()._playerId != _playerId)))
+
         StartCoroutine(down());
+    }
+
+    protected override void changeTarget()
+    {
+        base.changeTarget();
+        rangedReady = true;
+        stunAttackReady = true;
     }
 
     override public void OnTriggerExit(Collider parOther)
@@ -88,19 +100,58 @@ public class UnitRush : Unit {
         //}
     }
 
-    public override void Attack()
+    void DoDamageTo(Unit other)
     {
-        
-        if (_target && lifeSteal&&attackReady)
+
+        if (bloodyRash)
         {
-            _life += _damage * (valueLifeSteal / 100);
+            other.Hit((int)((((float)_damage * _lifeMax) / _life) / bloodyFactor));
+        }
+        else
+        {
+            other.Hit(_damage);
+        }
+        if (lifeSteal)
+        {
+            Debug.Log("Life steal " + _damage * (valueLifeSteal / (float)100));
+            _life += (int)(_damage * (valueLifeSteal / (float)100));
             _life = Mathf.Min(_life, _lifeMax);
         }
-        base.Attack();
     }
 
-    IEnumerator down()
+    public override void Attack()
     {
+
+        if (_target && attackReady)
+        {
+            attackReady = false;
+            Unit unit = _target.GetComponent<Unit>();
+            if (unit && unit._playerId != _playerId)
+            {
+                if (hitFX)
+                    SoundManager.Instance.playSound(hitFX, 1);
+                DoDamageTo(unit);
+                // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
+                EndGameManager.instance.addDamage(_playerId, _damage);
+            }
+            
+            StartCoroutine(attacking());
+        }
+    }
+
+    //IEnumerator up()
+    //{
+    //    float height = baseHeight;
+    //    while (height < flyHeight && isFlying)
+    //    {
+    //        _life += _damage * (valueLifeSteal / 100);
+    //        _life = Mathf.Min(_life, _lifeMax);
+    //    }
+    //    base.Attack();
+    //}
+
+    IEnumerator down()
+    {    
         isFlying = false;
         float height = _navMeshAgent.baseOffset- baseHeight;
         while (height >= baseHeight)
@@ -109,7 +160,8 @@ public class UnitRush : Unit {
             _navMeshAgent.baseOffset = height;
             yield return 0;
         }
-        
         _navMeshAgent.baseOffset = baseHeight;
     }
+
+
 }

@@ -5,7 +5,6 @@ public class Entity : MonoBehaviour {
     [Header("Entity")]
     public GameObject _enemyMotherBase;
     public Motherbase _motherBase;
-    [HideInInspector]
     public int _life;
     public int _playerId = 0;
 

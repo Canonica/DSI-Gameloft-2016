@@ -130,10 +130,14 @@ MonoBehaviour:
   CreditsCanvas: {fileID: 0}
   OptionsCanvas: {fileID: 0}
   ConnectCanvas: {fileID: 0}
+  LobbyCanvas: {fileID: 0}
+  StoryCanvas: {fileID: 0}
   PauseCanvas: {fileID: 0}
   MainMenuCanvasGroup: {fileID: 0}
   CreditsCanvasGroup: {fileID: 0}
   OptionsCanvasGroup: {fileID: 0}
+  LobbyCanvasGroup: {fileID: 0}
+  StoryCanvasGroup: {fileID: 0}
   fadeInSpeed: 0.05
   fadeOutSpeed: 0.05
 --- !u!114 &11419978
@@ -150,6 +154,7 @@ MonoBehaviour:
   currentGamestate: 0
   player1: {fileID: 0}
   player2: {fileID: 0}
+  ESystem: {fileID: 0}
 --- !u!114 &11436776
 MonoBehaviour:
   m_ObjectHideFlags: 1

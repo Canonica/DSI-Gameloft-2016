@@ -44,6 +44,8 @@ ModelImporter:
     100072: MASTER
     100074: Pelvis
     100076: //RootNode
+    100078: H_Root
+    100080: H_World
     400000: body
     400002: Bone017
     400004: Bone018
@@ -83,6 +85,8 @@ ModelImporter:
     400072: MASTER
     400074: Pelvis
     400076: //RootNode
+    400078: H_Root
+    400080: H_World
     4300000: body
     7400000: RUN
     7400002: ATTACK
@@ -327,7 +331,7 @@ ModelImporter:
       name: DEATH
       takeName: Take 001
       firstFrame: 124
-      lastFrame: 124.00001
+      lastFrame: 151
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

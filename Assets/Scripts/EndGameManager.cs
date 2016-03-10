@@ -9,6 +9,7 @@ public class EndGameManager : MonoBehaviour {
     public int[] playerDeath;
     public int[] playerDamage;
     public int[] playerSpawn;
+    public CanvasGroup UICanvasGroup;
 
     void Awake()
     {
@@ -31,6 +32,11 @@ public class EndGameManager : MonoBehaviour {
     }
     
 
+    void Start()
+    {
+        UICanvasGroup.alpha = 1;
+    }
+
     void Update () {
 	
 	}
@@ -44,6 +50,7 @@ public class EndGameManager : MonoBehaviour {
 
     public void motherBaseDead(int idLoser)
     {
+        UICanvasGroup.alpha = 0;
         XInput.instance.useVibe(0, 0, 0, 0);
         XInput.instance.useVibe(1, 0, 0, 0);
         GameManager.instance.currentGamestate = GameManager.gameState.Menu;
