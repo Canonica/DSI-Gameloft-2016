@@ -102,9 +102,15 @@ public class XInput : MonoBehaviour
         }
 
     }
-
-    public float getYStick(int id)
+    public float getXStick(int id = 0)
     {
+
+        return GamePad.GetState((PlayerIndex)(id - 1)).ThumbSticks.Left.X;
+    }
+
+    public float getYStick(int id=0)
+    {
+        
        return GamePad.GetState((PlayerIndex)(id - 1)).ThumbSticks.Left.Y;
     }
 
