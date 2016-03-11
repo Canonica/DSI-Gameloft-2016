@@ -1,0 +1,514 @@
+fileFormatVersion: 2
+guid: 431a874796cd49849aa74fbeb8101d82
+timeCreated: 1457653683
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: B_Abdomen
+    100002: B_DownMouth
+    100004: B_Head
+    100006: B_L_BackEndLeg
+    100008: B_L_BackEndMandibule
+    100010: B_L_BackLeg
+    100012: B_L_BackLowMandibule
+    100014: B_L_BackUpLeg
+    100016: B_L_BackUpMandibule
+    100018: B_L_FrontDownMandibule
+    100020: B_L_FrontEndLeg
+    100022: B_L_FrontEndMandibule
+    100024: B_L_FrontLeg
+    100026: B_L_FrontUpLeg
+    100028: B_L_FrontUpMandibule
+    100030: B_L_LowSpike
+    100032: B_L_MidEndLeg
+    100034: B_L_MidLeg
+    100036: B_L_MidUpLeg
+    100038: B_L_UpSpike
+    100040: B_LeftMouth
+    100042: B_Pelvis
+    100044: B_R_BackEndLeg
+    100046: B_R_BackEndMandibule
+    100048: B_R_BackLeg
+    100050: B_R_BackLowMandibule
+    100052: B_R_BackUpLeg
+    100054: B_R_BackUpMandibule
+    100056: B_R_FrontDownMandibule
+    100058: B_R_FrontEndLeg
+    100060: B_R_FrontEndMandibule
+    100062: B_R_FrontLeg
+    100064: B_R_FrontUpLeg
+    100066: B_R_FrontUpMandibule
+    100068: B_R_LowSpike
+    100070: B_R_MidEndLeg
+    100072: B_R_MidLeg
+    100074: B_R_MidUpLeg
+    100076: B_R_UpSpike
+    100078: B_RightMouse
+    100080: B_Spine
+    100082: B_UpMouth
+    100084: corps_Queen
+    100086: //RootNode
+    400000: B_Abdomen
+    400002: B_DownMouth
+    400004: B_Head
+    400006: B_L_BackEndLeg
+    400008: B_L_BackEndMandibule
+    400010: B_L_BackLeg
+    400012: B_L_BackLowMandibule
+    400014: B_L_BackUpLeg
+    400016: B_L_BackUpMandibule
+    400018: B_L_FrontDownMandibule
+    400020: B_L_FrontEndLeg
+    400022: B_L_FrontEndMandibule
+    400024: B_L_FrontLeg
+    400026: B_L_FrontUpLeg
+    400028: B_L_FrontUpMandibule
+    400030: B_L_LowSpike
+    400032: B_L_MidEndLeg
+    400034: B_L_MidLeg
+    400036: B_L_MidUpLeg
+    400038: B_L_UpSpike
+    400040: B_LeftMouth
+    400042: B_Pelvis
+    400044: B_R_BackEndLeg
+    400046: B_R_BackEndMandibule
+    400048: B_R_BackLeg
+    400050: B_R_BackLowMandibule
+    400052: B_R_BackUpLeg
+    400054: B_R_BackUpMandibule
+    400056: B_R_FrontDownMandibule
+    400058: B_R_FrontEndLeg
+    400060: B_R_FrontEndMandibule
+    400062: B_R_FrontLeg
+    400064: B_R_FrontUpLeg
+    400066: B_R_FrontUpMandibule
+    400068: B_R_LowSpike
+    400070: B_R_MidEndLeg
+    400072: B_R_MidLeg
+    400074: B_R_MidUpLeg
+    400076: B_R_UpSpike
+    400078: B_RightMouse
+    400080: B_Spine
+    400082: B_UpMouth
+    400084: corps_Queen
+    400086: //RootNode
+    4300000: corps_Queen
+    7400000: IDLE
+    7400002: HURT
+    7400004: DEATH
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: corps_Queen
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 2
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: IDLE
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 99
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: B_Pelvis
+        weight: 1
+      - path: B_Pelvis/B_Abdomen
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_DownMouth
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_BackUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_BackUpLeg/B_L_BackLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_BackUpLeg/B_L_BackLeg/B_L_BackEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_FrontUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_FrontUpLeg/B_L_FrontLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_FrontUpLeg/B_L_FrontLeg/B_L_FrontEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_MidUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_MidUpLeg/B_L_MidLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_MidUpLeg/B_L_MidLeg/B_L_MidEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_LeftMouth
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_BackUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_BackUpLeg/B_R_BackLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_BackUpLeg/B_R_BackLeg/B_R_BackEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_FrontUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_FrontUpLeg/B_R_FrontLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_FrontUpLeg/B_R_FrontLeg/B_R_FrontEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_MidUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_MidUpLeg/B_R_MidLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_MidUpLeg/B_R_MidLeg/B_R_MidEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_RightMouse
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_UpMouth
+        weight: 1
+      - path: B_Pelvis/B_Spine
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_BackUpMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_BackUpMandibule/B_L_BackLowMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_BackUpMandibule/B_L_BackLowMandibule/B_L_BackEndMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_FrontUpMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_FrontUpMandibule/B_L_FrontDownMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_FrontUpMandibule/B_L_FrontDownMandibule/B_L_FrontEndMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_BackUpMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_BackUpMandibule/B_R_BackLowMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_BackUpMandibule/B_R_BackLowMandibule/B_R_BackEndMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_FrontUpMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_FrontUpMandibule/B_R_FrontDownMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_FrontUpMandibule/B_R_FrontDownMandibule/B_R_FrontEndMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_L_LowSpike
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_L_UpSpike
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_R_LowSpike
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_R_UpSpike
+        weight: 1
+      - path: corps_Queen
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: HURT
+      takeName: Take 001
+      firstFrame: 100
+      lastFrame: 139
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: B_Pelvis
+        weight: 1
+      - path: B_Pelvis/B_Abdomen
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_DownMouth
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_BackUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_BackUpLeg/B_L_BackLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_BackUpLeg/B_L_BackLeg/B_L_BackEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_FrontUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_FrontUpLeg/B_L_FrontLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_FrontUpLeg/B_L_FrontLeg/B_L_FrontEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_MidUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_MidUpLeg/B_L_MidLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_MidUpLeg/B_L_MidLeg/B_L_MidEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_LeftMouth
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_BackUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_BackUpLeg/B_R_BackLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_BackUpLeg/B_R_BackLeg/B_R_BackEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_FrontUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_FrontUpLeg/B_R_FrontLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_FrontUpLeg/B_R_FrontLeg/B_R_FrontEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_MidUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_MidUpLeg/B_R_MidLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_MidUpLeg/B_R_MidLeg/B_R_MidEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_RightMouse
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_UpMouth
+        weight: 1
+      - path: B_Pelvis/B_Spine
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_BackUpMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_BackUpMandibule/B_L_BackLowMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_BackUpMandibule/B_L_BackLowMandibule/B_L_BackEndMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_FrontUpMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_FrontUpMandibule/B_L_FrontDownMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_FrontUpMandibule/B_L_FrontDownMandibule/B_L_FrontEndMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_BackUpMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_BackUpMandibule/B_R_BackLowMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_BackUpMandibule/B_R_BackLowMandibule/B_R_BackEndMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_FrontUpMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_FrontUpMandibule/B_R_FrontDownMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_FrontUpMandibule/B_R_FrontDownMandibule/B_R_FrontEndMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_L_LowSpike
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_L_UpSpike
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_R_LowSpike
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_R_UpSpike
+        weight: 1
+      - path: corps_Queen
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: DEATH
+      takeName: Take 001
+      firstFrame: 140
+      lastFrame: 219
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: B_Pelvis
+        weight: 1
+      - path: B_Pelvis/B_Abdomen
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_DownMouth
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_BackUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_BackUpLeg/B_L_BackLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_BackUpLeg/B_L_BackLeg/B_L_BackEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_FrontUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_FrontUpLeg/B_L_FrontLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_FrontUpLeg/B_L_FrontLeg/B_L_FrontEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_MidUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_MidUpLeg/B_L_MidLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_L_MidUpLeg/B_L_MidLeg/B_L_MidEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_LeftMouth
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_BackUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_BackUpLeg/B_R_BackLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_BackUpLeg/B_R_BackLeg/B_R_BackEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_FrontUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_FrontUpLeg/B_R_FrontLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_FrontUpLeg/B_R_FrontLeg/B_R_FrontEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_MidUpLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_MidUpLeg/B_R_MidLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_R_MidUpLeg/B_R_MidLeg/B_R_MidEndLeg
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_RightMouse
+        weight: 1
+      - path: B_Pelvis/B_Abdomen/B_UpMouth
+        weight: 1
+      - path: B_Pelvis/B_Spine
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_BackUpMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_BackUpMandibule/B_L_BackLowMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_BackUpMandibule/B_L_BackLowMandibule/B_L_BackEndMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_FrontUpMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_FrontUpMandibule/B_L_FrontDownMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_L_FrontUpMandibule/B_L_FrontDownMandibule/B_L_FrontEndMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_BackUpMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_BackUpMandibule/B_R_BackLowMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_BackUpMandibule/B_R_BackLowMandibule/B_R_BackEndMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_FrontUpMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_FrontUpMandibule/B_R_FrontDownMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_Head/B_R_FrontUpMandibule/B_R_FrontDownMandibule/B_R_FrontEndMandibule
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_L_LowSpike
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_L_UpSpike
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_R_LowSpike
+        weight: 1
+      - path: B_Pelvis/B_Spine/B_R_UpSpike
+        weight: 1
+      - path: corps_Queen
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

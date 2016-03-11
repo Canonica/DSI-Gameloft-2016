@@ -406,7 +406,7 @@ public class Motherbase : Entity
 		if (spawnSwarmFX)
 			SoundManager.Instance.playSound (spawnSwarmFX, 0.3f);
 		int unitToSpawn = units [typeOfUnit].GetComponent<Unit> ().groupSpawn;
-		EndGameManager.instance.addSpawn (_playerId, unitToSpawn);
+		
 
 		//bool isActiveSpellPrimary = false;
 		//bool isActiveSpellSecondary = false;

@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: M_queen
+  m_Name: M_Pilier
   m_Shader: {fileID: 4800000, guid: 5c59871f32ed55e4a91255d5ab3489fe, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -82,7 +82,7 @@ Material:
         first:
           name: _Diffuse
         second:
-          m_Texture: {fileID: 2800000, guid: 0191b2a01e3be6d42a4fe6480ee2b23c, type: 3}
+          m_Texture: {fileID: 2800000, guid: bed40669098e8a6488ca1dd50b1f0ef4, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -96,14 +96,14 @@ Material:
         first:
           name: _InflatePatern
         second:
-          m_Texture: {fileID: 2800000, guid: d6d6cfec2d6fd484e88f24f628fbdf60, type: 3}
-          m_Scale: {x: 0.5, y: 0.5}
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _Inflatemask
         second:
-          m_Texture: {fileID: 2800000, guid: 646ee9f4cb6d4974f9d555d4468f11d6, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -190,11 +190,11 @@ Material:
       data:
         first:
           name: _InflateSpeed
-        second: 3
+        second: 5
       data:
         first:
           name: _InflateValue
-        second: 0.002
+        second: 3
       data:
         first:
           name: _Dissolve
@@ -210,7 +210,7 @@ Material:
       data:
         first:
           name: _OutlineWidth
-        second: 0.4
+        second: 1
       data:
         first:
           name: _SpecularValue
@@ -227,7 +227,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 0.588, g: 0.588, b: 0.588, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
           name: _DiffuseColor
@@ -239,4 +239,4 @@ Material:
       data:
         first:
           name: _OutlineColor
-        second: {r: 0.015625, g: 0.125, b: 0.016379304, a: 1}
+        second: {r: 0, g: 0, b: 0, a: 0}

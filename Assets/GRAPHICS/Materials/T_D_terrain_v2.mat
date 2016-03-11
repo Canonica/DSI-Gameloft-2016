@@ -89,7 +89,7 @@ Material:
         first:
           name: _OpacityMask
         second:
-          m_Texture: {fileID: 2800000, guid: b9d0f47dc6454124db117fc6aa265413, type: 3}
+          m_Texture: {fileID: 2800000, guid: 2b64a9ab7b3bc4e4283e90d9e527e402, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:

@@ -1558,7 +1558,7 @@ MonoBehaviour:
   FxDeathBlood: {fileID: 136610}
   DeathAnim: {fileID: 177132, guid: 87d958562d650aa44b3876f911a4e024, type: 2}
   spawnSFX: {fileID: 8300000, guid: 3f9befe11ea818e43bcb2e3ab8e2e3a0, type: 3}
-  hitFX: {fileID: 8300000, guid: a612730413ef0264e889702b12edfc6c, type: 3}
+  hitFX: {fileID: 8300000, guid: ef07f1a61daf5f94d8362ed27579676c, type: 3}
   damageToQueen: 0
   bumpForce: 12
   zoneBump: 14
