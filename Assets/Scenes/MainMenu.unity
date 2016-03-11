@@ -641,7 +641,19 @@ Prefab:
       objectReference: {fileID: 524956360}
     - target: {fileID: 143572, guid: 5d295e2fb55d34e4e83e700cc9f786f8, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11423808, guid: 5d295e2fb55d34e4e83e700cc9f786f8, type: 2}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11423808, guid: 5d295e2fb55d34e4e83e700cc9f786f8, type: 2}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 11423808, guid: 5d295e2fb55d34e4e83e700cc9f786f8, type: 2}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5d295e2fb55d34e4e83e700cc9f786f8, type: 2}

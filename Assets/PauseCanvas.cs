@@ -37,15 +37,21 @@ public class PauseCanvas : MonoBehaviour
 	public void HowToPlay ()
 	{
 		if (GameManager.instance.currentGamestate == GameManager.gameState.Pause) {
-			GetComponent<Animator> ().SetBool ("HowToPlay", true);	
+            GameObject.Find("HelpBox").GetComponent<ModularNavigation>().Inputable = true;
+            GetComponent<Animator> ().SetBool ("HowToPlay", true);
+            
 
-			GameManager.instance.NoInput ();
+            GameManager.instance.NoInput ();
 		}
 	}
 
 	public void UnHowToPlay ()
 	{
-		GetComponent<Animator> ().SetBool ("HowToPlay", false);	
-		GameManager.instance.SetInput ();
+		GetComponent<Animator> ().SetBool ("HowToPlay", false);
+        GetComponentInChildren<ModularNavigation>().right = 0;
+
+        GetComponentInChildren<ModularNavigation>().StopAllCoroutines();
+        GetComponentInChildren<ModularNavigation>().Inputable = false;
+        GameManager.instance.SetInput ();
 	}
 }
