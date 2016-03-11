@@ -32,6 +32,13 @@ public class BaseUnit : Unit {
         base.FixedUpdate();
 	}
 
+    public override void Attack()
+    {
+        SwarmSound.Instance.swarmSound();
+    
+        base.Attack();
+    }
+
     public override void OnDeath()
     {
         base.OnDeath();

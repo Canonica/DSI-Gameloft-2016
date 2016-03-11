@@ -4361,6 +4361,7 @@ MonoBehaviour:
   _life: 2
   _playerId: 1
   _lifeMax: 500
+  animQueen: {fileID: 1855300754}
   units:
   - {fileID: 128708, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
   - {fileID: 106922, guid: 43cd74c6e5f30d244860e14b5eb5e5d2, type: 2}
@@ -8838,6 +8839,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 839823661}
   - 114: {fileID: 839823660}
+  - 114: {fileID: 839823662}
   m_Layer: 0
   m_Name: MainMusic
   m_TagString: Untagged
@@ -8871,6 +8873,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
+--- !u!114 &839823662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 839823659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d19653d06eb90e419ee705bc62ab5fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speakerPrefab: {fileID: 145562, guid: 7f16768d53c51f34c856a1733583d0d6, type: 2}
+  lowPitchRange: 0.95
+  highPitchRange: 1.05
+  swarmSFX: {fileID: 8300000, guid: 8d119c112af6fdb44b161984c5dc4edd, type: 3}
 --- !u!1 &855141151
 GameObject:
   m_ObjectHideFlags: 0
@@ -10576,6 +10593,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1029073366}
   m_Mesh: {fileID: 4300000, guid: 43b09a92f28baab4ba6bece24112535e, type: 3}
+--- !u!111 &1029407427 stripped
+Animation:
+  m_PrefabParentObject: {fileID: 11131742, guid: 496280b7895852b4cb46f17fbd3ac2ac,
+    type: 2}
+  m_PrefabInternal: {fileID: 2069116347}
 --- !u!1 &1039186072
 GameObject:
   m_ObjectHideFlags: 0
@@ -12428,6 +12450,7 @@ MonoBehaviour:
   _life: 10
   _playerId: 2
   _lifeMax: 500
+  animQueen: {fileID: 1029407427}
   units:
   - {fileID: 170856, guid: bdb6572f1e17e9f45875a808b6276482, type: 2}
   - {fileID: 167122, guid: e2dab498c45ec5a4d82d7a0095280fea, type: 2}
@@ -15832,6 +15855,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1840096695}
   m_Mesh: {fileID: 4300000, guid: 43b09a92f28baab4ba6bece24112535e, type: 3}
+--- !u!111 &1855300754 stripped
+Animation:
+  m_PrefabParentObject: {fileID: 11102788, guid: 496280b7895852b4cb46f17fbd3ac2ac,
+    type: 2}
+  m_PrefabInternal: {fileID: 2069116347}
 --- !u!1 &1859002883
 GameObject:
   m_ObjectHideFlags: 0
@@ -19233,6 +19261,14 @@ Prefab:
     - target: {fileID: 489080, guid: 496280b7895852b4cb46f17fbd3ac2ac, type: 2}
       propertyPath: m_RootOrder
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 117408, guid: 496280b7895852b4cb46f17fbd3ac2ac, type: 2}
+      propertyPath: m_Name
+      value: SK_Queen_RED
+      objectReference: {fileID: 0}
+    - target: {fileID: 148562, guid: 496280b7895852b4cb46f17fbd3ac2ac, type: 2}
+      propertyPath: m_Name
+      value: SK_Queen_GREEN
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 496280b7895852b4cb46f17fbd3ac2ac, type: 2}

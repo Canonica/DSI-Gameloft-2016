@@ -7,7 +7,8 @@ using XInputDotNetPure;
 
 public class Motherbase : Entity
 {
-    [Header ("MotherBase - Spawner Option")]
+    [Header("MotherBase - Spawner Option")]
+    public Animation animQueen;
 	public GameObject[] units;
 	[HideInInspector]
 	public Waypoint waypoint;
@@ -75,7 +76,7 @@ public class Motherbase : Entity
 	private GameObject FxBlood;
 	[Header ("Sound")]
 	public AudioClip spawnSwarmFX;
-
+    bool animPlay = false;
 
 
 	public GameObject UpgradeSprite;
@@ -377,12 +378,24 @@ public class Motherbase : Entity
 		base.FixedUpdate ();
 	}
 
+    IEnumerator playAnim()
+    {
+        if (animPlay == false)
+        {
+            animPlay = true;
+            animQueen.Play("HURT");
+            yield return new WaitForSeconds(animQueen.GetClip("HURT").length-0.1f);
+            animQueen.Play("IDLE");
+            animPlay = false;
+        }
+    }
+
 	public void getDamage (int dmg)
 	{
 		_lifeImage.transform.parent.DOKill (true);
 		_lifeImage.transform.parent.DOShakePosition (0.1f, 10);
-
-		Instantiate (FxBlood, transform.position, Quaternion.Euler (new Vector3 (-50, 0, 0)));
+        StartCoroutine(playAnim());
+        Instantiate (FxBlood, transform.position, Quaternion.Euler (new Vector3 (-50, 0, 0)));
         if(_playerId == 2)
         {
             Instantiate(FxBlood, transform.position, Quaternion.Euler(new Vector3(-50, 180, 0)));
@@ -394,12 +407,15 @@ public class Motherbase : Entity
 
 		if (dmg > _life) {
 			_life = 0;
-			EndGameManager.instance.motherBaseDead (_playerId);
+            animQueen.Play("DEATH");
+            EndGameManager.instance.motherBaseDead (_playerId);
 		} else {
 			if (dmg > 0)
 				_life -= dmg;
 		}
 	}
+
+
 
 	void corSpawnUnits (int typeOfUnit)
 	{

@@ -153,11 +153,9 @@ public class UnitRush : Unit {
     IEnumerator down()
     {    
         isFlying = false;
-        float height = _navMeshAgent.baseOffset- baseHeight;
-        while (height >= baseHeight)
+        while (_navMeshAgent.baseOffset >= baseHeight+1)
         {
-            height -= height/smoother;
-            _navMeshAgent.baseOffset = height;
+            _navMeshAgent.baseOffset = Mathf.Lerp(_navMeshAgent.baseOffset, baseHeight, 0.02f);
             yield return 0;
         }
         _navMeshAgent.baseOffset = baseHeight;
