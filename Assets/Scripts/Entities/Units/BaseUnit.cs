@@ -32,6 +32,13 @@ public class BaseUnit : Unit {
         base.FixedUpdate();
 	}
 
+    public override void Attack()
+    {
+        SwarmSound.Instance.swarmSound();
+    
+        base.Attack();
+    }
+
     public override void OnDeath()
     {
         base.OnDeath();
@@ -58,16 +65,14 @@ public class BaseUnit : Unit {
         }
     }
 
-    public override void Attack()
-    {
-        SoundManager.Instance.swarmSound();
-        base.Attack();
-    }
-
     public void Berzerker()
     {
         // change l'apparence de l'entité
-        attackSpeed *= 1.5f;
+        _lifeMax += 7;
+        _damage += 1;
+        _movementSpeed += 3;
+        damageToQueen += 3;
+        attackSpeed *= 0.8f;
         baseMesh.SetActive(false);
         berserkerMesh.SetActive(true);
     }

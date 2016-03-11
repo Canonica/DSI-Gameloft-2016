@@ -14,6 +14,7 @@ public class UnitJump : Unit {
     public bool canExplode = false;
     public int heightJump = 5;
     public bool firstJump = false;
+    public float firstJumpMulti = 2.0f;
 
     public ParticleSystem PS_Stomp;
     public ParticleSystem PS_Stun;
@@ -43,8 +44,10 @@ public class UnitJump : Unit {
             bubons.SetActive(true);
             
         }
-        else if(firstJump)
+        if(firstJump)
         {
+            Debug.Log("JUMP! PAPAPAPAPAPALAPAPAPAPAPAAAAAA");
+            GetComponent<SphereCollider>().radius *= firstJumpMulti;
             leg1.SetActive(true);
             leg2.SetActive(true);
         }
@@ -77,7 +80,7 @@ public class UnitJump : Unit {
     override public void OnTriggerEnter(Collider col)
     {
         base.OnTriggerEnter(col);
-        if (_target && !isJumping&& attackReady)
+        if (_target && !isJumping&& attackReady && !isStunn)
         {
             isJumping = true;
             StartCoroutine(dash());
@@ -86,7 +89,7 @@ public class UnitJump : Unit {
 
     override public void Attack()
     {
-        if (_target && attackReady)
+        if (_target && attackReady && !isStunn)
         {
             attackReady = false;
             StartCoroutine(AOE());
@@ -118,11 +121,11 @@ public class UnitJump : Unit {
                 if (firstJump)
                 {
                     firstJump = false;
+                    GetComponent<SphereCollider>().radius /= firstJumpMulti;
                     localList[i].GetComponent<Unit>().Hit(_damage * 2);
                 }
                 else
                 {
-                    EndGameManager.instance.addDamage(_playerId, _damage);
                     localList[i].GetComponent<Unit>().Hit(_damage);
                 }
                 UnitTank unitT = localList[i].GetComponent<UnitTank>();
@@ -301,8 +304,7 @@ public class UnitJump : Unit {
         
         if (_life<=0 && canExplode)
         {
-            //Vector3 newPosition = new Vector3(transform.position.x, transform.position.y+8.0f, transform.position.z);
-            Destroy(Instantiate(fxExplo, transform.position, Quaternion.Euler(-90, 0, 0)), 3.0f);
+            Destroy(Instantiate(fxExplo, transform.position, Quaternion.identity), 3.0f);
             canExplode = false;
             StopAllCoroutines();
             isActiveAOE = false;
