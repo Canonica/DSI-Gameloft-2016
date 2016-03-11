@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
+using UnityEngine.EventSystems;
 
 public class EndGameManager : MonoBehaviour {
     public static EndGameManager instance = null;
@@ -16,6 +18,8 @@ public class EndGameManager : MonoBehaviour {
     public Image Victory2;
     public Image Defeat2;
 
+    public GameObject canvasEndGame;
+
     public CanvasGroup UICanvasGroup;
 
     void Awake()
@@ -24,9 +28,9 @@ public class EndGameManager : MonoBehaviour {
         instance = this;
         player1UI = GameObject.Find("Panel1");
         player2UI = GameObject.Find("Panel2");
-        player1UI.SetActive(false);
-        player2UI.SetActive(false);
-
+        player1UI.SetActive(true);
+        player2UI.SetActive(true);
+        canvasEndGame.SetActive(false);
         playerDeath = new int[3];
         playerDamage = new int[3];
         playerSpawn = new int[3];
@@ -41,6 +45,7 @@ public class EndGameManager : MonoBehaviour {
 
     void Start()
     {
+        GameObject.Find("EventSystem").GetComponent<StandaloneInputModule>().submitButton = "Start_button";
         UICanvasGroup.alpha = 1;
     }
 
@@ -62,8 +67,7 @@ public class EndGameManager : MonoBehaviour {
         XInput.instance.useVibe(1, 0, 0, 0);
         GameManager.instance.currentGamestate = GameManager.gameState.Menu;
         Time.timeScale = 0;
-        player1UI.SetActive(true);
-        player2UI.SetActive(true);
+        canvasEndGame.SetActive(true);
         if (idLoser == 1)
         {
             Victory2.enabled = true;
@@ -85,9 +89,9 @@ public class EndGameManager : MonoBehaviour {
     void initPlayer(GameObject obj, int id)
     {
         Transform panel = obj.transform.Find("PanelStats");
-        panel.Find("Kill").GetComponent<Text>().text += playerDeath[id%2+1];
-        panel.Find("Damage").GetComponent<Text>().text += playerDamage[id];
-        panel.Find("Unit").GetComponent<Text>().text += playerSpawn[id];
+        panel.Find("Kill").GetComponent<Text>().text += " "+playerDeath[id % 2 + 1];
+        panel.Find("Damage").GetComponent<Text>().text += " "+playerDamage[id];
+        panel.Find("Unit").GetComponent<Text>().text += " "+playerSpawn[id];
         
     }
 

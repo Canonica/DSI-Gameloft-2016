@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: T_D_terrain_v2
-  m_Shader: {fileID: 4800000, guid: 5c59871f32ed55e4a91255d5ab3489fe, type: 3}
+  m_Name: M_particle_winner
+  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
-  m_CustomRenderQueue: 2450
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
@@ -19,7 +19,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 390b2c7dab826c547bd2bf63a91fcc73, type: 3}
+          m_Texture: {fileID: 2800000, guid: 4061a0a377c541549ac0fd433e8af6b6, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -78,62 +78,6 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Diffuse
-        second:
-          m_Texture: {fileID: 2800000, guid: 390b2c7dab826c547bd2bf63a91fcc73, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _OpacityMask
-        second:
-          m_Texture: {fileID: 2800000, guid: 2b64a9ab7b3bc4e4283e90d9e527e402, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _InflatePatern
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Inflatemask
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _DissolvePatern
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _DissolveRamp
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Emission
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Specular
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -185,40 +129,8 @@ Material:
         second: 0
       data:
         first:
-          name: _FresnelValue
-        second: 3
-      data:
-        first:
-          name: _InflateSpeed
-        second: 5
-      data:
-        first:
-          name: _InflateValue
-        second: 3
-      data:
-        first:
-          name: _Dissolve
-        second: 0
-      data:
-        first:
-          name: _DissolveThickeness
-        second: 3
-      data:
-        first:
-          name: _OutlineOn
-        second: 0
-      data:
-        first:
-          name: _OutlineWidth
-        second: 1
-      data:
-        first:
-          name: _SpecularValue
-        second: 0
-      data:
-        first:
-          name: _Roughness
-        second: 0
+          name: _InvFade
+        second: 0.81
     m_Colors:
       data:
         first:
@@ -227,16 +139,8 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 0.588, g: 0.588, b: 0.588, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _DiffuseColor
-        second: {r: 0.9632353, g: 0.9632353, b: 0.9632353, a: 1}
-      data:
-        first:
-          name: _FresnelColor
-        second: {r: 0, g: 0, b: 0, a: 1}
-      data:
-        first:
-          name: _OutlineColor
-        second: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+          name: _TintColor
+        second: {r: 0.8090175, g: 0.9044118, b: 0.37240484, a: 0.5}

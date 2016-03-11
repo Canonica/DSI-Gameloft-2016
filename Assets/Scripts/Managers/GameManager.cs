@@ -162,9 +162,14 @@ public class GameManager : MonoBehaviour
 		ESystem.GetComponent<StandaloneInputModule> ().cancelButton = "Cancel";
 		StartCoroutine (GoPlay (0.2f));
 
-		PauseCanvas.GetComponent<Animator> ().SetBool ("isIn", false);
+        PauseCanvas.GetComponentInChildren<ModularNavigation>().right = 0;
+        PauseCanvas.GetComponentInChildren<ModularNavigation>().StopAllCoroutines();
+        PauseCanvas.GetComponentInChildren<ModularNavigation>().Inputable = false;
+
+        PauseCanvas.GetComponent<Animator> ().SetBool ("isIn", false);
 		PauseCanvas.GetComponent<PauseCanvas> ().SetPlayerText (pauseButton);
 		PauseCanvas.GetComponent<Animator> ().SetBool ("HowToPlay", false);	
+
 	}
 
 
