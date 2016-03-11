@@ -672,6 +672,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 451352}
   - 111: {fileID: 11179464}
+  - 114: {fileID: 11446150}
+  - 135: {fileID: 13594026}
   m_Layer: 0
   m_Name: SK_Tank
   m_TagString: Untagged
@@ -1125,7 +1127,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 126244}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.679, y: -0.011906542, z: 27.885023}
+  m_LocalPosition: {x: 990.40173, y: 407.87576, z: 654.6232}
   m_LocalScale: {x: 0.5, y: 1.25, z: 0.5}
   m_Children:
   - {fileID: 451352}
@@ -1536,13 +1538,13 @@ MonoBehaviour:
   _motherBase: {fileID: 0}
   _life: 25
   _playerId: 0
-  _lifeMax: 350
-  attackSpeed: 3
+  _lifeMax: 500
+  attackSpeed: 4
   _movementSpeed: 8
   groupSpawn: 1
-  _damage: 15
-  bumpResist: 1000
-  manaCost: 150
+  _damage: 27
+  bumpResist: 10000
+  manaCost: 200
   img: {fileID: 0}
   unitName: Unit
   smoother: 20
@@ -1554,28 +1556,41 @@ MonoBehaviour:
   collideNum: 0
   isBumped: 0
   _actualLane: 0
-  timeStun: 1
+  isStunn: 0
+  timeStun: 1.5
   FxDeathBlood: {fileID: 136610}
   DeathAnim: {fileID: 177132, guid: 87d958562d650aa44b3876f911a4e024, type: 2}
   spawnSFX: {fileID: 8300000, guid: 3f9befe11ea818e43bcb2e3ab8e2e3a0, type: 3}
   hitFX: {fileID: 8300000, guid: ef07f1a61daf5f94d8362ed27579676c, type: 3}
-  damageToQueen: 0
+  damageToQueen: 60
   bumpForce: 12
   zoneBump: 14
   reflectDamage: 0
   reflectDamageAmount: 1
   negateDamage: 0
-  negateDamageAmount: 1
-  negateDamageRange: 10
+  negateDamageAmount: 0.4
+  negateDamageRange: 6
   poison: 0
   isActivePoison: 0
   poisonDelay: 1
   poisonDamage: 1
   PS_poison: {fileID: 19826354}
   buffy: 0
-  buffedUnit: 0
-  buffedUnitRange: 5
+  buffedUnit: 0.4
+  buffedUnitRange: 6
   pikes: {fileID: 119526}
+--- !u!114 &11446150
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac1e69f5286fd2245a24a475e6d6ee90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bumpList: []
 --- !u!135 &13513396
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1587,6 +1602,18 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 4
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &13594026
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183000}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &13794644
 SkinnedMeshRenderer:

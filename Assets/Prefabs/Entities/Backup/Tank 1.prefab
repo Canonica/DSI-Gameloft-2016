@@ -1358,11 +1358,13 @@ MonoBehaviour:
   collideNum: 0
   isBumped: 0
   _actualLane: 0
+  isStunn: 0
   timeStun: 1
   FxDeathBlood: {fileID: 123710}
   DeathAnim: {fileID: 177132, guid: 87d958562d650aa44b3876f911a4e024, type: 2}
-  spawnFX: {fileID: 8300000, guid: 0ba3df5c79a587b45b63705867cf5073, type: 3}
+  spawnSFX: {fileID: 0}
   hitFX: {fileID: 8300000, guid: a612730413ef0264e889702b12edfc6c, type: 3}
+  damageToQueen: 0
   bumpForce: 12
   zoneBump: 14
   reflectDamage: 0
@@ -1378,6 +1380,7 @@ MonoBehaviour:
   buffy: 0
   buffedUnit: 0
   buffedUnitRange: 5
+  pikes: {fileID: 0}
 --- !u!135 &13595940
 SphereCollider:
   m_ObjectHideFlags: 1

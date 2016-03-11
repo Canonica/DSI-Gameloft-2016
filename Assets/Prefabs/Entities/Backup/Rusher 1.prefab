@@ -881,11 +881,13 @@ MonoBehaviour:
   collideNum: 0
   isBumped: 0
   _actualLane: 0
+  isStunn: 0
   timeStun: 1
   FxDeathBlood: {fileID: 173100}
   DeathAnim: {fileID: 121524, guid: 6e1a8db578c8cef4ca4e5296fbecb9cd, type: 2}
-  spawnFX: {fileID: 0}
+  spawnSFX: {fileID: 0}
   hitFX: {fileID: 0}
+  damageToQueen: 0
   flyHeight: 20
   isFlying: 0
   lifeSteal: 0
@@ -894,6 +896,7 @@ MonoBehaviour:
   valueLifeSteal: 50
   rangedAttack: 0
   rangedDamage: 1
+  dard: {fileID: 0}
   stunAttack: 0
 --- !u!135 &13595940
 SphereCollider:

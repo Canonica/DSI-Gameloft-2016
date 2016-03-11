@@ -1548,13 +1548,13 @@ MonoBehaviour:
   _motherBase: {fileID: 0}
   _life: 3
   _playerId: 0
-  _lifeMax: 35
-  attackSpeed: 1
+  _lifeMax: 45
+  attackSpeed: 1.05
   _movementSpeed: 13
   groupSpawn: 3
-  _damage: 10
+  _damage: 15
   bumpResist: 10
-  manaCost: 40
+  manaCost: 75
   img: {fileID: 0}
   unitName: Unit
   smoother: 40
@@ -1566,15 +1566,19 @@ MonoBehaviour:
   collideNum: 0
   isBumped: 0
   _actualLane: 0
+  isStunn: 0
   timeStun: 1
   FxDeathBlood: {fileID: 136024}
   DeathAnim: {fileID: 194962, guid: 3c60b8ba44fac4b4086d1c61f8067a9b, type: 2}
-  spawnFX: {fileID: 0}
+  spawnSFX: {fileID: 0}
   hitFX: {fileID: 0}
+  damageToQueen: 0
   distanceMaxBetweenCockroachHeal: 3
   PS_Heal: {fileID: 0}
   isRegeneratingCR: 0
   lifeRestored: 0
+  berserkerMesh: {fileID: 0}
+  baseMesh: {fileID: 0}
 --- !u!135 &13501468
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -1117,22 +1117,26 @@ MonoBehaviour:
   collideNum: 0
   isBumped: 0
   _actualLane: 0
+  isStunn: 0
   timeStun: 1
   FxDeathBlood: {fileID: 132640}
   DeathAnim: {fileID: 176476, guid: a8435547317ee124984a98f1432ceb6d, type: 2}
-  spawnFX: {fileID: 0}
+  spawnSFX: {fileID: 0}
   hitFX: {fileID: 0}
+  damageToQueen: 0
   isJumping: 0
   forceAOE: 1
   canStun: 0
   canExplode: 0
   heightJump: 5
   firstJump: 0
+  firstJumpMulti: 2
   PS_Stomp: {fileID: 19872604}
   PS_Stun: {fileID: 19806562}
   leg1: {fileID: 0}
   leg2: {fileID: 0}
   bubons: {fileID: 0}
+  fxExplo: {fileID: 0}
 --- !u!135 &13506094
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -54,4 +54,17 @@ public class PauseCanvas : MonoBehaviour
         GetComponentInChildren<ModularNavigation>().Inputable = false;
         GameManager.instance.SetInput ();
 	}
+
+    public void Unpause()
+    {
+        GameManager.instance.Unpause();
+    }
+    public void Quit()
+    {
+        GameManager.instance.Quit();
+    }
+    public void Restart()
+    {
+        GameManager.instance.Restart();
+    }
 }

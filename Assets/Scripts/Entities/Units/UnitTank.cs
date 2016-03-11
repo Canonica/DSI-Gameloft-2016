@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class UnitTank : Unit {
 
@@ -41,7 +42,7 @@ public class UnitTank : Unit {
         if(poison && poisonGas == null)
         {
             PS_poison.Play(true);
-            poisonGas = StartCoroutine(PoisonousGas());
+            //poisonGas = StartCoroutine(PoisonousGas());
         }
         if(isActivePoison)
         {
@@ -84,23 +85,22 @@ public class UnitTank : Unit {
         _navMeshAgent.Stop();
         StartCoroutine(reload());
         yield return new WaitForSeconds(_allAnims.GetClip("ATTACK").length - 0.65f);
-
-        for (int i = 0; i < _trigger.Count; i++)
+        List<GameObject> localList = GetComponentInChildren<BumpJumper>().bumpList;
+        for (int i = 0; i < localList.Count; i++)
         {
-            if (_trigger[i])
+            if (localList[i])
             {
-                Unit unit = _trigger[i].GetComponent<Unit>();
+                Unit unit = localList[i].GetComponent<Unit>();
                 unit.applyBump(transform.position, bumpForce);
                 unit.Hit(_damage);
-                SoundManager.Instance.playSound(hitFX, 0.3f);
-                EndGameManager.instance.addDamage(_playerId, _damage);
             }
         }
-
+        
         yield return new WaitForSeconds(0.65f);
         _navMeshAgent.Resume();
         _allAnims.Play("RUN");
-
+        Debug.Log("move");
+        changeTarget();
     }
 
     override public void Attack()
@@ -114,18 +114,18 @@ public class UnitTank : Unit {
 
     }
 
-    IEnumerator PoisonousGas()
-    {
-        while(_life > 0)
-        {
-            for (int i = 0; i < _trigger.Count; i++)
-            {
-                if(_trigger[i])
-                _trigger[i].GetComponent<Unit>().Hit(poisonDamage);
-            }
-            Debug.Log("Poison degats");
-            yield return new WaitForSeconds(poisonDelay);
-        }
-        poison = false;
-    }
+    //IEnumerator PoisonousGas()
+    //{
+    //    while(_life > 0)
+    //    {
+    //        for (int i = 0; i < localList.Count; i++)
+    //        {
+    //            if(_trigger[i])
+    //            _trigger[i].GetComponent<Unit>().Hit(poisonDamage);
+    //        }
+    //        Debug.Log("Poison degats");
+    //        yield return new WaitForSeconds(poisonDelay);
+    //    }
+    //    poison = false;
+    //}
 }

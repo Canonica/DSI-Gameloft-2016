@@ -21,7 +21,7 @@ public class ModularNavigation : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    { 
+    {
         if (Mathf.Abs(Input.GetAxis("L_XAxis_0")) >= 0.9f && Inputable)
         {
             Inputable = false;

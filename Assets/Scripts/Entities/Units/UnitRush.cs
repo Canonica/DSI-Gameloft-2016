@@ -29,7 +29,6 @@ public class UnitRush : Unit {
         _navMeshAgent.baseOffset = flyHeight;
         isFlying = true;
         _distanceMinLane += flyHeight;
-        
     }
 
     override
@@ -66,9 +65,9 @@ public class UnitRush : Unit {
         }
         if (_target && stunAttack && stunAttackReady)
         {
-            Debug.Log("Ranged attack");
+            Debug.Log("Stun attack");
             stunAttackReady = false;
-            _target.GetComponent<Unit>().getStun();
+            
         }
     }
 
@@ -95,7 +94,10 @@ public class UnitRush : Unit {
 
     protected override void changeTarget()
     {
-        base.changeTarget();
+        if(!isStunn)
+        {
+            base.changeTarget();
+        }
         rangedReady = true;
         stunAttackReady = true;
     }
@@ -113,21 +115,7 @@ public class UnitRush : Unit {
 
     void DoDamageTo(Unit other)
     {
-
-        if (bloodyRash)
-        {
-            other.Hit((int)((((float)_damage * _lifeMax) / _life) / bloodyFactor));
-        }
-        else
-        {
-            other.Hit(_damage);
-        }
-        if (lifeSteal)
-        {
-            Debug.Log("Life steal " + _damage * (valueLifeSteal / (float)100));
-            _life += (int)(_damage * (valueLifeSteal / (float)100));
-            _life = Mathf.Min(_life, _lifeMax);
-        }
+         
     }
 
     public override void Attack()
@@ -141,7 +129,8 @@ public class UnitRush : Unit {
             {
                 if (hitFX)
                     SoundManager.Instance.playSound(hitFX, 1);
-                DoDamageTo(unit);
+                unit.Hit(_damage);
+                _target.GetComponent<Unit>().getStun();
                 // GameObject fxToDestroy = Instantiate(FxHitBlood, _target.transform.position, Quaternion.Euler(new Vector3(-50, 0, 0))) as GameObject;
                 EndGameManager.instance.addDamage(_playerId, _damage);
             }
@@ -164,14 +153,11 @@ public class UnitRush : Unit {
     IEnumerator down()
     {    
         isFlying = false;
-        //float height = _navMeshAgent.baseOffset;
         while (_navMeshAgent.baseOffset >= baseHeight+1)
         {
-            //height -= height/smoother;
-            _navMeshAgent.baseOffset = Mathf.Lerp(_navMeshAgent.baseOffset, baseHeight, 0.02f );
+            _navMeshAgent.baseOffset = Mathf.Lerp(_navMeshAgent.baseOffset, baseHeight, 0.02f);
             yield return 0;
         }
-        //Debug.Log("out");
         _navMeshAgent.baseOffset = baseHeight;
     }
 

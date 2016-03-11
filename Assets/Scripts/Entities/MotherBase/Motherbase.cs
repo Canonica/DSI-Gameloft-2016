@@ -7,8 +7,8 @@ using XInputDotNetPure;
 
 public class Motherbase : Entity
 {
-
-	[Header ("MotherBase - Spawner Option")]
+    [Header("MotherBase - Spawner Option")]
+    public Animation animQueen;
 	public GameObject[] units;
 	[HideInInspector]
 	public Waypoint waypoint;
@@ -63,7 +63,9 @@ public class Motherbase : Entity
 	public List<int> experienceLevel;
 	public List<int> maxExperienceLevel;
 
-	public List<bool> hasUsedLevel;
+    public float expRate = 0.3f;
+
+    public List<bool> hasUsedLevel;
 
 	public List<int> upgradeNumber;
 
@@ -74,7 +76,7 @@ public class Motherbase : Entity
 	private GameObject FxBlood;
 	[Header ("Sound")]
 	public AudioClip spawnSwarmFX;
-
+    bool animPlay = false;
 
 
 	public GameObject UpgradeSprite;
@@ -102,7 +104,7 @@ public class Motherbase : Entity
 	public override void Start ()
 	{
 		//cameraPos = Camera.main.transform.position;
-		_currentMana = 500;
+		_currentMana = 0;
 		_canSacrificeMana = true;
 		_currentLane = GetComponent<ChangeLane> ();
 		experienceLevel = new List<int> ();
@@ -282,7 +284,7 @@ public class Motherbase : Entity
 
 	IEnumerator delaySacrifice ()
 	{
-		yield return new WaitForSeconds (0.3f);
+		yield return new WaitForSeconds (expRate);
 		_canSacrificeMana = true;
 	}
 
@@ -376,15 +378,30 @@ public class Motherbase : Entity
 		base.FixedUpdate ();
 	}
 
+    IEnumerator playAnim()
+    {
+        if (animPlay == false)
+        {
+            animPlay = true;
+            animQueen.Play("HURT");
+            yield return new WaitForSeconds(animQueen.GetClip("HURT").length-0.1f);
+            animQueen.Play("IDLE");
+            animPlay = false;
+        }
+    }
+
 	public void getDamage (int dmg)
 	{
 		_lifeImage.transform.parent.DOKill (true);
 		_lifeImage.transform.parent.DOShakePosition (0.1f, 10);
 
-		Instantiate (FxBlood, transform.position, Quaternion.Euler (new Vector3 (-50, 0, 0)));
-		if (_playerId == 2) {
-			Instantiate (FxBlood, transform.position, Quaternion.Euler (new Vector3 (-50, 180, 0)));
-		}
+        StartCoroutine(playAnim());
+        Instantiate (FxBlood, transform.position, Quaternion.Euler (new Vector3 (-50, 0, 0)));
+        if(_playerId == 2)
+        {
+            Instantiate(FxBlood, transform.position, Quaternion.Euler(new Vector3(-50, 180, 0)));
+        }
+
 		XInput.instance.useVibe (_playerId - 1, 0.5f, 0.5f, 0.5f);
 
 		Camera.main.DOKill (true);
@@ -392,7 +409,8 @@ public class Motherbase : Entity
 
 		if (dmg > _life) {
 			_life = 0;
-			EndGameManager.instance.motherBaseDead (_playerId);
+            animQueen.Play("DEATH");
+            EndGameManager.instance.motherBaseDead (_playerId);
 		} else {
 			if (dmg > 0)
 				_life -= dmg;
@@ -403,13 +421,15 @@ public class Motherbase : Entity
 		}
 	}
 
+
+
 	void corSpawnUnits (int typeOfUnit)
 	{
 		if (typeOfUnit == 0)
 		if (spawnSwarmFX)
 			SoundManager.Instance.playSound (spawnSwarmFX, 0.3f);
 		int unitToSpawn = units [typeOfUnit].GetComponent<Unit> ().groupSpawn;
-		
+		EndGameManager.instance.addSpawn (_playerId, unitToSpawn);
 
 		//bool isActiveSpellPrimary = false;
 		//bool isActiveSpellSecondary = false;
@@ -441,8 +461,6 @@ public class Motherbase : Entity
 			UnitsSprite [typeOfUnit].transform.DOKill (true);
 			UnitsSprite [typeOfUnit].transform.DOShakePosition (0.1f, 10);
 			Touch.transform.position = UnitsSprite [typeOfUnit].GetComponentsInChildren<Image> () [1].transform.position;
-//			units [typeOfUnit].GetComponent<Unit> ().manaCost
-			Debug.Log (Mathf.Sign (transform.position.x - _enemyMotherBase.transform.position.x));
 			GameObject myManaCanvas = Instantiate (ManaCostCanvas, transform.position + new Vector3 (Random.Range (-10f, 10f), 0, 5 * Mathf.Sign (transform.position.x - _enemyMotherBase.transform.position.x)), Quaternion.Euler (0, -90, 0)) as GameObject;
 			Text[] myTexts = myManaCanvas.GetComponentsInChildren<Text> ();
 			myTexts [0].text = "- " + units [typeOfUnit].GetComponent<Unit> ().manaCost;
@@ -526,6 +544,7 @@ public class Motherbase : Entity
 	{
 
 		GameObject Touch = Instantiate (TouchSprite);
+		GameObject Papa = new GameObject ();
 		Touch.transform.parent = XpBar.GetComponentInChildren<Impulse> ().transform;
 
 //		Touch.transform.position = new Vector2 (XpBar.GetComponentInChildren<GridLayoutGroup> ().transform.position.x - XpBar.GetComponentInChildren<GridLayoutGroup> ().gameObject.GetComponent<RectTransform> ().sizeDelta.x * .44f, XpBar.GetComponentInChildren<GridLayoutGroup> ().transform.position.y + XpBar.GetComponentInChildren<GridLayoutGroup> ().gameObject.GetComponent<RectTransform> ().sizeDelta.y);

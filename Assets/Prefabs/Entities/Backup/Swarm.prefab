@@ -1136,6 +1136,7 @@ MonoBehaviour:
   collideNum: 0
   isBumped: 0
   _actualLane: 0
+  isStunn: 0
   timeStun: 1
   FxDeathBlood: {fileID: 169592}
   DeathAnim: {fileID: 194962, guid: 3c60b8ba44fac4b4086d1c61f8067a9b, type: 2}

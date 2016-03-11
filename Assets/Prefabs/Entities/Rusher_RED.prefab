@@ -1122,13 +1122,13 @@ MonoBehaviour:
   _motherBase: {fileID: 0}
   _life: 10
   _playerId: 0
-  _lifeMax: 115
-  attackSpeed: 1
+  _lifeMax: 100
+  attackSpeed: 1.1
   _movementSpeed: 11
   groupSpawn: 1
-  _damage: 45
+  _damage: 50
   bumpResist: 2
-  manaCost: 70
+  manaCost: 90
   img: {fileID: 0}
   unitName: Unit
   smoother: 20
@@ -1140,12 +1140,13 @@ MonoBehaviour:
   collideNum: 0
   isBumped: 0
   _actualLane: 0
+  isStunn: 0
   timeStun: 1
   FxDeathBlood: {fileID: 116252}
   DeathAnim: {fileID: 121524, guid: 6e1a8db578c8cef4ca4e5296fbecb9cd, type: 2}
   spawnSFX: {fileID: 8300000, guid: 1982771244e0dad42bf6316c68ae1522, type: 3}
   hitFX: {fileID: 0}
-  damageToQueen: 0
+  damageToQueen: 19
   flyHeight: 20
   isFlying: 0
   lifeSteal: 0
@@ -1153,7 +1154,7 @@ MonoBehaviour:
   bloodyFactor: 1
   valueLifeSteal: 100
   rangedAttack: 0
-  rangedDamage: 1
+  rangedDamage: 10
   dard: {fileID: 100102}
   stunAttack: 0
 --- !u!135 &13505924

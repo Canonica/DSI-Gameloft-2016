@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
 
 
 	public GameObject ESystem;
+
+    public GameObject pauseCanvas;
 
 	public enum gameState
 	{
@@ -73,15 +76,39 @@ public class GameManager : MonoBehaviour
 
 	void Start ()
 	{
-		CameraEffect = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionCurves> ();
-		PauseCanvas = GameObject.Find ("PauseCanvas");
+		
+		
 		ESystem = GameObject.Find ("EventSystem");
 	}
 
+    void OnLevelLoaded(int level)
+    {
+        if (level == 2)
+        {
+            CameraEffect = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionCurves>();
+            ESystem = GameObject.Find("EventSystem");
+            PauseCanvas = GameObject.Find("PauseCanvas");
+
+        }
+        
+    }
+
 	void Update ()
 	{
-//		Debug.Log (CameraEffect.saturation);
-		if (currentGamestate == gameState.Pause || currentGamestate == gameState.PauseOut) {
+
+       // CameraEffect = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionCurves>();
+        if (CameraEffect == null && Application.loadedLevel == 2)
+        {
+            CameraEffect = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionCurves>();
+        }
+
+        if(ESystem == null && Application.loadedLevel == 2)
+        {
+            ESystem = GameObject.Find("EventSystem");
+            PauseCanvas = GameObject.Find("PauseCanvas");
+        }
+
+            if (currentGamestate == gameState.Pause || currentGamestate == gameState.PauseOut) {
 			Time.timeScale = (Time.timeScale * 29 + 0.01f) / 30;
 			CameraEffect.saturation = (CameraEffect.saturation * 29 + 0.1f) / 30;
 		} else if (currentGamestate == gameState.Playing) {
@@ -176,8 +203,9 @@ public class GameManager : MonoBehaviour
 	public void Restart ()
 	{
 		if (currentGamestate == gameState.Pause) {
-			SceneManager.LoadScene (2);
-			currentGamestate = gameState.Waiting;
+            currentGamestate = gameState.Playing;
+            SceneManager.LoadScene (2);
+			
 		}
 
 	}
