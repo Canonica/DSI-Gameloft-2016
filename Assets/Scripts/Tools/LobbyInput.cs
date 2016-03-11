@@ -133,12 +133,12 @@ public class LobbyInput : MonoBehaviour
 	void CheckReadiness ()
 	{
 		if (isReady_1 && isReady_2) {
-			HowToPlay.GetComponent<Animator> ().SetTrigger ("In");
+//			HowToPlay.GetComponent<Animator> ().SetTrigger ("In");
 
-			Invoke ("Launch", 5f);
-            GameObject.Find("Player02").SetActive(false);
-            GameObject.Find("MainMenuButton").SetActive(false);
-        }
+			Launch ();
+			GameObject.Find ("Player02").SetActive (false);
+			GameObject.Find ("MainMenuButton").SetActive (false);
+		}
 	}
 
 	void Launch ()

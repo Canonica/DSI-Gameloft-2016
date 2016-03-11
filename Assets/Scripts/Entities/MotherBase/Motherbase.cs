@@ -382,10 +382,9 @@ public class Motherbase : Entity
 		_lifeImage.transform.parent.DOShakePosition (0.1f, 10);
 
 		Instantiate (FxBlood, transform.position, Quaternion.Euler (new Vector3 (-50, 0, 0)));
-        if(_playerId == 2)
-        {
-            Instantiate(FxBlood, transform.position, Quaternion.Euler(new Vector3(-50, 180, 0)));
-        }
+		if (_playerId == 2) {
+			Instantiate (FxBlood, transform.position, Quaternion.Euler (new Vector3 (-50, 180, 0)));
+		}
 		XInput.instance.useVibe (_playerId - 1, 0.5f, 0.5f, 0.5f);
 
 		Camera.main.DOKill (true);
@@ -397,6 +396,10 @@ public class Motherbase : Entity
 		} else {
 			if (dmg > 0)
 				_life -= dmg;
+
+			if (_life < 250) {
+				_lifeImage.DOColor (new Color (0xF4 / 255f, 0x43 / 255f, 0x36 / 255f), 0.5f);
+			}
 		}
 	}
 
@@ -627,7 +630,9 @@ public class Motherbase : Entity
 			if (_currentMana < _maxMana) {
 				_currentMana = Mathf.Min (_currentMana + _addMana, _maxMana);
 			} else {
+				ManaText.transform.DOKill (true);
 				ManaText.transform.DOShakePosition (0.1f, 3);
+				ManaFull.transform.DOKill (true);
 				ManaFull.transform.DOShakePosition (0.1f, 3);
 			}
 			yield return new WaitForSeconds (_delayMana);

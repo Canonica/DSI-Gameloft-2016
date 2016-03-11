@@ -64,9 +64,9 @@ public class MenuManager : MonoBehaviour
 						ShowStory ();
 					});
 					break;
-				case "OptionsButton":
+				case "CreditsButton":
 					child.GetComponent<Button> ().onClick.AddListener (() => {
-						ShowOptions ();
+						ShowCredits ();
 					});
 					break;
 				//case "CreditsButton":
@@ -196,9 +196,8 @@ public class MenuManager : MonoBehaviour
 		MainMenuCanvas.SetActive (true);
 		StartCoroutine (fadeIn (MainMenuCanvasGroup, fadeInSpeed));
 		StartCoroutine (fadeOut (StoryCanvasGroup));
+		StoryCanvasGroup.GetComponent<MenuHandler> ().enabled = false;
 		MainMenuCanvas.GetComponent<MenuHandler> ().enabled = true;
-		StoryCanvas.GetComponent<MenuHandler> ().enabled = false;
-
 	}
 
 	public void ShowOptions ()
@@ -237,10 +236,11 @@ public class MenuManager : MonoBehaviour
 	{
 		HideAll ();
 		StoryCanvas.SetActive (true);
+		StoryCanvas.GetComponentInChildren<Animator> ().SetTrigger ("Start");
 		StartCoroutine (fadeIn (StoryCanvasGroup, fadeInSpeed));
 		StartCoroutine (fadeOut (MainMenuCanvasGroup));
+		StoryCanvasGroup.GetComponent<MenuHandler> ().enabled = true;
 		MainMenuCanvas.GetComponent<MenuHandler> ().enabled = false;
-		StoryCanvas.GetComponent<MenuHandler> ().enabled = true;
 	}
 
 	public void Restart ()

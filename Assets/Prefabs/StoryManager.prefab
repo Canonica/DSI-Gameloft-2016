@@ -40,10 +40,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 21300000, guid: af5e08b530978d04c81f11a611a294e2, type: 3}
-  - {fileID: 21300000, guid: cee56cf24aec9344099c3ac7b05e95b0, type: 3}
-  - {fileID: 21300000, guid: e0961379bc2483e45b4750c6f8a6b327, type: 3}
-  - {fileID: 21300000, guid: ec12ee98e04c39b44a91803add06c24e, type: 3}
+  - {fileID: 21300000, guid: 0dcb4b695171df34496286966cee3ff6, type: 3}
+  - {fileID: 21300000, guid: 65f6a20bd86af854eb55ee6879613f14, type: 3}
+  - {fileID: 21300000, guid: d8010e82a41e96d498513c971a193830, type: 3}
+  - {fileID: 21300000, guid: 6e48f9241e4104740940f4f033bd4db1, type: 3}
   spritesKeys: 24000000250000002600000027000000
 --- !u!1001 &100100000
 Prefab:

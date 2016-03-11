@@ -1,0 +1,105 @@
+fileFormatVersion: 2
+guid: deb93c5ff5858bc4893d4a0c2722447f
+timeCreated: 1457649979
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Fond_0
+    21300002: Fond_1
+    21300004: Fond_2
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 4096
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Fond_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 5047
+        height: 1703
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2046.5, y: 690.5}
+        - {x: -2046.5, y: -690.5}
+        - {x: 2046.5, y: -690.5}
+        - {x: 2046.5, y: 690.5}
+    - name: Fond_1
+      rect:
+        serializedVersion: 2
+        x: 7770
+        y: 0
+        width: 2332
+        height: 1703
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -945.1367, y: 690.5}
+        - {x: -945.1367, y: -690.5}
+        - {x: 946.8633, y: -690.5}
+        - {x: 946.8633, y: 690.5}
+    - name: Fond_2
+      rect:
+        serializedVersion: 2
+        x: 5046
+        y: 0
+        width: 2721
+        height: 1701
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -1103.0881, y: 690}
+        - {x: -1103.0881, y: -690}
+        - {x: 1104.9119, y: -690}
+        - {x: 1104.9119, y: 690}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
