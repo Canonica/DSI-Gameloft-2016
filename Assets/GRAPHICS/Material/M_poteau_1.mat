@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: M_poteau_1
-  m_Shader: {fileID: 4800000, guid: 5c59871f32ed55e4a91255d5ab3489fe, type: 3}
+  m_Shader: {fileID: 4800000, guid: e6f6594c7244ecb46bc67e80852d13b1, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: 2450
@@ -32,6 +32,48 @@ Material:
       data:
         first:
           name: _DetailNormalMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Diffuse
+        second:
+          m_Texture: {fileID: 2800000, guid: 1b557c51604238f4097930dfb93d81bd, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Specular
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _OpacityMask
+        second:
+          m_Texture: {fileID: 2800000, guid: c24cfefc4ba708a41b733fa408ed911e, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Emission
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _InflatePatern
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Inflatemask
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -80,34 +122,6 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _Diffuse
-        second:
-          m_Texture: {fileID: 2800000, guid: 1b557c51604238f4097930dfb93d81bd, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _OpacityMask
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _InflatePatern
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Inflatemask
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
           name: _DissolvePatern
         second:
           m_Texture: {fileID: 0}
@@ -133,6 +147,26 @@ Material:
         first:
           name: _Cutoff
         second: 0.5
+      data:
+        first:
+          name: _SpecularValue
+        second: 0
+      data:
+        first:
+          name: _Roughness
+        second: 0
+      data:
+        first:
+          name: _InflateSpeed
+        second: 5
+      data:
+        first:
+          name: _InflateValue
+        second: 3
+      data:
+        first:
+          name: _FresnelValue
+        second: 3
       data:
         first:
           name: _Parallax
@@ -169,18 +203,6 @@ Material:
         first:
           name: _Metallic
         second: 0
-      data:
-        first:
-          name: _FresnelValue
-        second: 3
-      data:
-        first:
-          name: _InflateSpeed
-        second: 5
-      data:
-        first:
-          name: _InflateValue
-        second: 3
       data:
         first:
           name: _Dissolve
