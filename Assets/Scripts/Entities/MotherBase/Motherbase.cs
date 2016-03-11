@@ -7,8 +7,7 @@ using XInputDotNetPure;
 
 public class Motherbase : Entity
 {
-
-	[Header ("MotherBase - Spawner Option")]
+    [Header ("MotherBase - Spawner Option")]
 	public GameObject[] units;
 	[HideInInspector]
 	public Waypoint waypoint;
@@ -63,7 +62,9 @@ public class Motherbase : Entity
 	public List<int> experienceLevel;
 	public List<int> maxExperienceLevel;
 
-	public List<bool> hasUsedLevel;
+    public float expRate = 0.3f;
+
+    public List<bool> hasUsedLevel;
 
 	public List<int> upgradeNumber;
 
@@ -102,7 +103,7 @@ public class Motherbase : Entity
 	public override void Start ()
 	{
 		//cameraPos = Camera.main.transform.position;
-		_currentMana = 500;
+		_currentMana = 0;
 		_canSacrificeMana = true;
 		_currentLane = GetComponent<ChangeLane> ();
 		experienceLevel = new List<int> ();
@@ -282,7 +283,7 @@ public class Motherbase : Entity
 
 	IEnumerator delaySacrifice ()
 	{
-		yield return new WaitForSeconds (0.3f);
+		yield return new WaitForSeconds (expRate);
 		_canSacrificeMana = true;
 	}
 
@@ -406,7 +407,7 @@ public class Motherbase : Entity
 		if (spawnSwarmFX)
 			SoundManager.Instance.playSound (spawnSwarmFX, 0.3f);
 		int unitToSpawn = units [typeOfUnit].GetComponent<Unit> ().groupSpawn;
-		
+		EndGameManager.instance.addSpawn (_playerId, unitToSpawn);
 
 		//bool isActiveSpellPrimary = false;
 		//bool isActiveSpellSecondary = false;
@@ -523,6 +524,7 @@ public class Motherbase : Entity
 	{
 
 		GameObject Touch = Instantiate (TouchSprite);
+		GameObject Papa = new GameObject ();
 		Touch.transform.parent = XpBar.GetComponentInChildren<Impulse> ().transform;
 
 //		Touch.transform.position = new Vector2 (XpBar.GetComponentInChildren<GridLayoutGroup> ().transform.position.x - XpBar.GetComponentInChildren<GridLayoutGroup> ().gameObject.GetComponent<RectTransform> ().sizeDelta.x * .44f, XpBar.GetComponentInChildren<GridLayoutGroup> ().transform.position.y + XpBar.GetComponentInChildren<GridLayoutGroup> ().gameObject.GetComponent<RectTransform> ().sizeDelta.y);

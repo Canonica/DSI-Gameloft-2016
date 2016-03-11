@@ -51,9 +51,9 @@ public class Unit : Entity
     private int _startingLife;
     [HideInInspector]
     public int _actualLane;
-    bool isStunn = false;
+    public bool isStunn = false;
     [Tweakable]
-    public float timeStun = 1;
+    public float timeStun = 10;
 
     [Header("FX")]
 
@@ -71,7 +71,6 @@ public class Unit : Entity
 
     public override void Start()
     {
-        
         _actualLane = 0;
         _startingLife = _life;
         base.Start();
@@ -86,7 +85,7 @@ public class Unit : Entity
         {
             SoundManager.Instance.playSound(spawnSFX, 0.1f);
         }
-        EndGameManager.instance.addSpawn(_playerId);
+            
         _allAnims.Play("RUN");
     }
 
@@ -157,7 +156,7 @@ public class Unit : Entity
     {
         Destroy(Instantiate(DeathAnim,transform.position, Quaternion.identity), 3);
         StopAllCoroutines();
-        //EndGameManager.instance.addDeath(_playerId);
+        EndGameManager.instance.addDeath(_playerId);
         Destroy(this.gameObject);
     }
 
@@ -249,9 +248,8 @@ public class Unit : Entity
         Motherbase mother = other.GetComponent<Motherbase>();
         if (mother && other.CompareTag("MotherBase") && mother._playerId != _playerId)
         {
-            
+            EndGameManager.instance.addDamage(_playerId, _damage);
             EndGameManager.instance.addDamage((_playerId % 2) + 1, _life);
-            EndGameManager.instance.addDamage(_playerId, damageToQueen);
             mother.getDamage(damageToQueen);
             dead();
         }
@@ -268,8 +266,10 @@ public class Unit : Entity
     {
         if (!isStunn)
         {
+            _allAnims.Stop();
             isStunn = true;
-            _navMeshAgent.SetDestination(transform.position);
+            _navMeshAgent.Stop();
+            Debug.Log("Stun     " + timeStun);
             StartCoroutine(stunTime());
         }
     }
@@ -277,8 +277,11 @@ public class Unit : Entity
     IEnumerator stunTime()
     {
         yield return new WaitForSeconds(timeStun);
+        Debug.Log("fIN Stun     ");
         isStunn = false;
-        takeDestination();
+        _navMeshAgent.Resume();
+        _allAnims.Play("RUN");
+        changeTarget();
     }
 
     public virtual void OnTriggerEnter(Collider parOther)
@@ -336,7 +339,7 @@ public class Unit : Entity
                 changeTarget();
             else
             {
-                if (_navMeshAgent.enabled == true)
+                if (_navMeshAgent.enabled == true && !isStunn)
                     _navMeshAgent.SetDestination(_target.transform.position);
             }
             yield return new WaitForSeconds(0.5f);
@@ -360,7 +363,6 @@ public class Unit : Entity
                 {
                     Debug.Log("Renvoi des degats");
                     Hit((int)(_damage * unitT.reflectDamageAmount));
-                    
                 }
 
                 unit.Hit(Augmented(_damage));
@@ -447,9 +449,6 @@ public class Unit : Entity
         //_navMeshAgent.enabled = true;
     }
 
-    void OnDestroy()
-    {
-        EndGameManager.instance.addDeath(_playerId);
-    }
+
 
 }
