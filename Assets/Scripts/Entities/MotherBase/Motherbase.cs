@@ -455,8 +455,6 @@ public class Motherbase : Entity
 			UnitsSprite [typeOfUnit].transform.DOKill (true);
 			UnitsSprite [typeOfUnit].transform.DOShakePosition (0.1f, 10);
 			Touch.transform.position = UnitsSprite [typeOfUnit].GetComponentsInChildren<Image> () [1].transform.position;
-//			units [typeOfUnit].GetComponent<Unit> ().manaCost
-			Debug.Log (Mathf.Sign (transform.position.x - _enemyMotherBase.transform.position.x));
 			GameObject myManaCanvas = Instantiate (ManaCostCanvas, transform.position + new Vector3 (Random.Range (-10f, 10f), 0, 5 * Mathf.Sign (transform.position.x - _enemyMotherBase.transform.position.x)), Quaternion.Euler (0, -90, 0)) as GameObject;
 			Text[] myTexts = myManaCanvas.GetComponentsInChildren<Text> ();
 			myTexts [0].text = "- " + units [typeOfUnit].GetComponent<Unit> ().manaCost;
