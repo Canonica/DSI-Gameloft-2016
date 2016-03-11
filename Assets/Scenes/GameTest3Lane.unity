@@ -4360,7 +4360,7 @@ MonoBehaviour:
   _motherBase: {fileID: 230611551}
   _life: 2
   _playerId: 1
-  _lifeMax: 600
+  _lifeMax: 500
   units:
   - {fileID: 128708, guid: 0748692181a8f7b4e8c7430022ee1c8a, type: 2}
   - {fileID: 106922, guid: 43cd74c6e5f30d244860e14b5eb5e5d2, type: 2}
@@ -4370,11 +4370,11 @@ MonoBehaviour:
   targetBase: {fileID: 1108263746}
   _currentLane: {fileID: 0}
   _laneSpawning: 0
-  _maxMana: 500
+  _maxMana: 200
   _currentMana: 0
   experienceByMana: 1
-  _delayMana: 0.1
-  _addMana: 8
+  _delayMana: 0.05
+  _addMana: 7
   _manaToSacrifice: 10
   _manaImage: {fileID: 1730945576}
   _manaText: {fileID: 1730945575}
@@ -4407,7 +4407,8 @@ MonoBehaviour:
   - {fileID: 1048844355}
   - {fileID: 1668340926}
   experienceLevel: 
-  maxExperienceLevel: 64000000c80000002c01000090010000
+  maxExperienceLevel: 2c010000f4010000ee0200001a040000
+  expRate: 0.05
   hasUsedLevel: 
   upgradeNumber: 
   UnitsSprite:
@@ -12426,7 +12427,7 @@ MonoBehaviour:
   _motherBase: {fileID: 1357095167}
   _life: 10
   _playerId: 2
-  _lifeMax: 600
+  _lifeMax: 500
   units:
   - {fileID: 170856, guid: bdb6572f1e17e9f45875a808b6276482, type: 2}
   - {fileID: 167122, guid: e2dab498c45ec5a4d82d7a0095280fea, type: 2}
@@ -12436,11 +12437,11 @@ MonoBehaviour:
   targetBase: {fileID: 1652043358}
   _currentLane: {fileID: 0}
   _laneSpawning: 0
-  _maxMana: 500
+  _maxMana: 200
   _currentMana: 0
   experienceByMana: 1
-  _delayMana: 0.1
-  _addMana: 8
+  _delayMana: 0.05
+  _addMana: 7
   _manaToSacrifice: 10
   _manaImage: {fileID: 1730945573}
   _manaText: {fileID: 2138460452}
@@ -12473,7 +12474,8 @@ MonoBehaviour:
   - {fileID: 1408027798}
   - {fileID: 944006}
   experienceLevel: 
-  maxExperienceLevel: 64000000c80000002c01000090010000
+  maxExperienceLevel: 2c010000f4010000ee0200001a040000
+  expRate: 0.05
   hasUsedLevel: 
   upgradeNumber: 
   UnitsSprite:

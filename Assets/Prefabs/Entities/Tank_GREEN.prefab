@@ -1536,13 +1536,13 @@ MonoBehaviour:
   _motherBase: {fileID: 0}
   _life: 25
   _playerId: 0
-  _lifeMax: 350
-  attackSpeed: 3
+  _lifeMax: 500
+  attackSpeed: 4
   _movementSpeed: 8
   groupSpawn: 1
-  _damage: 15
-  bumpResist: 1000
-  manaCost: 150
+  _damage: 27
+  bumpResist: 10000
+  manaCost: 200
   img: {fileID: 0}
   unitName: Unit
   smoother: 20
@@ -1554,27 +1554,28 @@ MonoBehaviour:
   collideNum: 0
   isBumped: 0
   _actualLane: 0
-  timeStun: 1
+  isStunn: 0
+  timeStun: 1.5
   FxDeathBlood: {fileID: 136610}
   DeathAnim: {fileID: 177132, guid: 87d958562d650aa44b3876f911a4e024, type: 2}
   spawnSFX: {fileID: 8300000, guid: 3f9befe11ea818e43bcb2e3ab8e2e3a0, type: 3}
   hitFX: {fileID: 8300000, guid: ef07f1a61daf5f94d8362ed27579676c, type: 3}
-  damageToQueen: 0
+  damageToQueen: 60
   bumpForce: 12
   zoneBump: 14
   reflectDamage: 0
   reflectDamageAmount: 1
   negateDamage: 0
-  negateDamageAmount: 1
-  negateDamageRange: 10
+  negateDamageAmount: 0.4
+  negateDamageRange: 6
   poison: 0
   isActivePoison: 0
   poisonDelay: 1
   poisonDamage: 1
   PS_poison: {fileID: 19826354}
   buffy: 0
-  buffedUnit: 0
-  buffedUnitRange: 5
+  buffedUnit: 0.4
+  buffedUnitRange: 6
   pikes: {fileID: 119526}
 --- !u!135 &13513396
 SphereCollider:
